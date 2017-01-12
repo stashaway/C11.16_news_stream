@@ -568,3 +568,56 @@ var dummyYoutubeVideos = [
         ]
     }
 ];
+
+//Example parsing of dummy data
+function Stream() {
+    this.title = null;
+    this.channel = null;
+    this.thumbnail = null;
+    this.viewers = null;
+    this.link = null;
+}
+
+function parseData(type,data) {
+    switch (type) {
+        case "twitch":
+            parseTwitch(data);
+            break;
+        case "youtube":
+            parseYoutube(data);
+            break;
+    }
+}
+
+function parseTwitch(data) {
+    for (var i in data.streams) {
+        var stream = new Stream();
+        var twitchStream = data.streams[i];
+        stream.title = twitchStream.channel.status;
+        stream.channel = twitchStream.channel.display_name;
+        stream.viewers = twitchStream.viewers;
+        stream.thumbnail = twitchStream.preview.large;
+        stream.link = twitchStream.channel.url;
+        parsedStreamData.push(stream);
+    }
+}
+
+function parseYoutube(data) {
+    for (var i in data.items) {
+        var stream = new Stream();
+        var ytStream = data.items[i];
+        stream.title = ytStream.snippet.title;
+        stream.thumbnail = ytStream.snippet.thumbnails.high.url;
+        stream.link = "http://youtube.com/watch/v=" + ytStream.id.videoId;
+        stream.channel = ytStream.snippet.channelTitle;
+        stream.viewers = dummyYoutubeVideos[i].items[0].liveStreamingDetails.concurrentViewers;
+        parsedStreamData.push(stream);
+    }
+}
+
+var parsedStreamData = [];
+
+parseData("twitch",dummyTwitchStreams);
+parseData("youtube",dummyYoutubeSearch);
+
+console.log(parsedStreamData);
