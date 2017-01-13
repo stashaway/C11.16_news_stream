@@ -1,25 +1,25 @@
 .side_nav {
     height: 100%;
-    color: #111;
+    color: darkslategray;
     width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: -160px;
-    background-color: #111;
+    background-color: darkslategray;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
 }
 .right_side_nav {
     height: 100%;
-    color: #111;
+    color: darkslategray;
     width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
     right: -160px;
-    background-color: #111;
+    background-color: darkslategray;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -31,7 +31,7 @@
 }
 .open_right_nav{
     right: 0px;
-    padding_right: 10px;
+    padding-left: 20px;
     color :white;
 }
 .side_nav a {
