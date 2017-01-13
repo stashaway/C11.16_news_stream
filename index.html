@@ -4,31 +4,47 @@
     <meta charset="UTF-8">
     <title>Streamism.tv</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </head>
 <body>
-    <div id="mySidenav" class="side_nav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+    <header>
+        <h1 class="header_logo">
+            Streamism
+        </h1>
+        <p class="header_tagline">
+        Streaming 'til your streams come true.
+        <p><a href="#ex1" rel="modal:open">About blah blah blah blah blah</a></p>
+        </p>
+    </header>
+    <div id="side_nav" class="side_nav">
+        <h1>Filters</h1>
+        <h3>Uncheck Boxes to Hide Video Category</h3>
+        <input type="checkbox" name="featured_content">Featured Content<br>
+        <input type="checkbox" name="world_news">World News<br>
+        <input type="checkbox" name="sports">Sports<br>
+        <input type="checkbox" name="gaming">Gaming<br>
+        <input type="checkbox" name="entertainment">Entertainment<br>
+        <input type="checkbox" name="uncheck_all">Uncheck All<br>
+        <img class="gear" src="images/gear.jpg" onclick="openNav()">
+        <button type="button" onclick="alert('We exist to realize the dreams of our creator - Brian.')">About</button>
+    </div>
+    <div id="right_side_nav" class="right_side_nav" onclick="openRightNav()">
+        <h1>Profile Settings</h1>
+        <input type="checkbox" name="featured_content">Featured Content<br>
+        <input type="checkbox" name="world_news">World News<br>
+        <input type="checkbox" name="sports">Sports<br>
+        <input type="checkbox" name="gaming">Gaming<br>
+        <input type="checkbox" name="entertainment">Entertainment<br>
+        <input type="checkbox" name="uncheck_all">Uncheck All<br>
+        <img class="profile" src="images/profile.png">
     </div>
     <div id="main">
-        <header>
-            <h1 class="header_logo">
-                Streamism
-            </h1>
-            <p class="header_tagline">
-                Streaming 'til your streams come true.
-            </p>
-        </header>
-        <div class="featured_content">stuff</div>
+        <div class="featured_content"></div>
+        <div class="world_news"></div>
         <div class="sports"></div>
         <div class="gaming"></div>
-        <div class="world_news"></div>
         <div class="entertainment"></div>
-        <button id="open_nav_button" onclick="openNav()">Open Menu</button>
     </div>
 </body>
 </html>
