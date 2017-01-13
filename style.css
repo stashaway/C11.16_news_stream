@@ -1,38 +1,36 @@
-.side_nav {
+header{
+    font-family: 'Julius Sans One', sans-serif;
+    text-align: center;
+}
+.side_nav, .right_side_nav {
+    font-family: 'Gruppo', cursive;
     height: 100%;
     color: darkslategray;
     width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
-    left: -160px;
     background-color: darkslategray;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
 }
-.right_side_nav {
-    height: 100%;
-    color: darkslategray;
-    width: 220px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
+.right_side_nav{
     right: -160px;
-    background-color: darkslategray;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
 }
-.open_nav{
-    left: 0px;
-    padding-left: 10px;
+.side_nav{
+    left: -160px;
+}
+.open_nav, .open_right_nav{
     color :white;
 }
 .open_right_nav{
     right: 0px;
     padding-left: 20px;
-    color :white;
+}
+.open_nav{
+    left: 0px;
+    padding-left: 10px;
 }
 .side_nav a {
     padding: 8px 8px 8px 32px;
