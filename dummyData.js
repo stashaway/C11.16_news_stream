@@ -576,16 +576,16 @@ function Stream() {
     this.thumbnail = null;
     this.viewers = null;
     this.link = null;
+    this.start = null;
+    this.id = null;
+    this.category = null;
 }
 
-function parseData(type,data) {
-    switch (type) {
-        case "twitch":
-            parseTwitch(data);
-            break;
-        case "youtube":
-            parseYoutube(data);
-            break;
+function parseData(data) {
+    if (data.streams) {
+        parseTwitch(data);
+    } else if (data.items) {
+        parseYoutube(data);
     }
 }
 
@@ -593,11 +593,14 @@ function parseTwitch(data) {
     for (var i in data.streams) {
         var stream = new Stream();
         var twitchStream = data.streams[i];
+        stream.id = twitchStream._id;
         stream.title = twitchStream.channel.status;
         stream.channel = twitchStream.channel.display_name;
         stream.viewers = twitchStream.viewers;
         stream.thumbnail = twitchStream.preview.large;
         stream.link = twitchStream.channel.url;
+        stream.start = twitchStream.created_at;
+        //TODO:reclassify irl and creative streams if any
         parsedStreamData.push(stream);
     }
 }
@@ -609,15 +612,19 @@ function parseYoutube(data) {
         stream.title = ytStream.snippet.title;
         stream.thumbnail = ytStream.snippet.thumbnails.high.url;
         stream.link = "http://youtube.com/watch/v=" + ytStream.id.videoId;
+        stream.id = ytStream.id.videoId;
         stream.channel = ytStream.snippet.channelTitle;
+        //TODO: determine category
+        //TODO: get video call
         stream.viewers = dummyYoutubeVideos[i].items[0].liveStreamingDetails.concurrentViewers;
+        stream.start = dummyYoutubeVideos[i].items[0].liveStreamingDetails.actualStartTime;
         parsedStreamData.push(stream);
     }
 }
 
 var parsedStreamData = [];
 
-parseData("twitch",dummyTwitchStreams);
-parseData("youtube",dummyYoutubeSearch);
+parseData(dummyTwitchStreams);
+parseData(dummyYoutubeSearch);
 
 console.log(parsedStreamData);
