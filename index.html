@@ -3,9 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>Streamism.tv</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
+    <script src="script.js"></script>
     <script src="dummyData.js"></script>
 </head>
 <body>
-
+    <header>
+        <h1 class="header_logo">
+            Streamism
+        </h1>
+        <p class="header_tagline">
+        Streaming 'til your streams come true.
+        </p>
+    </header>
+    <div id="side_nav" class="side_nav">
+        <h1>Filters</h1>
+        <h3>Uncheck Boxes to Hide Video Category</h3>
+        <input type="checkbox" name="featured_content" checked>Featured Content<br>
+        <input type="checkbox" name="world_news" checked>World News<br>
+        <input type="checkbox" name="sports" checked>Sports<br>
+        <input type="checkbox" name="gaming" checked>Gaming<br>
+        <input type="checkbox" name="entertainment" checked>Entertainment<br>
+        <input type="checkbox" name="uncheck_all">Uncheck All<br>
+        <img class="gear" src="images/gear.jpg" onclick="openNav()">
+    </div>
+    <div id="right_side_nav" class="right_side_nav">
+        <h1>Profile Settings</h1>
+        <select name="colors">
+            <option value="darkslate">Slate Blue</option>
+            <option value="Grey">Grey</option>
+            <option value="Blue">Blue</option>
+            <option value="Forrest Green">Forrest Green</option>
+        </select>
+        <br><br>
+        <input type="submit">
+        <img class="profile" src="images/profile.png" onclick="openRightNav()">
+    </div>
+    <div id="main">
+        <div class="featured_content"></div>
+        <div class="world_news"></div>
+        <div class="sports"></div>
+        <div class="gaming"></div>
+        <div class="entertainment"></div>
+    </div>
 </body>
 </html>
