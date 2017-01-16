@@ -2,8 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
     <title>Streamism.tv</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <script src="script.js"></script>
@@ -30,6 +32,8 @@
         <img class="gear" src="images/gear.jpg" onclick="openNav()">
     </div>
     <div id="right_side_nav" class="right_side_nav">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <a href="#" onclick="signOut();">Sign out</a>
         <h1>Profile Settings</h1>
         <select name="colors">
             <option value="darkslate">Slate Blue</option>
