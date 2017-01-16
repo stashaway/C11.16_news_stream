@@ -77,20 +77,37 @@ img.logo {
     top: 44%;
     height: 29px
 }
+/****************this is css for genres as individual divs***************************/
+/*.gaming {*/
+    /*background-color: lightskyblue;*/
+    /*width: 45vw;*/
+    /*top: 10%;*/
+    /*left: 0;*/
+    /*display: inline-block;*/
+/*}*/
+/*.entertainment {*/
+    /*background-color: mediumorchid;*/
+    /*width: 45vw;*/
+    /*top: 10%;*/
+    /*left: 50%;*/
+    /*display: inline-block;*/
+/*}*/
+/****************this is css for genres in same div*****************/
 .gaming {
     background-color: lightskyblue;
-    width: 45vw;
+    width: 90vw;
     top: 10%;
     left: 0;
     display: inline-block;
 }
 .entertainment {
     background-color: mediumorchid;
-    width: 45vw;
+    width: 90vw;
     top: 10%;
     left: 50%;
     display: inline-block;
 }
+
 /*************Masonry Classes*************/
 .grid-sizer,
 .grid-sizer2,
