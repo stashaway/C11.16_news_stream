@@ -621,3 +621,14 @@ parseData("twitch",dummyTwitchStreams);
 parseData("youtube",dummyYoutubeSearch);
 
 console.log(parsedStreamData);
+
+function append_img(data_array){
+    var gaming_div;
+    for(var i =0; i < data_array.length; i++){
+        gaming_div = $("<img>").attr({
+            src: parsedStreamData[i].thumbnail
+        });
+        $(".gaming").append(gaming_div);
+    }
+}
+append_img(parsedStreamData)
