@@ -569,6 +569,60 @@ var dummyYoutubeVideos = [
     }
 ];
 
+/**
+ * A set of {@link Stream} or {@link StreamSet} objects. Can add streams or other stream sets. Tree like structure
+ * @constructor
+ */
+function StreamSet() {
+    this.streams = [];
+    this.totalViewers = 0;
+
+    /**
+     * Add a stream or stream set
+     * @param {Stream|StreamSet}stream
+     */
+    this.add = function (stream) {
+        this.totalViewers += (stream instanceof StreamSet) ? parseInt(stream.totalViewers) : parseInt(stream.viewers);
+        this.streams.push(stream);
+    };
+
+    /**
+     * Update the percentage and totals of all streams and sub stream sets. Call when finished adding before using data
+     */
+    this.updateSet = function () {
+        //Keep a running total of total percentage
+        var totalPercentage = 100;
+
+        //Set percentage based on total viewers in set
+        for (var i in this.streams) {
+            if (this.streams.hasOwnProperty(i)) {
+                if (totalPercentage <= 0) {
+                    //throw error / exception
+                    console.error("Hit 0 before lowest item");
+                    return;
+                }
+                var stream = this.streams[i];
+                var viewers = stream.viewers;
+
+                //Tell stream set to update it's streams
+                if (stream instanceof StreamSet) {
+                    stream.updateSet();
+                    viewers = stream.totalViewers;
+                }
+
+                //Get percentage of stream - floor to int - don't go beyond a max percentage
+                var percent = Math.round((viewers / this.totalViewers) * 100);
+
+                //If percentage left goes below 0, use the percentage that's left
+                stream.percentage = (i == this.streams.length - 1) ? totalPercentage : Math.min(percent,totalPercentage);
+
+                //decrement running total
+                totalPercentage -= percent;
+            }
+        }
+    };
+}
+
 //Example parsing of dummy data
 function Stream() {
     this.title = null;
@@ -579,6 +633,8 @@ function Stream() {
     this.start = null;
     this.id = null;
     this.category = null;
+    this.started = null;
+    this.percentage = 0;
 }
 
 function parseData(data) {
@@ -590,6 +646,7 @@ function parseData(data) {
 }
 
 function parseTwitch(data) {
+    var parsedTwitch = new StreamSet();
     for (var i in data.streams) {
         var stream = new Stream();
         var twitchStream = data.streams[i];
@@ -601,11 +658,13 @@ function parseTwitch(data) {
         stream.link = twitchStream.channel.url;
         stream.start = twitchStream.created_at;
         //TODO:reclassify irl and creative streams if any
-        parsedStreamData.push(stream);
+        parsedTwitch.add(stream);
     }
+    parsedStreamData.add(parsedTwitch);
 }
 
 function parseYoutube(data) {
+    var parsedYT = new StreamSet();
     for (var i in data.items) {
         var stream = new Stream();
         var ytStream = data.items[i];
@@ -616,15 +675,18 @@ function parseYoutube(data) {
         stream.channel = ytStream.snippet.channelTitle;
         //TODO: determine category
         //TODO: get video call
-        stream.viewers = dummyYoutubeVideos[i].items[0].liveStreamingDetails.concurrentViewers;
+        stream.viewers = parseInt(dummyYoutubeVideos[i].items[0].liveStreamingDetails.concurrentViewers);
         stream.start = dummyYoutubeVideos[i].items[0].liveStreamingDetails.actualStartTime;
-        parsedStreamData.push(stream);
+        parsedYT.add(stream);
     }
+    parsedStreamData.add(parsedYT);
 }
 
-var parsedStreamData = [];
+var parsedStreamData = new StreamSet();
 
 parseData(dummyTwitchStreams);
 parseData(dummyYoutubeSearch);
+
+parsedStreamData.updateSet();
 
 console.log(parsedStreamData);
