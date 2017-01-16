@@ -1,22 +1,57 @@
 $(document).ready(function() {
     buildThumbnails(parsedStreamData);
-    var $grid = $('.grid').imagesLoaded( function() {
+    $grid = $('.grid').imagesLoaded( function() {
         // init Masonry after all images have loaded
         $grid.isotope({
             // options...
             itemSelector: '.grid-item',
-            masonry: {columnWidth: '.grid-sizer'}
-            // percentPosition: true
+            masonry: {columnWidth: '.grid-sizer'},
+            percentPosition: true
         });
     });
-    var $grid2 = $('.grid2').imagesLoaded( function() {
+    $grid2 = $('.grid2').imagesLoaded( function() {
         // init Masonry after all images have loaded
         $grid2.isotope({
             // options...
             itemSelector: '.grid-item',
-            masonry: {columnWidth: '.grid-sizer2'}
-            // percentPosition: true
+            masonry: {columnWidth: '.grid-sizer2'},
+            percentPosition: true
         });
+    });
+
+    $('.side_nav input:checkbox').change(function() {
+        // this will contain a reference to the checkbox
+        console.log(this.name);
+        if (this.checked) {
+            // the checkbox is now checked
+            switch (this.name) {
+                case 'gaming':
+                    $grid.isotope({ filter: '*' });
+                    $grid2.isotope({ filter: '*' });
+
+                    break;
+                case 'entertainment':
+                    $grid.isotope({ filter: '*' });
+                    $grid2.isotope({ filter: '*' });
+                    break;
+                default:
+
+            }
+        } else {
+            switch (this.name) {
+                case 'gaming':
+                    $grid.isotope({ filter: '.games' });
+                    $grid2.isotope({ filter: '.games' });
+
+                    break;
+                case 'entertainment':
+                    $grid.isotope({ filter: '.entertain' });
+                    $grid2.isotope({ filter: '.entertain' });
+                    break;
+                default:
+
+            }
+        }
     });
 });
 
@@ -39,9 +74,9 @@ function buildThumbnails(stream){
     var contDiv5;
     var contDiv6;
     for (var i=0; i<stream.length; i++){
-        contDiv=$('<div class="grid-item grid-item--'+sizeClasses[i]+'>');
-        contDiv2=$('<div class="grid-item grid-item--'+sizeClasses[i+1]+'>');
-        contDiv3=$('<div class="grid-item grid-item--'+sizeClasses[i+2]+'>');
+        contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
+        contDiv2=$('<div class="games grid-item grid-item--'+sizeClasses[i+1]+'>');
+        contDiv3=$('<div class="games grid-item grid-item--'+sizeClasses[i+2]+'>');
         thumb=$('<img src=' + stream[i].thumbnail + '>');
         thumb2=$('<img src=' + stream[i].thumbnail + '>');
         thumb3=$('<img src=' + stream[i].thumbnail + '>');
@@ -52,9 +87,9 @@ function buildThumbnails(stream){
     }
     $('.gaming').append(thumbs);
     for (var j=0; j<stream.length; j++){
-        contDiv4=$('<div class="grid-item grid-item--'+sizeClasses[j]+'>');
-        contDiv5=$('<div class="grid-item grid-item--'+sizeClasses[j+1]+'>');
-        contDiv6=$('<div class="grid-item grid-item--'+sizeClasses[j+2]+'>');
+        contDiv4=$('<div class="entertain grid-item grid-item--'+sizeClasses[j]+'>');
+        contDiv5=$('<div class="entertain grid-item grid-item--'+sizeClasses[j+1]+'>');
+        contDiv6=$('<div class="entertain grid-item grid-item--'+sizeClasses[j+2]+'>');
         thumb4=$('<img src=' + stream[j].thumbnail + '>');
         thumb5=$('<img src=' + stream[j].thumbnail + '>');
         thumb6=$('<img src=' + stream[j].thumbnail + '>');
