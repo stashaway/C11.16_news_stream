@@ -14,6 +14,10 @@ header{
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    opacity: .4;
+}
+.side_nav:hover {
+    opacity: 1;
 }
 .right_side_nav{
     right: -160px;
@@ -62,3 +66,45 @@ header{
     top: 44%;
     height: 29px
 }
+.gaming {
+    background-color: lightskyblue;
+    width: 49vw;
+    top: 10%;
+    left: 0;
+    display: inline-block;
+}
+.entertainment {
+    background-color: mediumorchid;
+    width: 49vw;
+    top: 10%;
+    left: 50%;
+    display: inline-block;
+}
+/*************Masonry Classes*************/
+.grid-sizer,
+.grid-sizer2,
+.grid-item {
+    float: left;
+    width: 8%;
+    /*height: 150px;*/
+    border: 2px solid hsla(0, 0%, 0%, 0.5);
+}
+.grid-item--large{
+    width:24%;
+    /*height: 150px;*/
+}
+.grid-item--medium{
+    width:16%;
+    /*height: 125px;*/
+}
+.grid-item--small{
+    width:8%;
+    /*height: 125px;*/
+}
+img {
+    max-width:100%;
+    max-height:100%;
+}
+/*************Isotope Classes*************/
+
+
