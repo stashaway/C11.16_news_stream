@@ -4,6 +4,7 @@
 function openNav() {
     $("#side_nav").toggleClass("open_nav");
 }
+$('.modal').modal();
 function openRightNav() {
     $("#right_side_nav").toggleClass("open_right_nav");
 }
@@ -20,3 +21,4 @@ function signOut() {
         console.log('User signed out.');
     });
 }
+

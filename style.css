@@ -2,33 +2,29 @@ header{
     font-family: 'Julius Sans One', sans-serif;
     text-align: center;
 }
-.side_nav, .right_side_nav {
+.side_nav{
     font-family: 'Gruppo', cursive;
+    font-size: 20px;
     height: 100%;
-    color: darkslategray;
+    color: #455a64 ;
     width: 220px;
     position: fixed;
     z-index: 1;
     top: 0;
-    background-color: darkslategray;
+    left: -160px;
+    background-color: #455a64 ;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
 }
-.right_side_nav{
-    right: -160px;
+.side_nav>h1{
+    font-size: 2em;
 }
-.side_nav{
-    left: -160px;
-}
-.open_nav, .open_right_nav{
-    color :white;
-}
-.open_right_nav{
-    right: 0px;
-    padding-left: 20px;
+.side_nav>h3{
+    font-size: 1em;
 }
 .open_nav{
+    color :white;
     left: 0px;
     padding-left: 10px;
 }
@@ -43,22 +39,23 @@ header{
 .side_nav a:hover, .offcanvas a:focus{
     color: #f1f1f1;
 }
-.side_nav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
 .gear{
     position: absolute;
-    right: 7%;
-    top: 44%;
-    height: 29px
+    transform: translate(-50%, -50%);
+    top: 50%;
+    right: 0%;
+    height: 30px;
 }
 .profile{
     position: absolute;
-    left: 7%;
-    top: 44%;
-    height: 29px
+    transform: translate(-50%, -50%);
+    top: 45%;
+    left: 50%;
+    height: 30px;
+}
+.fixed-action-btn{
+    top:1px;
+}
+.model-content{
+   color:black
 }
