@@ -1,14 +1,7 @@
-/**
- * Created by sloan on 1/11/2017.
- */
-$('.grid').isotope({
-    // options
-    itemSelector: '.grid-item',
-    layoutMode: 'fitRows'
-});
-
-$('.grid').masonry({
-    // options
-    itemSelector: '.grid-item',
-    columnWidth: 200
-});
+function openNav() {
+    $("#side_nav").toggleClass("open_nav");
+}
+function openRightNav() {
+    $("#right_side_nav").toggleClass("open_right_nav");
+}
+>>>>>>> 5d300fe1b9240c149859ad20808a2c0e48589655
