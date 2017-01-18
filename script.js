@@ -1,11 +1,9 @@
+
+$('.modal').modal();
+$('#modal2').modal('open');
 function openNav() {
     $("#side_nav").toggleClass("open_nav");
 }
-$('.modal').modal();
-function openRightNav() {
-    $("#right_side_nav").toggleClass("open_right_nav");
-}
-
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -19,5 +17,4 @@ function signOut() {
         console.log('User signed out.');
     });
 }
-
 

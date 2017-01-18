@@ -94,7 +94,7 @@ img.logo {
 /****************this is css for genres in same div*****************/
 .gaming {
     background-color: lightskyblue;
-    width: 90vw;
+    width: 100vw;
     top: 10%;
     left: 0;
     display: inline-block;
@@ -112,20 +112,20 @@ img.logo {
 .grid-sizer2,
 .grid-item {
     float: left;
-    width: 8%;
+    width: 5%;
     /*height: 150px;*/
     border: 2px solid hsla(0, 0%, 0%, 0.5);
 }
 .grid-item--large{
-    width:24%;
+    width:15%;
     /*height: 150px;*/
 }
 .grid-item--medium{
-    width:16%;
+    width:10%;
     /*height: 125px;*/
 }
 .grid-item--small{
-    width:8%;
+    width:5%;
     /*height: 125px;*/
 }
 img {
