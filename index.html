@@ -17,8 +17,8 @@
     <!--<script src="trymasonry.js"></script>-->
     <!--<script src="tryisotope.js"></script>-->
     <script src="tryisotope2.js"></script>
-
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
@@ -61,7 +61,7 @@
        </a>
        <ul>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">
-               <div class="g-signin2" data-onsuccess="onSignIn"></div>
+               <div class='g-signin2' id="my-signin2"></div>
                <a href="#" onclick="signOut();">Sign out</a></i></a>
            </li>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">Change Theme</i></a></li>
