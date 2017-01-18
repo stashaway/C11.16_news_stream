@@ -570,58 +570,60 @@ var dummyYoutubeVideos = [
 ];
 
 /**
- * A set of {@link Stream} or {@link StreamSet} objects. Can add streams or other stream sets. Tree like structure
+ * A set of {@link Stream} or {@link StreamSet} objects. Tree like structure for stream percentage
  * @constructor
  */
 function StreamSet() {
     this.streams = [];
-    this.totalViewers = 0;
-
-    /**
-     * Add a stream or stream set
-     * @param {Stream|StreamSet}stream
-     */
-    this.add = function (stream) {
-        this.totalViewers += (stream instanceof StreamSet) ? parseInt(stream.totalViewers) : parseInt(stream.viewers);
-        this.streams.push(stream);
-    };
-
-    /**
-     * Update the percentage and totals of all streams and sub stream sets. Call when finished adding before using data
-     */
-    this.updateSet = function () {
-        //Keep a running total of total percentage
-        var totalPercentage = 100;
-
-        //Set percentage based on total viewers in set
-        for (var i in this.streams) {
-            if (this.streams.hasOwnProperty(i)) {
-                if (totalPercentage <= 0) {
-                    //throw error / exception
-                    console.error("Hit 0 before lowest item");
-                    return;
-                }
-                var stream = this.streams[i];
-                var viewers = stream.viewers;
-
-                //Tell stream set to update it's streams
-                if (stream instanceof StreamSet) {
-                    stream.updateSet();
-                    viewers = stream.totalViewers;
-                }
-
-                //Get percentage of stream - floor to int - don't go beyond a max percentage
-                var percent = Math.round((viewers / this.totalViewers) * 100);
-
-                //If percentage left goes below 0, use the percentage that's left
-                stream.percentage = (i == this.streams.length - 1) ? totalPercentage : Math.min(percent,totalPercentage);
-
-                //decrement running total
-                totalPercentage -= percent;
-            }
-        }
-    };
+    this.viewers = 0;
 }
+
+/**
+ * Add a stream or stream set
+ * @param {Stream|StreamSet}stream
+ */
+StreamSet.prototype.add = function (stream) {
+    this.viewers += parseInt(stream.viewers);
+    this.streams.push(stream);
+};
+
+/**
+ * Update the percentage and totals of all streams and sub stream sets. Call when finished adding before using data
+ */
+StreamSet.prototype.updateSet = function () {
+    //Keep a running total of total percentage
+    var totalPercentage = 100;
+
+    //Set percentage based on total viewers in set
+    for (var i in this.streams) {
+        if (this.streams.hasOwnProperty(i)) {
+            if (totalPercentage <= 0) {
+                //throw error / exception
+                console.error("Hit 0 before lowest item");
+                return;
+            }
+            var stream = this.streams[i];
+            var viewers = stream.viewers;
+
+            //Tell stream set to update it's streams
+            if (stream instanceof StreamSet) {
+                stream.updateSet();
+                viewers = stream.viewers;
+            }
+
+            //Get percentage of stream - round to int
+            var percent = Math.round((viewers / this.viewers) * 100);
+
+            //If last stream use the percentage that's left
+            stream.percentage = (i == this.streams.length - 1) ? totalPercentage : Math.min(percent,totalPercentage);
+
+            //decrement running total
+            totalPercentage -= percent;
+        }
+    }
+
+    //TODO: sort sets
+};
 
 //Example parsing of dummy data
 function Stream() {
