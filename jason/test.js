@@ -1,10 +1,3 @@
-function openNav() {
-    $("#side_nav").toggleClass("open_nav");
-}
-$('.modal').modal();
-function openRightNav() {
-    $("#right_side_nav").toggleClass("open_right_nav");
-}
 function onSuccess(googleUser) {
     console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     var auth2 = gapi.auth2.init();
@@ -16,11 +9,8 @@ function onSuccess(googleUser) {
         console.log('Family Name: ' + profile.getFamilyName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-        // $('#my-signin2').addClass("signed_in");
-        // $('#sign_out').show();
-        $('#my-signin2').toggle();
-
-        $('.profile').attr('src', profile.getImageUrl());
+        $('#my-signin2').click(signOut);
+        $('.profile').attr('src', 'profile.getImageUrl')
     }
 }
 function onFailure(error) {
@@ -42,13 +32,12 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.')
     });
-    // $("signed_in").removeClass('signed_in');
-    $('#my-signin2').toggle();
+    return;
 }
-$('document').ready(function() {
+
+
+
+
+$('document').ready(function(){
     renderButton();
-    // $('#sign_out').hide();
-    // $('#sign_out').click(signOut());
-    $('body').on('click','.signed_in',signOut)
-    $('#tester').click(signOut);
 });

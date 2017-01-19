@@ -76,6 +76,10 @@ img.logo {
 .model-content{
    color:black
 }
+
+.signed_in{
+    content:url("images/signout.png");
+}
 /****************this is css for genres as individual divs***************************/
 /*.gaming {*/
     /*background-color: lightskyblue;*/
