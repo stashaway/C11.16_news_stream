@@ -575,7 +575,7 @@ var dummyYoutubeVideos = [
  */
 function StreamSet(title) {
     this.children = [];
-    this.value = 0;
+    this.tviewers = 0;
     this.name = title;
 }
 
@@ -584,7 +584,7 @@ function StreamSet(title) {
  * @param {Stream|StreamSet}stream
  */
 StreamSet.prototype.add = function (stream) {
-    this.value += parseInt(stream.value);
+    this.tviewers += (stream instanceof StreamSet) ? parseInt(stream.tviewers) : parseInt(stream.viewers);
     this.children.push(stream);
 };
 
@@ -610,10 +610,10 @@ StreamSet.prototype.updateSet = function () {
                 stream.updateSet();
             }
 
-            var viewers = stream.value;
+            var viewers = stream.tviewers;
 
             //Get percentage of stream - round to int
-            var percent = Math.round((viewers / this.value) * 100);
+            var percent = Math.round((viewers / this.tviewers) * 100);
 
             //If last stream use the percentage that's left
             stream.percentage = (i == this.children.length - 1) ? totalPercentage : Math.min(percent,totalPercentage);
@@ -631,7 +631,7 @@ function Stream() {
     this.name = null;
     this.channel = null;
     this.thumbnail = null;
-    this.value = null;
+    this.viewers = null;
     this.link = null;
     this.start = null;
     this.id = null;
@@ -656,7 +656,7 @@ function parseTwitch(data) {
         stream.id = twitchStream._id;
         stream.name = twitchStream.channel.status;
         stream.channel = twitchStream.channel.display_name;
-        stream.value = twitchStream.viewers;
+        stream.viewers = twitchStream.viewers;
         stream.thumbnail = twitchStream.preview.large;
         stream.link = twitchStream.channel.url;
         stream.start = twitchStream.created_at;
@@ -678,7 +678,7 @@ function parseYoutube(data) {
         stream.channel = ytStream.snippet.channelTitle;
         //TODO: determine category
         //TODO: get video call
-        stream.value = parseInt(dummyYoutubeVideos[i].items[0].liveStreamingDetails.concurrentViewers);
+        stream.viewers = parseInt(dummyYoutubeVideos[i].items[0].liveStreamingDetails.concurrentViewers);
         stream.start = dummyYoutubeVideos[i].items[0].liveStreamingDetails.actualStartTime;
         parsedYT.add(stream);
     }
@@ -690,6 +690,6 @@ var parsedStreamData = new StreamSet("streamism");
 parseData(dummyTwitchStreams);
 parseData(dummyYoutubeSearch);
 
-parsedStreamData.updateSet();
+//parsedStreamData.updateSet();
 
-console.log(parsedStreamData);
+//console.log(parsedStreamData);
