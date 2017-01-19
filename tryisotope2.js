@@ -55,7 +55,7 @@ $(document).ready(function() {
     });
 });
 
-var sizeClasses=['large"','large"','large"','large"','medium"','medium"','medium"','medium"','small"','small"','small"','small"'];
+var sizeClasses=['small"','small"','small"','small"','small"','small"','small"','small"','small"','small"','small"','small"'];
 function buildThumbnails(stream){
     console.log(stream);
     var thumbs=$('<div class="grid">');
