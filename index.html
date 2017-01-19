@@ -17,8 +17,8 @@
     <!--<script src="trymasonry.js"></script>-->
     <!--<script src="tryisotope.js"></script>-->
     <script src="tryisotope2.js"></script>
-
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </head>
@@ -66,13 +66,15 @@
            <i class="large material-icons"><img class="profile" src="images/profile.png"></i>
        </a>
        <ul>
+           <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">
+               <div class='g-signin2' id="my-signin2"></div>
+               <a href="#" onclick="signOut();">Sign out</a></i></a>
+           </li>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">Change Theme</i></a></li>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">Edit profile</i></a></li>
            <li class="waves-effect waves-light"><a href="#modal1"><i class="material-icons">About Us</i></a></li>
        </ul>
    </div>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="signOut();">Sign out</a>
     <div id="main">
         <div class="featured_content"></div>
         <div class="world_news"></div>
