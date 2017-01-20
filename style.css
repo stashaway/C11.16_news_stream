@@ -3,7 +3,8 @@ header{
     text-align: center;
 }
 #user_login{
-    float: right;
+    position: absolute;
+    left: 85vw
 }
 
 img.logo {
@@ -82,6 +83,8 @@ img.logo {
 
 .signed_in{
     content:url("images/signout.png");
+    height: 3vh;
+    width: 6vw;
 }
 /****************this is css for genres as individual divs***************************/
 /*.gaming {*/
