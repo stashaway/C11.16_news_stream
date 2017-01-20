@@ -1,5 +1,5 @@
-$('.modal').modal();
-$('#modal2').modal('open');
+// $('.modal').modal();
+// $('#modal2').modal('open');
 function openNav() {
     $("#side_nav").toggleClass("open_nav");
 }
