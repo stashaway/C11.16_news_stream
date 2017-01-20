@@ -588,7 +588,6 @@ function parseData(type,data) {
             break;
     }
 }
-
 function parseTwitch(data) {
     for (var i in data.streams) {
         var stream = new Stream();

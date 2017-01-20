@@ -29,6 +29,7 @@ $(document).ready(function() {
 });
 
 var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
+
 function buildThumbnails(stream){
     console.log(stream);
     var thumbs=$('<div class="grid">');

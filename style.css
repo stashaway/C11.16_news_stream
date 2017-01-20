@@ -116,6 +116,7 @@ div#main {
 /****************this is css for genres in same div*****************/
 .gaming {
     width: 90vw;
+    background-color: lightskyblue;
     top: 10%;
     left: 0;
     display: inline-block;
@@ -169,6 +170,7 @@ div#main {
 }
 .news{
     background-color: green;
+
 }
 .entertain{
     background-color: blue;

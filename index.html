@@ -17,12 +17,10 @@
     <!--<script src="trymasonry.js"></script>-->
     <!--<script src="tryisotope.js"></script>-->
     <script src="tryisotope2.js"></script>
-
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-
-
 </head>
 <body>
     <header>
@@ -33,17 +31,25 @@
         <p class="header_tagline">
         Stream until your streams come true.
         </p>
-        <a class="about_btn waves-effect waves-circle waves-light btn" href="#modal1">?</a>
-        <div id="modal1" class="modal">
+        <div id="modal2" class="modal">
             <div class="modal-content">
-                <h4>Welcome to Streamism.tv</h4>
-                <p>All hail our creator- Brian!</p>
+                <h4>Welcome!</h4>
+                <p>Streamism.tv creates a one-of-a-kind viewing experience that allows you to partake in all trending streams on Twitch.tv and Youtube. Go ahead, and hover over any thumbnail to preview information, or click on the thumbnail to view the stream. Click anywhere to begin! </p>
             </div>
             <div class="modal-footer">
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         </div>
     </header>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>About Us</h4>
+            <p>All hail our creator- Brian!</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
     <div id="side_nav" class="side_nav">
         <h1>Filters</h1>
         <h3>Uncheck Boxes to Hide Video Category</h3>
@@ -63,11 +69,12 @@
        </a>
        <ul>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">
-               <div class="g-signin2" data-onsuccess="onSignIn"></div>
+               <div class='g-signin2' id="my-signin2"></div>
                <a href="#" onclick="signOut();">Sign out</a></i></a>
            </li>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">Change Theme</i></a></li>
            <li class="waves-effect waves-light"><a href="#!"><i class="material-icons">Edit profile</i></a></li>
+           <li class="waves-effect waves-light"><a href="#modal1"><i class="material-icons">About Us</i></a></li>
        </ul>
    </div>
     <div id="main">
