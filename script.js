@@ -5,10 +5,11 @@ $('.modal').modal();
 function openRightNav() {
     $("#right_side_nav").toggleClass("open_right_nav");
 }
+var auth2 = null;
 function onSuccess(googleUser) {
     console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    var auth2 = gapi.auth2.init();
-    if (auth2.isSignedIn.get()) {
+    auth2 = gapi.auth2.init();
+    if (isUserLoggedIn()) {
         var profile = auth2.currentUser.get().getBasicProfile();
         console.log('ID: ' + profile.getId());
         console.log('Full Name: ' + profile.getName());
@@ -16,12 +17,9 @@ function onSuccess(googleUser) {
         console.log('Family Name: ' + profile.getFamilyName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-        // $('#my-signin2').addClass("signed_in");
-        // $('#sign_out').show();
-        $('#my-signin2').toggle();
-
         $('.profile').attr('src', profile.getImageUrl());
     }
+    displayLogginState();
 }
 function onFailure(error) {
     console.log(error);
@@ -38,17 +36,33 @@ function renderButton() {
     });
 }
 function signOut() {
-    auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.')
     });
-    // $("signed_in").removeClass('signed_in');
+    $('#sign_out').toggle();
     $('#my-signin2').toggle();
 }
-$('document').ready(function() {
-    renderButton();
-    // $('#sign_out').hide();
-    // $('#sign_out').click(signOut());
-    $('body').on('click','.signed_in',signOut)
-    $('#tester').click(signOut);
+function isUserLoggedIn(){
+    if(auth2){
+        return auth2.isSignedIn.get()!=false;
+    }
+    return false;
+}
+function displayLogginState(){
+    if (isUserLoggedIn()) {
+        $('#sign_out').show();
+        $('#my-signin2').hide();
+    } else {
+        $('#sign_out').hide();
+        $('#my-signin2').show();
+    }
+}
+$(document).ready(function() {
+    if(isUserLoggedIn()){
+        renderButton();
+        $('#sign_out').click(signOut).hide();
+    }else{
+        $('#sign_out').click(signOut).show();
+
+    }
 });
