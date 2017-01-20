@@ -26,13 +26,19 @@ $(document).ready(function() {
             // the checkbox is now checked
             switch (this.name) {
                 case 'gaming':
-                    $grid.isotope({ filter: '*' });
-                    $grid2.isotope({ filter: '*' });
-
+                    $('.games').removeClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 case 'entertainment':
-                    $grid.isotope({ filter: '*' });
-                    $grid2.isotope({ filter: '*' });
+                    $('.entertain').removeClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
+                    break;
+                case 'news':
+                    $('.news').removeClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 default:
 
@@ -40,16 +46,21 @@ $(document).ready(function() {
         } else {
             switch (this.name) {
                 case 'gaming':
-                    $grid.isotope({ filter: '.games' });
-                    $grid2.isotope({ filter: '.games' });
-
+                    $('.games').addClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 case 'entertainment':
-                    $grid.isotope({ filter: '.entertain' });
-                    $grid2.isotope({ filter: '.entertain' });
+                    $('.entertain').addClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
+                    break;
+                case 'news':
+                    $('.news').addClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 default:
-
             }
         }
     });
