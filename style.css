@@ -3,14 +3,36 @@ header{
     text-align: center;
 }
 
+.about_btn{
+    position: absolute;
+    top: 2%;
+    left: 15%;
+}
+.header_logo{
+    top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.header_tagline {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
 img.logo {
     top:0;
     left:50%;
     transform: translate(-50%,0);
-    height: 120px;
+    height: 80px;
     position: absolute;
     opacity: .5;
     z-index: -1;
+}
+
+div#main {
+    margin-left: 10%;
+    margin-top: 7%;
 }
 
 .side_nav{
@@ -42,7 +64,7 @@ img.logo {
 }
 .open_nav{
     color :white;
-    left: 0px;
+    left: 0;
     padding-left: 10px;
 }
 .side_nav a {
@@ -60,7 +82,7 @@ img.logo {
     position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
-    right: 0%;
+    right: 0;
     height: 30px;
 }
 .profile{
@@ -93,7 +115,6 @@ img.logo {
 /*}*/
 /****************this is css for genres in same div*****************/
 .gaming {
-    background-color: lightskyblue;
     width: 90vw;
     top: 10%;
     left: 0;
@@ -112,26 +133,74 @@ img.logo {
 .grid-sizer2,
 .grid-item {
     float: left;
-    width: 8%;
-    /*height: 150px;*/
-    border: 2px solid hsla(0, 0%, 0%, 0.5);
+    /*width: 165px;*/
+    /*height: 93px;*/
+    width: 14vw;
+    height: 8vw;
+    /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
 }
-.grid-item--large{
-    width:24%;
-    /*height: 150px;*/
+/*.grid-item--large{*/
+    /*!*width: 165px;*!*/
+    /*!*height: 93px;*!*/
+    /*width: 15%*/
+/*}*/
+.grid-item--medium {
+    /*width:16%;*/
+    /*height: 9%*/
+    width: 14vw;
+    height: 8vw;
 }
-.grid-item--medium{
-    width:16%;
-    /*height: 125px;*/
-}
-.grid-item--small{
-    width:8%;
-    /*height: 125px;*/
-}
-img {
-    max-width:100%;
-    max-height:100%;
+
+/*.grid-item--small{*/
+    /*width:15%;*/
+    /*!*height: 125px;*!*/
+/*}*/
+.grid-item img {
+    width:100%;
+    height:95%;
+
 }
 /*************Isotope Classes*************/
-
+/*.games, .news, .entertain {*/
+    /*position: relative;*/
+/*}*/
+.games{
+    background-color: red;
+}
+.news{
+    background-color: green;
+}
+.entertain{
+    background-color: blue;
+}
+.games::after {
+    opacity: .2;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
+.news::after {
+    opacity: .2;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
+.entertain::after {
+    opacity: .2;
+    background-color: blue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
 

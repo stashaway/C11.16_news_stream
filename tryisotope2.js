@@ -26,13 +26,19 @@ $(document).ready(function() {
             // the checkbox is now checked
             switch (this.name) {
                 case 'gaming':
-                    $grid.isotope({ filter: '*' });
-                    $grid2.isotope({ filter: '*' });
-
+                    $('.games').removeClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 case 'entertainment':
-                    $grid.isotope({ filter: '*' });
-                    $grid2.isotope({ filter: '*' });
+                    $('.entertain').removeClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
+                    break;
+                case 'news':
+                    $('.news').removeClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 default:
 
@@ -40,22 +46,27 @@ $(document).ready(function() {
         } else {
             switch (this.name) {
                 case 'gaming':
-                    $grid.isotope({ filter: '.games' });
-                    $grid2.isotope({ filter: '.games' });
-
+                    $('.games').addClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 case 'entertainment':
-                    $grid.isotope({ filter: '.entertain' });
-                    $grid2.isotope({ filter: '.entertain' });
+                    $('.entertain').addClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
+                    break;
+                case 'news':
+                    $('.news').addClass('hidden');
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    $grid2.isotope({ filter: '*:not(.hidden)' });
                     break;
                 default:
-
             }
         }
     });
 });
 
-var sizeClasses=['large"','large"','large"','large"','medium"','medium"','medium"','medium"','small"','small"','small"','small"'];
+var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
 function buildThumbnails(stream){
     console.log(stream);
     var thumbs=$('<div class="grid">');
@@ -76,7 +87,7 @@ function buildThumbnails(stream){
     for (var i=0; i<stream.length; i++){
         contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
         contDiv2=$('<div class="entertain grid-item grid-item--'+sizeClasses[i+1]+'>');
-        contDiv3=$('<div class="games grid-item grid-item--'+sizeClasses[i+2]+'>');
+        contDiv3=$('<div class="news grid-item grid-item--'+sizeClasses[i+2]+'>');
         thumb=$('<img src=' + stream[i].thumbnail + '>');
         thumb2=$('<img src=' + stream[i].thumbnail + '>');
         thumb3=$('<img src=' + stream[i].thumbnail + '>');
