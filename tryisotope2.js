@@ -22,47 +22,9 @@ $(document).ready(function() {
     $('.side_nav input:checkbox').change(function() {
         // this will contain a reference to the checkbox
         console.log(this.name);
-        if (this.checked) {
-            // the checkbox is now checked
-            switch (this.name) {
-                case 'gaming':
-                    $('.games').removeClass('hidden');
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    $grid2.isotope({ filter: '*:not(.hidden)' });
-                    break;
-                case 'entertainment':
-                    $('.entertain').removeClass('hidden');
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    $grid2.isotope({ filter: '*:not(.hidden)' });
-                    break;
-                case 'news':
-                    $('.news').removeClass('hidden');
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    $grid2.isotope({ filter: '*:not(.hidden)' });
-                    break;
-                default:
-
-            }
-        } else {
-            switch (this.name) {
-                case 'gaming':
-                    $('.games').addClass('hidden');
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    $grid2.isotope({ filter: '*:not(.hidden)' });
-                    break;
-                case 'entertainment':
-                    $('.entertain').addClass('hidden');
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    $grid2.isotope({ filter: '*:not(.hidden)' });
-                    break;
-                case 'news':
-                    $('.news').addClass('hidden');
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    $grid2.isotope({ filter: '*:not(.hidden)' });
-                    break;
-                default:
-            }
-        }
+            $('.'+this.name).toggleClass('hidden');
+            $grid.isotope({ filter: '*:not(.hidden)' });
+            $grid2.isotope({ filter: '*:not(.hidden)' });
     });
 });
 
@@ -86,7 +48,7 @@ function buildThumbnails(stream){
     var contDiv6;
     for (var i=0; i<stream.length; i++){
         contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
-        contDiv2=$('<div class="entertain grid-item grid-item--'+sizeClasses[i+1]+'>');
+        contDiv2=$('<div class="entertainment grid-item grid-item--'+sizeClasses[i+1]+'>');
         contDiv3=$('<div class="news grid-item grid-item--'+sizeClasses[i+2]+'>');
         thumb=$('<img src=' + stream[i].thumbnail + '>');
         thumb2=$('<img src=' + stream[i].thumbnail + '>');
