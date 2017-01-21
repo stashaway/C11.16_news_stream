@@ -29,9 +29,9 @@
             <div id="sign_out"><img src="images/signout.png"></div>
         </div>
         <img class="logo" src="images/logo1.png"/>
-        <h1 class="header_logo">
+        <h2 class="header_logo">
             Streamism
-        </h1>
+        </h2>
         <p class="header_tagline">
         Stream until your streams come true.
         </p>
@@ -50,12 +50,14 @@
         <h1>Filters</h1>
         <h3>Uncheck Boxes to Hide Video Category</h3>
         <input type="checkbox" id=featured_check name="featured_content" checked><label  for="featured_check"></label>Featured Content<br>
-        <input type="checkbox" id=world_news-check name="world_news" checked><label for="world_news-check"></label>World News<br>
-        <input type="checkbox" id="sports_check" name="sports" checked><label for="sports_check"></label>Sports<br>
-        <input type="checkbox" id="gaming_check" name="gaming" checked><label  for="gaming_check"></label>Gaming<br>
+        <input type="checkbox" id=world_news-check name="news" checked><label for="world_news-check"></label>News<br>
+        <input type="checkbox" id="sports_check" name="sports" checked><label for="sports_check"></label>Life/Sports<br>
+        <input type="checkbox" id="gaming_check" name="games" checked><label  for="gaming_check"></label>Gaming<br>
+        <input type="checkbox" id="tech_check" name="tech" checked><label  for="tech_check"></label>Science/Tech<br>
+        <input type="checkbox" id="misc_check" name="misc" checked><label  for="misc_check"></label>Misc<br>
         <input type="checkbox" id="entertainment_check" name="entertainment" checked><label  for="entertainment_check"></label>Entertainment<br>
         <input type="checkbox" id="uncheck_all" name="uncheck_all"><label  for="uncheck_all"></label>Uncheck All<br>
-        <img class="gear" src="images/gear.jpg" onclick="openNav()">
+        <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg" onclick="openNav()"></a>
     </div>
     <div id="main">
         <div class="featured_content"></div>

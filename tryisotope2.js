@@ -22,40 +22,14 @@ $(document).ready(function() {
     $('.side_nav input:checkbox').change(function() {
         // this will contain a reference to the checkbox
         console.log(this.name);
-        if (this.checked) {
-            // the checkbox is now checked
-            switch (this.name) {
-                case 'gaming':
-                    $grid.isotope({ filter: '*' });
-                    $grid2.isotope({ filter: '*' });
-
-                    break;
-                case 'entertainment':
-                    $grid.isotope({ filter: '*' });
-                    $grid2.isotope({ filter: '*' });
-                    break;
-                default:
-
-            }
-        } else {
-            switch (this.name) {
-                case 'gaming':
-                    $grid.isotope({ filter: '.games' });
-                    $grid2.isotope({ filter: '.games' });
-
-                    break;
-                case 'entertainment':
-                    $grid.isotope({ filter: '.entertain' });
-                    $grid2.isotope({ filter: '.entertain' });
-                    break;
-                default:
-
-            }
-        }
+            $('.'+this.name).toggleClass('hidden');
+            $grid.isotope({ filter: '*:not(.hidden)' });
+            $grid2.isotope({ filter: '*:not(.hidden)' });
     });
 });
 
-var sizeClasses=['small"','small"','small"','small"','small"','small"','small"','small"','small"','small"','small"','small"'];
+var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
+
 function buildThumbnails(stream){
     console.log(stream);
     var thumbs=$('<div class="grid">');
@@ -75,8 +49,8 @@ function buildThumbnails(stream){
     var contDiv6;
     for (var i=0; i<stream.length; i++){
         contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
-        contDiv2=$('<div class="entertain grid-item grid-item--'+sizeClasses[i+1]+'>');
-        contDiv3=$('<div class="games grid-item grid-item--'+sizeClasses[i+2]+'>');
+        contDiv2=$('<div class="entertainment grid-item grid-item--'+sizeClasses[i+1]+'>');
+        contDiv3=$('<div class="news grid-item grid-item--'+sizeClasses[i+2]+'>');
         thumb=$('<img src=' + stream[i].thumbnail + '>');
         thumb2=$('<img src=' + stream[i].thumbnail + '>');
         thumb3=$('<img src=' + stream[i].thumbnail + '>');
