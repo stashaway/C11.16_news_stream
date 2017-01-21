@@ -1,9 +1,14 @@
+$('.modal').modal();
+$('#modal2').modal('open');
 function openNav() {
     $("#side_nav").toggleClass("open_nav");
 }
-$('.modal').modal();
-function openRightNav() {
-    $("#right_side_nav").toggleClass("open_right_nav");
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
 }
 var auth2 = null;
 function onSuccess(googleUser) {
@@ -58,11 +63,14 @@ function displayLogginState(){
     }
 }
 $(document).ready(function() {
+    $('#sign_out').click(signOut);
+    $('#sign_out').hide();
     if(isUserLoggedIn()){
-        $('#sign_out').click(signOut).hide();
+        $('#sign_out').show();
     }else{
         renderButton();
-        $('#sign_out').click(signOut).show();
+
 
     }
 });
+
