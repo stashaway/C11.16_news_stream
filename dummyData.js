@@ -11,7 +11,7 @@ var categories = [
     "other"
 ];
 
-/**
+/** Structure
  * {
  *  streams:[{id:...}],
  *  id:"category"

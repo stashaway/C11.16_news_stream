@@ -2,12 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
     <title>Streamism.tv</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
+    <!--<script src="trymasonry.js"></script>-->
+    <!--<script src="tryisotope.js"></script>-->
+    <script src="tryisotope2.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="dummyData.js"></script>
     <script src="script.js"></script>
+
 </head>
 <body>
+    <header>
+        <div id="user_login">
+            <div class='g-signin2' id="my-signin2"></div>
+            <div id="sign_out"><img src="images/signout.png"></div>
+        </div>
+        <img class="logo" src="images/logo1.png"/>
+        <h2 class="header_logo">
+            Streamism
+        </h2>
+        <p class="header_tagline">
+        Stream until your streams come true.
+        </p>
+        <div id="modal2" class="modal">
+            <div class="modal-content">
+                <h4>Welcome!</h4>
+                <p>Streamism.tv creates a one-of-a-kind viewing experience that allows you to partake in all trending streams on Twitch.tv and Youtube. Go ahead, and hover over any thumbnail to preview information, or click on the thumbnail to view the stream. Click anywhere to begin! </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+    </header>
 
+    <div id="side_nav" class="side_nav">
+        <h1>Filters</h1>
+        <h3>Uncheck Boxes to Hide Video Category</h3>
+        <input type="checkbox" id=featured_check name="featured_content" checked><label  for="featured_check"></label>Featured Content<br>
+        <input type="checkbox" id=world_news-check name="news" checked><label for="world_news-check"></label>News<br>
+        <input type="checkbox" id="sports_check" name="sports" checked><label for="sports_check"></label>Life/Sports<br>
+        <input type="checkbox" id="gaming_check" name="games" checked><label  for="gaming_check"></label>Gaming<br>
+        <input type="checkbox" id="tech_check" name="tech" checked><label  for="tech_check"></label>Science/Tech<br>
+        <input type="checkbox" id="misc_check" name="misc" checked><label  for="misc_check"></label>Misc<br>
+        <input type="checkbox" id="entertainment_check" name="entertainment" checked><label  for="entertainment_check"></label>Entertainment<br>
+        <input type="checkbox" id="uncheck_all" name="uncheck_all"><label  for="uncheck_all"></label>Uncheck All<br>
+        <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg" onclick="openNav()"></a>
+    </div>
+    <div id="main">
+        <div class="featured_content"></div>
+        <div class="world_news"></div>
+        <div class="sports"></div>
+        <div class="gaming"></div>
+        <div class="entertainment"></div>
+    </div>
+    <script src="dummyData.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

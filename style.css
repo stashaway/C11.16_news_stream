@@ -1,0 +1,218 @@
+header{
+    font-family: 'Julius Sans One', sans-serif;
+    text-align: center;
+}
+#user_login{
+    position: absolute;
+    left: 85vw;
+    top: 10px;
+}
+
+.about_btn{
+    position: absolute;
+    top: 2%;
+    left: 15%;
+}
+.header_logo{
+    top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.header_tagline {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+img.logo {
+    top:0;
+    left:50%;
+    transform: translate(-50%,0);
+    height: 80px;
+    position: absolute;
+    opacity: .5;
+    z-index: -1;
+}
+
+div#main {
+    margin-left: 10%;
+    margin-top: 7%;
+}
+
+.side_nav{
+    font-family: 'Gruppo', cursive;
+    font-size: 20px;
+    height: 100%;
+    color: #455a64 ;
+    width: 220px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: -160px;
+    background-color: #455a64 ;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    opacity: .4;
+    border: 1px solid white;
+    border-radius: 0 5% 5% 0;
+}
+.side_nav:hover {
+    opacity: 1;
+}
+.side_nav>h1{
+    font-size: 2em;
+}
+.side_nav>h3{
+    font-size: 1em;
+}
+.open_nav{
+    color :white;
+    left: 0;
+    padding-left: 10px;
+}
+.side_nav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+.side_nav a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+.gear{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    right: 0;
+    height: 30px;
+}
+.profile{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 45%;
+    left: 50%;
+    height: 30px;
+}
+.fixed-action-btn{
+    top:1px;
+}
+.model-content{
+   color:black
+}
+
+#sign_out{
+    height: 50px;
+    width: 240px;
+}
+/****************this is css for genres as individual divs***************************/
+/*.gaming {*/
+    /*background-color: lightskyblue;*/
+    /*width: 45vw;*/
+    /*top: 10%;*/
+    /*left: 0;*/
+    /*display: inline-block;*/
+/*}*/
+/*.entertainment {*/
+    /*background-color: mediumorchid;*/
+    /*width: 45vw;*/
+    /*top: 10%;*/
+    /*left: 50%;*/
+    /*display: inline-block;*/
+/*}*/
+/****************this is css for genres in same div*****************/
+.gaming {
+    width: 90vw;
+    background-color: lightskyblue;
+    top: 10%;
+    left: 0;
+    display: inline-block;
+}
+.entertainment {
+    background-color: mediumorchid;
+    width: 90vw;
+    top: 10%;
+    left: 50%;
+    display: inline-block;
+}
+
+/*************Masonry Classes*************/
+.grid-sizer,
+.grid-sizer2,
+.grid-item {
+    float: left;
+    /*width: 165px;*/
+    /*height: 93px;*/
+    width: 14vw;
+    height: 8vw;
+    /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
+}
+/*.grid-item--large{*/
+    /*!*width: 165px;*!*/
+    /*!*height: 93px;*!*/
+    /*width: 15%*/
+/*}*/
+.grid-item--medium {
+    /*width:16%;*/
+    /*height: 9%*/
+    width: 14vw;
+    height: 8vw;
+}
+
+/*.grid-item--small{*/
+    /*width:15%;*/
+    /*!*height: 125px;*!*/
+/*}*/
+.grid-item img {
+    width:100%;
+    height:95%;
+
+}
+/*************Isotope Classes*************/
+/*.games, .news, .entertain {*/
+    /*position: relative;*/
+/*}*/
+.games{
+    background-color: red;
+}
+.news{
+    background-color: green;
+
+}
+.entertain{
+    background-color: blue;
+}
+.games::after {
+    opacity: .2;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
+.news::after {
+    opacity: .2;
+    background-color: green;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
+.entertain::after {
+    opacity: .2;
+    background-color: blue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
+
