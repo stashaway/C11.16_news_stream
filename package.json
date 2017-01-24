@@ -1,0 +1,22 @@
+{
+  "name": "streamism",
+  "version": "1.0.0",
+  "description": "live streaming aggregator",
+  "main": "streamism.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Learning-Fuze/C11.16_news_stream.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Learning-Fuze/C11.16_news_stream/issues"
+  },
+  "homepage": "https://github.com/Learning-Fuze/C11.16_news_stream#readme",
+  "dependencies": {
+    "googleapis": "^16.1.0"
+  }
+}
