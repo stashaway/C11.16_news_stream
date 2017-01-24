@@ -9,12 +9,19 @@ var config = {
 firebase.initializeApp(config);
 var fb_ref = firebase.database();
 
-fb_ref.ref('streams/streams').push(fullData);
+fb_ref.ref('masterList').push(fullData);
 
 fb_ref.ref('streams/streams').on('value', function(snapshot){
+    console.log("snapshot: " ,snapshot.val())
     updateDom(snapshot.val());
 });
 //function to populate DOM
-function updateDom(){
-
+function updateDom(snapshot_obj){
+    // buildThumbnails(snapshot_obj)
+    // for(var video_obj in snapshot_obj){
+    //     var streams_array = video_obj.streams;
+    //     for(var i=0; i < streams_array; i++){
+    //
+    //     }
+    // }
 };
