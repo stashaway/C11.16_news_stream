@@ -13,7 +13,7 @@ $(document).ready(function() {
         // init Masonry after all images have loaded
         $grid2.isotope({
             // options...
-            itemSelector: '.grid-item',
+            itemSelector: '.grid-item2',
             masonry: {columnWidth: '.grid-sizer2'},
             percentPosition: true
         });
@@ -44,9 +44,7 @@ function buildThumbnails(stream){
     var thumb4;
     var thumb5;
     var thumb6;
-    var contDiv4;
-    var contDiv5;
-    var contDiv6;
+
     for (var i=0; i<stream.length; i++){
         contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
         contDiv2=$('<div class="entertainment grid-item grid-item--'+sizeClasses[i+1]+'>');
@@ -57,22 +55,23 @@ function buildThumbnails(stream){
         contDiv.append(thumb);
         contDiv2.append(thumb2);
         contDiv3.append(thumb3);
-        thumbs.append(contDiv,contDiv2,contDiv3);
+        thumbs.append(contDiv,contDiv2);
     }
-    $('.gaming').append(thumbs);
-    // for (var j=0; j<stream.length; j++){
-    //     contDiv4=$('<div class="entertain grid-item grid-item--'+sizeClasses[j]+'>');
-    //     contDiv5=$('<div class="entertain grid-item grid-item--'+sizeClasses[j+1]+'>');
-    //     contDiv6=$('<div class="entertain grid-item grid-item--'+sizeClasses[j+2]+'>');
-    //     thumb4=$('<img src=' + stream[j].thumbnail + '>');
-    //     thumb5=$('<img src=' + stream[j].thumbnail + '>');
-    //     thumb6=$('<img src=' + stream[j].thumbnail + '>');
-    //     contDiv4.append(thumb6);
-    //     contDiv5.append(thumb5);
-    //     contDiv6.append(thumb4);
-    //     thumbs2.append(contDiv4,contDiv5,contDiv6);
-    // }
-    // console.log('Thumbs2 - '+thumbs2);
-    // $('.gaming').append(thumbs2);
+    $('.medium').append(thumbs);
+
+    for (var j=0; j<2; j++){
+        contDiv4=$('<div class="entertainment grid-item2 grid-item--large">');
+        contDiv5=$('<div class="news grid-item2 grid-item--large">');
+        contDiv6=$('<div class="games grid-item2 grid-item--large">');
+        thumb4=$('<img src=' + stream[j].thumbnail + '>');
+        thumb5=$('<img src=' + stream[j].thumbnail + '>');
+        thumb6=$('<img src=' + stream[j].thumbnail + '>');
+        contDiv4.append(thumb6);
+        contDiv5.append(thumb5);
+        contDiv6.append(thumb4);
+        thumbs2.append(contDiv4, contDiv5);
+    }
+    console.log('Thumbs2 - '+thumbs2);
+    $('.large').append(thumbs2);
 
 }

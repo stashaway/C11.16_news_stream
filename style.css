@@ -114,24 +114,31 @@ div#main {
     /*display: inline-block;*/
 /*}*/
 /****************this is css for genres in same div*****************/
-.gaming {
+.large {
     width: 90vw;
     background-color: lightskyblue;
     top: 10%;
     left: 0;
     display: inline-block;
 }
-.entertainment {
+.medium {
     background-color: mediumorchid;
     width: 90vw;
     top: 10%;
-    left: 50%;
+    left: 0;
     display: inline-block;
 }
 
 /*************Masonry Classes*************/
-.grid-sizer,
 .grid-sizer2,
+.grid-item2 {
+    float: left;
+    /*width: 165px;*/
+    /*height: 93px;*/
+    width: 25%;
+    height: 14.0625%;
+}
+.grid-sizer,
 .grid-item {
     float: left;
     /*width: 165px;*/
@@ -140,11 +147,13 @@ div#main {
     height: 8vw;
     /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
 }
-/*.grid-item--large{*/
-    /*!*width: 165px;*!*/
-    /*!*height: 93px;*!*/
-    /*width: 15%*/
-/*}*/
+.grid-item--large{
+    /*width: 165px;*/
+    /*height: 93px;*/
+    width: 25%;
+    height: 14.0625%;
+}
+
 .grid-item--medium {
     /*width:16%;*/
     /*height: 9%*/
@@ -156,7 +165,7 @@ div#main {
     /*width:15%;*/
     /*!*height: 125px;*!*/
 /*}*/
-.grid-item img {
+.grid-item img, .grid-item2 img {
     width:100%;
     height:95%;
 
@@ -165,10 +174,10 @@ div#main {
 /*.games, .news, .entertain {*/
     /*position: relative;*/
 /*}*/
-.games{
+.large{
     background-color: red;
 }
-.news{
+.medium{
     background-color: green;
 
 }
