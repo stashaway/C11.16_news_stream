@@ -1,77 +1,159 @@
 $(document).ready(function() {
-    buildThumbnails(parsedStreamData);
-    $grid = $('.grid').imagesLoaded( function() {
-        // init Masonry after all images have loaded
-        $grid.isotope({
-            // options...
-            itemSelector: '.grid-item',
-            masonry: {columnWidth: '.grid-sizer'},
+    buildThumbnails(fullData);
+    $grid1 = $('.grid-l').imagesLoaded( function() {
+        $grid1.isotope({
+            itemSelector: '.grid-item-l',
+            masonry: {columnWidth: '.grid-sizer-l'},
+            stagger: 30,
             percentPosition: true
         });
     });
-    $grid2 = $('.grid2').imagesLoaded( function() {
-        // init Masonry after all images have loaded
+    $grid2 = $('.grid-m').imagesLoaded( function() {
         $grid2.isotope({
-            // options...
-            itemSelector: '.grid-item2',
-            masonry: {columnWidth: '.grid-sizer2'},
+            itemSelector: '.grid-item-m',
+            masonry: {columnWidth: '.grid-sizer-m'},
+            stagger: 30,
             percentPosition: true
         });
     });
-
+    $grid3 = $('.grid-s').imagesLoaded( function() {
+        $grid3.isotope({
+            itemSelector: '.grid-item-s',
+            masonry: {columnWidth: '.grid-sizer-s'},
+            stagger: 30,
+            percentPosition: true
+        });
+    });
     $('.side_nav input:checkbox').change(function() {
         // this will contain a reference to the checkbox
         console.log(this.name);
-            $('.'+this.name).toggleClass('hidden');
-            $grid.isotope({ filter: '*:not(.hidden)' });
-            $grid2.isotope({ filter: '*:not(.hidden)' });
+        $('.'+this.name).toggleClass('hidden');
+        $grid1.isotope({ filter: '*:not(.hidden)' });
+        $grid2.isotope({ filter: '*:not(.hidden)' });
+        $grid3.isotope({ filter: '*:not(.hidden)' });
     });
 });
 
-var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
+// var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
 
-function buildThumbnails(stream){
-    console.log(stream);
-    var thumbs=$('<div class="grid">');
-    var thumbs2=$('<div class="grid2">');
-    var gridsizer=$('<div class="grid-sizer">');
-    thumbs.append(gridsizer);
-    var gridsizer2=$('<div class="grid-sizer2">');
-    thumbs2.append(gridsizer2);
-    var thumb;
-    var thumb2;
-    var thumb3;
-    var thumb4;
-    var thumb5;
-    var thumb6;
+// function buildThumbnails(stream){
+//     console.log(stream);
+//     var thumbs=$('<div class="grid">');
+//     var thumbs2=$('<div class="grid2">');
+//     var gridsizer=$('<div class="grid-sizer">');
+//     thumbs.append(gridsizer);
+//     var gridsizer2=$('<div class="grid-sizer2">');
+//     thumbs2.append(gridsizer2);
+//     var thumb;
+//     var thumb2;
+//     var thumb3;
+//     var thumb4;
+//     var thumb5;
+//     var thumb6;
+//
+//     for (var i=0; i<stream.length; i++){
+//         contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
+//         contDiv2=$('<div class="entertainment grid-item grid-item--'+sizeClasses[i+1]+'>');
+//         contDiv3=$('<div class="news grid-item grid-item--'+sizeClasses[i+2]+'>');
+//         thumb=$('<img src=' + stream[i].thumbnail + '>');
+//         thumb2=$('<img src=' + stream[i].thumbnail + '>');
+//         thumb3=$('<img src=' + stream[i].thumbnail + '>');
+//         contDiv.append(thumb);
+//         contDiv2.append(thumb2);
+//         contDiv3.append(thumb3);
+//         thumbs.append(contDiv,contDiv2);
+//     }
+//     $('.medium').append(thumbs);
+//
+//     for (var j=0; j<2; j++){
+//         contDiv4=$('<div class="entertainment grid-item2 grid-item--large">');
+//         contDiv5=$('<div class="news grid-item2 grid-item--large">');
+//         contDiv6=$('<div class="games grid-item2 grid-item--large">');
+//         thumb4=$('<img src=' + stream[j].thumbnail + '>');
+//         thumb5=$('<img src=' + stream[j].thumbnail + '>');
+//         thumb6=$('<img src=' + stream[j].thumbnail + '>');
+//         contDiv4.append(thumb6);
+//         contDiv5.append(thumb5);
+//         contDiv6.append(thumb4);
+//         thumbs2.append(contDiv4, contDiv5);
+//     }
+//     console.log('Thumbs2 - '+thumbs2);
+//     $('.large').append(thumbs2);
+//
+// }
 
-    for (var i=0; i<stream.length; i++){
-        contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
-        contDiv2=$('<div class="entertainment grid-item grid-item--'+sizeClasses[i+1]+'>');
-        contDiv3=$('<div class="news grid-item grid-item--'+sizeClasses[i+2]+'>');
-        thumb=$('<img src=' + stream[i].thumbnail + '>');
-        thumb2=$('<img src=' + stream[i].thumbnail + '>');
-        thumb3=$('<img src=' + stream[i].thumbnail + '>');
-        contDiv.append(thumb);
-        contDiv2.append(thumb2);
-        contDiv3.append(thumb3);
-        thumbs.append(contDiv,contDiv2);
+function buildThumbnails(fullList){
+    console.log(fullList);
+    console.log('This is the gaming stream- ',fullList['streams'][0]['streams']);
+    var games_list = fullList['streams'][0]['streams'];
+    var entertainment_list = fullList['streams'][1]['streams'];
+    var life_list = fullList['streams'][2]['streams'];
+    var current_list = fullList['streams'][3]['streams'];
+    for (var i=0; i<1; i++){
+        var new_e_thumb = entertainment_list[i].thumbnail;
+        var new_e_item = $('<div class="grid-item-l grid-item--large entertainment">');
+        var new_e_img = $('<img src="' + new_e_thumb + '">');
+        new_e_item.append(new_e_img);
+        $('.grid-l').append(new_e_item);
+        var new_l_thumb = life_list[i].thumbnail;
+        var new_l_item = $('<div class="grid-item-l grid-item--large news">');
+        var new_l_img = $('<img src="' + new_l_thumb + '">');
+        new_l_item.append(new_l_img);
+        $('.grid-l').append(new_l_item);
+        var new_g_thumb = games_list[i].thumbnail;
+        var new_g_item = $('<div class="grid-item-l grid-item--large games">');
+        var new_g_img = $('<img src="' + new_g_thumb + '">');
+        new_g_item.append(new_g_img);
+        $('.grid-l').append(new_g_item);
+        var new_c_thumb = current_list[i].thumbnail;
+        var new_c_item = $('<div class="grid-item-l grid-item--large misc">');
+        var new_c_img = $('<img src="' + new_c_thumb + '">');
+        new_c_item.append(new_c_img);
+        $('.grid-l').append(new_c_item);
+
     }
-    $('.medium').append(thumbs);
-
-    for (var j=0; j<2; j++){
-        contDiv4=$('<div class="entertainment grid-item2 grid-item--large">');
-        contDiv5=$('<div class="news grid-item2 grid-item--large">');
-        contDiv6=$('<div class="games grid-item2 grid-item--large">');
-        thumb4=$('<img src=' + stream[j].thumbnail + '>');
-        thumb5=$('<img src=' + stream[j].thumbnail + '>');
-        thumb6=$('<img src=' + stream[j].thumbnail + '>');
-        contDiv4.append(thumb6);
-        contDiv5.append(thumb5);
-        contDiv6.append(thumb4);
-        thumbs2.append(contDiv4, contDiv5);
+    for (var i=4; i<13; i++){
+        var new_e_thumb = entertainment_list[i].thumbnail;
+        var new_e_item = $('<div class="grid-item-m grid-item--medium entertainment">');
+        var new_e_img = $('<img src="' + new_e_thumb + '">');
+        new_e_item.append(new_e_img);
+        $('.grid-m').append(new_e_item);
+        var new_l_thumb = life_list[i].thumbnail;
+        var new_l_item = $('<div class="grid-item-m grid-item--medium news">');
+        var new_l_img = $('<img src="' + new_l_thumb + '">');
+        new_l_item.append(new_l_img);
+        $('.grid-m').append(new_l_item);
+        var new_g_thumb = games_list[i].thumbnail;
+        var new_g_item = $('<div class="grid-item-m grid-item--medium games">');
+        var new_g_img = $('<img src="' + new_g_thumb + '">');
+        new_g_item.append(new_g_img);
+        $('.grid-m').append(new_g_item);
+        var new_c_thumb = current_list[i].thumbnail;
+        var new_c_item = $('<div class="grid-item-m grid-item--medium misc">');
+        var new_c_img = $('<img src="' + new_c_thumb + '">');
+        new_c_item.append(new_c_img);
+        $('.grid-m').append(new_c_item);
     }
-    console.log('Thumbs2 - '+thumbs2);
-    $('.large').append(thumbs2);
-
+    for (var i=13; i<33; i++){
+        var new_e_thumb = entertainment_list[i].thumbnail;
+        var new_e_item = $('<div class="grid-item-s grid-item--small entertainment">');
+        var new_e_img = $('<img src="' + new_e_thumb + '">');
+        new_e_item.append(new_e_img);
+        $('.grid-s').append(new_e_item);
+        var new_l_thumb = life_list[i].thumbnail;
+        var new_l_item = $('<div class="grid-item-s grid-item--small news">');
+        var new_l_img = $('<img src="' + new_l_thumb + '">');
+        new_l_item.append(new_l_img);
+        $('.grid-s').append(new_l_item);
+        var new_g_thumb = games_list[i].thumbnail;
+        var new_g_item = $('<div class="grid-item-s grid-item--small games">');
+        var new_g_img = $('<img src="' + new_g_thumb + '">');
+        new_g_item.append(new_g_img);
+        $('.grid-s').append(new_g_item);
+        var new_c_thumb = current_list[i].thumbnail;
+        var new_c_item = $('<div class="grid-item-s grid-item--small misc">');
+        var new_c_img = $('<img src="' + new_c_thumb + '">');
+        new_c_item.append(new_c_img);
+        $('.grid-s').append(new_c_item);
+    }
 }
