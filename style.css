@@ -2,6 +2,11 @@ header{
     font-family: 'Julius Sans One', sans-serif;
     text-align: center;
 }
+#user_login{
+    position: absolute;
+    left: 85vw;
+    top: 10px;
+}
 
 .about_btn{
     position: absolute;
@@ -97,6 +102,11 @@ div#main {
 }
 .model-content{
    color:black
+}
+
+#sign_out{
+    height: 50px;
+    width: 240px;
 }
 /****************this is css for genres as individual divs***************************/
 /*.gaming {*/
