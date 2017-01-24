@@ -37,9 +37,13 @@ img.logo {
 
 div#main {
     margin-left: 10%;
-    margin-top: 7%;
+    margin-top: 5%;
 }
 
+.section_label {
+    margin: 2px 0;
+    font-size: 1.5em;
+}
 .side_nav{
     font-family: 'Gruppo', cursive;
     font-size: 20px;
@@ -90,6 +94,7 @@ div#main {
     right: 0;
     height: 30px;
 }
+
 .profile{
     position: absolute;
     transform: translate(-50%, -50%);
@@ -108,65 +113,80 @@ div#main {
     height: 50px;
     width: 240px;
 }
-/****************this is css for genres as individual divs***************************/
-/*.gaming {*/
-    /*background-color: lightskyblue;*/
-    /*width: 45vw;*/
-    /*top: 10%;*/
-    /*left: 0;*/
-    /*display: inline-block;*/
-/*}*/
-/*.entertainment {*/
-    /*background-color: mediumorchid;*/
-    /*width: 45vw;*/
-    /*top: 10%;*/
-    /*left: 50%;*/
-    /*display: inline-block;*/
-/*}*/
-/****************this is css for genres in same div*****************/
-.gaming {
+/************ Overall Containers ********************/
+
+.large, .grid-l {
     width: 90vw;
-    background-color: lightskyblue;
+    /*height: 20vh;*/
+    /*background-color: lightskyblue;*/
     top: 10%;
     left: 0;
     display: inline-block;
 }
-.entertainment {
-    background-color: mediumorchid;
+.medium, .grid-m {
+    /*background-color: mediumorchid;*/
     width: 90vw;
+    /*height: 30vh;*/
     top: 10%;
-    left: 50%;
+    left: 0;
     display: inline-block;
 }
-
+.small, .grid-s {
+    /*background-color: mediumorchid;*/
+    width: 81vw;
+    /*height: 30vh;*/
+    top: 10%;
+    left: 0;
+    display: inline-block;
+}
 /*************Masonry Classes*************/
-.grid-sizer,
-.grid-sizer2,
-.grid-item {
+.grid-sizer-l,
+.grid-item-l {
     float: left;
     /*width: 165px;*/
     /*height: 93px;*/
-    width: 14vw;
-    height: 8vw;
+    width: 22.5%;
+    /*height: 30vh;*/
     /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
 }
 /*.grid-item--large{*/
     /*!*width: 165px;*!*/
     /*!*height: 93px;*!*/
-    /*width: 15%*/
+    /*width: 14%;*/
+    /*height: 8%;*/
 /*}*/
-.grid-item--medium {
-    /*width:16%;*/
-    /*height: 9%*/
-    width: 14vw;
-    height: 8vw;
+.grid-sizer-m,
+.grid-item-m {
+    float: left;
+    /*width: 165px;*/
+    /*height: 93px;*/
+    /*width: 14vw;*/
+    /*height: 8vw;*/
+    width: 15%
 }
-
-/*.grid-item--small{*/
-    /*width:15%;*/
-    /*!*height: 125px;*!*/
+/*.grid-item--medium {*/
+    /*!*width:16%;*!*/
+    /*!*height: 9%*!*/
+    /*width: 14vw;*/
+    /*height: 8vw;*/
 /*}*/
-.grid-item img {
+
+.grid-sizer-s,
+.grid-item-s {
+    float: left;
+    /*width: 165px;*/
+    /*height: 93px;*/
+    width: 10%;
+    /*height: 4vw;*/
+}
+/*.grid-item--small {*/
+    /*!*width:16%;*!*/
+    /*!*height: 9%*!*/
+    /*width: 7vw;*/
+    /*height: 4vw;*/
+/*}*/
+
+.grid-item-l img, .grid-item-m img, .grid-item-s img {
     width:100%;
     height:95%;
 
@@ -175,19 +195,19 @@ div#main {
 /*.games, .news, .entertain {*/
     /*position: relative;*/
 /*}*/
-.games{
-    background-color: red;
-}
-.news{
-    background-color: green;
+/*.large{*/
+    /*background-color: red;*/
+/*}*/
+/*.medium{*/
+    /*background-color: green;*/
 
-}
-.entertain{
-    background-color: blue;
-}
+/*}*/
+/*.entertain{*/
+    /*background-color: blue;*/
+/*}*/
 .games::after {
     opacity: .2;
-    background-color: red;
+    background-color: #ff412d;
     position: absolute;
     top: 0;
     left: 0;
@@ -197,7 +217,7 @@ div#main {
 }
 .news::after {
     opacity: .2;
-    background-color: green;
+    background-color: #158065;
     position: absolute;
     top: 0;
     left: 0;
@@ -205,9 +225,19 @@ div#main {
     width: 100%;
     content: " ";
 }
-.entertain::after {
+.entertainment::after {
     opacity: .2;
-    background-color: blue;
+    background-color: #28a5ff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: " ";
+}
+.misc::after {
+    opacity: .2;
+    background-color: #6affd8;
     position: absolute;
     top: 0;
     left: 0;
@@ -216,3 +246,70 @@ div#main {
     content: " ";
 }
 
+/*Tooltip Fixes*/
+[data-tooltip] {
+    /*position: relative;*/
+    /*z-index: 2;*/
+    /*cursor: pointer;*/
+    position: absolute;
+    transform: translate(0%, -50%);
+    top: 50%;
+    right: 0;
+    /*height: 30px;*/
+}
+
+/* Hide the tooltip content by default */
+/*[data-tooltip]:before,*/
+/*[data-tooltip]:after {*/
+    /*visibility: hidden;*/
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";*/
+    /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
+    /*opacity: 0;*/
+    /*pointer-events: none;*/
+/*}*/
+
+/*!* Position tooltip above the element *!*/
+/*[data-tooltip]:before {*/
+    /*position: absolute;*/
+    /*bottom: 150%;*/
+    /*left: 50%;*/
+    /*margin-bottom: 5px;*/
+    /*margin-left: -80px;*/
+    /*padding: 7px;*/
+    /*width: 160px;*/
+    /*-webkit-border-radius: 3px;*/
+    /*-moz-border-radius: 3px;*/
+    /*border-radius: 3px;*/
+    /*background-color: #000;*/
+    /*background-color: hsla(0, 0%, 20%, 0.9);*/
+    /*color: #fff;*/
+    /*content: attr(data-tooltip);*/
+    /*text-align: center;*/
+    /*font-size: 14px;*/
+    /*line-height: 1.2;*/
+/*}*/
+
+/* Triangle hack to make tooltip look like a speech bubble */
+/*[data-tooltip]:after {*/
+    /*position: absolute;*/
+    /*bottom: 150%;*/
+    /*left: 50%;*/
+    /*margin-left: -5px;*/
+    /*width: 0;*/
+    /*border-top: 5px solid #000;*/
+    /*border-top: 5px solid hsla(0, 0%, 20%, 0.9);*/
+    /*border-right: 5px solid transparent;*/
+    /*border-left: 5px solid transparent;*/
+    /*content: " ";*/
+    /*font-size: 0;*/
+    /*line-height: 0;*/
+/*}*/
+
+/*!* Show tooltip content on hover *!*/
+/*[data-tooltip]:hover:before,*/
+/*[data-tooltip]:hover:after {*/
+    /*visibility: visible;*/
+    /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";*/
+    /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);*/
+    /*opacity: 1;*/
+/*}*/
