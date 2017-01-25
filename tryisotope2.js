@@ -46,6 +46,9 @@ $(document).ready(function() {
             });
         }
     });
+    $('.large').on('mouseenter','.grid-item-l',(function(){
+        console.log(this);
+    }))
 });
 function buildThumbnails(fullList){
     var games_list = fullList['streams'][0]['streams'];
@@ -54,7 +57,7 @@ function buildThumbnails(fullList){
     var current_list = fullList['streams'][3]['streams'];
     for (var i=0; i<1; i++){
         var new_e_thumb = entertainment_list[i].thumbnail;
-        var new_e_item = $('<div class="grid-item-l grid-item--large entertainment">');
+        var new_e_item = $('<div class="grid-item-l grid-item--large entertainment" data-link="'+entertainment_list[i].link+'" data-thumb="'+entertainment_list[i].thumbnail+'">');
         var new_e_img = $('<img src="' + new_e_thumb + '">');
         new_e_item.append(new_e_img);
         $('.grid-l').append(new_e_item);
@@ -119,4 +122,5 @@ function buildThumbnails(fullList){
         new_c_item.append(new_c_img);
         $('.grid-s').append(new_c_item);
     }
+    $('#spinner').hide();
 }
