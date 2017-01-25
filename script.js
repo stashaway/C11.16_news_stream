@@ -69,7 +69,5 @@ $(document).ready(function() {
         $('#sign_out').show();
     }else{
         renderButton();
-
-
     }
 });
