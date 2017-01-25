@@ -1,5 +1,5 @@
-var w = 1280 - 80,
-    h = 800 - 180,
+var w = document.documentElement.clientWidth,
+    h = document.documentElement.clientHeight,
     x = d3.scale.linear().range([0, w]),
     y = d3.scale.linear().range([0, h]),
     color = d3.scale.category20c(),
@@ -23,7 +23,7 @@ var svg = d3.select("#body").append("div")
     .attr("transform", "translate(.5,.5)");
 
 
-node = root = parsedStreamData;
+node = root = fullData;
 
 var nodes = treemap.nodes(root)
     .filter(function(d) { return !d.children; });
@@ -45,8 +45,8 @@ cell.append("svg:text")
     .attr("y", function(d) { return d.dy / 2; })
     .attr("dy", ".35em")
     .attr("text-anchor", "middle")
-    .text(function(d) { return d.name; })
-    .style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0; });
+    .text(function(d) { return d.title; })
+    .style("opacity", function(d) { d.w = this.getComputedTextLength(); return d.dx > d.w ? 1 : 0.5; });
 
 d3.select(window).on("click", function() { zoom(root); });
 
@@ -79,7 +79,7 @@ function zoom(d) {
     t.select("text")
         .attr("x", function(d) { return kx * d.dx / 2; })
         .attr("y", function(d) { return ky * d.dy / 2; })
-        .style("opacity", function(d) { return kx * d.dx > d.w ? 1 : 0; });
+        .style("opacity", function(d) { return kx * d.dx > d.w ? 1 : 0.5; });
 
     node = d;
     d3.event.stopPropagation();
