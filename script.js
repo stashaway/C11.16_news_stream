@@ -2,8 +2,8 @@
  * Created by baultik on 1/18/17.
  */
 // Dimensions of sunburst.
-var width = 750;
-var height = 600;
+var width = document.body.clientWidth;
+var height = document.body.clientHeight;
 var radius = Math.min(width, height) / 2;
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
@@ -13,9 +13,12 @@ var b = {
 
 // Mapping of step names to colors.
 var colors = {
-    "twitch": "#5687d1",
-    "youtube": "#7b615c",
-    "end": "#bbbbbb"
+    "gaming": "#8437d1",
+    "entertainment": "#d61a02",
+    "life":"#3f27A3",
+    "current":"#41e792",
+    "learning":"#90ceb1",
+    "other":"#4d6a0a"
 };
 
 // Total size of all segments; we set this later, after loading the data.
@@ -29,7 +32,7 @@ var vis = d3.select("#chart").append("svg:svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var partition = d3.partition()
-    .size([2 * Math.PI, radius * radius]);
+    .size([2*Math.PI, radius * radius]);
 
 var arc = d3.arc()
     .startAngle(function(d) { return d.x0; })
@@ -37,15 +40,7 @@ var arc = d3.arc()
     .innerRadius(function(d) { return Math.sqrt(d.y0); })
     .outerRadius(function(d) { return Math.sqrt(d.y1); });
 
-// Use d3.text and d3.csvParseRows so that we do not need to have a header
-// row, and can receive the csv as an array of arrays.
-/*d3.text("visit-sequences.csv", function(text) {
-    var csv = d3.csvParseRows(text);
-    var json = buildHierarchy(csv);
-    createVisualization(json);
-});*/
-
-createVisualization(parsedStreamData);
+createVisualization(fullData);
 
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
@@ -78,7 +73,7 @@ function createVisualization(json) {
         .attr("display", function(d) { return d.depth ? null : "none"; })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
-        .style("fill", function(d) { return colors[d.data.name]; })
+        .style("fill", function(d) { return colors[d.data.name] || !(d.parent) ? colors[d.data.name] : colors[d.parent.data.name]; })
         .style("opacity", 1)
         .on("mouseover", mouseover);
 
@@ -87,7 +82,7 @@ function createVisualization(json) {
 
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
-};
+}
 
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
