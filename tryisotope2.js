@@ -7,6 +7,7 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
+    firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
     fb_ref.ref().on('value', function(snapshot) {
         var snapshot_obj = snapshot.val();
