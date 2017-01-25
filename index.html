@@ -14,8 +14,7 @@
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
-    <!--<script src="trymasonry.js"></script>-->
-    <!--<script src="tryisotope.js"></script>-->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
     <script src="tryisotope2.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
@@ -23,7 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="dummyData.js"></script>
     <script src="script.js"></script>
-
 </head>
 <body>
     <header>
@@ -48,7 +46,6 @@
             </div>
         </div>
     </header>
-
     <div id="side_nav" class="side_nav">
         <h1>Filters</h1>
         <h3>Uncheck Boxes to Hide Video Category</h3>
@@ -60,7 +57,7 @@
         <input type="checkbox" id="misc_check" name="misc" checked><label  for="misc_check"></label>Misc<br>
         <input type="checkbox" id="entertainment_check" name="entertainment" checked><label  for="entertainment_check"></label>Entertainment<br>
         <input type="checkbox" id="uncheck_all" name="uncheck_all"><label  for="uncheck_all"></label>Uncheck All<br>
-        <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg" onclick="openNav()"></a>
+        <a class="tooltipped" data-position="bottom" data-delay="20" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg" onclick="openNav()"></a>
     </div>
     <div id="main">
         <p class="section_label">Featured Streams</p>
