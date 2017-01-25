@@ -1,10 +1,11 @@
 var TwitchApi = require('twitch-api');
+var credentials = require("./credentials");
 var StreamSet = require('./streamSet');
 var Stream = require('./stream');
 
 var streamismTwitch = function (categories,streamSet) {
     this.api = new TwitchApi({
-        clientId: 'a6ftugoz7pwach29wsg5wrsn4gfpug'
+        clientId: credentials.twitch
     });
     this.categories = categories;
     this.streamSet = streamSet;

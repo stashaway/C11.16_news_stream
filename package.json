@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/Learning-Fuze/C11.16_news_stream#readme",
   "dependencies": {
+    "async": "^2.1.4",
+    "firebase-admin": "^4.0.6",
     "googleapis": "^16.1.0",
-    "async":"^2.1.4",
-    "twitch-api": "^0.4.5",
-    "twitch-sdk": "^0.3.1"
+    "twitch-api": "^0.4.5"
   }
 }

@@ -1,5 +1,6 @@
 var google = require('googleapis');
-var youtube = google.youtube({version: 'v3', auth: "AIzaSyDo1DIkPeLxpcT6Q14-m-WSm2dbUdYcZGk"});
+var credentials = require("./credentials");
+var youtube = google.youtube({version: 'v3', auth: credentials.yt});
 var async = require("async");
 var StreamSet = require('./streamSet');
 var Stream = require('./stream');

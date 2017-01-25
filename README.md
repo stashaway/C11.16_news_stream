@@ -4,3 +4,4 @@ Node implementation which grabs data from the various APIs, parses it and pushes
 ###Includes npm modules
 - googleapis
 - twitch-api
+- firebase-admin

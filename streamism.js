@@ -8,10 +8,11 @@ var Stream = require('./stream');
 var yt = require("./youtube");
 var twitch = require("./twitch");
 
+//streamism categories
 var categories = [
     "gaming","entertainment","life","news","technology","misc"
 ];
-
+//yt categories mapped to streamism categories
 var ytCategories = [
     {id:20,name:categories[0]},
     {id:24,name:categories[1]},
@@ -26,14 +27,14 @@ var ytCategories = [
     {id:28,name:categories[4]},
     {id:15,name:categories[5]}
 ];
-
+//tree root object to hold all stream data - categories are streamsets holding streams
 var root = new StreamSet("streamism");
 for (var c in categories) {
     if (categories.hasOwnProperty(c)) {
         root.add(new StreamSet(categories[c]));
     }
 }
-
+//temp write to file function
 function writeToFile(filename, obj) {
     fs.writeFile(filename, JSON.stringify(obj) , function(err) {
         if(err) {
@@ -43,6 +44,7 @@ function writeToFile(filename, obj) {
     });
 }
 
+//Initiate twitch then initiate youtube - root is passed in and back filled with data
 var sTwitch = new twitch(categories,root);
 sTwitch.start(function (tdata) {
     var sYt = new yt(categories,ytCategories,tdata);
