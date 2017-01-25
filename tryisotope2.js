@@ -1,53 +1,51 @@
 $(document).ready(function() {
-    // buildThumbnails(fullData);
-    $grid1 = $('.grid-l').imagesLoaded( function() {
-        $grid1.isotope({
-            itemSelector: '.grid-item-l',
-            masonry: {columnWidth: '.grid-sizer-l'},
-            stagger: 30,
-            percentPosition: true
-        });
+    var config = {
+        apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
+        authDomain: "streamism-cccb0.firebaseapp.com",
+        databaseURL: "https://streamism-cccb0.firebaseio.com",
+        storageBucket: "streamism-cccb0.appspot.com",
+        messagingSenderId: "582125369559"
+    };
+    firebase.initializeApp(config);
+    var fb_ref = firebase.database();
+    fb_ref.ref().on('value', function(snapshot) {
+        var snapshot_obj = snapshot.val();
+        for (var data_obj in snapshot_obj) {
+            buildThumbnails(snapshot_obj[data_obj]);
+            $grid1 = $('.grid-l').imagesLoaded( function() {
+                $grid1.isotope({
+                    itemSelector: '.grid-item-l',
+                    masonry: {columnWidth: '.grid-sizer-l'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $grid2 = $('.grid-m').imagesLoaded( function() {
+                $grid2.isotope({
+                    itemSelector: '.grid-item-m',
+                    masonry: {columnWidth: '.grid-sizer-m'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $grid3 = $('.grid-s').imagesLoaded( function() {
+                $grid3.isotope({
+                    itemSelector: '.grid-item-s',
+                    masonry: {columnWidth: '.grid-sizer-s'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $('.side_nav input:checkbox').change(function() {
+                // this will contain a reference to the checkbox
+                console.log(this.name);
+                $('.'+this.name).toggleClass('hidden');
+                $grid1.isotope({ filter: '*:not(.hidden)' });
+                $grid2.isotope({ filter: '*:not(.hidden)' });
+                $grid3.isotope({ filter: '*:not(.hidden)' });
+            });
+        }
     });
-    $grid2 = $('.grid-m').imagesLoaded( function() {
-        $grid2.isotope({
-            itemSelector: '.grid-item-m',
-            masonry: {columnWidth: '.grid-sizer-m'},
-            stagger: 30,
-            percentPosition: true
-        });
-    });
-    $grid3 = $('.grid-s').imagesLoaded( function() {
-        $grid3.isotope({
-            itemSelector: '.grid-item-s',
-            masonry: {columnWidth: '.grid-sizer-s'},
-            stagger: 30,
-            percentPosition: true
-        });
-    });
-    $('.side_nav input:checkbox').change(function() {
-        // this will contain a reference to the checkbox
-        console.log(this.name);
-        $('.'+this.name).toggleClass('hidden');
-        $grid1.isotope({ filter: '*:not(.hidden)' });
-        $grid2.isotope({ filter: '*:not(.hidden)' });
-        $grid3.isotope({ filter: '*:not(.hidden)' });
-    });
-});
-var config = {
-    apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
-    authDomain: "streamism-cccb0.firebaseapp.com",
-    databaseURL: "https://streamism-cccb0.firebaseio.com",
-    storageBucket: "streamism-cccb0.appspot.com",
-    messagingSenderId: "582125369559"
-};
-firebase.initializeApp(config);
-var fb_ref = firebase.database();
-fb_ref.ref().on('value', function(snapshot){
-    var snapshot_obj = snapshot.val();
-    for(var data_obj in snapshot_obj){
-        buildThumbnails(snapshot_obj[data_obj]);
-    }
-    console.log("snapshot: " ,snapshot.val());
 });
 
 // var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
@@ -99,8 +97,8 @@ fb_ref.ref().on('value', function(snapshot){
 // }
 
 function buildThumbnails(fullList){
-    console.log(fullList);
-    console.log('This is the gaming stream- ',fullList['streams'][0]['streams']);
+    // console.log(fullList);
+    // console.log('This is the gaming stream- ',fullList['streams'][0]['streams']);
     var games_list = fullList['streams'][0]['streams'];
     var entertainment_list = fullList['streams'][1]['streams'];
     var life_list = fullList['streams'][2]['streams'];

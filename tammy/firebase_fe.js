@@ -2,11 +2,11 @@ $(document).ready(function() {
     fb_ref.ref().on('value', function(snapshot){
         var snapshot_obj = snapshot.val();
         for(var data_obj in snapshot_obj){
+            console.log("Snap obj" , snapshot_obj[data_obj])
             buildThumbnails(snapshot_obj[data_obj]);
         }
-        console.log("snapshot: " ,snapshot.val());
+        // console.log("snapshot: " ,snapshot.val());
     });
-    // buildThumbnails(fullData);
     $grid1 = $('.grid-l').imagesLoaded( function() {
         $grid1.isotope({
             itemSelector: '.grid-item-l',
