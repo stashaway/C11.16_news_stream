@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    buildThumbnails(fullData);
+    // buildThumbnails(fullData);
     $grid1 = $('.grid-l').imagesLoaded( function() {
         $grid1.isotope({
             itemSelector: '.grid-item-l',
@@ -32,6 +32,22 @@ $(document).ready(function() {
         $grid2.isotope({ filter: '*:not(.hidden)' });
         $grid3.isotope({ filter: '*:not(.hidden)' });
     });
+});
+var config = {
+    apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
+    authDomain: "streamism-cccb0.firebaseapp.com",
+    databaseURL: "https://streamism-cccb0.firebaseio.com",
+    storageBucket: "streamism-cccb0.appspot.com",
+    messagingSenderId: "582125369559"
+};
+firebase.initializeApp(config);
+var fb_ref = firebase.database();
+fb_ref.ref().on('value', function(snapshot){
+    var snapshot_obj = snapshot.val();
+    for(var data_obj in snapshot_obj){
+        buildThumbnails(snapshot_obj[data_obj]);
+    }
+    console.log("snapshot: " ,snapshot.val());
 });
 
 // var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
