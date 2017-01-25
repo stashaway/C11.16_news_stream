@@ -44,8 +44,8 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.')
     });
-    $('#sign_out').toggle();
-    $('#my-signin2').toggle();
+    $('#sign_out').hide();
+    $('#my-signin2').show();
 }
 function isUserLoggedIn(){
     if(auth2){
