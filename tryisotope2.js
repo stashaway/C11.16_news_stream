@@ -1,90 +1,53 @@
 $(document).ready(function() {
-    buildThumbnails(fullData);
-    $grid1 = $('.grid-l').imagesLoaded( function() {
-        $grid1.isotope({
-            itemSelector: '.grid-item-l',
-            masonry: {columnWidth: '.grid-sizer-l'},
-            stagger: 30,
-            percentPosition: true
-        });
-    });
-    $grid2 = $('.grid-m').imagesLoaded( function() {
-        $grid2.isotope({
-            itemSelector: '.grid-item-m',
-            masonry: {columnWidth: '.grid-sizer-m'},
-            stagger: 30,
-            percentPosition: true
-        });
-    });
-    $grid3 = $('.grid-s').imagesLoaded( function() {
-        $grid3.isotope({
-            itemSelector: '.grid-item-s',
-            masonry: {columnWidth: '.grid-sizer-s'},
-            stagger: 30,
-            percentPosition: true
-        });
-    });
-    $('.side_nav input:checkbox').change(function() {
-        // this will contain a reference to the checkbox
-        console.log(this.name);
-        $('.'+this.name).toggleClass('hidden');
-        $grid1.isotope({ filter: '*:not(.hidden)' });
-        $grid2.isotope({ filter: '*:not(.hidden)' });
-        $grid3.isotope({ filter: '*:not(.hidden)' });
+    var config = {
+        apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
+        authDomain: "streamism-cccb0.firebaseapp.com",
+        databaseURL: "https://streamism-cccb0.firebaseio.com",
+        storageBucket: "streamism-cccb0.appspot.com",
+        messagingSenderId: "582125369559"
+    };
+    firebase.initializeApp(config);
+    var fb_ref = firebase.database();
+    fb_ref.ref().on('value', function(snapshot) {
+        var snapshot_obj = snapshot.val();
+        for (var data_obj in snapshot_obj) {
+            buildThumbnails(snapshot_obj[data_obj]);
+            $grid1 = $('.grid-l').imagesLoaded( function() {
+                $grid1.isotope({
+                    itemSelector: '.grid-item-l',
+                    masonry: {columnWidth: '.grid-sizer-l'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $grid2 = $('.grid-m').imagesLoaded( function() {
+                $grid2.isotope({
+                    itemSelector: '.grid-item-m',
+                    masonry: {columnWidth: '.grid-sizer-m'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $grid3 = $('.grid-s').imagesLoaded( function() {
+                $grid3.isotope({
+                    itemSelector: '.grid-item-s',
+                    masonry: {columnWidth: '.grid-sizer-s'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $('.side_nav input:checkbox').change(function() {
+                // this will contain a reference to the checkbox
+                console.log(this.name);
+                $('.'+this.name).toggleClass('hidden');
+                $grid1.isotope({ filter: '*:not(.hidden)' });
+                $grid2.isotope({ filter: '*:not(.hidden)' });
+                $grid3.isotope({ filter: '*:not(.hidden)' });
+            });
+        }
     });
 });
-
-// var sizeClasses=['medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"','medium"'];
-
-// function buildThumbnails(stream){
-//     console.log(stream);
-//     var thumbs=$('<div class="grid">');
-//     var thumbs2=$('<div class="grid2">');
-//     var gridsizer=$('<div class="grid-sizer">');
-//     thumbs.append(gridsizer);
-//     var gridsizer2=$('<div class="grid-sizer2">');
-//     thumbs2.append(gridsizer2);
-//     var thumb;
-//     var thumb2;
-//     var thumb3;
-//     var thumb4;
-//     var thumb5;
-//     var thumb6;
-//
-//     for (var i=0; i<stream.length; i++){
-//         contDiv=$('<div class="games grid-item grid-item--'+sizeClasses[i]+'>');
-//         contDiv2=$('<div class="entertainment grid-item grid-item--'+sizeClasses[i+1]+'>');
-//         contDiv3=$('<div class="news grid-item grid-item--'+sizeClasses[i+2]+'>');
-//         thumb=$('<img src=' + stream[i].thumbnail + '>');
-//         thumb2=$('<img src=' + stream[i].thumbnail + '>');
-//         thumb3=$('<img src=' + stream[i].thumbnail + '>');
-//         contDiv.append(thumb);
-//         contDiv2.append(thumb2);
-//         contDiv3.append(thumb3);
-//         thumbs.append(contDiv,contDiv2);
-//     }
-//     $('.medium').append(thumbs);
-//
-//     for (var j=0; j<2; j++){
-//         contDiv4=$('<div class="entertainment grid-item2 grid-item--large">');
-//         contDiv5=$('<div class="news grid-item2 grid-item--large">');
-//         contDiv6=$('<div class="games grid-item2 grid-item--large">');
-//         thumb4=$('<img src=' + stream[j].thumbnail + '>');
-//         thumb5=$('<img src=' + stream[j].thumbnail + '>');
-//         thumb6=$('<img src=' + stream[j].thumbnail + '>');
-//         contDiv4.append(thumb6);
-//         contDiv5.append(thumb5);
-//         contDiv6.append(thumb4);
-//         thumbs2.append(contDiv4, contDiv5);
-//     }
-//     console.log('Thumbs2 - '+thumbs2);
-//     $('.large').append(thumbs2);
-//
-// }
-
 function buildThumbnails(fullList){
-    console.log(fullList);
-    console.log('This is the gaming stream- ',fullList['streams'][0]['streams']);
     var games_list = fullList['streams'][0]['streams'];
     var entertainment_list = fullList['streams'][1]['streams'];
     var life_list = fullList['streams'][2]['streams'];
