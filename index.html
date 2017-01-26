@@ -11,9 +11,11 @@
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
     <script src="tryisotope2.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
+    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="dummyData.js"></script>
     <script src="script.js"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
@@ -22,8 +24,11 @@
 <body>
     <header>
         <div id="user_login">
-            <div id='my-signin2'></div>
+            <div id="my-signin2"></div>
             <div id="sign_out"><img src="images/signout.png"></div>
+            <div>
+                <img alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
         </div>
         <img class="logo" src="images/logo1.png"/>
         <h2 class="header_logo">
@@ -120,8 +125,8 @@
         </div>
         <div id="preview">
             <div id="preview_details">
-                <span id="close_preview">&#10006;</span>
-                <span id="preview_title"></span></p>
+                <span id="close_preview">X</span>
+                <span id="preview_title"></span>
                 <p id="category_p">Category: <span id="preview_category"></span></p>
                 <p id="viewers_p">Viewers: <span id="preview_viewers"></span></p>
             </div>

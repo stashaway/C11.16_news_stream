@@ -110,12 +110,13 @@ div#main {
     height: 30px;
 }
 
-.profile{
+.profile_pic{
+    max-width: 100%;
+    height: auto;
+    width: 3vw;
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 45%;
-    left: 50%;
-    height: 30px;
+    right: 15vw;
+    top: 0vh;
 }
 .fixed-action-btn{
     top:1px;
