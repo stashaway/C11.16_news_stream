@@ -14,8 +14,10 @@ body {
 }
 
 #sidebar {
-    float: right;
     width: 100px;
+    position: absolute;
+    top: 70%;
+    left: 85%;
 }
 
 #sequence {
@@ -33,7 +35,9 @@ body {
 }
 
 #chart {
-    position: relative;
+    position: absolute;
+    top: 12%;
+    left: 23%;
 }
 
 #chart path {
@@ -42,13 +46,14 @@ body {
 
 #explanation {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 65%;
+    left: 64%;
     width: 40%;
     text-align: center;
     color: #666;
     z-index: -1;
-    transform:translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    background-color: black;
 }
 
 #percentage,#title {
