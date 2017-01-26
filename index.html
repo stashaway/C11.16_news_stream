@@ -21,7 +21,6 @@
     <script src="tryisotope2.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="dummyData.js"></script>
     <script src="script.js"></script>
@@ -79,6 +78,28 @@
             <p class="section_label">Discover New Streams</p>
             <div class="grid-s">
                 <div class="grid-sizer-s"></div>
+            </div>
+        </div>
+
+
+        <button data-target="modal1" class="btn">Modal</button>
+
+        <!-- Modal Trigger -->
+        <!--<a class="waves-effect waves-light btn" href="#modal1">Modal</a>-->
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>
+                <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/watch?v=WbkfE9LjdnM" frameborder="0" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/live_chat?v=WbkfE9LjdnM" frameborder="0" allowfullscreen></iframe>
+                </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
             </div>
         </div>
 

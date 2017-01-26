@@ -62,6 +62,7 @@ function displayLogginState(){
     }
 }
 $(document).ready(function() {
+    $('.modal').modal();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
     if(isUserLoggedIn()){
