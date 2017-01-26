@@ -4,32 +4,25 @@
     <meta charset="UTF-8">
     <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
     <title>Streamism.tv</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
-
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
-    <!--<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
-
-
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
     <script src="tryisotope2.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
-    <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="dummyData.js"></script>
     <script src="script.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <header>
         <div id="user_login">
-            <div class='g-signin2' id="my-signin2"></div>
+            <div class='g-signin2'></div>
             <div id="sign_out"><img src="images/signout.png"></div>
         </div>
         <img class="logo" src="images/logo1.png"/>
@@ -59,8 +52,7 @@
         <input type="checkbox" id="tech_check" name="tech" checked><label  for="tech_check"></label>Science/Tech<br>
         <input type="checkbox" id="misc_check" name="misc" checked><label  for="misc_check"></label>Misc<br>
         <input type="checkbox" id="entertainment_check" name="entertainment" checked><label  for="entertainment_check"></label>Entertainment<br>
-        <input type="checkbox" id="uncheck_all" name="uncheck_all"><label  for="uncheck_all"></label>Uncheck All<br>
-        <a class="tooltipped" data-position="bottom" data-delay="20" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg" onclick="openNav()"></a>
+        <a class="tooltipped" data-position="bottom" data-delay="20" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg"></a>
     </div>
     <div id="main">
 <!------------- materialize progress spinner-------->
@@ -107,7 +99,7 @@
             </div>
         </div>
         </div>
-<!--///////////////////////////////////////////////-->
+<!--///////////////End of Spinner////////////////////////////////-->
         <p class="section_label">Featured Streams</p>
         <div class="large">
             <div class="grid-l">
@@ -126,8 +118,14 @@
                 <div class="grid-sizer-s"></div>
             </div>
         </div>
-
-        <div id="preview"></div>
+        <div id="preview">
+            <div id="preview_details">
+                <span id="close_preview">X</span>
+                <span id="preview_title"></span></p>
+                <p>Category: <span id="preview_category"></span></p>
+                <p>Viewers: <span id="preview_viewers"></span></p>
+            </div>
+            <img src="images/noimage.jpg" id="preview_thumb"></div>
     </div>
 </body>
 </html>
