@@ -14,6 +14,7 @@ $(document).ready(function() {
         for (var data_obj in snapshot_obj) {
             master_list=snapshot_obj[data_obj];
             buildThumbnails(master_list);
+
             $grid1 = $('.grid-l').imagesLoaded( function() {
                 $grid1.isotope({
                     itemSelector: '.grid-item-l',
