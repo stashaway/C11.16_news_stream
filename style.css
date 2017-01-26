@@ -121,16 +121,20 @@ div#main {
 #preview{
     background-color:darkslategray;
     width: 20vw;
-    height: 35vw;
+    height: 50vh;
     position: fixed;
     bottom: 0;
     right: 0;
     color: white;
+    border: 1px solid black;
+    -webkit-box-shadow: -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
 }
 
 #preview img {
     position: absolute;
-    height: 45%;
+    height: 60%;
     width: 100%;
     bottom: 0;
 }
@@ -139,11 +143,30 @@ div#main {
     font-size: 1.5em;
     color: cyan;
     text-shadow: 2px 2px #252222;
+    position: absolute;
+    left: 4%;
 }
 
 #preview_category {
     text-transform:capitalize;
 }
+
+#preview_viewers{
+
+}
+
+#viewers_p{
+    position: absolute;
+    top: 28%;
+    left: 5%;
+}
+
+#category_p {
+    position: absolute;
+    top: 23%;
+    left: 5%;
+}
+
 #close_preview {
     position: absolute;
     right: 3%;
