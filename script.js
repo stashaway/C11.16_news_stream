@@ -66,11 +66,11 @@ function determine_info (item){
     var current_item=$(item);
     var category_number;
     if (current_item.hasClass('entertainment')){
-        category_number=0;
+        category_number=1;
     } else if (current_item.hasClass('news')){
         category_number=2;
     } else if (current_item.hasClass('misc')){
-        category_number=5;
+        category_number=3;
     } else if (current_item.hasClass('games')) {
         category_number=0;
     }
