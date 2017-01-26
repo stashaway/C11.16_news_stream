@@ -85,7 +85,11 @@ function determine_info (item){
         'channel' : current_item_details.channel,
         'viewers' : current_item_details.viewers,
         'start' : current_item_details.startTime,
-        'title' : current_item_details.title
+        'title' : current_item_details.title,
+        'id' : current_item_details.id,
+        'chat': current_item_details.embedChat,
+        'video': current_item_details.embedVideo,
+        'source': current_item.source
     }
 }
 
@@ -95,18 +99,25 @@ function update_preview(parent){
     console.log(current_preview_obj);
     $('#preview').show(500);
     $('#preview_thumb').attr("src",current_preview_obj.thumbnail);
+    $('#preview_thumb').on("click", open_modal.bind(parent));
     $('#preview_category').text(current_preview_obj.category);
     $('#preview_viewers').text(current_preview_obj.viewers);
     $('#preview_title').text(current_preview_obj.title.substring(0,35));
 }
 
-function close_preview(){
-    $('#preview').hide(500);
+function open_modal(){
+    var current_preview_obj = determine_info(this);
+    $(".live_video").attr("src",current_preview_obj.video);
+    $(".live_chat").attr("src",current_preview_obj.chat);
+    $('.full_screen_header').text(current_preview_obj.title);
+    update_preview(this);
 }
 
+function close_preview(){
+    $('#preview').hide(500);
+};
 $(document).ready(function() {
-
-    $('.modal').modal();
+    $('#modal1').modal();
     $('#preview').hide();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();

@@ -20,6 +20,8 @@
 
 </head>
 <body>
+<!--<iframe width="560" height="315" src="https://www.youtube.com/embed/hnnfkCCA8xs" frameborder="0" allowfullscreen></iframe>-->
+<!--<iframe width="560" height="315" src="https://www.youtube.com/live_chat?v=hnnfkCCA8xs&embed_domain=localhost" frameborder="0" allowfullscreen></iframe>-->
     <header>
         <div id="user_login">
             <div id='my-signin2'></div>
@@ -30,7 +32,7 @@
             Streamism
         </h2>
         <p class="header_tagline">
-        Stream until your streams come true.
+      Expanding your live stream horizons
         </p>
         <div id="modal2" class="modal">
             <div class="modal-content">
@@ -118,27 +120,20 @@
                 <div class="grid-sizer-s"></div>
             </div>
         </div>
-        <button data-target="modal1" class="btn">Modal</button>
-        <!-- Modal Trigger -->
-        <!--<a class="waves-effect waves-light btn" href="#modal1">Modal</a>-->
-        <!-- Modal Structure -->
+        <!--<a class="modal_trigger" href="#modal1"></a>-->
         <div id="modal1" class="modal">
             <div class="modal-content">
-                <h4>Modal Header</h4>
-                <p>
-                <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/live_chat?v=hnnfkCCA8xs&embed_domain=localhost" frameborder="0" allowfullscreen width="560" height="315" src="https://www.youtube.com/embed/hnnfkCCA8xs" frameborder="0" allowfullscreen></iframe>
+                <h4 class="full_screen_header"></h4>
+                <div>
+                <iframe class="live_video" width="660" height="415" frameborder="0" allowfullscreen></iframe>
+                <iframe class="live_chat" width="660" height="415" frameborder="0" allowfullscreen></iframe>
                 </div>
                 </p>
             </div>
-            <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            <div class="modal-footer" onclick="update_preview()">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             </div>
         </div>
-
-        <!--<div class="gaming"></div>-->
-        <!--<div class="entertainment"></div>-->
-
         <div id="preview">
             <div id="preview_details">
                 <span id="close_preview">X</span>
@@ -146,7 +141,8 @@
                 <p id="category_p">Category: <span id="preview_category"></span></p>
                 <p id="viewers_p">Viewers: <span id="preview_viewers"></span></p>
             </div>
-            <img src="images/noimage.jpg" id="preview_thumb"></div>
+            <a href="#modal1"><img src="images/noimage.jpg" id="preview_thumb"></a>
+        </div>
     </div>
 </body>
 </html>

@@ -332,6 +332,10 @@ cursor: pointer; cursor: hand;
     right: 0;
     /*height: 30px;*/
 }
+div#modal1.modal.open {
+    max-height: 82%;
+    width:99%;
+}
 
 /* Hide the tooltip content by default */
 /*[data-tooltip]:before,*/
