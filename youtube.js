@@ -82,7 +82,7 @@ streamismYT.prototype.parseVideos = function(items) {
         if (items.hasOwnProperty(i)) {
             var ytVid = items[i];
             var stream = this.streamSet.find(ytVid.id);
-            stream.viewers = parseInt(ytVid.liveStreamingDetails.concurrentViewers);
+            stream.viewers = isNaN(parseInt(ytVid.liveStreamingDetails.concurrentViewers)) ? 0 : parseInt(ytVid.liveStreamingDetails.concurrentViewers);
             stream.startTime = ytVid.liveStreamingDetails.actualStartTime;
         }
     }

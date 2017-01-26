@@ -16,6 +16,7 @@ streamismTwitch.prototype.parse = function (data){
         var stream = new Stream();
         var twitchStream = data.streams[i];
 
+        stream.category = this.categories[0];
         var set = this.streamSet.find(this.categories[0]);//game
         var game = twitchStream.game;
 
@@ -23,23 +24,27 @@ streamismTwitch.prototype.parse = function (data){
             case "IRL":
             case "SOCIAL EATING":
                 set = this.streamSet.find(this.categories[2]);//life
+                stream.category = this.categories[2];
                 break;
             case "TALK SHOWS":
                 set = this.streamSet.find(this.categories[3]);//news
+                stream.category = this.categories[3];
                 break;
             case "MUSIC":
                 set = this.streamSet.find(this.categories[1]);//ent
+                stream.category = this.categories[1];
                 break;
             case "CREATIVE":
             case "GAME DEVELOPMENT":
-                set = this.streamSet.find(this.categories[5]);//ent
+                set = this.streamSet.find(this.categories[5]);//misc
+                stream.category = this.categories[5];
                 break;
         }
 
         stream.id = twitchStream._id;
         stream.title = twitchStream.channel.status;
         stream.channel = twitchStream.channel.display_name;
-        stream.viewers = twitchStream.viewers;
+        stream.viewers = isNaN(parseInt(twitchStream.viewers)) ? 0 : parseInt(twitchStream.viewers);
         stream.thumbnail = twitchStream.preview.large;
         stream.link = twitchStream.channel.url;
         stream.startTime = twitchStream.created_at;
