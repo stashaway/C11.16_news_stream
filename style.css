@@ -121,24 +121,38 @@ div#main {
 #preview{
     background-color:darkslategray;
     width: 20vw;
-    height: 22vw;
+    height: 35vw;
     position: fixed;
     bottom: 0;
     right: 0;
+    color: white;
 }
 
 #preview img {
     position: absolute;
-    height: 50%;
+    height: 45%;
     width: 100%;
     bottom: 0;
 }
 
-#preview span {
+#preview_title {
+    font-size: 1.5em;
+    color: cyan;
+    text-shadow: 2px 2px #252222;
+}
+
+#preview_category {
+    text-transform:capitalize;
+}
+#close_preview {
     position: absolute;
-    right: 5%;
-    top: 2%;
+    right: 3%;
+    top: 1%;
     color: white;
+}
+
+#close_preview:hover {
+cursor: pointer; cursor: hand;
 }
 
 #sign_out{
@@ -281,6 +295,9 @@ div#main {
     content: " ";
 }
 
+.tooltipped:hover {
+    cursor: pointer; cursor: hand;
+}
 /*Tooltip Fixes*/
 [data-tooltip] {
     /*position: relative;*/
