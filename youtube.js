@@ -70,6 +70,9 @@ streamismYT.prototype.parseSearch = function(response) {
                     stream.id = ytStream.id.videoId;
                     stream.channel = ytStream.snippet.channelTitle;
                     stream.category = i;
+                    stream.source = "youtube";
+                    stream.embedVideo = "https://www.youtube.com/embed/" + ytStream.id.videoId;
+                    stream.embedChat = "https://www.youtube.com/live_chat/?v=" + ytStream.id.videoId + "&embed_domain=localhost" ;
                     set.add(stream);
                 }
             }

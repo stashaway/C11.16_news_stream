@@ -7,4 +7,7 @@ module.exports = function Stream() {
     this.link = null;
     this.startTime = null;
     this.category = null;
+    this.source = null;
+    this.embedVideo = null;
+    this.embedChat = null;
 };

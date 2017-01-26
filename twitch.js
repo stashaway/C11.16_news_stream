@@ -41,13 +41,16 @@ streamismTwitch.prototype.parse = function (data){
                 break;
         }
 
-        stream.id = twitchStream._id;
+        stream.id = twitchStream.channel.name;
         stream.title = twitchStream.channel.status;
         stream.channel = twitchStream.channel.display_name;
         stream.viewers = isNaN(parseInt(twitchStream.viewers)) ? 0 : parseInt(twitchStream.viewers);
         stream.thumbnail = twitchStream.preview.large;
         stream.link = twitchStream.channel.url;
         stream.startTime = twitchStream.created_at;
+        stream.source = "twitch";
+        stream.embedVideo = "http://player.twitch.tv/?channel=" + twitchStream.channel.name;
+        stream.embedChat = twitchStream.channel.url + "/chat";
         set.add(stream);
     }
 };
