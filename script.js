@@ -66,11 +66,11 @@ function determine_info (item){
     var current_item=$(item);
     var category_number;
     if (current_item.hasClass('entertainment')){
-        category_number=0;
+        category_number=1;
     } else if (current_item.hasClass('news')){
         category_number=2;
     } else if (current_item.hasClass('misc')){
-        category_number=5;
+        category_number=3;
     } else if (current_item.hasClass('games')) {
         category_number=0;
     }
@@ -93,7 +93,7 @@ function update_preview(parent){
     console.log(parent);
     var current_preview_obj = determine_info(parent);
     console.log(current_preview_obj);
-    $('#preview').show(1000);
+    $('#preview').show(500);
     $('#preview_thumb').attr("src",current_preview_obj.thumbnail);
     $('#preview_category').text(current_preview_obj.category);
     $('#preview_viewers').text(current_preview_obj.viewers);
@@ -101,7 +101,7 @@ function update_preview(parent){
 }
 
 function close_preview(){
-    $('#preview').hide(1000);
+    $('#preview').hide(500);
 }
 
 $(document).ready(function() {
