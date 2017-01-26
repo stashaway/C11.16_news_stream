@@ -111,6 +111,14 @@ div#main {
     left: 50%;
     height: 30px;
 }
+.circle{
+    max-width: 100%;
+    height: auto;
+    width: 3vw;
+    position: absolute;
+    right: 15vw;
+    top: 0vh;
+}
 .fixed-action-btn{
     top:1px;
 }
