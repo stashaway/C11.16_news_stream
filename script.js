@@ -64,7 +64,7 @@ function displayLogginState(){
 $(document).ready(function() {
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
-    if(isUserLoggedIn()){
+    if(isUserLoggedIn() === true){
         $('#sign_out').show();
     }else{
         renderButton();
