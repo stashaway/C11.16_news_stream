@@ -1,15 +1,4 @@
-
-function openNav() {
-    $("#side_nav").toggleClass("open_nav");
-}
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
-}
-var auth2 = null;
+var auth2=null;
 function onSuccess(googleUser) {
     console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     auth2 = gapi.auth2.init();
@@ -21,6 +10,7 @@ function onSuccess(googleUser) {
         console.log('Family Name: ' + profile.getFamilyName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
+
         $('.profile').attr('src', profile.getImageUrl());
     }
     displayLogginState();
@@ -43,8 +33,8 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.')
     });
-    $('#sign_out').hide();
-    $('#my-signin2').show();
+    $('#sign_out').toggle();
+    $('#my-signin2').toggle();
 }
 function isUserLoggedIn(){
     if(auth2){
@@ -62,11 +52,12 @@ function displayLogginState(){
     }
 }
 $(document).ready(function() {
-    $('#sign_out').click(signOut);
-    $('#sign_out').hide();
     if(isUserLoggedIn()){
-        $('#sign_out').show();
-    }else{
         renderButton();
+        $('#sign_out').click(signOut).hide();
+    }else{
+        $('#sign_out').click(signOut).show();
+
     }
+
 });
