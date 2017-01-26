@@ -25,6 +25,15 @@ header{
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+#spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: 0s;
+}
+
 img.logo {
     top:0;
     left:50%;
@@ -36,7 +45,7 @@ img.logo {
 }
 
 div#main {
-    margin-left: 10%;
+    margin-left: 60px;
     margin-top: 5%;
 }
 
@@ -109,6 +118,66 @@ div#main {
    color:black
 }
 
+#preview{
+    background-color:darkslategray;
+    width: 20vw;
+    height: 50vh;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: white;
+    border: 1px solid black;
+    -webkit-box-shadow: -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
+}
+
+#preview img {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    bottom: 0;
+}
+
+#preview_title {
+    font-size: 1.5em;
+    color: cyan;
+    text-shadow: 2px 2px #252222;
+    position: absolute;
+    left: 4%;
+}
+
+#preview_category {
+    text-transform:capitalize;
+}
+
+#preview_viewers{
+
+}
+
+#viewers_p{
+    position: absolute;
+    top: 28%;
+    left: 5%;
+}
+
+#category_p {
+    position: absolute;
+    top: 23%;
+    left: 5%;
+}
+
+#close_preview {
+    position: absolute;
+    right: 3%;
+    top: 1%;
+    color: white;
+}
+
+#close_preview:hover {
+cursor: pointer; cursor: hand;
+}
+
 #sign_out{
     height: 50px;
     width: 240px;
@@ -144,9 +213,9 @@ div#main {
 .grid-item-l {
     float: left;
     /*width: 165px;*/
-    /*height: 93px;*/
+    /*height: 150px;*/
     width: 22.5%;
-    /*height: 30vh;*/
+    height: 30vh;
     /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
 }
 /*.grid-item--large{*/
@@ -161,7 +230,7 @@ div#main {
     /*width: 165px;*/
     /*height: 93px;*/
     /*width: 14vw;*/
-    /*height: 8vw;*/
+    height: 8vw;
     width: 15%
 }
 /*.grid-item--medium {*/
@@ -177,7 +246,7 @@ div#main {
     /*width: 165px;*/
     /*height: 93px;*/
     width: 10%;
-    /*height: 4vw;*/
+    height: 4vw;
 }
 /*.grid-item--small {*/
     /*!*width:16%;*!*/
@@ -192,28 +261,23 @@ div#main {
 
 }
 /*************Isotope Classes*************/
-/*.games, .news, .entertain {*/
-    /*position: relative;*/
-/*}*/
-/*.large{*/
-    /*background-color: red;*/
-/*}*/
-/*.medium{*/
-    /*background-color: green;*/
-
-/*}*/
-/*.entertain{*/
-    /*background-color: blue;*/
-/*}*/
+.games {
+    background-color: #ff412d;
+    position: relative;
+}
 .games::after {
     opacity: .2;
     background-color: #ff412d;
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 95%;
     width: 100%;
     content: " ";
+}
+.news {
+    background-color: #158065;
+    position: relative;
 }
 .news::after {
     opacity: .2;
@@ -221,9 +285,13 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 95%;
     width: 100%;
     content: " ";
+}
+.entertainment {
+    background-color: #28a5ff;
+    position: relative;
 }
 .entertainment::after {
     opacity: .2;
@@ -231,9 +299,13 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 95%;
     width: 100%;
     content: " ";
+}
+.misc {
+    background-color: #6affd8;
+    position: relative;
 }
 .misc::after {
     opacity: .2;
@@ -241,11 +313,14 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 95%;
     width: 100%;
     content: " ";
 }
 
+.tooltipped:hover {
+    cursor: pointer; cursor: hand;
+}
 /*Tooltip Fixes*/
 [data-tooltip] {
     /*position: relative;*/
