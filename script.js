@@ -61,8 +61,53 @@ function displayLogginState(){
         $('#my-signin2').show();
     }
 }
+
+function determine_info (item){
+    var current_item=$(item);
+    var category_number;
+    if (current_item.hasClass('entertainment')){
+        category_number=0;
+    } else if (current_item.hasClass('news')){
+        category_number=2;
+    } else if (current_item.hasClass('misc')){
+        category_number=5;
+    } else if (current_item.hasClass('games')) {
+        category_number=0;
+    }
+    console.log(master_list);
+    var index=current_item.attr('data-index');
+    var current_item_details = master_list.streams[category_number].streams[index];
+    return {
+        'index' : index,
+        'thumbnail': current_item_details.thumbnail,
+        'link' : current_item_details.link,
+        'category' : current_item_details.category,
+        'channel' : current_item_details.channel,
+        'viewers' : current_item_details.viewers,
+        'start' : current_item_details.startTime,
+        'title' : current_item_details.title
+    }
+}
+
+function update_preview(parent){
+    console.log(parent);
+    var current_preview_obj = determine_info(parent);
+    console.log(current_preview_obj);
+    $('#preview').show(1000);
+    $('#preview_thumb').attr("src",current_preview_obj.thumbnail);
+    $('#preview_category').text(current_preview_obj.category);
+    $('#preview_viewers').text(current_preview_obj.viewers);
+    $('#preview_title').text(current_preview_obj.title.substring(0,35));
+}
+
+function close_preview(){
+    $('#preview').hide(1000);
+}
+
 $(document).ready(function() {
+
     $('.modal').modal();
+    $('#preview').hide();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
     if(isUserLoggedIn()){
@@ -70,4 +115,7 @@ $(document).ready(function() {
     }else{
         renderButton();
     }
+    $('#preview').on('click','#close_preview',close_preview);
+    $('.tooltipped').click(openNav);
+
 });
