@@ -119,13 +119,28 @@ div#main {
 }
 
 #preview{
-    background-color:blue;
+    background-color:darkslategray;
     width: 20vw;
-    height: 11vw;
+    height: 22vw;
     position: fixed;
     bottom: 0;
     right: 0;
 }
+
+#preview img {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+    bottom: 0;
+}
+
+#preview span {
+    position: absolute;
+    right: 5%;
+    top: 2%;
+    color: white;
+}
+
 #sign_out{
     height: 50px;
     width: 240px;
@@ -161,9 +176,9 @@ div#main {
 .grid-item-l {
     float: left;
     /*width: 165px;*/
-    /*height: 93px;*/
+    /*height: 150px;*/
     width: 22.5%;
-    /*height: 30vh;*/
+    height: 30vh;
     /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
 }
 /*.grid-item--large{*/
@@ -178,7 +193,7 @@ div#main {
     /*width: 165px;*/
     /*height: 93px;*/
     /*width: 14vw;*/
-    /*height: 8vw;*/
+    height: 8vw;
     width: 15%
 }
 /*.grid-item--medium {*/
@@ -194,7 +209,7 @@ div#main {
     /*width: 165px;*/
     /*height: 93px;*/
     width: 10%;
-    /*height: 4vw;*/
+    height: 4vw;
 }
 /*.grid-item--small {*/
     /*!*width:16%;*!*/
@@ -209,21 +224,9 @@ div#main {
 
 }
 /*************Isotope Classes*************/
-/*.games, .news, .entertain {*/
-    /*position: relative;*/
-/*}*/
-/*.large{*/
-    /*background-color: red;*/
-/*}*/
-/*.medium{*/
-    /*background-color: green;*/
-
-/*}*/
-/*.entertain{*/
-    /*background-color: blue;*/
-/*}*/
 .games {
     background-color: #ff412d;
+    position: relative;
 }
 .games::after {
     opacity: .2;
@@ -237,6 +240,7 @@ div#main {
 }
 .news {
     background-color: #158065;
+    position: relative;
 }
 .news::after {
     opacity: .2;
@@ -250,6 +254,7 @@ div#main {
 }
 .entertainment {
     background-color: #28a5ff;
+    position: relative;
 }
 .entertainment::after {
     opacity: .2;
@@ -263,6 +268,7 @@ div#main {
 }
 .misc {
     background-color: #6affd8;
+    position: relative;
 }
 .misc::after {
     opacity: .2;

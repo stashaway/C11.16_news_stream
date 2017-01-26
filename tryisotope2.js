@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $('#preview').hide();
     var config = {
         apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
         authDomain: "streamism-cccb0.firebaseapp.com",
@@ -47,10 +48,34 @@ $(document).ready(function() {
             });
         }
     });
-    $('.large').on('mouseenter','.grid-item-l',(function(){
-        console.log(this);
-    }))
+    $('.large').on('click','.grid-item-l',(function(){
+        update_preview(this);
+    }));
+
+    $('.medium').on('click','.grid-item-m',(function(){
+        update_preview(this);
+    }));
+
+    $('.small').on('click','.grid-item-s',(function(){
+        update_preview(this);
+    }));
+
+    $('#preview').on('click','#close_preview',close_preview);
+
 });
+
+function update_preview(parent){
+    $('#preview').show(1000);
+    $('#preview').html('<span id="close_preview">x</span>' +
+                       '<img id="preview_thumb" src ="' + $(parent).attr("data-thumb") + '">'
+                        );
+    $('#preview_thumb').attr('data-uid')
+}
+
+function close_preview(){
+    $('#preview').hide(1000);
+}
+
 function buildThumbnails(fullList){
     var games_list = fullList['streams'][0]['streams'];
     var entertainment_list = fullList['streams'][1]['streams'];
@@ -62,18 +87,24 @@ function buildThumbnails(fullList){
         var new_e_img = $('<img src="' + new_e_thumb + '">');
         new_e_item.append(new_e_img);
         $('.grid-l').append(new_e_item);
+
+
         var new_l_thumb = life_list[i].thumbnail;
-        var new_l_item = $('<div class="grid-item-l grid-item--large news">');
+        var new_l_item = $('<div class="grid-item-l grid-item--large news" data-link="'+life_list[i].link+'" data-thumb="'+life_list[i].thumbnail+'">');
         var new_l_img = $('<img src="' + new_l_thumb + '">');
         new_l_item.append(new_l_img);
         $('.grid-l').append(new_l_item);
+
+
         var new_g_thumb = games_list[i].thumbnail;
-        var new_g_item = $('<div class="grid-item-l grid-item--large games">');
+        var new_g_item = $('<div class="grid-item-l grid-item--large games" data-link="'+games_list[i].link+'" data-thumb="'+games_list[i].thumbnail+'">');
         var new_g_img = $('<img src="' + new_g_thumb + '">');
         new_g_item.append(new_g_img);
         $('.grid-l').append(new_g_item);
+
+
         var new_c_thumb = current_list[i].thumbnail;
-        var new_c_item = $('<div class="grid-item-l grid-item--large misc">');
+        var new_c_item = $('<div class="grid-item-l grid-item--large misc" data-link="'+current_list[i].link+'" data-thumb="'+current_list[i].thumbnail+'">');
         var new_c_img = $('<img src="' + new_c_thumb + '">');
         new_c_item.append(new_c_img);
         $('.grid-l').append(new_c_item);
@@ -81,44 +112,44 @@ function buildThumbnails(fullList){
     }
     for (var i=4; i<13; i++){
         var new_e_thumb = entertainment_list[i].thumbnail;
-        var new_e_item = $('<div class="grid-item-m grid-item--medium entertainment">');
+        var new_e_item = $('<div class="grid-item-m grid-item--medium entertainment" data-link="'+entertainment_list[i].link+'" data-thumb="'+entertainment_list[i].thumbnail+'">');
         var new_e_img = $('<img src="' + new_e_thumb + '">');
         new_e_item.append(new_e_img);
         $('.grid-m').append(new_e_item);
         var new_l_thumb = life_list[i].thumbnail;
-        var new_l_item = $('<div class="grid-item-m grid-item--medium news">');
+        var new_l_item = $('<div class="grid-item-m grid-item--medium news" data-link="'+life_list[i].link+'" data-thumb="'+life_list[i].thumbnail+'">');
         var new_l_img = $('<img src="' + new_l_thumb + '">');
         new_l_item.append(new_l_img);
         $('.grid-m').append(new_l_item);
         var new_g_thumb = games_list[i].thumbnail;
-        var new_g_item = $('<div class="grid-item-m grid-item--medium games">');
+        var new_g_item = $('<div class="grid-item-m grid-item--medium games" data-link="'+games_list[i].link+'" data-thumb="'+games_list[i].thumbnail+'">');
         var new_g_img = $('<img src="' + new_g_thumb + '">');
         new_g_item.append(new_g_img);
         $('.grid-m').append(new_g_item);
         var new_c_thumb = current_list[i].thumbnail;
-        var new_c_item = $('<div class="grid-item-m grid-item--medium misc">');
+        var new_c_item = $('<div class="grid-item-m grid-item--medium misc" data-link="'+current_list[i].link+'" data-thumb="'+current_list[i].thumbnail+'">');
         var new_c_img = $('<img src="' + new_c_thumb + '">');
         new_c_item.append(new_c_img);
         $('.grid-m').append(new_c_item);
     }
     for (var i=13; i<33; i++){
         var new_e_thumb = entertainment_list[i].thumbnail;
-        var new_e_item = $('<div class="grid-item-s grid-item--small entertainment">');
+        var new_e_item = $('<div class="grid-item-s grid-item--small entertainment" data-link="'+entertainment_list[i].link+'" data-thumb="'+entertainment_list[i].thumbnail+'">');
         var new_e_img = $('<img src="' + new_e_thumb + '">');
         new_e_item.append(new_e_img);
         $('.grid-s').append(new_e_item);
         var new_l_thumb = life_list[i].thumbnail;
-        var new_l_item = $('<div class="grid-item-s grid-item--small news">');
+        var new_l_item = $('<div class="grid-item-s grid-item--small news" data-link="'+life_list[i].link+'" data-thumb="'+life_list[i].thumbnail+'">');
         var new_l_img = $('<img src="' + new_l_thumb + '">');
         new_l_item.append(new_l_img);
         $('.grid-s').append(new_l_item);
         var new_g_thumb = games_list[i].thumbnail;
-        var new_g_item = $('<div class="grid-item-s grid-item--small games">');
+        var new_g_item = $('<div class="grid-item-s grid-item--small games" data-link="'+games_list[i].link+'" data-thumb="'+games_list[i].thumbnail+'">');
         var new_g_img = $('<img src="' + new_g_thumb + '">');
         new_g_item.append(new_g_img);
         $('.grid-s').append(new_g_item);
         var new_c_thumb = current_list[i].thumbnail;
-        var new_c_item = $('<div class="grid-item-s grid-item--small misc">');
+        var new_c_item = $('<div class="grid-item-s grid-item--small misc" data-link="'+current_list[i].link+'" data-thumb="'+current_list[i].thumbnail+'">');
         var new_c_img = $('<img src="' + new_c_thumb + '">');
         new_c_item.append(new_c_img);
         $('.grid-s').append(new_c_item);
