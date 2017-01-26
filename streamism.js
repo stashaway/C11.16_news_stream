@@ -1,17 +1,27 @@
 /**
  * Created by baultik on 1/23/17.
  */
-
 var fs = require('fs');
 var StreamSet = require('./streamSet');
 var Stream = require('./stream');
 var yt = require("./youtube");
 var twitch = require("./twitch");
 
+var admin = require('firebase-admin');
+var serviceAccount = require("./streamism-cccb0-firebase-adminsdk-vjej8-01b00647dc.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://streamism-cccb0.firebaseio.com"
+});
+
+var db = admin.database();
+
 //streamism categories
 var categories = [
     "gaming","entertainment","life","news","technology","misc"
 ];
+
 //yt categories mapped to streamism categories
 var ytCategories = [
     {id:20,name:categories[0]},
@@ -49,9 +59,8 @@ var sTwitch = new twitch(categories,root);
 sTwitch.start(function (tdata) {
     var sYt = new yt(categories,ytCategories,tdata);
     sYt.start(function (ytdata) {
-        writeToFile("new.json",ytdata);
+        db.ref("-KbHuqtKNuu96svHRgjz").set(ytdata);
+        //writeToFile("new.json",ytdata);
+        console.log("Set database");
     });
 });
-
-
-

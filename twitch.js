@@ -49,7 +49,7 @@ streamismTwitch.prototype.parse = function (data){
 
 streamismTwitch.prototype.start = function (callback) {
     var sTwitch = this;
-    sTwitch.api.getStreams({limit:3},function (error,data) {
+    sTwitch.api.getStreams({limit:50},function (error,data) {
         if (error) {
             console.log(error);
             return;

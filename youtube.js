@@ -17,7 +17,7 @@ streamismYT.prototype.searchRequest = function(cat) {
         eventType:"live",
         order:"viewCount",
         type:"video",
-        maxResults:3,
+        maxResults:50,
         videoCategoryId:cat
     };
 
