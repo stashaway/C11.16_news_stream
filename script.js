@@ -1,4 +1,3 @@
-
 function openNav() {
     $("#side_nav").toggleClass("open_nav");
 }
@@ -109,6 +108,7 @@ function open_modal(){
     var current_preview_obj = determine_info(this);
     $(".live_video").attr("src",current_preview_obj.video);
     $(".live_chat").attr("src",current_preview_obj.chat);
+    $(".loading").hide();
     $('.full_screen_header').text(current_preview_obj.title);
     update_preview(this);
 }
@@ -117,7 +117,9 @@ function close_preview(){
     $('#preview').hide(500);
 };
 $(document).ready(function() {
+    $(".dropdown-button").dropdown();
     $('#modal1').modal();
+    $('.modal').modal();
     $('#preview').hide();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();

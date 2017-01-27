@@ -1,7 +1,65 @@
 header{
-    font-family: 'Julius Sans One', sans-serif;
+    /*font-family: 'Julius Sans One', sans-serif;*/
     text-align: center;
 }
+
+div label input {
+    margin-right:100px;
+}
+.ck-button {
+    height: 5vh;
+    margin: 4px;
+    background-color: #EFEFEF;
+    border-radius: 4px;
+    border: 1px solid #D0D0D0;
+    overflow: auto;
+    float: left;
+}
+
+.ck-button label {
+    float:left;
+    width:100%;
+    height:100%;
+}
+
+.ck-button label span {
+    text-align:center;
+    padding:0px 10px;
+    display:block;
+    height:100%;
+    line-height: 5vh;
+}
+
+.ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+#games_button:checked + span {
+    background-color:#ff412d;
+    color:#fff;
+}
+#news_button:checked + span {
+    background-color:#158065;
+    color:#fff;
+}
+#entertainment_button:checked + span {
+    background-color:#28a5ff;
+    color:#fff;
+}
+#misc_button:checked + span {
+    background-color:#6affd8;
+    color:#fff;
+}
+#life_button:checked + span {
+    background-color: #ff7ba0;
+    color:#fff;
+}
+#tech_button:checked + span {
+    background-color: #a0aeff;
+    color:#fff;
+}
+
 #user_login{
     position: absolute;
     left: 85vw;
@@ -19,13 +77,21 @@ header{
     left: 50%;
     transform: translate(-50%,-50%);
 }
+p.header_tagline{
+    font-size: 1rem;
+}
+h2.header_logo {
+    font-size: 40px;
+}
 .header_tagline {
     position: absolute;
     top: 40px;
     left: 50%;
     transform: translate(-50%,-50%);
 }
-
+.nav-wrapper{
+    background-color: #4f87b3;
+}
 #spinner {
     position: fixed;
     top: 50%;
@@ -53,38 +119,38 @@ div#main {
     margin: 2px 0;
     font-size: 1.5em;
 }
-.side_nav{
-    font-family: 'Gruppo', cursive;
-    font-size: 20px;
-    height: 100%;
-    color: #455a64 ;
-    width: 220px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: -160px;
-    background-color: #455a64 ;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    opacity: .4;
-    border: 1px solid white;
-    border-radius: 0 5% 5% 0;
-}
-.side_nav:hover {
-    opacity: 1;
-}
-.side_nav>h1{
-    font-size: 2em;
-}
-.side_nav>h3{
-    font-size: 1em;
-}
-.open_nav{
-    color :white;
-    left: 0;
-    padding-left: 10px;
-}
+/*.side_nav{*/
+    /*font-family: 'Gruppo', cursive;*/
+    /*font-size: 20px;*/
+    /*height: 100%;*/
+    /*color: #455a64 ;*/
+    /*width: 220px;*/
+    /*position: fixed;*/
+    /*z-index: 1;*/
+    /*top: 0;*/
+    /*left: -160px;*/
+    /*background-color: #455a64 ;*/
+    /*overflow-x: hidden;*/
+    /*transition: 0.5s;*/
+    /*padding-top: 60px;*/
+    /*opacity: .4;*/
+    /*border: 1px solid white;*/
+    /*border-radius: 0 5% 5% 0;*/
+/*}*/
+/*.side_nav:hover {*/
+    /*opacity: 1;*/
+/*}*/
+/*.side_nav>h1{*/
+    /*font-size: 2em;*/
+/*}*/
+/*.side_nav>h3{*/
+    /*font-size: 1em;*/
+/*}*/
+/*.open_nav{*/
+    /*color :white;*/
+    /*left: 0;*/
+    /*padding-left: 10px;*/
+/*}*/
 .side_nav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -333,62 +399,7 @@ cursor: pointer; cursor: hand;
     /*height: 30px;*/
 }
 div#modal1.modal.open {
-    max-height: 82%;
+    max-height: 70%;
     width:99%;
 }
 
-/* Hide the tooltip content by default */
-/*[data-tooltip]:before,*/
-/*[data-tooltip]:after {*/
-    /*visibility: hidden;*/
-    /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";*/
-    /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
-    /*opacity: 0;*/
-    /*pointer-events: none;*/
-/*}*/
-
-/*!* Position tooltip above the element *!*/
-/*[data-tooltip]:before {*/
-    /*position: absolute;*/
-    /*bottom: 150%;*/
-    /*left: 50%;*/
-    /*margin-bottom: 5px;*/
-    /*margin-left: -80px;*/
-    /*padding: 7px;*/
-    /*width: 160px;*/
-    /*-webkit-border-radius: 3px;*/
-    /*-moz-border-radius: 3px;*/
-    /*border-radius: 3px;*/
-    /*background-color: #000;*/
-    /*background-color: hsla(0, 0%, 20%, 0.9);*/
-    /*color: #fff;*/
-    /*content: attr(data-tooltip);*/
-    /*text-align: center;*/
-    /*font-size: 14px;*/
-    /*line-height: 1.2;*/
-/*}*/
-
-/* Triangle hack to make tooltip look like a speech bubble */
-/*[data-tooltip]:after {*/
-    /*position: absolute;*/
-    /*bottom: 150%;*/
-    /*left: 50%;*/
-    /*margin-left: -5px;*/
-    /*width: 0;*/
-    /*border-top: 5px solid #000;*/
-    /*border-top: 5px solid hsla(0, 0%, 20%, 0.9);*/
-    /*border-right: 5px solid transparent;*/
-    /*border-left: 5px solid transparent;*/
-    /*content: " ";*/
-    /*font-size: 0;*/
-    /*line-height: 0;*/
-/*}*/
-
-/*!* Show tooltip content on hover *!*/
-/*[data-tooltip]:hover:before,*/
-/*[data-tooltip]:hover:after {*/
-    /*visibility: visible;*/
-    /*-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";*/
-    /*filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=100);*/
-    /*opacity: 1;*/
-/*}*/
