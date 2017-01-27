@@ -1,6 +1,8 @@
 header{
     /*font-family: 'Julius Sans One', sans-serif;*/
     text-align: center;
+    top:0;
+    left:0;
 }
 
 div label input {
@@ -62,7 +64,7 @@ div label input {
 
 #user_login{
     position: absolute;
-    left: 85vw;
+    left: 75vw;
     top: 10px;
 }
 
@@ -71,18 +73,22 @@ div label input {
     top: 2%;
     left: 15%;
 }
+
 .header_logo{
     top: 0;
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
+    text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);
 }
+
 p.header_tagline{
     font-size: 1rem;
 }
 h2.header_logo {
     font-size: 40px;
 }
+
 .header_tagline {
     position: absolute;
     top: 40px;
@@ -118,6 +124,7 @@ div#main {
     margin: 2px 0;
     font-size: 1.5em;
 }
+
 /*.side_nav{*/
     /*font-family: 'Gruppo', cursive;*/
     /*font-size: 20px;*/
@@ -150,6 +157,7 @@ div#main {
     /*left: 0;*/
     /*padding-left: 10px;*/
 /*}*/
+
 .side_nav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -168,6 +176,7 @@ div#main {
     right: 0;
     height: 30px;
 }
+
 .profile_pic_container{
     width: 5%;
     position: absolute;
@@ -178,6 +187,7 @@ div#main {
 
 .profile_pic{
     width: 4vw;
+
 }
 .fixed-action-btn{
     top:1px;
@@ -195,9 +205,9 @@ div#main {
     right: 0;
     color: white;
     border: 1px solid black;
-    -webkit-box-shadow: -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
-    -moz-box-shadow:    -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
-    box-shadow:         -2px 3px 2px 0px rgba(50, 50, 50, 0.75);
+    -webkit-box-shadow: -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
+    box-shadow:         -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
 }
 
 #preview img {
@@ -213,26 +223,31 @@ div#main {
     text-shadow: 2px 2px #252222;
     position: absolute;
     left: 4%;
+    cursor: default;
+    width: 90%;
 }
 
 #preview_category {
     text-transform:capitalize;
+    cursor: default;
 }
 
 #preview_viewers{
-
+    cursor: default;
 }
 
 #viewers_p{
     position: absolute;
     top: 28%;
     left: 5%;
+    cursor: default;
 }
 
 #category_p {
     position: absolute;
     top: 23%;
     left: 5%;
+    cursor: default;
 }
 
 #close_preview {
@@ -240,6 +255,7 @@ div#main {
     right: 3%;
     top: 1%;
     color: white;
+    z-index: 100;
 }
 
 #close_preview:hover {

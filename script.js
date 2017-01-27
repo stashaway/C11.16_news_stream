@@ -8,7 +8,8 @@ function onSignIn(googleUser) {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail());
 }
-var auth2 = null;
+var auth2=null;
+
 function onSuccess(googleUser) {
     console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     auth2 = gapi.auth2.init();
@@ -69,17 +70,23 @@ function displayLogginState(){
 function determine_info (item){
     var current_item=$(item);
     var category_number;
-    if (current_item.hasClass('entertainment')){
-        category_number=1;
-    } else if (current_item.hasClass('news')){
-        category_number=2;
-    } else if (current_item.hasClass('misc')){
-        category_number=3;
-    } else if (current_item.hasClass('games')) {
-        category_number=0;
+    if (current_item.hasClass('games')){
+        category_number = 0;
+    } else if (current_item.hasClass('entertainment')){
+        category_number = 1;
+    } else if (current_item.hasClass('life')){
+        category_number = 2;
+    } else if (current_item.hasClass('news')) {
+        category_number = 3;
+    } else if (current_item.hasClass('technology')) {
+        category_number = 4;
+    } else if (current_item.hasClass('misc')) {
+        category_number = 5;
+    } else {
+        category_number = 0;
     }
     console.log(master_list);
-    var index=current_item.attr('data-index');
+    var index = current_item.attr('data-index');
     var current_item_details = master_list.streams[category_number].streams[index];
     return {
         'index' : index,
@@ -120,7 +127,8 @@ function open_modal(){
 
 function close_preview(){
     $('#preview').hide(500);
-};
+}
+
 $(document).ready(function() {
     $(".dropdown-button").dropdown();
     $('#modal1').modal();
