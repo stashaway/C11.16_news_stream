@@ -9,24 +9,8 @@ function onSignIn(googleUser) {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail());
 }
-var auth2;
-////////////// new stuff
-var initClient = function() {
-    gapi.load('auth2', function(){
-        /**
-         * Retrieve the singleton for the GoogleAuth library and set up the
-         * client.
-         */
-        auth2 = gapi.auth2.init({
-            client_id: '543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com'
-        });
+var auth2=null;
 
-        // Attach the click handler to the sign-in button
-        auth2.attachClickHandler('signin-button', {}, onSuccess, onFailure);
-    });
-};
-
-////////////////
 function onSuccess(googleUser) {
     console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
     auth2 = gapi.auth2.init();
@@ -134,7 +118,6 @@ function close_preview(){
 }
 
 $(document).ready(function() {
-    // initClient();
     $('#preview').hide();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();

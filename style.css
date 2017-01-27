@@ -153,6 +153,7 @@ div#main {
     position: absolute;
     left: 4%;
     cursor: default;
+    width: 90%;
 }
 
 #preview_category {
@@ -183,6 +184,7 @@ div#main {
     right: 3%;
     top: 1%;
     color: white;
+    z-index: 100;
 }
 
 #close_preview:hover {
