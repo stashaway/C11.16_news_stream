@@ -128,11 +128,19 @@ function open_modal(){
 function close_preview(){
     $('#preview').hide(500);
 }
+function end_video(){
+    $(".live_video").attr("src", " ");
+}
+
 
 $(document).ready(function() {
-    $(".dropdown-button").dropdown();
     $('#modal1').modal();
-    $('.modal').modal();
+    $(".dropdown-button").dropdown();
+    $('.modal').modal({
+            complete: end_video
+        }
+    );
+    $('#modal2').modal();
     $('#preview').hide();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
