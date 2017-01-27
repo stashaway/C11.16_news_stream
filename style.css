@@ -103,21 +103,16 @@ div#main {
     right: 0;
     height: 30px;
 }
-
-.profile{
+.profile_pic_container{
+    width: 5%;
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 45%;
-    left: 50%;
-    height: 30px;
+    left: 80%;
+    top: 0%;
+    padding-right: 1%;
 }
-.circle{
-    max-width: 100%;
-    height: auto;
-    width: 3vw;
-    position: absolute;
-    right: 15vw;
-    top: 0vh;
+
+.profile_pic{
+    width: 4vw;
 }
 .fixed-action-btn{
     top:1px;
