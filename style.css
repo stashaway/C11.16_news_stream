@@ -110,13 +110,17 @@ div#main {
     height: 30px;
 }
 
-.profile_pic{
-    max-width: 100%;
-    height: auto;
-    width: 3vw;
+.profile_pic_container{
+    width: 5%;
     position: absolute;
-    right: 15vw;
-    top: 0vh;
+    left: 80%;
+    top: 0%;
+    padding-right: 1%;
+}
+
+.profile_pic{
+    width: 4vw;
+
 }
 .fixed-action-btn{
     top:1px;
