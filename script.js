@@ -20,7 +20,9 @@ function onSuccess(googleUser) {
         console.log('Family Name: ' + profile.getFamilyName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail());
-        $('.profile').attr('src', profile.getImageUrl());
+        $('.circle').attr('src', profile.getImageUrl());
+        $('.circle').show();
+
     }
     displayLogginState();
 }
@@ -44,6 +46,7 @@ function signOut() {
     });
     $('#sign_out').hide();
     $('#my-signin2').show();
+    $('.circle').hide();
 }
 function isUserLoggedIn(){
     if(auth2){
@@ -54,9 +57,11 @@ function isUserLoggedIn(){
 function displayLogginState(){
     if (isUserLoggedIn()) {
         $('#sign_out').show();
+        $('.circle').show();
         $('#my-signin2').hide();
     } else {
         $('#sign_out').hide();
+        $('.circle').hide();
         $('#my-signin2').show();
     }
 }
@@ -123,7 +128,7 @@ $(document).ready(function() {
     $('#preview').hide();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
-    if(isUserLoggedIn()){
+    if(isUserLoggedIn() === true){
         $('#sign_out').show();
     }else{
         renderButton();

@@ -90,7 +90,7 @@ h2.header_logo {
     transform: translate(-50%,-50%);
 }
 .nav-wrapper{
-    background-color: #4f87b3;
+    background-color: #718792;
 }
 #spinner {
     position: fixed;
@@ -107,7 +107,6 @@ img.logo {
     height: 80px;
     position: absolute;
     opacity: .5;
-    z-index: -1;
 }
 
 div#main {
@@ -169,13 +168,16 @@ div#main {
     right: 0;
     height: 30px;
 }
-
-.profile{
+.profile_pic_container{
+    width: 5%;
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 45%;
-    left: 50%;
-    height: 30px;
+    left: 80%;
+    top: 0%;
+    padding-right: 1%;
+}
+
+.profile_pic{
+    width: 4vw;
 }
 .fixed-action-btn{
     top:1px;
