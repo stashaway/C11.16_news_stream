@@ -39,7 +39,7 @@ $(document).ready(function() {
                     percentPosition: true
                 });
             });
-            $('.side_nav input:checkbox').change(function() {
+            $('.top_nav input:checkbox').change(function() {
                 // this will contain a reference to the checkbox
                 console.log(this.name);
                 $('.'+this.name).toggleClass('hidden');
