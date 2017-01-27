@@ -12,7 +12,10 @@ var serviceAccount = require("./streamism-cccb0-firebase-adminsdk-vjej8-01b00647
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://streamism-cccb0.firebaseio.com"
+    databaseURL: "https://streamism-cccb0.firebaseio.com",
+    databaseAuthVariableOverride: {
+        uid: "streamism-grabber"
+    }
 });
 
 var db = admin.database();
