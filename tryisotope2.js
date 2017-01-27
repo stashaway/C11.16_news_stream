@@ -9,11 +9,12 @@ $(document).ready(function() {
     firebase.initializeApp(config);
     firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
-    fb_ref.ref().on('value', function(snapshot) {
+    fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         var snapshot_obj = snapshot.val();
-        for (var data_obj in snapshot_obj) {
-            master_list=snapshot_obj[data_obj];
+        //for (var data_obj in snapshot_obj) {
+            master_list=snapshot_obj;//[data_obj];
             buildThumbnails(master_list);
+
             $grid1 = $('.grid-l').imagesLoaded( function() {
                 $grid1.isotope({
                     itemSelector: '.grid-item-l',
@@ -38,7 +39,7 @@ $(document).ready(function() {
                     percentPosition: true
                 });
             });
-            $('.side_nav input:checkbox').change(function() {
+            $('.top_nav input:checkbox').change(function() {
                 // this will contain a reference to the checkbox
                 console.log(this.name);
                 $('.'+this.name).toggleClass('hidden');
@@ -46,7 +47,7 @@ $(document).ready(function() {
                 $grid2.isotope({ filter: '*:not(.hidden)' });
                 $grid3.isotope({ filter: '*:not(.hidden)' });
             });
-        }
+        //}
     });
     $('.large').on('click','.grid-item-l',(function(){
         update_preview(this);

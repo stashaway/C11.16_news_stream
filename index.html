@@ -5,62 +5,91 @@
     <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
     <title>Streamism.tv</title>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
     <script src="tryisotope2.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
     <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="dummyData.js"></script>
     <script src="script.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One|Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Mallanna" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
     <header>
-        <div id="user_login">
-            <div id="my-signin2"></div>
-            <div id="sign_out"><img src="images/signout.png"></div>
-        </div>
-        <div class="profile_pic_container">
-            <img alt="" class="circle responsive-img profile_pic"> <!-- notice the "circle" class -->
-        </div>
-        <img class="logo" src="images/logo1.png"/>
-        <h2 class="header_logo">
-            Streamism
-        </h2>
-        <p class="header_tagline">
-        Stream until your streams come true.
-        </p>
-        <div id="modal2" class="modal">
-            <div class="modal-content">
-                <h4>Welcome!</h4>
-                <p>Streamism.tv creates a one-of-a-kind viewing experience that allows you to partake in all trending streams on Twitch.tv and Youtube. Go ahead, and hover over any thumbnail to preview information, or click on the thumbnail to view the stream. Click anywhere to begin! </p>
+    <div class="navbar-fixed">
+        <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#!">
+                <div id="user_login"></div>
+                <div id='my-signin2'></div>
+                <div id="sign_out"><img src="images/signout.png"></div>
+                <div class="profile_pic_container">
+                    <img alt="" class="circle responsive-img profile_pic">
+                </div>
+            </a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo">
+                    <img class="logo" src="images/logo1.png"/>
+                    <h2 class="header_logo">Streamism</h2>
+                    <p class="header_tagline">Stream until your streams come true</p>
+                </a>
+                <div id="top_nav" class="top_nav">
+                    <div class="ck-button">
+                        <label>
+                            <input type="checkbox" id="games_button" name="games" checked><span>Games</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label>
+                            <input type="checkbox" id="entertainment_button" name="entertainment" checked><span>Entertainment</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label>
+                            <input type="checkbox" id="news_button" name="news" checked><span>News</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label>
+                            <input type="checkbox" id="tech_button" name="tech" checked><span>Tech</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label>
+                            <input type="checkbox" id="life_button" name="life" checked><span>Life</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label>
+                            <input type="checkbox" id="misc_button" name="misc" checked><span>Misc</span>
+                        </label>
+                    </div>
+                </div>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Log In<i class="fa fa-sign-in" aria-hidden="true"></i><i class="material-icons right"></i></a></li>
+                    <li><a href="#modal2">About</a></li>
+                </ul>
             </div>
-            <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-            </div>
-        </div>
-    </header>
-    <div id="side_nav" class="side_nav">
-        <h1>Filters</h1>
-        <h3>Uncheck Boxes to Hide Video Category</h3>
-        <!--<input type="checkbox" id=featured_check name="featured_content" checked><label  for="featured_check"></label>Featured Content<br>-->
-        <input type="checkbox" id=world_news-check name="news" checked><label for="world_news-check"></label>News<br>
-        <input type="checkbox" id="sports_check" name="sports" checked><label for="sports_check"></label>Life/Sports<br>
-        <input type="checkbox" id="gaming_check" name="games" checked><label  for="gaming_check"></label>Gaming<br>
-        <input type="checkbox" id="tech_check" name="tech" checked><label  for="tech_check"></label>Science/Tech<br>
-        <input type="checkbox" id="misc_check" name="misc" checked><label  for="misc_check"></label>Misc<br>
-        <input type="checkbox" id="entertainment_check" name="entertainment" checked><label  for="entertainment_check"></label>Entertainment<br>
-        <a class="tooltipped" data-position="bottom" data-delay="20" data-tooltip="Click on me to toggle categories"><img class="gear" src="images/gear.jpg"></a>
+        </nav>
     </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Welcome!</h4>
+            <p>Streamism.tv creates a one-of-a-kind viewing experience that allows you to discover new streams that are trending on Twitch.tv and Youtube. Click on any thumbnail to preview information, or click on the thumbnail to view the stream.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+    </header>
     <div id="main">
-<!------------- materialize progress spinner-------->
         <div id="spinner">
             <div class="preloader-wrapper big active">
                 <div class="spinner-layer spinner-blue">
@@ -104,7 +133,6 @@
             </div>
         </div>
         </div>
-<!--///////////////End of Spinner////////////////////////////////-->
         <p class="section_label">Featured Streams</p>
         <div class="large">
             <div class="grid-l">
@@ -123,6 +151,22 @@
                 <div class="grid-sizer-s"></div>
             </div>
         </div>
+
+        <div id="modal1" class="modal modal1 modal-fixed-footer">
+            <div class="modal-content">
+                <h4 class="full_screen_header"></h4>
+                <p>
+                    <iframe class="live_video" width="660" height="415" frameborder="0" allowfullscreen></iframe>
+                <div class="loading">
+                Chat Unavailable
+                </div>
+                    <iframe class="live_chat" width="560" height="415" frameborder="0" allowfullscreen></iframe>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
         <div id="preview">
             <div id="preview_details">
                 <span id="close_preview">X</span>
@@ -130,7 +174,8 @@
                 <p id="category_p">Category: <span id="preview_category"></span></p>
                 <p id="viewers_p">Viewers: <span id="preview_viewers"></span></p>
             </div>
-            <img src="images/noimage.jpg" id="preview_thumb"></div>
+            <a href="#modal1"><img src="images/noimage.jpg" id="preview_thumb"></a>
+        </div>
     </div>
 </body>
 </html>
