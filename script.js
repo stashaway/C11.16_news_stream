@@ -134,6 +134,7 @@ function end_video(){
 
 
 $(document).ready(function() {
+    $(".button-collapse").sideNav();
     $('#modal1').modal();
     $(".dropdown-button").dropdown();
     $('.modal').modal({

@@ -1,3 +1,6 @@
+body{
+    background-color: #bfc3c5;
+}
 header{
     font-family: 'Assistant', sans-serif;
     text-align: center;
@@ -14,7 +17,7 @@ div label input {
 }
 .ck-button {
     height: 5vh;
-    margin: 4px;
+    margin:11px 6px 5px 5px;
     background-color: #EFEFEF;
     border-radius: 4px;
     border: 1px solid #D0D0D0;
@@ -40,9 +43,12 @@ div label input {
     position:absolute;
     top:-20px;
 }
+.toggle_cat{
+    float:left
+}
 
 #games_button:checked + span {
-    background-color:#ff412d;
+    background-color: #9d3636;
     color:#fff;
 }
 #news_button:checked + span {
@@ -50,19 +56,19 @@ div label input {
     color:#fff;
 }
 #entertainment_button:checked + span {
-    background-color:#28a5ff;
+    background-color:#3f6d87;
     color:#fff;
 }
 #misc_button:checked + span {
-    background-color:#6affd8;
+    background-color:#40496a;
     color:#fff;
 }
 #life_button:checked + span {
-    background-color: #ff7ba0;
+    background-color: #83545d;
     color:#fff;
 }
 #tech_button:checked + span {
-    background-color: #a0aeff;
+    background-color: #7e578f;
     color:#fff;
 }
 
@@ -83,7 +89,7 @@ div label input {
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
-    text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);
+    /*text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);*/
 }
 
 p.header_tagline{
@@ -131,25 +137,6 @@ div#main {
     margin: 2px 0;
     font-size: 1.5em;
 }
-/*.side_nav a {*/
-    /*padding: 8px 8px 8px 32px;*/
-    /*text-decoration: none;*/
-    /*font-size: 25px;*/
-    /*color: #818181;*/
-    /*display: block;*/
-    /*transition: 0.3s*/
-/*}*/
-/*.side_nav a:hover, .offcanvas a:focus{*/
-    /*color: #f1f1f1;*/
-/*}*/
-/*.gear{*/
-    /*position: absolute;*/
-    /*transform: translate(-50%, -50%);*/
-    /*top: 50%;*/
-    /*right: 0;*/
-    /*height: 30px;*/
-/*}*/
-
 .profile_pic_container{
     width: 5%;
     position: absolute;
@@ -170,14 +157,15 @@ div#main {
 }
 
 #preview{
-    background-color:darkslategray;
+    border-radius: 4px;
+    font-family: 'Assistant', sans-serif;
+    background-color: rgba(144,144,144,0.8);
     width: 20vw;
-    height: 50vh;
+    height: 38vh;
     position: fixed;
     bottom: 0;
     right: 0;
     color: white;
-    border: 1px solid black;
     -webkit-box-shadow: -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
     box-shadow:         -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
@@ -192,12 +180,13 @@ div#main {
 
 #preview_title {
     font-size: 1.5em;
-    color: cyan;
-    text-shadow: 2px 2px #252222;
+    color: black;
+    /*text-shadow: 2px 2px #252222;*/
     position: absolute;
     left: 4%;
     cursor: default;
-    width: 90%;
+    width: 85%;
+    text-align: center;
 }
 
 #preview_category {
@@ -211,14 +200,18 @@ div#main {
 
 #viewers_p{
     position: absolute;
-    top: 28%;
+    top: 23%;
     left: 5%;
     cursor: default;
 }
-
+#click_thumbnail{
+    position: absolute;
+    top: 29%;
+    left: 5%;
+}
 #category_p {
     position: absolute;
-    top: 23%;
+    top: 17%;
     left: 5%;
     cursor: default;
 }
@@ -319,12 +312,12 @@ cursor: pointer; cursor: hand;
 }
 /*************Isotope Classes*************/
 .games {
-    background-color: #ff412d;
+    background-color: #9d3636;
     position: relative;
 }
 .games::after {
     opacity: .2;
-    background-color: #ff412d;
+    background-color: #9d3636;
     position: absolute;
     top: 0;
     left: 0;
@@ -347,12 +340,12 @@ cursor: pointer; cursor: hand;
     content: " ";
 }
 .entertainment {
-    background-color: #28a5ff;
+    background-color: #3f6d87;
     position: relative;
 }
 .entertainment::after {
     opacity: .2;
-    background-color: #28a5ff;
+    background-color: #3f6d87;
     position: absolute;
     top: 0;
     left: 0;
@@ -361,12 +354,40 @@ cursor: pointer; cursor: hand;
     content: " ";
 }
 .misc {
-    background-color: #6affd8;
+    background-color: #40496a;
     position: relative;
 }
 .misc::after {
     opacity: .2;
-    background-color: #6affd8;
+    background-color: #40496a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.life {
+    background-color: #83545d;
+    position: relative;
+}
+.life::after {
+    opacity: .2;
+    background-color: #83545d;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.technology {
+    background-color: #7e578f;
+    position: relative;
+}
+.technology::after {
+    opacity: .2;
+    background-color: #7e578f;
     position: absolute;
     top: 0;
     left: 0;
