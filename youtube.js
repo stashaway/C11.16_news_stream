@@ -65,7 +65,7 @@ streamismYT.prototype.parseSearch = function(response) {
                     var stream = new Stream();
                     var ytStream = items[j];
                     stream.title = ytStream.snippet.title;
-                    stream.thumbnail = ytStream.snippet.thumbnails.high.url;
+                    stream.thumbnail = ytStream.snippet.thumbnails.medium.url;
                     stream.link = "http://youtube.com/watch/v=" + ytStream.id.videoId;
                     stream.id = ytStream.id.videoId;
                     stream.channel = ytStream.snippet.channelTitle;
