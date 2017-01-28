@@ -132,6 +132,19 @@ function end_video(){
     $(".live_video").attr("src", " ");
 }
 
+function checkImageSize(selector){
+    // var img = document.getElementById('dom_img');
+    // var width = img.clientWidth;
+    // var height = img.clientHeight;
+    // return (width==120 && height == 90);
+    $(selector).each(function() {
+        var height = this.naturalHeight;
+        var width = this.naturalWidth;
+        if (width==120 && height == 90){
+            $(this).attr("src","images/noimage.png");
+        }
+    });
+}
 
 $(document).ready(function() {
     $('#modal1').modal();

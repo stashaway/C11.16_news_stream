@@ -42,7 +42,7 @@ div label input {
 }
 
 #games_button:checked + span {
-    background-color:#ff412d;
+    background-color: #9d3636;
     color:#fff;
 }
 #news_button:checked + span {
@@ -50,22 +50,21 @@ div label input {
     color:#fff;
 }
 #entertainment_button:checked + span {
-    background-color:#28a5ff;
+    background-color:#3f6d87;
     color:#fff;
 }
 #misc_button:checked + span {
-    background-color:#6affd8;
+    background-color:#40496a;
     color:#fff;
 }
 #life_button:checked + span {
-    background-color: #ff7ba0;
+    background-color: #83545d;
     color:#fff;
 }
 #tech_button:checked + span {
-    background-color: #a0aeff;
+    background-color: #7e578f;
     color:#fff;
 }
-
 #user_login{
     position: absolute;
     left: 75vw;
@@ -351,13 +350,13 @@ cursor: pointer; cursor: hand;
 
 }
 /*************Isotope Classes*************/
-.games {
-    background-color: #ff412d;
+.gaming {
+    background-color: #9d3636;
     position: relative;
 }
-.games::after {
+.gaming::after {
     opacity: .2;
-    background-color: #ff412d;
+    background-color: #9d3636;
     position: absolute;
     top: 0;
     left: 0;
@@ -380,12 +379,12 @@ cursor: pointer; cursor: hand;
     content: " ";
 }
 .entertainment {
-    background-color: #28a5ff;
+    background-color: #3f6d87;
     position: relative;
 }
 .entertainment::after {
     opacity: .2;
-    background-color: #28a5ff;
+    background-color: #3f6d87;
     position: absolute;
     top: 0;
     left: 0;
@@ -394,12 +393,12 @@ cursor: pointer; cursor: hand;
     content: " ";
 }
 .misc {
-    background-color: #6affd8;
+    background-color: #40496a;
     position: relative;
 }
 .misc::after {
     opacity: .2;
-    background-color: #6affd8;
+    background-color: #40496a;
     position: absolute;
     top: 0;
     left: 0;
@@ -407,7 +406,34 @@ cursor: pointer; cursor: hand;
     width: 100%;
     content: " ";
 }
-
+.life {
+    background-color: #83545d;
+    position: relative;
+}
+.life::after {
+    opacity: .2;
+    background-color: #83545d;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.technology {
+    background-color: #7e578f;
+    position: relative;
+}
+.technology::after {
+    opacity: .2;
+    background-color: #7e578f;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
 .tooltipped:hover {
     cursor: pointer; cursor: hand;
 }
