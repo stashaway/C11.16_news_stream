@@ -71,7 +71,6 @@ div label input {
     background-color: #7e578f;
     color:#fff;
 }
-
 #user_login{
     position: absolute;
     left: 75vw;
@@ -311,11 +310,12 @@ cursor: pointer; cursor: hand;
 
 }
 /*************Isotope Classes*************/
-.games {
+
+.gaming {
     background-color: #9d3636;
     position: relative;
 }
-.games::after {
+.gaming::after {
     opacity: .2;
     background-color: #9d3636;
     position: absolute;
@@ -395,7 +395,6 @@ cursor: pointer; cursor: hand;
     width: 100%;
     content: " ";
 }
-
 .tooltipped:hover {
     cursor: pointer; cursor: hand;
 }
