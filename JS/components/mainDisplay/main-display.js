@@ -1,12 +1,50 @@
 
-function mainDisplayController(dbService) {
+function mainDisplayController($timeout,dbService) {
     var ctrl = this;
     firebase.database().ref("-KbHuqtKNuu96svHRgjz").on('value', function (snapshot) {
         var snapshot_obj = snapshot.val();
         ctrl.data = snapshot_obj;
          ctrl.array = buildThumbnails(ctrl.data);
         console.log("Master array" , ctrl.array);
-    })
+        $timeout(function(){
+            $grid1 = $('.grid-l').imagesLoaded( function() {
+                checkImageSize('.grid-l img');
+                $grid1.isotope({
+                    itemSelector: '.grid-item-l',
+                    masonry: {columnWidth: '.grid-sizer-l'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $grid2 = $('.grid-m').imagesLoaded( function() {
+                checkImageSize('.grid-m img');
+                $grid2.isotope({
+                    itemSelector: '.grid-item-m',
+                    masonry: {columnWidth: '.grid-sizer-m'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+            $grid3 = $('.grid-s').imagesLoaded( function() {
+                checkImageSize('.grid-s img');
+                $grid3.isotope({
+                    itemSelector: '.grid-item-s',
+                    masonry: {columnWidth: '.grid-sizer-s'},
+                    stagger: 30,
+                    percentPosition: true
+                });
+            });
+        },0);
+
+        $('.top_nav input:checkbox').change(function() {
+            // this will contain a reference to the checkbox
+            console.log(this.name);
+            $('.'+this.name).toggleClass('hidden');
+            $grid1.isotope({ filter: '*:not(.hidden)' });
+            $grid2.isotope({ filter: '*:not(.hidden)' });
+            $grid3.isotope({ filter: '*:not(.hidden)' });
+        });
+    });
     function shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
         // While there remain elements to shuffle...
