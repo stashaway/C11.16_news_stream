@@ -133,10 +133,6 @@ function end_video(){
 }
 
 function checkImageSize(selector){
-    // var img = document.getElementById('dom_img');
-    // var width = img.clientWidth;
-    // var height = img.clientHeight;
-    // return (width==120 && height == 90);
     $(selector).each(function() {
         var height = this.naturalHeight;
         var width = this.naturalWidth;

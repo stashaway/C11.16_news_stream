@@ -118,69 +118,11 @@ img.logo {
     opacity: .5;
 }
 
-div#main {
-    /*margin-left: 60px;*/
-    /*margin-top: 5%;*/
-    width: 85vw;
-    margin: auto;
-}
-
 .section_label {
     margin: 2px 0;
     font-size: 1.5em;
 }
 
-/*.side_nav{*/
-    /*font-family: 'Gruppo', cursive;*/
-    /*font-size: 20px;*/
-    /*height: 100%;*/
-    /*color: #455a64 ;*/
-    /*width: 220px;*/
-    /*position: fixed;*/
-    /*z-index: 1;*/
-    /*top: 0;*/
-    /*left: -160px;*/
-    /*background-color: #455a64 ;*/
-    /*overflow-x: hidden;*/
-    /*transition: 0.5s;*/
-    /*padding-top: 60px;*/
-    /*opacity: .4;*/
-    /*border: 1px solid white;*/
-    /*border-radius: 0 5% 5% 0;*/
-/*}*/
-/*.side_nav:hover {*/
-    /*opacity: 1;*/
-/*}*/
-/*.side_nav>h1{*/
-    /*font-size: 2em;*/
-/*}*/
-/*.side_nav>h3{*/
-    /*font-size: 1em;*/
-/*}*/
-/*.open_nav{*/
-    /*color :white;*/
-    /*left: 0;*/
-    /*padding-left: 10px;*/
-/*}*/
-
-.side_nav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s
-}
-.side_nav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
-}
-.gear{
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    right: 0;
-    height: 30px;
-}
 
 .profile_pic_container{
     width: 5%;
@@ -192,7 +134,6 @@ div#main {
 
 .profile_pic{
     width: 4vw;
-
 }
 .fixed-action-btn{
     top:1px;
@@ -272,82 +213,42 @@ cursor: pointer; cursor: hand;
     width: 240px;
 }
 /************ Overall Containers ********************/
+*{
+    box-sizing: border-box;
+}
+div#main {
+    width: 85vw;
+    margin: auto;
+}
+.large, .grid {
+    width: 100%;
+    top: 10%;
+    left: 0;
+    /*display: inline-block;*/
+}
 
-.large, .grid-l {
-    width: 100%;
-    /*height: 20vh;*/
-    /*background-color: lightskyblue;*/
-    top: 10%;
-    left: 0;
-    display: inline-block;
-}
-.medium, .grid-m {
-    /*background-color: mediumorchid;*/
-    width: 100%;
-    /*height: 30vh;*/
-    top: 10%;
-    left: 0;
-    display: inline-block;
-}
-.small, .grid-s {
-    /*background-color: mediumorchid;*/
-    width: 100%;
-    /*height: 30vh;*/
-    top: 10%;
-    left: 0;
-    display: inline-block;
-}
 /*************Masonry Classes*************/
-.grid-sizer-l,
-.grid-item-l {
-    float: left;
-    /*width: 165px;*/
-    /*height: 150px;*/
-    width: 25%;
-    /*height: 30vh;*/
-    /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
-}
-/*.grid-item--large{*/
-    /*!*width: 165px;*!*/
-    /*!*height: 93px;*!*/
-    /*width: 14%;*/
-    /*height: 8%;*/
-/*}*/
-.grid-sizer-m,
-.grid-item-m {
-    float: left;
-    /*width: 165px;*/
-    /*height: 93px;*/
-    /*width: 14vw;*/
-    /*height: 8vw;*/
-    width: 16.6%
-}
-/*.grid-item--medium {*/
-    /*!*width:16%;*!*/
-    /*!*height: 9%*!*/
-    /*width: 14vw;*/
-    /*height: 8vw;*/
-/*}*/
 
-.grid-sizer-s,
-.grid-item-s {
+.grid-sizer,
+.grid-item {
     float: left;
-    /*width: 165px;*/
-    /*height: 93px;*/
-    width: 10%;
-    /*height: 6vw;*/
+    width: 8.3%;
 }
-/*.grid-item--small {*/
-    /*!*width:16%;*!*/
-    /*!*height: 9%*!*/
-    /*width: 7vw;*/
-    /*height: 4vw;*/
-/*}*/
+.grid-item--large{
+    width: 33.2%;
+}
 
-.grid-item-l img, .grid-item-m img, .grid-item-s img {
+.grid-item--medium {
+    width: 16.6%;
+}
+
+.grid-item--small {
+    width: 8.3%;
+}
+
+.grid-item img {
     width:100%;
     height:95%;
-
 }
 /*************Isotope Classes*************/
 .gaming {
