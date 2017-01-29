@@ -88,12 +88,12 @@ var master_list=null;
 
 function populateArray(cycles, depth) {
     var output_array = [];
-    var games_list = master_list['streams'][0]['streams'];
-    var entertainment_list = master_list['streams'][1]['streams'];
-    var life_list = master_list['streams'][2]['streams'];
-    var current_list = master_list['streams'][3]['streams'];
-    var tech_list = master_list['streams'][4]['streams'];
-    var misc_list = master_list['streams'][5]['streams'];
+    var games_list = ctrl.data['streams'][0]['streams'];
+    var entertainment_list = ctrl.data['streams'][1]['streams'];
+    var life_list = ctrl.data['streams'][2]['streams'];
+    var current_list = ctrl.data['streams'][3]['streams'];
+    var tech_list = ctrl.data['streams'][4]['streams'];
+    var misc_list = ctrl.data['streams'][5]['streams'];
 
     for (var i=depth; i<=cycles; i++) {
         var array = [];
@@ -110,48 +110,44 @@ function populateArray(cycles, depth) {
     return output_array;
 }
 
-var top_count = null;
-var mid_count = null;
-var bottom_count = null;
-
 function buildThumbnails(){
     var top_array = populateArray(1,0);
     var mid_array = populateArray(10,1);
     var bottom_array = populateArray(30,11);
 
-    var top_array_subset = top_array.slice(0,4);
-    var top_array_display = shuffle(top_array_subset);
-
-    top_count=1;
-    mid_count=10;
-    bottom_count=30;
+    // var top_array_subset = top_array.slice(0,4);
+    // var top_array_display = shuffle(top_array_subset);
+    //
+    // top_count=1;
+    // mid_count=10;
+    // bottom_count=30;
     // todo: Reorder this array by number of viwers
-    for (var i=0; i<4; i++){
-        console.log(top_array);
-        var new_thumb = top_array[i].thumbnail;
-        var new_item = $('<div class="grid-item-l grid-item--large ' + top_array[i].category + '" data-index=' + i + '>');
-        var new_img = $('<img src="' + new_thumb + '">');
-        new_item.append(new_img);
-        $('.grid-l').append(new_item);
-    }
-
-    for (var i=0; i<36; i++){
-        console.log(mid_array);
-        var new_thumb = mid_array[i].thumbnail;
-        var new_item = $('<div class="grid-item-m grid-item--medium ' + mid_array[i].category + '" data-index=' + i + '>');
-        var new_img = $('<img src="' + new_thumb + '">');
-        new_item.append(new_img);
-        $('.grid-m').append(new_item);
-    }
-
-    for (var i=0; i<80; i++){
-        console.log(bottom_array);
-        var new_thumb = bottom_array[i].thumbnail;
-        var new_item = $('<div class="grid-item-s grid-item--small ' + bottom_array[i].category + '" data-index=' + i + '>');
-        var new_img = $('<img src="' + new_thumb + '">');
-        new_item.append(new_img);
-        $('.grid-s').append(new_item);
-    }
+    // for (var i=0; i<4; i++){
+    //     console.log(top_array);
+    //     var new_thumb = top_array[i].thumbnail;
+    //     var new_item = $('<div class="grid-item-l grid-item--large ' + top_array[i].category + '" data-index=' + i + '>');
+    //     var new_img = $('<img src="' + new_thumb + '">');
+    //     new_item.append(new_img);
+    //     $('.grid-l').append(new_item);
+    // }
+    //
+    // for (var i=0; i<36; i++){
+    //     console.log(mid_array);
+    //     var new_thumb = mid_array[i].thumbnail;
+    //     var new_item = $('<div class="grid-item-m grid-item--medium ' + mid_array[i].category + '" data-index=' + i + '>');
+    //     var new_img = $('<img src="' + new_thumb + '">');
+    //     new_item.append(new_img);
+    //     $('.grid-m').append(new_item);
+    // }
+    //
+    // for (var i=0; i<80; i++){
+    //     console.log(bottom_array);
+    //     var new_thumb = bottom_array[i].thumbnail;
+    //     var new_item = $('<div class="grid-item-s grid-item--small ' + bottom_array[i].category + '" data-index=' + i + '>');
+    //     var new_img = $('<img src="' + new_thumb + '">');
+    //     new_item.append(new_img);
+    //     $('.grid-s').append(new_item);
+    // }
     // for (var i=0; i<1; i++){
     //     var new_e_thumb = entertainment_list[i].thumbnail;
     //     var new_e_item = $('<div class="grid-item-l grid-item--large entertainment" data-index=' + i + '>');

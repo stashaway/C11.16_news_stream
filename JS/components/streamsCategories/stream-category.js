@@ -6,6 +6,7 @@ angular.module('streamism').component('streamCategory',{
     controller: streamCategoryController,
     transclude:true,
     bindings:{
-        section: "<"
+        section: "<",
+        streams:"<"
     }
 });

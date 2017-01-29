@@ -1,6 +1,5 @@
-function individualStreamController(){
+function individualStreamController($log){
     var ctrl = this;
-
 }
 angular.module('streamism').component('individualStream',{
     templateUrl:'./JS/components/individualStream/individual-streams.html',
