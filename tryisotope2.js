@@ -12,39 +12,35 @@ $(document).ready(function() {
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         var snapshot_obj = snapshot.val();
         //for (var data_obj in snapshot_obj) {
-            master_list=snapshot_obj;//[data_obj];
-            buildThumbnails(master_list);
+        master_list=snapshot_obj;//[data_obj];
+        console.log(master_list);
+        buildThumbnails(master_list);
 
-            $grid = $('.grid').imagesLoaded( function() {
-                checkImageSize('.grid img');
+        $grid = $('.grid').imagesLoaded().always( function() {
+            setTimeout(function(){
                 $grid.isotope({
                     itemSelector: '.grid-item',
                     masonry: { columnWidth: '.grid-sizer'},
-                    stagger: 30,
+                    stagger: 5,
                     percentPosition: true
                 });
-            });
-            $('.top_nav input:checkbox').change(function() {
-                // this will contain a reference to the checkbox
-                console.log(this.name);
-                // $grid1.isotope('hideItemElements', $('.'+this.name));
+            },1500);
+       });
 
-                $('.'+this.name).toggleClass('hidden');
-                $grid.isotope({ filter: '*:not(.hidden)' });
-            });
+        $('.top_nav input:checkbox').change(function() {
+            // this will contain a reference to the checkbox
+            // console.log(this.name);
+            // $grid1.isotope('hideItemElements', $('.'+this.name));
+
+            $('.'+this.name).toggleClass('hidden');
+            $grid.isotope({ filter: '*:not(.hidden)' });
+        });
         //}
     });
-    $('.large').on('click','.grid-item-l',(function(){
+    $('.large').on('click','.grid-item',(function(){
         update_preview(this);
     }));
-
-    $('.medium').on('click','.grid-item-m',(function(){
-        update_preview(this);
-    }));
-
-    $('.small').on('click','.grid-item-s',(function(){
-        update_preview(this);
-    }));
+    $('#spinner').hide();
 });
 
 function shuffle(array) {
@@ -88,43 +84,89 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    console.log(output_array);
+    // console.log(output_array);
     return output_array;
 }
 
 var top_count = null;
 var mid_count = null;
 var bottom_count = null;
-
+var main_array=[];
 function buildThumbnails(){
-    var main_array = populateArray(36,0);
+    main_array = populateArray(36,0);
+    console.log('main array',main_array);
+    var featured_object = {
+        category: "divider",
+        thumbnail: "images/featured.png",
+        title: "Featured",
+        viewers: null
+    };
+    main_array.splice(0,0,featured_object);
+    main_array.splice(4,0,featured_object);
+    main_array.splice(53,0,featured_object);
+    main_array.splice(-3);
+    console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;
+    var the_grid = $('<div>',{
+        class: 'grid'
+    });
+    var sizer=$('<div>',{
+        class: 'grid-sizer'
+    });
+    $(the_grid).append(sizer);
     for (var i=0; i<main_array.length; i++){
-        if (i<3) {
+
+        if (i<5) {
+            if (main_array[i].category==='divider'){
+                new_thumb = main_array[i].thumbnail;
+                new_item = $('<div class="grid-item grid-item--divider">');
+                new_img = $('<img src="' + new_thumb + '">');
+                new_item.append(new_img);
+                $(the_grid).append(new_item);
+                continue;
+            }
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
-            $('.grid').append(new_item);
+            $(the_grid).append(new_item);
         }
-        else if (i<30) {
+        else if (i<53) {
+            if (main_array[i].category==='divider'){
+                new_thumb = main_array[i].thumbnail;
+                new_item = $('<div class="grid-item grid-item--divider">');
+                new_img = $('<img src="' + new_thumb + '">');
+                new_item.append(new_img);
+                $(the_grid).append(new_item);
+                continue;
+            }
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
-            $('.grid').append(new_item);
+            $(the_grid).append(new_item);
         } else {
+            if (main_array[i].category==='divider'){
+                new_thumb = main_array[i].thumbnail;
+                new_item = $('<div class="grid-item grid-item--divider">');
+                new_img = $('<img src="' + new_thumb + '">');
+                new_item.append(new_img);
+                $(the_grid).append(new_item);
+                continue;
+            }
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--small ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
-            $('.grid').append(new_item);
-
+            $(the_grid).append(new_item);
         }
+        $('.large').append(the_grid)
     }
-    $('#spinner').hide();
+    $('.grid').imagesLoaded().always( function() {
+        checkImageSize('.grid img');
+    });
 }
 
 

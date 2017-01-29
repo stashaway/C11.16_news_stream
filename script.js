@@ -68,26 +68,26 @@ function displayLogginState(){
 }
 
 function determine_info (item){
-    var current_item=$(item);
-    var category_number;
-    if (current_item.hasClass('games')){
-        category_number = 0;
-    } else if (current_item.hasClass('entertainment')){
-        category_number = 1;
-    } else if (current_item.hasClass('life')){
-        category_number = 2;
-    } else if (current_item.hasClass('news')) {
-        category_number = 3;
-    } else if (current_item.hasClass('technology')) {
-        category_number = 4;
-    } else if (current_item.hasClass('misc')) {
-        category_number = 5;
-    } else {
-        category_number = 0;
-    }
-    console.log(master_list);
-    var index = current_item.attr('data-index');
-    var current_item_details = master_list.streams[category_number].streams[index];
+    // var current_item=$(item);
+    // var category_number;
+    // if (current_item.hasClass('games')){
+    //     category_number = 0;
+    // } else if (current_item.hasClass('entertainment')){
+    //     category_number = 1;
+    // } else if (current_item.hasClass('life')){
+    //     category_number = 2;
+    // } else if (current_item.hasClass('news')) {
+    //     category_number = 3;
+    // } else if (current_item.hasClass('technology')) {
+    //     category_number = 4;
+    // } else if (current_item.hasClass('misc')) {
+    //     category_number = 5;
+    // } else {
+    //     category_number = 0;
+    // }
+    // console.log(master_list);
+    var index = $(item).attr('data-index');
+    var current_item_details = main_array[index];
     return {
         'index' : index,
         'thumbnail': current_item_details.thumbnail,
@@ -100,7 +100,7 @@ function determine_info (item){
         'id' : current_item_details.id,
         'chat': current_item_details.embedChat,
         'video': current_item_details.embedVideo,
-        'source': current_item.source
+        'source': item.source
     }
 }
 
