@@ -223,6 +223,22 @@ cursor: pointer; cursor: hand;
     height: 50px;
     width: 240px;
 }
+
+#update_btn {
+    position: absolute;
+    border-radius: 10px;
+    top: 50%;
+    right: 18%;
+}
+
+#update_div {
+position: absolute;
+top: 0;
+left: 0;
+height: 100%;
+width: 100%;
+}
+
 /************ Overall Containers ********************/
 *{
     box-sizing: border-box;
