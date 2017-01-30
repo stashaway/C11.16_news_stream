@@ -7,6 +7,33 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //     if(user) {
+    //         console.log(user);
+    //         firebase.auth().signOut().then(function() {
+    //             console.log("signed out");
+    //         })
+    //     } else {
+    //         //start firebase ui
+    //         // FirebaseUI config.
+    //         var uiConfig = {
+    //             signInFlow: "popup",
+    //             signInSuccessUrl: 'localhost:8888',
+    //             signInOptions: [
+    //                 // Leave the lines as is for the providers you want to offer your users.
+    //                 firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    //             ],
+    //             // Terms of service url.
+    //             tosUrl: 'localhost:8888'
+    //         };
+    //
+    //         // Initialize the FirebaseUI Widget using Firebase.
+    //         var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    //         // The start method will wait until the DOM is loaded.
+    //         ui.start('#firebaseui-auth-container', uiConfig);
+    //         //end firebase ui
+    //     }
+    // });
     firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {

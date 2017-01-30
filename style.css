@@ -1,5 +1,8 @@
+body{
+    background-color: #bfc3c5;
+}
 header{
-    font-family: 'Mallanna', sans-serif;
+    font-family: 'Assistant', sans-serif;
     text-align: center;
     top:0;
     left:0;
@@ -14,7 +17,7 @@ div label input {
 }
 .ck-button {
     height: 5vh;
-    margin: 4px;
+    margin:11px 6px 5px 5px;
     background-color: #EFEFEF;
     border-radius: 4px;
     border: 1px solid #D0D0D0;
@@ -39,6 +42,9 @@ div label input {
 .ck-button label input {
     position:absolute;
     top:-20px;
+}
+.toggle_cat{
+    float:left
 }
 
 #games_button:checked + span {
@@ -82,13 +88,14 @@ div label input {
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
-    text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);
+    /*text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);*/
 }
 
 p.header_tagline{
     font-size: 1rem;
 }
 h2.header_logo {
+    font-family: 'Julius Sans One', sans-serif;
     font-size: 40px;
 }
 
@@ -122,8 +129,6 @@ img.logo {
     margin: 2px 0;
     font-size: 1.5em;
 }
-
-
 .profile_pic_container{
     width: 5%;
     position: absolute;
@@ -143,14 +148,15 @@ img.logo {
 }
 
 #preview{
-    background-color:darkslategray;
+    border-radius: 4px;
+    font-family: 'Assistant', sans-serif;
+    background-color: rgba(144,144,144,0.8);
     width: 20vw;
-    height: 50vh;
+    height: 38vh;
     position: fixed;
     bottom: 0;
     right: 0;
     color: white;
-    border: 1px solid black;
     -webkit-box-shadow: -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
     -moz-box-shadow:    -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
     box-shadow:         -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
@@ -165,12 +171,13 @@ img.logo {
 
 #preview_title {
     font-size: 1.5em;
-    color: cyan;
-    text-shadow: 2px 2px #252222;
+    color: black;
+    /*text-shadow: 2px 2px #252222;*/
     position: absolute;
     left: 4%;
     cursor: default;
-    width: 90%;
+    width: 85%;
+    text-align: center;
 }
 
 #preview_category {
@@ -184,14 +191,18 @@ img.logo {
 
 #viewers_p{
     position: absolute;
-    top: 28%;
+    top: 23%;
     left: 5%;
     cursor: default;
 }
-
+#click_thumbnail{
+    position: absolute;
+    top: 29%;
+    left: 5%;
+}
 #category_p {
     position: absolute;
-    top: 23%;
+    top: 17%;
     left: 5%;
     cursor: default;
 }
@@ -254,6 +265,7 @@ div#main {
     height:95%;
 }
 /*************Isotope Classes*************/
+
 .gaming {
     background-color: #9d3636;
     position: relative;
