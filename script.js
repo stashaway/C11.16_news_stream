@@ -147,7 +147,6 @@ function checkImageSize(selector){
 }
 
 $(document).ready(function() {
-    $(".button-collapse").sideNav();
     $('#modal1').modal();
     $(".dropdown-button").dropdown();
     $('.modal').modal({
