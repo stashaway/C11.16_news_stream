@@ -7,78 +7,76 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
-
-
-    firebase.auth().onAuthStateChanged(function(user) {
-        if(user) {
-            console.log(user);
-            firebase.auth().signOut().then(function() {
-                console.log("signed out");
-            })
-        } else {
-            //start firebase ui
-            // FirebaseUI config.
-            var uiConfig = {
-                signInFlow: "popup",
-                signInSuccessUrl: 'localhost:8888',
-                signInOptions: [
-                    // Leave the lines as is for the providers you want to offer your users.
-                    firebase.auth.GoogleAuthProvider.PROVIDER_ID
-                ],
-                // Terms of service url.
-                tosUrl: 'localhost:8888'
-            };
-
-            // Initialize the FirebaseUI Widget using Firebase.
-            var ui = new firebaseui.auth.AuthUI(firebase.auth());
-            // The start method will wait until the DOM is loaded.
-            ui.start('#firebaseui-auth-container', uiConfig);
-            //end firebase ui
-        }
-    });
-
-
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //     if(user) {
+    //         console.log(user);
+    //         firebase.auth().signOut().then(function() {
+    //             console.log("signed out");
+    //         })
+    //     } else {
+    //         //start firebase ui
+    //         // FirebaseUI config.
+    //         var uiConfig = {
+    //             signInFlow: "popup",
+    //             signInSuccessUrl: 'localhost:8888',
+    //             signInOptions: [
+    //                 // Leave the lines as is for the providers you want to offer your users.
+    //                 firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    //             ],
+    //             // Terms of service url.
+    //             tosUrl: 'localhost:8888'
+    //         };
+    //
+    //         // Initialize the FirebaseUI Widget using Firebase.
+    //         var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    //         // The start method will wait until the DOM is loaded.
+    //         ui.start('#firebaseui-auth-container', uiConfig);
+    //         //end firebase ui
+    //     }
+    // });
+    firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         var snapshot_obj = snapshot.val();
         //for (var data_obj in snapshot_obj) {
-            master_list=snapshot_obj;//[data_obj];
-            buildThumbnails(master_list);
-            $grid1 = $('.grid-l').imagesLoaded( function() {
-                checkImageSize('.grid-l img');
-                $grid1.isotope({
-                    itemSelector: '.grid-item-l',
-                    masonry: {columnWidth: '.grid-sizer-l'},
-                    stagger: 30,
-                    percentPosition: true
-                });
+        master_list=snapshot_obj;//[data_obj];
+        buildThumbnails(master_list);
+
+        $grid1 = $('.grid-l').imagesLoaded( function() {
+            checkImageSize('.grid-l img');
+            $grid1.isotope({
+                itemSelector: '.grid-item-l',
+                masonry: {columnWidth: '.grid-sizer-l'},
+                stagger: 30,
+                percentPosition: true
             });
-            $grid2 = $('.grid-m').imagesLoaded( function() {
-                checkImageSize('.grid-m img');
-                $grid2.isotope({
-                    itemSelector: '.grid-item-m',
-                    masonry: {columnWidth: '.grid-sizer-m'},
-                    stagger: 30,
-                    percentPosition: true
-                });
+        });
+        $grid2 = $('.grid-m').imagesLoaded( function() {
+            checkImageSize('.grid-m img');
+            $grid2.isotope({
+                itemSelector: '.grid-item-m',
+                masonry: {columnWidth: '.grid-sizer-m'},
+                stagger: 30,
+                percentPosition: true
             });
-            $grid3 = $('.grid-s').imagesLoaded( function() {
-                checkImageSize('.grid-s img');
-                $grid3.isotope({
-                    itemSelector: '.grid-item-s',
-                    masonry: {columnWidth: '.grid-sizer-s'},
-                    stagger: 30,
-                    percentPosition: true
-                });
+        });
+        $grid3 = $('.grid-s').imagesLoaded( function() {
+            checkImageSize('.grid-s img');
+            $grid3.isotope({
+                itemSelector: '.grid-item-s',
+                masonry: {columnWidth: '.grid-sizer-s'},
+                stagger: 30,
+                percentPosition: true
             });
-            $('.top_nav input:checkbox').change(function() {
-                // this will contain a reference to the checkbox
-                console.log(this.name);
-                $('.'+this.name).toggleClass('hidden');
-                $grid1.isotope({ filter: '*:not(.hidden)' });
-                $grid2.isotope({ filter: '*:not(.hidden)' });
-                $grid3.isotope({ filter: '*:not(.hidden)' });
-            });
+        });
+        $('.top_nav input:checkbox').change(function() {
+            // this will contain a reference to the checkbox
+            console.log(this.name);
+            $('.'+this.name).toggleClass('hidden');
+            $grid1.isotope({ filter: '*:not(.hidden)' });
+            $grid2.isotope({ filter: '*:not(.hidden)' });
+            $grid3.isotope({ filter: '*:not(.hidden)' });
+        });
         //}
     });
     $('.large').on('click','.grid-item-l',(function(){
@@ -135,9 +133,13 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    // console.log(output_array);
+    console.log(output_array);
     return output_array;
 }
+
+var top_count = null;
+var mid_count = null;
+var bottom_count = null;
 
 function buildThumbnails(){
     var top_array = populateArray(1,0);
@@ -152,7 +154,7 @@ function buildThumbnails(){
     bottom_count=30;
     // todo: Reorder this array by number of viwers
     for (var i=0; i<4; i++){
-        // console.log(top_array);
+        console.log(top_array);
         var new_thumb = top_array[i].thumbnail;
         var new_item = $('<div class="grid-item-l grid-item--large ' + top_array[i].category + '" data-index=' + i + '>');
         var new_img = $('<img src="' + new_thumb + '">');
@@ -161,7 +163,7 @@ function buildThumbnails(){
     }
 
     for (var i=0; i<36; i++){
-        // console.log(mid_array);
+        console.log(mid_array);
         var new_thumb = mid_array[i].thumbnail;
         var new_item = $('<div class="grid-item-m grid-item--medium ' + mid_array[i].category + '" data-index=' + i + '>');
         var new_img = $('<img src="' + new_thumb + '">');
@@ -170,7 +172,7 @@ function buildThumbnails(){
     }
 
     for (var i=0; i<80; i++){
-        // console.log(bottom_array);
+        console.log(bottom_array);
         var new_thumb = bottom_array[i].thumbnail;
         var new_item = $('<div class="grid-item-s grid-item--small ' + bottom_array[i].category + '" data-index=' + i + '>');
         var new_img = $('<img src="' + new_thumb + '">');
