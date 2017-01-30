@@ -125,13 +125,6 @@ img.logo {
     opacity: .5;
 }
 
-div#main {
-    /*margin-left: 60px;*/
-    /*margin-top: 5%;*/
-    width: 85vw;
-    margin: auto;
-}
-
 .section_label {
     margin: 2px 0;
     font-size: 1.5em;
@@ -146,7 +139,6 @@ div#main {
 
 .profile_pic{
     width: 4vw;
-
 }
 .fixed-action-btn{
     top:1px;
@@ -232,82 +224,45 @@ cursor: pointer; cursor: hand;
     width: 240px;
 }
 /************ Overall Containers ********************/
+*{
+    box-sizing: border-box;
+}
+div#main {
+    width: 85vw;
+    margin: auto;
+}
+.large, .grid {
+    width: 100%;
+    top: 10%;
+    left: 0;
+    /*display: inline-block;*/
+}
 
-.large, .grid-l {
-    width: 100%;
-    /*height: 20vh;*/
-    /*background-color: lightskyblue;*/
-    top: 10%;
-    left: 0;
-    display: inline-block;
-}
-.medium, .grid-m {
-    /*background-color: mediumorchid;*/
-    width: 100%;
-    /*height: 30vh;*/
-    top: 10%;
-    left: 0;
-    display: inline-block;
-}
-.small, .grid-s {
-    /*background-color: mediumorchid;*/
-    width: 100%;
-    /*height: 30vh;*/
-    top: 10%;
-    left: 0;
-    display: inline-block;
-}
 /*************Masonry Classes*************/
-.grid-sizer-l,
-.grid-item-l {
-    float: left;
-    /*width: 165px;*/
-    /*height: 150px;*/
-    width: 25%;
-    /*height: 30vh;*/
-    /*border: 2px solid hsla(0, 0%, 0%, 0.5);*/
-}
-/*.grid-item--large{*/
-    /*!*width: 165px;*!*/
-    /*!*height: 93px;*!*/
-    /*width: 14%;*/
-    /*height: 8%;*/
-/*}*/
-.grid-sizer-m,
-.grid-item-m {
-    float: left;
-    /*width: 165px;*/
-    /*height: 93px;*/
-    /*width: 14vw;*/
-    /*height: 8vw;*/
-    width: 16.6%
-}
-/*.grid-item--medium {*/
-    /*!*width:16%;*!*/
-    /*!*height: 9%*!*/
-    /*width: 14vw;*/
-    /*height: 8vw;*/
-/*}*/
 
-.grid-sizer-s,
-.grid-item-s {
+.grid-sizer,
+.grid-item {
     float: left;
-    /*width: 165px;*/
-    /*height: 93px;*/
-    width: 10%;
-    /*height: 6vw;*/
+    width: 8.3%;
 }
-/*.grid-item--small {*/
-    /*!*width:16%;*!*/
-    /*!*height: 9%*!*/
-    /*width: 7vw;*/
-    /*height: 4vw;*/
-/*}*/
+.grid-item--large{
+    width: 33.2%;
+}
 
-.grid-item-l img, .grid-item-m img, .grid-item-s img {
+.grid-item--medium {
+    width: 16.6%;
+}
+
+.grid-item--small {
+    width: 8.3%;
+}
+
+.grid-item--divider {
+    width: 100%;
+}
+.grid-item img {
     width:100%;
     height:95%;
-
 }
 /*************Isotope Classes*************/
 
