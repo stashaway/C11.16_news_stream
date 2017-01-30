@@ -243,18 +243,23 @@ div#main {
 .grid-sizer,
 .grid-item {
     float: left;
-    width: 8.3%;
-}
-.grid-item--large{
-    width: 33.2%;
-}
-
-.grid-item--medium {
     width: 16.6%;
 }
 
-.grid-item--small {
-    width: 8.3%;
+.grid-item--50k {
+    width: 50%;
+}
+
+.grid-item--10k{
+    width: 40%;
+}
+
+.grid-item--1k {
+    width: 30%;
+}
+
+.grid-item--500 {
+    width: 20%;
 }
 
 .grid-item--divider {

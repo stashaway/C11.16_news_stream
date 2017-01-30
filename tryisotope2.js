@@ -135,9 +135,10 @@ function go(filtered) {
         class: 'grid-sizer'
     });
     $(the_grid).append(sizer);
-    for (var i=0; i<48; i++){
+    for (var i=0; i<96; i++){
+            var size = "";
             var new_thumb = filtered[i].thumbnail;
-            var new_item = $('<div class="grid-item grid-item--medium ' + filtered[i].category + '" data-index=' + i + '>');
+            var new_item = $('<div class="grid-item ' + size + ' ' + filtered[i].category + '" data-index=' + i + '>');
             var new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
             $(the_grid).append(new_item);
