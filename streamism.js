@@ -57,13 +57,15 @@ function writeToFile(filename, obj) {
     });
 }
 
-//Initiate twitch then initiate youtube - root is passed in and back filled with data
-var sTwitch = new twitch(categories,root);
-sTwitch.start(function (tdata) {
-    var sYt = new yt(categories,ytCategories,tdata);
-    sYt.start(function (ytdata) {
-        db.ref("-KbHuqtKNuu96svHRgjz").set(ytdata);
-        //writeToFile("new.json",ytdata);
-        console.log("Set database");
+setInterval(function () {
+    //Initiate twitch then initiate youtube - root is passed in and back filled with data
+    var sTwitch = new twitch(categories,root);
+    sTwitch.start(function (tdata) {
+        var sYt = new yt(categories,ytCategories,tdata);
+        sYt.start(function (ytdata) {
+            db.ref("-KbHuqtKNuu96svHRgjz").set(ytdata);
+            //writeToFile("new.json",ytdata);
+            console.log("Set database");
+        });
     });
-});
+},300000);
