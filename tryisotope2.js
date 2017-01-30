@@ -36,12 +36,17 @@ $(document).ready(function() {
     // });
     firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
+
+
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
-        var snapshot_obj = snapshot.val();
+        data = snapshot.val();
         //for (var data_obj in snapshot_obj) {
-        master_list=snapshot_obj;//[data_obj];
-        console.log(master_list);
-        buildThumbnails(master_list);
+        //master_list=snapshot_obj;//[data_obj];
+        //console.log(master_list);
+
+        //buildThumbnails(master_list);
+        var filtered = shuffle(data);
+        go(filtered);
 
         $grid = $('.grid').imagesLoaded().always( function() {
             setTimeout(function(){
@@ -59,9 +64,12 @@ $(document).ready(function() {
             // console.log(this.name);
             // $grid1.isotope('hideItemElements', $('.'+this.name));
 
-            $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
-            $grid.isotope({ filter: '*:not(.hidden)' });
-            redistributeGrid();
+            //$('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+            //$grid.isotope({ filter: '*:not(.hidden)' });
+            //redistributeGrid();
+            categories[this.name] = !categories[this.name];
+            var filtered = shuffle(data);
+            go(filtered);
         });
         //}
     });
@@ -70,8 +78,76 @@ $(document).ready(function() {
     }));
     $('#spinner').hide();
 });
+var data = null;
+var categories = {
+    gaming:true,
+    entertainment:true,
+    news:true,
+    technology:true,
+    life:true,
+    misc:true
+};
 
-function shuffle(array) {
+function shuffle(snapshot) {
+    var data = [];
+    var max = 0;
+    var filtered = [];
+
+    //filter into just selected categories
+    for (var i in snapshot.streams) {
+        if (snapshot.streams.hasOwnProperty(i)) {
+            var cat = snapshot.streams[i];
+            if (categories[cat.id]) {
+                data.push(cat);
+                if (cat.streams.length > max) max = cat.streams.length;
+            }
+        }
+    }
+
+    for (var j = 0; j < max; j++) {
+        var sub = [];
+
+        for (var k = 0; k < data.length; k++) {
+            var category = data[k];
+            var stream = category.streams[j];
+            if (stream) {
+                sub.push(stream);
+            }
+        }
+
+        if (sub.length > 0) {
+            sub.sort(function(){return 0.5 - Math.random()});
+            filtered = filtered.concat(sub);
+        }
+    }
+
+    return filtered;
+}
+
+function go(filtered) {
+    $('.large').html('');
+    var the_grid = $('<div>',{
+        class: 'grid'
+    });
+    var sizer=$('<div>',{
+        class: 'grid-sizer'
+    });
+    $(the_grid).append(sizer);
+    for (var i=0; i<48; i++){
+            var new_thumb = filtered[i].thumbnail;
+            var new_item = $('<div class="grid-item grid-item--medium ' + filtered[i].category + '" data-index=' + i + '>');
+            var new_img = $('<img src="' + new_thumb + '">');
+            new_item.append(new_img);
+            $(the_grid).append(new_item);
+
+        $('.large').append(the_grid)
+    }
+    $('.grid').imagesLoaded().always( function() {
+        checkImageSize('.grid img');
+    });
+}
+
+/*function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     // While there remain elements to shuffle...
@@ -88,7 +164,7 @@ function shuffle(array) {
     }
 
     return array;
-}
+}*/
 function redistributeGrid(){
     var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
         console.log(this);
