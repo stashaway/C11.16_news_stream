@@ -7,35 +7,54 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //     if(user) {
-    //         console.log(user);
-    //         firebase.auth().signOut().then(function() {
-    //             console.log("signed out");
-    //         })
-    //     } else {
-    //         //start firebase ui
-    //         // FirebaseUI config.
-    //         var uiConfig = {
-    //             signInFlow: "popup",
-    //             signInSuccessUrl: 'localhost:8888',
-    //             signInOptions: [
-    //                 // Leave the lines as is for the providers you want to offer your users.
-    //                 firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    //             ],
-    //             // Terms of service url.
-    //             tosUrl: 'localhost:8888'
-    //         };
-    //
-    //         // Initialize the FirebaseUI Widget using Firebase.
-    //         var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    //         // The start method will wait until the DOM is loaded.
-    //         ui.start('#firebaseui-auth-container', uiConfig);
-    //         //end firebase ui
-    //     }
-    // });
-    firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
+    // firebase.auth().signInAnonymously();
+    firebase.auth().onAuthStateChanged(function(user) {
+        if(user){
+            console.log("User is signed in" , user.uid);
+            uid = user.uid;
+         fb_ref.ref("users/" + uid).on("value", function(snapshot){
+             preferences = snapshot.val();
+             for(category in preferences['categories']){
+                if(preferences['categories'][category] == false){
+                    $("#" + category).removeAttr("checked");
+                }
+             }
+             console.log("Pref:" , snapshot.val());
+         });
+            user.getToken().then(function(accessToken) {
+                $(".dropdown-button").text("Logged In")
+                $("#sign-out").html("Sign Out");
+                $("#sign-out").on("click",function(){
+                    firebase.auth().signOut().then(function() {
+                        console.log("signed out");
+                    });
+                })
+            });
+        } else {
+            //start firebase ui
+            // FirebaseUI config.
+            $("#sign-out").text(" ");
+            $(".dropdown-button").text("Log In");
+            console.log("User is not logged in")
+            var uiConfig = {
+                signInFlow: "popup",
+                signInSuccessUrl: 'http://localhost:8888/lfz/C11.16_news_stream/',
+                signInOptions: [
+                    // Leave the lines as is for the providers you want to offer your users.
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+                ],
+                // Terms of service url.
+                // tosUrl: 'localhost:8888'
+            };
+            // Initialize the FirebaseUI Widget using Firebase.
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            // The start method will wait until the DOM is loaded.
+            ui.start('#firebaseui-auth-container', uiConfig);
+            //end firebase ui
+        }
+    });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         var snapshot_obj = snapshot.val();
         //for (var data_obj in snapshot_obj) {
@@ -52,8 +71,8 @@ $(document).ready(function() {
                     percentPosition: true
                 });
             },1500);
+            $('#spinner').hide();
        });
-
         $('.top_nav input:checkbox').change(function() {
             // this will contain a reference to the checkbox
             // console.log(this.name);
@@ -61,16 +80,20 @@ $(document).ready(function() {
 
             $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
             $grid.isotope({ filter: '*:not(.hidden)' });
-            redistributeGrid();
+            if(uid){
+                preferences['categories'][this.name] = !preferences['categories'][this.name];
+                console.log(preferences);
+                fb_ref.ref("users/" + uid).update(preferences);
+            }
         });
         //}
     });
     $('.large').on('click','.grid-item',(function(){
         update_preview(this);
     }));
-    $('#spinner').hide();
 });
-
+var preferences;
+var uid = null;
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -89,15 +112,7 @@ function shuffle(array) {
 
     return array;
 }
-function redistributeGrid(){
-    var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
-        console.log(this);
-        var index = $(this).attr('data-index');
-        console.log('index- '+index);
-        return index<5;
-        }).length;
-    console.log('Number not hidden'+x);
-};
+
 var master_list=null;
 
 function populateArray(cycles, depth) {
@@ -127,7 +142,7 @@ function populateArray(cycles, depth) {
 var main_array=[];
 function buildThumbnails(){
     main_array = populateArray(36,0);
-    console.log('main array',main_array);
+    // console.log('main array',main_array);
     var featured_object = {
         category: "divider",
         thumbnail: "images/featured.png",
@@ -138,7 +153,7 @@ function buildThumbnails(){
     main_array.splice(4,0,featured_object);
     main_array.splice(53,0,featured_object);
     main_array.splice(-3);
-    console.log('main array after splice',main_array);
+    // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;

@@ -47,27 +47,27 @@ div label input {
     float:left
 }
 
-#games_button:checked + span {
+#gaming:checked + span {
     background-color: #9d3636;
     color:#fff;
 }
-#news_button:checked + span {
+#news:checked + span {
     background-color:#158065;
     color:#fff;
 }
-#entertainment_button:checked + span {
+#entertainment:checked + span {
     background-color:#3f6d87;
     color:#fff;
 }
-#misc_button:checked + span {
+#misc:checked + span {
     background-color:#40496a;
     color:#fff;
 }
-#life_button:checked + span {
+#life:checked + span {
     background-color: #83545d;
     color:#fff;
 }
-#tech_button:checked + span {
+#technology:checked + span {
     background-color: #7e578f;
     color:#fff;
 }
@@ -370,9 +370,16 @@ div#modal1.modal.open {
 }
 .live_chat{
     float:right;
-    margin-right: 4%;
+    margin-right: 10%;
 }
 .live_video{
     float:left;
-    margin-left: 4%;
+    margin-left: 10%;
+}
+ul#dropdown1.dropdown-content.active{
+    width: 259.734px !important;
+    left: 1468.69px !important;
+}
+.firebaseui-container{
+    width:103%;
 }
