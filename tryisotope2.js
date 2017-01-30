@@ -1,3 +1,13 @@
+var data = null;
+var cats = {
+    gaming:true,
+    entertainment:true,
+    news:true,
+    technology:true,
+    life:true,
+    misc:true
+};
+
 $(document).ready(function() {
     var config = {
         apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
@@ -67,7 +77,7 @@ $(document).ready(function() {
             //$('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
             //$grid.isotope({ filter: '*:not(.hidden)' });
             //redistributeGrid();
-            categories[this.name] = !categories[this.name];
+            cats[this.name] = !cats[this.name];
             var filtered = shuffle(data);
             go(filtered);
         });
@@ -78,15 +88,7 @@ $(document).ready(function() {
     }));
     $('#spinner').hide();
 });
-var data = null;
-var categories = {
-    gaming:true,
-    entertainment:true,
-    news:true,
-    technology:true,
-    life:true,
-    misc:true
-};
+
 
 function shuffle(snapshot) {
     var data = [];
@@ -97,7 +99,7 @@ function shuffle(snapshot) {
     for (var i in snapshot.streams) {
         if (snapshot.streams.hasOwnProperty(i)) {
             var cat = snapshot.streams[i];
-            if (categories[cat.id]) {
+            if (cats[cat.id]) {
                 data.push(cat);
                 if (cat.streams.length > max) max = cat.streams.length;
             }

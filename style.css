@@ -9,7 +9,7 @@ header{
 }
 html {
     height: auto !important;
-    padding-bottom: 700px !important;
+    #padding-bottom: 700px !important;
 }
 
 div label input {
@@ -228,8 +228,8 @@ cursor: pointer; cursor: hand;
     box-sizing: border-box;
 }
 div#main {
-    width: 85vw;
-    margin: auto;
+    #width: 85vw;
+    #margin: auto;
 }
 .large, .grid {
     width: 100%;
