@@ -368,4 +368,11 @@ div#modal1.modal.open {
     max-height: 70%;
     width:99%;
 }
-
+.live_chat{
+    float:right;
+    margin-right: 4%;
+}
+.live_video{
+    float:left;
+    margin-left: 4%;
+}
