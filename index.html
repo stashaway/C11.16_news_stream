@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
     <title>Streamism.tv</title>
+
+    <!-- External Script Files -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-    <script src="tryisotope2.js"></script>
     <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
     <!--<script src="https://apis.google.com/js/platform.js" async defer></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+
+    <!-- Internal Script Files -->
     <script src="dummyData.js"></script>
+    <script src="tryisotope2.js"></script>
     <script src="script.js"></script>
+
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
     <link href="https://fonts.googleapis.com/css?family=Mallanna" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,12 +35,6 @@
         <ul id="dropdown1" class="dropdown-content">
             <li><a href="#!">
                 <div id="firebaseui-auth-container"></div>
-                <!--<div id="user_login"></div>-->
-                <!--<div id='my-signin2'></div>-->
-                <!--<div id="sign_out"><img src="images/signout.png"></div>-->
-                <!--<div class="profile_pic_container">-->
-                    <!--<img alt="" class="circle responsive-img profile_pic">-->
-                <!--</div>-->
             </a></li>
         </ul>
         <nav>
@@ -75,6 +76,7 @@
                         </label>
                     </div>
                 </div>
+                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Updated Streams Available</a></div>
                 <ul class="right hide-on-med-and-down">
                     <li><a class="dropdown-button" href="#!" data-activates="dropdown1"></a></li>
                     <li><a href="#modal2">About</a></li>
@@ -137,9 +139,7 @@
             </div>
         </div>
     </div>
-        <!--<p class="section_label">Featured Streams</p>-->
     <div class="large"></div>
-
 
     <div id="modal1" class="modal modal1 modal-fixed-footer">
         <div class="modal-content">
