@@ -35,7 +35,7 @@ $(document).ready(function() {
     //         //end firebase ui
     //     }
     // });
-    firebase.auth().signInAnonymously();
+    // firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
@@ -59,7 +59,6 @@ $(document).ready(function() {
             updated_list = snapshot.val();
         }
     });
-
 
     $('.top_nav input:checkbox').change(function() {
         // 'this' will contain a reference to the checkbox
