@@ -35,7 +35,7 @@ $(document).ready(function() {
     //         //end firebase ui
     //     }
     // });
-    firebase.auth().signInAnonymously();
+    // firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
@@ -60,7 +60,6 @@ $(document).ready(function() {
         }
     });
 
-
     $('.top_nav input:checkbox').change(function() {
         // 'this' will contain a reference to the checkbox
         // console.log(this.name);
@@ -75,7 +74,7 @@ $(document).ready(function() {
         update_preview(this);
     }));
 
-    $('#update_btn').click(handleUpdate).toggle();
+    $('#update_btn').click(handleUpdate);
     $('#spinner').hide();
 
 });
@@ -119,15 +118,15 @@ function shuffle(array) {
     return array;
 }
 
-function redistributeGrid(){
-    var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
-        console.log(this);
-        var index = $(this).attr('data-index');
-        console.log('index- '+index);
-        return index<5;
-        }).length;
-    console.log('Number not hidden'+x);
-}
+// function redistributeGrid(){
+//     var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
+//         console.log(this);
+//         var index = $(this).attr('data-index');
+//         console.log('index- '+index);
+//         return index<5;
+//         }).length;
+//     console.log('Number not hidden'+x);
+// }
 
 function populateArray(cycles, depth) {
     var output_array = [];
