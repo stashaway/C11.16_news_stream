@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    first_load = true;
     var config = {
         apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
         authDomain: "streamism-cccb0.firebaseapp.com",
@@ -37,40 +38,68 @@ $(document).ready(function() {
     firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
-        var snapshot_obj = snapshot.val();
-        //for (var data_obj in snapshot_obj) {
-        master_list=snapshot_obj;//[data_obj];
-        console.log(master_list);
-        buildThumbnails(master_list);
-
-        $grid = $('.grid').imagesLoaded().always( function() {
-            setTimeout(function(){
-                $grid.isotope({
-                    itemSelector: '.grid-item',
-                    masonry: { columnWidth: '.grid-sizer'},
-                    stagger: 5,
-                    percentPosition: true
-                });
-            },1500);
-       });
-
-        $('.top_nav input:checkbox').change(function() {
-            // this will contain a reference to the checkbox
-            // console.log(this.name);
-            // $grid1.isotope('hideItemElements', $('.'+this.name));
-
-            $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
-            $grid.isotope({ filter: '*:not(.hidden)' });
-            redistributeGrid();
-        });
-        //}
+        console.log('on triggered');
+        if (first_load === true){
+            master_list = snapshot.val();
+            buildThumbnails(master_list);
+            $grid = $('.grid').imagesLoaded().always( function() {
+                setTimeout(function(){
+                    $grid.isotope({
+                        itemSelector: '.grid-item',
+                        masonry: { columnWidth: '.grid-sizer'},
+                        stagger: 5,
+                        percentPosition: true
+                    });
+                },1500);
+            });
+            first_load=false;
+        } else {
+            // alert('update received');
+            $('#update_btn').toggle();
+            updated_list = snapshot.val();
+        }
     });
+
+
+    $('.top_nav input:checkbox').change(function() {
+        // 'this' will contain a reference to the checkbox
+        // console.log(this.name);
+        // $grid1.isotope('hideItemElements', $('.'+this.name));
+
+        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+        $grid.isotope({ filter: '*:not(.hidden)' });
+        // redistributeGrid();
+    });
+
     $('.large').on('click','.grid-item',(function(){
         update_preview(this);
     }));
-    $('#spinner').hide();
-});
 
+    $('#update_btn').click(handleUpdate).toggle();
+    $('#spinner').hide();
+
+});
+var updated_list = null;
+var first_load = true;
+var master_list = null;
+
+function handleUpdate(){
+    console.log('update handler called');
+    master_list = updated_list;
+    $('.large *').remove();
+    buildThumbnails(master_list);
+    $grid = $('.grid').imagesLoaded().always( function() {
+        setTimeout(function(){
+            $grid.isotope({
+                itemSelector: '.grid-item',
+                masonry: { columnWidth: '.grid-sizer'},
+                stagger: 5,
+                percentPosition: true
+            });
+        },1500);
+    });
+    $('#update_btn').toggle();
+}
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -89,6 +118,7 @@ function shuffle(array) {
 
     return array;
 }
+
 function redistributeGrid(){
     var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
         console.log(this);
@@ -97,8 +127,7 @@ function redistributeGrid(){
         return index<5;
         }).length;
     console.log('Number not hidden'+x);
-};
-var master_list=null;
+}
 
 function populateArray(cycles, depth) {
     var output_array = [];
@@ -121,7 +150,7 @@ function populateArray(cycles, depth) {
         output_array = output_array.concat(array);
     }
     // console.log(output_array);
-    return output_array;
+    return output_array.slice()
 }
 
 var main_array=[];
