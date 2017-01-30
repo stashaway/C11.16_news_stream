@@ -32,8 +32,9 @@ $(document).ready(function() {
             // console.log(this.name);
             // $grid1.isotope('hideItemElements', $('.'+this.name));
 
-            $('.'+this.name).toggleClass('hidden');
+            $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
             $grid.isotope({ filter: '*:not(.hidden)' });
+            redistributeGrid();
         });
         //}
     });
@@ -61,7 +62,15 @@ function shuffle(array) {
 
     return array;
 }
-
+function redistributeGrid(){
+    var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
+        console.log(this);
+        var index = $(this).attr('data-index');
+        console.log('index- '+index);
+        return index<5;
+        }).length;
+    console.log('Number not hidden'+x);
+};
 var master_list=null;
 
 function populateArray(cycles, depth) {
@@ -88,9 +97,6 @@ function populateArray(cycles, depth) {
     return output_array;
 }
 
-var top_count = null;
-var mid_count = null;
-var bottom_count = null;
 var main_array=[];
 function buildThumbnails(){
     main_array = populateArray(36,0);
@@ -121,7 +127,7 @@ function buildThumbnails(){
         if (i<5) {
             if (main_array[i].category==='divider'){
                 new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="grid-item grid-item--divider">');
+                new_item = $('<div class="stamp grid-item grid-item--divider">');
                 new_img = $('<img src="' + new_thumb + '">');
                 new_item.append(new_img);
                 $(the_grid).append(new_item);
@@ -136,7 +142,7 @@ function buildThumbnails(){
         else if (i<53) {
             if (main_array[i].category==='divider'){
                 new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="grid-item grid-item--divider">');
+                new_item = $('<div class="stamp grid-item grid-item--divider">');
                 new_img = $('<img src="' + new_thumb + '">');
                 new_item.append(new_img);
                 $(the_grid).append(new_item);
@@ -150,7 +156,7 @@ function buildThumbnails(){
         } else {
             if (main_array[i].category==='divider'){
                 new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="grid-item grid-item--divider">');
+                new_item = $('<div class="stamp grid-item grid-item--divider">');
                 new_img = $('<img src="' + new_thumb + '">');
                 new_item.append(new_img);
                 $(the_grid).append(new_item);
