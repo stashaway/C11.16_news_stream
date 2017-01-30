@@ -74,7 +74,7 @@ $(document).ready(function() {
         update_preview(this);
     }));
 
-    $('#update_btn').click(handleUpdate);
+    $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
 
 });
