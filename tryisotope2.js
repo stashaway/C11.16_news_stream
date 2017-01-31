@@ -1,4 +1,5 @@
 var data = null;
+var filtered = null;
 var cats = {
     gaming:true,
     entertainment:true,
@@ -53,9 +54,10 @@ $(document).ready(function() {
         //for (var data_obj in snapshot_obj) {
         //master_list=snapshot_obj;//[data_obj];
         //console.log(master_list);
+        $('.large').html('');
 
         //buildThumbnails(master_list);
-        var filtered = shuffle(data);
+        filtered = shuffle(data);
         go(filtered);
 
         $grid = $('.grid').imagesLoaded().always( function() {
@@ -74,12 +76,13 @@ $(document).ready(function() {
             // console.log(this.name);
             // $grid1.isotope('hideItemElements', $('.'+this.name));
 
-            //$('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
-            //$grid.isotope({ filter: '*:not(.hidden)' });
+            $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+            $grid.isotope({ filter: '*:not(.hidden)' });
             //redistributeGrid();
-            cats[this.name] = !cats[this.name];
-            var filtered = shuffle(data);
-            go(filtered);
+
+            //cats[this.name] = !cats[this.name];
+            //var filtered = shuffle(data);
+            //go(filtered);
         });
         //}
     });
@@ -135,8 +138,10 @@ function go(filtered) {
         class: 'grid-sizer'
     });
     $(the_grid).append(sizer);
-    for (var i=0; i<96; i++){
-            var size = "";
+    for (var i=0; i<filtered.length; i++){
+            var size = "grid-item--medium";
+            if (i < 6) size = "grid-item--large";
+            //else if (i < 51) size = "grid-item--medium";
             var new_thumb = filtered[i].thumbnail;
             var new_item = $('<div class="grid-item ' + size + ' ' + filtered[i].category + '" data-index=' + i + '>');
             var new_img = $('<img src="' + new_thumb + '">');

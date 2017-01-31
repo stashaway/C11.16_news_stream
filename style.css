@@ -243,23 +243,15 @@ div#main {
 .grid-sizer,
 .grid-item {
     float: left;
+    width: 8.3%;
+}
+
+.grid-item--large{
+    width: 33.2%;
+}
+
+.grid-item--medium {
     width: 16.6%;
-}
-
-.grid-item--50k {
-    width: 50%;
-}
-
-.grid-item--10k{
-    width: 40%;
-}
-
-.grid-item--1k {
-    width: 30%;
-}
-
-.grid-item--500 {
-    width: 20%;
 }
 
 .grid-item--divider {
@@ -267,15 +259,17 @@ div#main {
 }
 .grid-item img {
     width:100%;
-    height:95%;
+    #height:100%;
+    #opacity:0.6;
 }
 /*************Isotope Classes*************/
 
 .gaming {
     background-color: #9d3636;
     position: relative;
+    #border:2px solid #9d3636;
 }
-.gaming::after {
+/*.gaming::before {
     opacity: .2;
     background-color: #9d3636;
     position: absolute;
@@ -284,12 +278,13 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .news {
     background-color: #158065;
     position: relative;
+    #border:2px solid #158065;
 }
-.news::after {
+/*.news::after {
     opacity: .2;
     background-color: #158065;
     position: absolute;
@@ -298,12 +293,13 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .entertainment {
     background-color: #3f6d87;
     position: relative;
+    #border:2px solid #3f6d87;
 }
-.entertainment::after {
+/*.entertainment::after {
     opacity: .2;
     background-color: #3f6d87;
     position: absolute;
@@ -312,12 +308,13 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .misc {
     background-color: #40496a;
     position: relative;
+    #border:2px solid #40496a;
 }
-.misc::after {
+/*.misc::after {
     opacity: .2;
     background-color: #40496a;
     position: absolute;
@@ -326,12 +323,13 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .life {
     background-color: #83545d;
     position: relative;
+    #border:2px solid #83545d;
 }
-.life::after {
+/*.life::after {
     opacity: .2;
     background-color: #83545d;
     position: absolute;
@@ -340,12 +338,13 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .technology {
     background-color: #7e578f;
     position: relative;
+    #border:2px solid #7e578f;
 }
-.technology::after {
+/*.technology::after {
     opacity: .2;
     background-color: #7e578f;
     position: absolute;
@@ -354,7 +353,7 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .tooltipped:hover {
     cursor: pointer; cursor: hand;
 }

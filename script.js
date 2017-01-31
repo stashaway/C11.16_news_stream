@@ -87,7 +87,7 @@ function determine_info (item){
     // }
     // console.log(master_list);
     var index = $(item).attr('data-index');
-    var current_item_details = main_array[index];
+    var current_item_details = filtered[index];
     return {
         'index' : index,
         'thumbnail': current_item_details.thumbnail,
