@@ -100,7 +100,6 @@ function mouseover(d) {
     d3.select('#veiwport').style("visibility", '');
     d3.select("#explanation").style("visibility", "");
 
-
     var sequenceArray = d.ancestors().reverse();
     sequenceArray.shift(); // remove root node from the array
     updateBreadcrumbs(sequenceArray, percentageString);

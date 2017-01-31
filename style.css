@@ -45,23 +45,28 @@ body {
 }
 #thumbnail{
     position: absolute;
-    top: 20%;
+    top: 21%;
     left: 28%;
-    height: 60%;
+    height: 58%;
     width: 44%;
     border-radius: 50%;
+    z-index: -2;
+    overflow: hidden;
 }
 
 #explanation {
     position: absolute;
-    top: 69%;
+    top: 60%;
     left: 50%;
-    width: 25%;
+    width: 37%;
+    font-weight: bold;
+    font-size: 16px;
     text-align: center;
-    color: #666;
-
-    transform: translate(-50%,-50%);
+    color: yellow;
+    z-index: -1;
+    transform: translate(-50%, -50%);
     background-color: black;
+    opacity: 0.8;
 }
 
 #percentage,#title {
