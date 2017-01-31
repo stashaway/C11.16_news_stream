@@ -143,8 +143,8 @@ function checkImageSize(selector){
 }
 
 function change_veiw(){
-    $('#main').hide();
-    $('#sunburst_sequence_container').show();
+    $('#main').toggle();
+    $('#sunburst_sequence_container').toggle();
 
 }
 

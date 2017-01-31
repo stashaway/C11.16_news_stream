@@ -36,8 +36,8 @@ body {
 
 #chart {
     position: absolute;
-    top: 1%;
-    left: 17%;
+    top: 10%;
+    left: 20%;
 }
 
 #chart path {
