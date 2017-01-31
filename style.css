@@ -402,3 +402,29 @@ p.welcome_text.valign{
 img.circle.profile-pic{
     width:3vw;
 }
+.firebaseui-container{
+    width: 235px;
+    right: 1vw;
+    top: 9vh;
+    position: absolute;
+    background:white;
+}
+#sign-out{
+    background-color: white;
+    border: none;
+    position: absolute;
+    right: 3vw;
+    top: 9vh;
+}
+.login_status{
+    position: absolute;
+    right: 7vw;
+}
+i.small.material-icons{
+    position: relative;
+    right: 27%;
+}
+div.valign-wrapper{
+    position: absolute;
+    right: 3%;
+}

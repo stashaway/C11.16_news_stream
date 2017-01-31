@@ -37,23 +37,31 @@ $(document).ready(function() {
                 }
             });
             user.getToken().then(function(accessToken) {
+                $("#firebaseui-auth-container").hide();
+                $("#sign-out").hide();
+                $(".login_status").hide();
+                $(".welcome_text").show();
+                $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
-                $(".profile-pic").attr("src", user.photoURL);
-                $(".dropdown-button").text("Log Out");
-                $(".login_status").text("Sign Out");
-                var signout = $("#sign-out");
-                signout.show();
-                signout.on("click",function(){
-                    firebase.auth().signOut().then(function() {
-                        console.log("signed out");
-                        uid=null;
+
+                $(".profile-pic").attr("src", user.photoURL).on("click",function(){
+                    $("#sign-out").toggle().on("click",function(){
+                        firebase.auth().signOut().then(function() {
+                            console.log("signed out");
+                            uid = null;
+                        });
                     });
                 })
             });
         } else {
+            $(".login_status").show();
+            $("#firebaseui-auth-container").hide();
             $("#sign-out").hide();
-            $(".login_status").text("Log In");
-            $(".dropdown-button").text("Log In");
+            $(".welcome_text").hide();
+            $(".profile-pic").hide();
+            $(".login_status").text("Log In").on("click", function(){
+                $("#firebaseui-auth-container").toggle();
+            });
             console.log("User is not logged in");
             //firebase config
             var uiConfig = {
@@ -99,7 +107,12 @@ $(document).ready(function() {
     $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
 });
-
+function signOut(){
+    firebase.auth().signOut().then(function() {
+        console.log("signed out");
+        uid = null;
+    });
+}
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = this.checked;
