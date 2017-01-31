@@ -40,13 +40,20 @@ var ytCategories = [
     {id:28,name:categories[4]},
     {id:15,name:categories[5]}
 ];
-//tree root object to hold all stream data - categories are streamsets holding streams
-var root = new StreamSet("streamism");
-for (var c in categories) {
-    if (categories.hasOwnProperty(c)) {
-        root.add(new StreamSet(categories[c]));
+
+function init() {
+    var set = new StreamSet("streamism");
+    for (var c in categories) {
+        if (categories.hasOwnProperty(c)) {
+            set.add(new StreamSet(categories[c]));
+        }
     }
+
+    return set;
 }
+//tree root object to hold all stream data - categories are streamsets holding streams
+
+
 //temp write to file function
 function writeToFile(filename, obj) {
     fs.writeFile(filename, JSON.stringify(obj) , function(err) {
@@ -57,18 +64,17 @@ function writeToFile(filename, obj) {
     });
 }
 
-var sTwitch = new twitch(categories,root);
-sTwitch.start(function (tdata) {
-    var sYt = new yt(categories,ytCategories,tdata);
-    sYt.start(function (ytdata) {
-        db.ref("-KbHuqtKNuu96svHRgjz").set(ytdata);
-        //writeToFile("new.json",ytdata);
-        console.log("Set database");
-    });
-});
-
-/*
 setInterval(function () {
+    var root = init();
     //Initiate twitch then initiate youtube - root is passed in and back filled with data
-
-},300000);*/
+    var sTwitch = new twitch(categories,root);
+    sTwitch.start(function (tdata) {
+        var sYt = new yt(categories,ytCategories,tdata);
+        sYt.start(function (ytdata) {
+            db.ref("-KbHuqtKNuu96svHRgjz").set(ytdata);
+            //writeToFile("new.json",ytdata);
+            console.log("Set database");
+        });
+    });
+    //console.log("Running...");
+},200000);
