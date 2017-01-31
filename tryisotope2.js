@@ -23,6 +23,7 @@ $(document).ready(function() {
                 console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
+                    applyPrefsHandler(fb_ref);
                 }else{
                     preferences = snap.categories;
 
@@ -31,13 +32,19 @@ $(document).ready(function() {
                             if (document.getElementById(category).hasAttribute('checked')==true) {
                                 $("#" + category).removeAttr('checked').change();
                             }
+                            $('.'+category + ':not(.grid-item--large').addClass('hidden');
+
                         } else{
                                 if (document.getElementById(category).hasAttribute('checked')==false) {
                                     $("#" + category).attr('checked').change();
                                 }
-                            }
+                            $('.'+category + ':not(.grid-item--large').removeClass('hidden');
+
                         }
                     }
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    applyPrefsHandler(fb_ref);
+                }
             });
 
             user.getToken().then(function(accessToken) {
@@ -62,7 +69,7 @@ $(document).ready(function() {
                     // Leave the lines as is for the providers you want to offer your users.
                     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                     firebase.auth.EmailAuthProvider.PROVIDER_ID
-                ],
+                ]
                 // Terms of service url.
                 // tosUrl: 'localhost:8888'
             };
@@ -96,22 +103,6 @@ $(document).ready(function() {
         }
     });
 
-    $('.top_nav input:checkbox').change(function() {
-        // 'this' will contain a reference to the checkbox
-        // console.log(this.name);
-        // $grid1.isotope('hideItemElements', $('.'+this.name));
-
-        preferences[this.name] = !preferences[this.name];
-        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
-        $grid.isotope({ filter: '*:not(.hidden)' });
-        if(uid){
-            console.log('UID:', uid);
-            console.log('Prefs:', preferences);
-            console.log('Prefs after update:', preferences);
-            fb_ref.ref("users/" + uid + '/categories').update(preferences);
-        }
-    });
-
     $('.large').on('click','.grid-item',(function(){
         update_preview(this);
     }));
@@ -131,6 +122,21 @@ var preferences = {
     'misc': true
 };
 var uid = null;
+
+function applyPrefsHandler(fb_ref) {
+    $('.top_nav input:checkbox').change(function() {
+        preferences[this.name] = !preferences[this.name];
+        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+        $grid.isotope({ filter: '*:not(.hidden)' });
+        if(uid){
+            console.log('UID:', uid);
+            console.log('Prefs:', preferences);
+            console.log('Prefs after update:', preferences);
+            fb_ref.ref("users/" + uid + '/categories').update(preferences);
+        }
+    });
+
+}
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
