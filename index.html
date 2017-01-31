@@ -20,6 +20,7 @@
     <script src="script.js"></script>
 
     <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
     <link href="https://fonts.googleapis.com/css?family=Mallanna" rel="stylesheet">
@@ -31,11 +32,6 @@
 <body>
 <header>
     <div class="navbar-fixed">
-        <ul id="dropdown1" class="dropdown-content">
-            <li><a href="#!">
-                <div id="firebaseui-auth-container"></div>
-            </a></li>
-        </ul>
         <nav>
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo">
@@ -76,13 +72,33 @@
                     </div>
                 </div>
                 <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Updated Streams Available</a></div>
-                <ul class="right hide-on-med-and-down">
-                    <li><a class="dropdown-button" href="#!" data-activates="dropdown1"></a></li>
-                    <li><a href="#modal2">About</a></li>
-                    <li><div id="sign-out"></div></li>
-                </ul>
+                <div class="right">
+                    <div class="fixed-action-btn horizontal click-to-toggle">
+                        <a class="btn-floating btn-large blue-grey darken-4">
+                            <i class="material-icons">menu</i>
+                        </a>
+                        <ul>
+                            <li><a class="btn-floating red" href="#modal3"><i class="small material-icons">perm_identity</i></a></li>
+                            <li><a class="btn-floating yellow darken-1" href="#modal2"><i class="small material-icons">info_outline</i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="valign-wrapper col s5 pull-s7">
+                    <p class="welcome_text valign"></p>
+                    <img src="" alt="" class="circle profile-pic valign">
+                </div>
             </div>
         </nav>
+    </div>
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <h4 class="login_status"></h4>
+            <div id="firebaseui-auth-container"></div>
+            <button type="button" id="sign-out"><a class="waves-effect waves-light btn-large">Sign Out <i class="fa fa-sign-out" aria-hidden="true"></i></a></button>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
     </div>
     <div id="modal2" class="modal">
         <div class="modal-content">
