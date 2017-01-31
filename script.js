@@ -75,7 +75,9 @@ function createVisualization(json) {
         .attr("fill-rule", "evenodd")
         .style("fill", function(d) { return colors[d.data.name] || !(d.parent) ? colors[d.data.name] : colors[d.parent.data.name]; })
         .style("opacity", 1)
-        .on("mouseover", mouseover);
+        .on("mouseover", mouseover)
+        .on('click', sun_video);
+
 
     // Add the mouseleave handler to the bounding circle.
     d3.select("#container").on("mouseleave", mouseleave);
@@ -83,7 +85,10 @@ function createVisualization(json) {
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
 }
-
+function sun_video(d){
+    console.log('click handled');
+    window.location.href = d.data.link;
+}
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
 
@@ -294,4 +299,3 @@ function buildHierarchy(csv) {
     }
     return root;
 };
-$('path').click()
