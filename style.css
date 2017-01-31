@@ -21,7 +21,7 @@ div label input {
     background-color: #EFEFEF;
     border-radius: 4px;
     border: 1px solid #D0D0D0;
-    overflow: auto;
+    overflow: hidden;
     float: left;
 }
 
@@ -119,10 +119,6 @@ h2.header_logo {
     top: 40px;
     left: 50%;
     transform: translate(-50%,-50%);
-}
-
-.ck-button {
-    overflow: hidden;
 }
 
 .nav-wrapper {
@@ -419,4 +415,30 @@ p.welcome_text.valign{
 }
 img.circle.profile-pic{
     width:3vw;
+}
+.firebaseui-container{
+    width: 235px;
+    right: 1vw;
+    top: 9vh;
+    position: absolute;
+    background:white;
+}
+#sign-out{
+    background-color: white;
+    border: none;
+    position: absolute;
+    right: 3vw;
+    top: 9vh;
+}
+.login_status{
+    position: absolute;
+    right: 7vw;
+}
+i.small.material-icons{
+    position: relative;
+    right: 27%;
+}
+div.valign-wrapper{
+    position: absolute;
+    right: 3%;
 }
