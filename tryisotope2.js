@@ -23,8 +23,7 @@ $(document).ready(function() {
                 console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
-                    applyPrefsHandler(fb_ref);
-                }else{
+                } else{
                     preferences = snap.categories;
 
                     for(category in preferences){
@@ -43,7 +42,6 @@ $(document).ready(function() {
                         }
                     }
                     $grid.isotope({ filter: '*:not(.hidden)' });
-                    applyPrefsHandler(fb_ref);
                 }
             });
 
@@ -61,7 +59,7 @@ $(document).ready(function() {
             // FirebaseUI config.
             $("#sign-out").text(" ");
             $(".dropdown-button").text("Log In");
-            console.log("User is not logged in")
+            console.log("User is not logged in");
             var uiConfig = {
                 signInFlow: "popup",
                 signInSuccessUrl: '#',
@@ -108,7 +106,7 @@ $(document).ready(function() {
     }));
     $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
-
+    applyPrefsHandler(fb_ref);
 });
 var updated_list = null;
 var first_load = true;
@@ -124,6 +122,7 @@ var preferences = {
 var uid = null;
 
 function applyPrefsHandler(fb_ref) {
+    console.log('prefs handler set');
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = !preferences[this.name];
         $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');

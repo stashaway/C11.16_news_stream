@@ -367,7 +367,8 @@ div#main {
     content: " ";
 }
 .tooltipped:hover {
-    cursor: pointer; cursor: hand;
+    cursor: pointer;
+    cursor: hand;
 }
 /*Tooltip Fixes*/
 [data-tooltip] {
