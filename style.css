@@ -2,7 +2,7 @@ body{
     background-color: #bfc3c5;
 }
 header{
-    font-family: 'Assistant', sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     top:0;
     left:0;
@@ -98,6 +98,7 @@ div label input {
 }
 
 .header_logo{
+    font-family: 'Roboto', sans-serif;
     top: 0;
     position: absolute;
     left: 50%;
@@ -119,9 +120,15 @@ h2.header_logo {
     left: 50%;
     transform: translate(-50%,-50%);
 }
-.nav-wrapper{
+
+.ck-button {
+    overflow: hidden;
+}
+
+.nav-wrapper {
     background-color: #718792;
 }
+
 #spinner {
     position: fixed;
     top: 50%;
@@ -292,7 +299,7 @@ div#main {
 }
 .grid-item img {
     width:100%;
-    height:95%;
+    height: 95%;
 }
 /*************Isotope Classes*************/
 
@@ -381,7 +388,8 @@ div#main {
     content: " ";
 }
 .tooltipped:hover {
-    cursor: pointer; cursor: hand;
+    cursor: pointer;
+    cursor: hand;
 }
 /*Tooltip Fixes*/
 [data-tooltip] {
@@ -406,10 +414,9 @@ div#modal1.modal.open {
     float:left;
     margin-left: 10%;
 }
-ul#dropdown1.dropdown-content.active{
-    width: 259.734px !important;
-    left: 1468.69px !important;
+p.welcome_text.valign{
+    margin: 0 20px;
 }
-.firebaseui-container{
-    width:103%;
+img.circle.profile-pic{
+    width:3vw;
 }
