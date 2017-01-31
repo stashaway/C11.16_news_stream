@@ -10,6 +10,7 @@ var cats = {
 };
 
 $(document).ready(function() {
+    first_load = true;
     var config = {
         apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
         authDomain: "streamism-cccb0.firebaseapp.com",
@@ -18,80 +19,127 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //     if(user) {
-    //         console.log(user);
-    //         firebase.auth().signOut().then(function() {
-    //             console.log("signed out");
-    //         })
-    //     } else {
-    //         //start firebase ui
-    //         // FirebaseUI config.
-    //         var uiConfig = {
-    //             signInFlow: "popup",
-    //             signInSuccessUrl: 'localhost:8888',
-    //             signInOptions: [
-    //                 // Leave the lines as is for the providers you want to offer your users.
-    //                 firebase.auth.GoogleAuthProvider.PROVIDER_ID
-    //             ],
-    //             // Terms of service url.
-    //             tosUrl: 'localhost:8888'
-    //         };
-    //
-    //         // Initialize the FirebaseUI Widget using Firebase.
-    //         var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    //         // The start method will wait until the DOM is loaded.
-    //         ui.start('#firebaseui-auth-container', uiConfig);
-    //         //end firebase ui
-    //     }
-    // });
-    firebase.auth().signInAnonymously();
     var fb_ref = firebase.database();
 
+    var uiConfig = {
+        signInFlow: "popup",
+        signInSuccessUrl: '#',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+    };
 
-    fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
-        data = snapshot.val();
-        //for (var data_obj in snapshot_obj) {
-        //master_list=snapshot_obj;//[data_obj];
-        //console.log(master_list);
-        $('.large').html('');
 
-        //buildThumbnails(master_list);
-        filtered = shuffle(data);
-        go(filtered);
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
 
-        $grid = $('.grid').imagesLoaded().always( function() {
-            setTimeout(function(){
-                $grid.isotope({
-                    itemSelector: '.grid-item',
-                    masonry: { columnWidth: '.grid-sizer'},
-                    stagger: 5,
-                    percentPosition: true
-                });
-            },1500);
-       });
+    firebase.auth().onAuthStateChanged(function(user) {
+        console.log('Prefs at state change: ', preferences);
+        if(user){
+            $(".firebaseui-container").remove();
+            $('.dropdown-button').dropdown('close');
+            console.log("User is signed in" , user);
+            uid = user.uid;
+            fb_ref.ref('users/' + uid).once('value', function(ss){
+                var snap = ss.val();
+                console.log('Snapshot: ', snap);
+                if(!snap){
+                    fb_ref.ref('users/' + uid + '/categories').update(preferences);
+                    applyNavClickHandler(fb_ref);
+                } else{
+                    preferences = snap.categories;
 
-        $('.top_nav input:checkbox').change(function() {
-            // this will contain a reference to the checkbox
-            // console.log(this.name);
-            // $grid1.isotope('hideItemElements', $('.'+this.name));
+                    for(category in preferences){
+                        if(preferences[category] == false){
+                            if (document.getElementById(category).hasAttribute('checked')==true) {
+                                $("#" + category).removeAttr('checked').change();
+                            }
+                            $('.'+category + ':not(.grid-item--large').addClass('hidden');
 
-            $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
-            $grid.isotope({ filter: '*:not(.hidden)' });
-            //redistributeGrid();
+                        } else{
+                                if (document.getElementById(category).hasAttribute('checked')==false) {
+                                    $("#" + category).attr('checked').change();
+                                }
+                            $('.'+category + ':not(.grid-item--large').removeClass('hidden');
 
-            //cats[this.name] = !cats[this.name];
-            //var filtered = shuffle(data);
-            //go(filtered);
-        });
-        //}
+                        }
+                    }
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    applyNavClickHandler(fb_ref);
+                }
+            });
+            user.getToken().then(function(accessToken) {
+                $(".welcome_text").text("Welcome " + user.displayName);
+                $(".profile-pic").attr("src", user.photoURL);
+                $(".dropdown-button").text("Log Out");
+                $(".login_status").text("Sign Out");
+                $("#sign-out").show();
+                $("#sign-out").on("click",function(){
+                    firebase.auth().signOut().then(function() {
+                        console.log("signed out");
+                        uid=null;
+                    });
+                })
+            });
+        } else {
+            //start firebase ui
+            // FirebaseUI config.
+            $("#sign-out").hide();
+            $(".login_status").text("Log In")
+            $(".dropdown-button").text("Log In");
+            console.log("User is not logged in");
+            // var uiConfig = {
+            //     signInFlow: "popup",
+            //     signInSuccessUrl: '#',
+            //     signInOptions: [
+            //         // Leave the lines as is for the providers you want to offer your users.
+            //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            //         firebase.auth.EmailAuthProvider.PROVIDER_ID
+            //     ]
+                // Terms of service url.
+                // tosUrl: 'localhost:8888'
+            // };
+            // Initialize the FirebaseUI Widget using Firebase.
+            // todo: The next line needs to check if it's already been done once..
+            // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            // The start method will wait until the DOM is loaded.
+            // ui.start('#firebaseui-auth-container', uiConfig);
+            //end firebase ui
+        }
     });
+    fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
+        console.log('on triggered');
+        if (first_load === true){
+            master_list = snapshot.val();
+            //buildThumbnails(master_list);
+            filtered = shuffle(master_list);
+            go(filtered);
+            $grid = $('.grid').imagesLoaded().always( function() {
+                setTimeout(function(){
+                    $grid.isotope({
+                        itemSelector: '.grid-item',
+                        masonry: { columnWidth: '.grid-sizer'},
+                        stagger: 5,
+                        percentPosition: true
+                    });
+                },1500);
+            });
+            first_load=false;
+        } else {
+            // alert('update received');
+            $('#update_btn').toggle();
+            updated_list = snapshot.val();
+        }
+    });
+
     $('.large').on('click','.grid-item',(function(){
         update_preview(this);
     }));
+    $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
 });
-
 
 function shuffle(snapshot) {
     var data = [];
@@ -130,7 +178,7 @@ function shuffle(snapshot) {
 }
 
 function go(filtered) {
-    $('.large').html('');
+    //$('.large').html('');
     var the_grid = $('<div>',{
         class: 'grid'
     });
@@ -153,6 +201,54 @@ function go(filtered) {
     $('.grid').imagesLoaded().always( function() {
         checkImageSize('.grid img');
     });
+}
+
+
+function applyNavClickHandler(fb_ref){
+    $('.top_nav input:checkbox').change(function() {
+        preferences[this.name] = !preferences[this.name];
+        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+        $grid.isotope({ filter: '*:not(.hidden)' });
+        if(uid){
+            console.log('We think user is logged in, so updating prefs on db');
+            console.log('UID:', uid);
+            console.log('Prefs:', preferences);
+            console.log('Prefs after update:', preferences);
+            fb_ref.ref("users/" + uid + '/categories').update(preferences);
+        }
+    });
+}
+var updated_list = null;
+var first_load = true;
+var master_list = null;
+var preferences = {
+    'entertainment': true,
+    'gaming': true,
+    'life': true,
+    'technology': true,
+    'news': true,
+    'misc': true
+};
+var uid = null;
+
+function handleUpdate(){
+    console.log('update handler called');
+    master_list = updated_list;
+    $('.large *').remove();
+    //buildThumbnails(master_list);
+    filtered = shuffle(master_list);
+    go(filtered);
+    $grid = $('.grid').imagesLoaded().always( function() {
+        setTimeout(function(){
+            $grid.isotope({
+                itemSelector: '.grid-item',
+                masonry: { columnWidth: '.grid-sizer'},
+                stagger: 5,
+                percentPosition: true
+            });
+        },1500);
+    });
+    $('#update_btn').toggle();
 }
 
 /*function shuffle(array) {
@@ -205,13 +301,13 @@ function populateArray(cycles, depth) {
         output_array = output_array.concat(array);
     }
     // console.log(output_array);
-    return output_array;
+    return output_array.slice()
 }
 
 var main_array=[];
 function buildThumbnails(){
     main_array = populateArray(36,0);
-    console.log('main array',main_array);
+    // console.log('main array',main_array);
     var featured_object = {
         category: "divider",
         thumbnail: "images/featured.png",
@@ -222,7 +318,7 @@ function buildThumbnails(){
     main_array.splice(4,0,featured_object);
     main_array.splice(53,0,featured_object);
     main_array.splice(-3);
-    console.log('main array after splice',main_array);
+    // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;

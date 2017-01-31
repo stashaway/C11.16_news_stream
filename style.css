@@ -2,7 +2,7 @@ body{
     background-color: #bfc3c5;
 }
 header{
-    font-family: 'Assistant', sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     top:0;
     left:0;
@@ -47,27 +47,27 @@ div label input {
     float:left
 }
 
-#games_button:checked + span {
+#gaming:checked + span {
     background-color: #9d3636;
     color:#fff;
 }
-#news_button:checked + span {
+#news:checked + span {
     background-color:#158065;
     color:#fff;
 }
-#entertainment_button:checked + span {
+#entertainment:checked + span {
     background-color:#3f6d87;
     color:#fff;
 }
-#misc_button:checked + span {
+#misc:checked + span {
     background-color:#40496a;
     color:#fff;
 }
-#life_button:checked + span {
+#life:checked + span {
     background-color: #83545d;
     color:#fff;
 }
-#tech_button:checked + span {
+#technology:checked + span {
     background-color: #7e578f;
     color:#fff;
 }
@@ -84,6 +84,7 @@ div label input {
 }
 
 .header_logo{
+    font-family: 'Roboto', sans-serif;
     top: 0;
     position: absolute;
     left: 50%;
@@ -105,9 +106,15 @@ h2.header_logo {
     left: 50%;
     transform: translate(-50%,-50%);
 }
-.nav-wrapper{
+
+.ck-button {
+    overflow: hidden;
+}
+
+.nav-wrapper {
     background-color: #718792;
 }
+
 #spinner {
     position: fixed;
     top: 50%;
@@ -223,6 +230,22 @@ cursor: pointer; cursor: hand;
     height: 50px;
     width: 240px;
 }
+
+#update_btn {
+    position: relative;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+}
+
+#update_div {
+    position: absolute;
+    top: 50%;
+    right: 18%;
+    transform: translate(0,-50%);
+    height: 50%;
+}
+
 /************ Overall Containers ********************/
 *{
     box-sizing: border-box;
@@ -355,7 +378,8 @@ div#main {
     content: " ";
 }*/
 .tooltipped:hover {
-    cursor: pointer; cursor: hand;
+    cursor: pointer;
+    cursor: hand;
 }
 /*Tooltip Fixes*/
 [data-tooltip] {
@@ -372,4 +396,17 @@ div#modal1.modal.open {
     max-height: 70%;
     width:99%;
 }
-
+.live_chat{
+    float:right;
+    margin-right: 10%;
+}
+.live_video{
+    float:left;
+    margin-left: 10%;
+}
+p.welcome_text.valign{
+    margin: 0 20px;
+}
+img.circle.profile-pic{
+    width:3vw;
+}
