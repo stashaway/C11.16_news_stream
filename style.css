@@ -2,7 +2,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     font-weight: 400;
-    background-color: #fff;
+    background-color: darkgray;
     width: 960px;
     height: 700px;
     margin-top: 10px;
@@ -36,8 +36,8 @@ body {
 
 #chart {
     position: absolute;
-    top: 12%;
-    left: 23%;
+    top: 1%;
+    left: 17%;
 }
 
 #chart path {
@@ -45,10 +45,10 @@ body {
 }
 #thumbnail{
     position: absolute;
-    top: 21%;
-    left: 28%;
-    height: 58%;
-    width: 44%;
+    top: 20%;
+    left: 26%;
+    height: 60%;
+    width: 48%;
     border-radius: 50%;
     z-index: -2;
     overflow: hidden;
