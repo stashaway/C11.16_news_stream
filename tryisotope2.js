@@ -9,25 +9,11 @@ $(document).ready(function() {
     };
     firebase.initializeApp(config);
     var fb_ref = firebase.database();
-
-    var uiConfig = {
-        signInFlow: "popup",
-        signInSuccessUrl: '#',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ]
-    };
-
-
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start('#firebaseui-auth-container', uiConfig);
-
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
-            $(".firebaseui-container").remove();
+            $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             console.log("User is signed in" , user);
             uid = user.uid;
@@ -73,28 +59,22 @@ $(document).ready(function() {
                 })
             });
         } else {
-            //start firebase ui
-            // FirebaseUI config.
             $("#sign-out").hide();
             $(".login_status").text("Log In")
             $(".dropdown-button").text("Log In");
             console.log("User is not logged in");
-            // var uiConfig = {
-            //     signInFlow: "popup",
-            //     signInSuccessUrl: '#',
-            //     signInOptions: [
-            //         // Leave the lines as is for the providers you want to offer your users.
-            //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            //         firebase.auth.EmailAuthProvider.PROVIDER_ID
-            //     ]
-                // Terms of service url.
-                // tosUrl: 'localhost:8888'
-            // };
-            // Initialize the FirebaseUI Widget using Firebase.
-            // todo: The next line needs to check if it's already been done once..
-            // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            //firebase config
+            var uiConfig = {
+                signInFlow: "popup",
+                signInSuccessUrl: '#',
+                signInOptions: [
+                    // Leave the lines as is for the providers you want to offer your users.
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+                ]
+            };
             // The start method will wait until the DOM is loaded.
-            // ui.start('#firebaseui-auth-container', uiConfig);
+            ui.start('#firebaseui-auth-container', uiConfig);
             //end firebase ui
         }
     });
