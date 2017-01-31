@@ -22,27 +22,18 @@ $(document).ready(function() {
                 console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
-                    applyNavClickHandler(fb_ref);
+
                 } else{
                     preferences = snap.categories;
-
-                    for(category in preferences){
+                    for(var category in preferences){
+                        var currentSelector = $("#" + category);
                         if(preferences[category] == false){
-                            if (document.getElementById(category).hasAttribute('checked')==true) {
-                                $("#" + category).removeAttr('checked').change();
-                            }
-                            $('.'+category + ':not(.grid-item--large').addClass('hidden');
-
+                            currentSelector.removeAttr('checked');
                         } else{
-                                if (document.getElementById(category).hasAttribute('checked')==false) {
-                                    $("#" + category).attr('checked').change();
-                                }
-                            $('.'+category + ':not(.grid-item--large').removeClass('hidden');
-
+                            currentSelector.attr('checked');
                         }
+                        currentSelector.change();
                     }
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    applyNavClickHandler(fb_ref);
                 }
             });
             user.getToken().then(function(accessToken) {
@@ -52,6 +43,7 @@ $(document).ready(function() {
                 $(".welcome_text").show();
                 $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
+
                 $(".profile-pic").attr("src", user.photoURL).on("click",function(){
                     $("#sign-out").toggle().on("click",function(){
                         firebase.auth().signOut().then(function() {
@@ -108,7 +100,7 @@ $(document).ready(function() {
             updated_list = snapshot.val();
         }
     });
-
+    applyNavClickHandler(fb_ref);
     $('.large').on('click','.grid-item',(function(){
         update_preview(this);
     }));
@@ -123,8 +115,12 @@ function signOut(){
 }
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
-        preferences[this.name] = !preferences[this.name];
-        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+        preferences[this.name] = this.checked;
+        if (preferences[this.name]===true) {
+            $('.'+this.name+':not(.grid-item--large').removeClass('hidden');
+        } else {
+            $('.'+this.name+':not(.grid-item--large').addClass('hidden');
+        }
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
             console.log('We think user is logged in, so updating prefs on db');
@@ -147,6 +143,7 @@ var preferences = {
     'misc': true
 };
 var uid = null;
+var $grid;
 
 function handleUpdate(){
     console.log('update handler called');
