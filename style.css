@@ -1,0 +1,401 @@
+body{
+    background-color: #bfc3c5;
+}
+header{
+    font-family: 'Assistant', sans-serif;
+    text-align: center;
+    top:0;
+    left:0;
+}
+html {
+    height: auto !important;
+    padding-bottom: 700px !important;
+}
+
+div label input {
+    margin-right:100px;
+}
+.ck-button {
+    height: 5vh;
+    margin:11px 6px 5px 5px;
+    background-color: #EFEFEF;
+    border-radius: 4px;
+    border: 1px solid #D0D0D0;
+    overflow: auto;
+    float: left;
+}
+
+.ck-button label {
+    float:left;
+    width:100%;
+    height:100%;
+}
+
+.ck-button label span {
+    text-align:center;
+    padding:0px 10px;
+    display:block;
+    height:100%;
+    line-height: 5vh;
+}
+
+.ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+.toggle_cat{
+    float:left
+}
+
+#gaming:checked + span {
+    background-color: #9d3636;
+    color:#fff;
+}
+#news:checked + span {
+    background-color:#158065;
+    color:#fff;
+}
+#entertainment:checked + span {
+    background-color:#3f6d87;
+    color:#fff;
+}
+#misc:checked + span {
+    background-color:#40496a;
+    color:#fff;
+}
+#life:checked + span {
+    background-color: #83545d;
+    color:#fff;
+}
+#technology:checked + span {
+    background-color: #7e578f;
+    color:#fff;
+}
+#user_login{
+    position: absolute;
+    left: 75vw;
+    top: 10px;
+}
+
+.about_btn{
+    position: absolute;
+    top: 2%;
+    left: 15%;
+}
+
+.header_logo{
+    top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /*text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);*/
+}
+
+p.header_tagline{
+    font-size: 1rem;
+}
+h2.header_logo {
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 40px;
+}
+
+.header_tagline {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.nav-wrapper{
+    background-color: #718792;
+}
+#spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: 0s;
+}
+
+img.logo {
+    top:0;
+    left:50%;
+    transform: translate(-50%,0);
+    height: 80px;
+    position: absolute;
+    opacity: .5;
+}
+
+.section_label {
+    margin: 2px 0;
+    font-size: 1.5em;
+}
+.profile_pic_container{
+    width: 5%;
+    position: absolute;
+    left: 80%;
+    top: 0%;
+    padding-right: 1%;
+}
+
+.profile_pic{
+    width: 4vw;
+}
+.fixed-action-btn{
+    top:1px;
+}
+.model-content{
+   color:black
+}
+
+#preview{
+    border-radius: 4px;
+    font-family: 'Assistant', sans-serif;
+    background-color: rgba(144,144,144,0.8);
+    width: 20vw;
+    height: 38vh;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    color: white;
+    -webkit-box-shadow: -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
+    box-shadow:         -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
+}
+
+#preview img {
+    position: absolute;
+    height: 60%;
+    width: 100%;
+    bottom: 0;
+}
+
+#preview_title {
+    font-size: 1.5em;
+    color: black;
+    /*text-shadow: 2px 2px #252222;*/
+    position: absolute;
+    left: 4%;
+    cursor: default;
+    width: 85%;
+    text-align: center;
+}
+
+#preview_category {
+    text-transform:capitalize;
+    cursor: default;
+}
+
+#preview_viewers{
+    cursor: default;
+}
+
+#viewers_p{
+    position: absolute;
+    top: 23%;
+    left: 5%;
+    cursor: default;
+}
+#click_thumbnail{
+    position: absolute;
+    top: 29%;
+    left: 5%;
+}
+#category_p {
+    position: absolute;
+    top: 17%;
+    left: 5%;
+    cursor: default;
+}
+
+#close_preview {
+    position: absolute;
+    right: 3%;
+    top: 1%;
+    color: white;
+    z-index: 100;
+}
+
+#close_preview:hover {
+cursor: pointer; cursor: hand;
+}
+
+#sign_out{
+    height: 50px;
+    width: 240px;
+}
+
+#update_btn {
+    position: relative;
+    border-radius: 10px;
+    top: 0;
+    left: 0;
+}
+
+#update_div {
+    position: absolute;
+    top: 50%;
+    right: 18%;
+    transform: translate(0,-50%);
+    height: 50%;
+}
+
+/************ Overall Containers ********************/
+*{
+    box-sizing: border-box;
+}
+div#main {
+    width: 85vw;
+    margin: auto;
+}
+.large, .grid {
+    width: 100%;
+    top: 10%;
+    left: 0;
+    /*display: inline-block;*/
+}
+
+/*************Masonry Classes*************/
+
+.grid-sizer,
+.grid-item {
+    float: left;
+    width: 8.3%;
+}
+.grid-item--large{
+    width: 33.2%;
+}
+
+.grid-item--medium {
+    width: 16.6%;
+}
+
+.grid-item--small {
+    width: 8.3%;
+}
+
+.grid-item--divider {
+    width: 100%;
+}
+.grid-item img {
+    width:100%;
+    height:95%;
+}
+/*************Isotope Classes*************/
+
+.gaming {
+    background-color: #9d3636;
+    position: relative;
+}
+.gaming::after {
+    opacity: .2;
+    background-color: #9d3636;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.news {
+    background-color: #158065;
+    position: relative;
+}
+.news::after {
+    opacity: .2;
+    background-color: #158065;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.entertainment {
+    background-color: #3f6d87;
+    position: relative;
+}
+.entertainment::after {
+    opacity: .2;
+    background-color: #3f6d87;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.misc {
+    background-color: #40496a;
+    position: relative;
+}
+.misc::after {
+    opacity: .2;
+    background-color: #40496a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.life {
+    background-color: #83545d;
+    position: relative;
+}
+.life::after {
+    opacity: .2;
+    background-color: #83545d;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.technology {
+    background-color: #7e578f;
+    position: relative;
+}
+.technology::after {
+    opacity: .2;
+    background-color: #7e578f;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 95%;
+    width: 100%;
+    content: " ";
+}
+.tooltipped:hover {
+    cursor: pointer; cursor: hand;
+}
+/*Tooltip Fixes*/
+[data-tooltip] {
+    /*position: relative;*/
+    /*z-index: 2;*/
+    /*cursor: pointer;*/
+    position: absolute;
+    transform: translate(0%, -50%);
+    top: 50%;
+    right: 0;
+    /*height: 30px;*/
+}
+div#modal1.modal.open {
+    max-height: 70%;
+    width:99%;
+}
+.live_chat{
+    float:right;
+    margin-right: 10%;
+}
+.live_video{
+    float:left;
+    margin-left: 10%;
+}
+ul#dropdown1.dropdown-content.active{
+    width: 259.734px !important;
+    left: 1468.69px !important;
+}
+.firebaseui-container{
+    width:103%;
+}
