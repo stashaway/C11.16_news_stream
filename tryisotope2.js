@@ -106,7 +106,18 @@ $(document).ready(function() {
     }));
     $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
-    applyPrefsHandler(fb_ref);
+    $('.top_nav input:checkbox').change(function() {
+        preferences[this.name] = !preferences[this.name];
+        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+        $grid.isotope({ filter: '*:not(.hidden)' });
+        if(uid){
+            console.log('UID:', uid);
+            console.log('Prefs:', preferences);
+            console.log('Prefs after update:', preferences);
+            fb_ref.ref("users/" + uid + '/categories').update(preferences);
+        }
+    });
+
 });
 var updated_list = null;
 var first_load = true;
@@ -121,21 +132,6 @@ var preferences = {
 };
 var uid = null;
 
-function applyPrefsHandler(fb_ref) {
-    console.log('prefs handler set');
-    $('.top_nav input:checkbox').change(function() {
-        preferences[this.name] = !preferences[this.name];
-        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
-        $grid.isotope({ filter: '*:not(.hidden)' });
-        if(uid){
-            console.log('UID:', uid);
-            console.log('Prefs:', preferences);
-            console.log('Prefs after update:', preferences);
-            fb_ref.ref("users/" + uid + '/categories').update(preferences);
-        }
-    });
-
-}
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
