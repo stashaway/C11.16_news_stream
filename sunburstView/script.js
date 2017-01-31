@@ -76,7 +76,9 @@ function createVisualization(json) {
         .style("fill", function(d) { return colors[d.data.name] || !(d.parent) ? colors[d.data.name] : colors[d.parent.data.name]; })
         .style("opacity", 1)
         .on("mouseover", mouseover)
-        .on('click', sun_video);
+        .on('click',
+            sun_video
+        );
 
 
     // Add the mouseleave handler to the bounding circle.
@@ -87,7 +89,8 @@ function createVisualization(json) {
 }
 function sun_video(d){
     console.log('click handled');
-    window.location.href = d.data.link;
+    // window.location.href = d.data.link;
+    onYouTubeIframeAPIReady();
 }
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
@@ -299,3 +302,18 @@ function buildHierarchy(csv) {
     }
     return root;
 };
+
+var player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: 'M7lc1UVf-VE',
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+    console.log('youtube video ready')
+
+}

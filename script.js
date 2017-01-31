@@ -142,7 +142,15 @@ function checkImageSize(selector){
     });
 }
 
+function change_veiw(){
+    $('#main').hide();
+    $('#sunburst_sequence_container').show();
+
+}
+
 $(document).ready(function() {
+    $('#sunburst_sequence_container').hide();
+    $('#change_view').click(change_veiw);
     $('#modal1').modal();
     $(".dropdown-button").dropdown({
     });
