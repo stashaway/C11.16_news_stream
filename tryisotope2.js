@@ -28,18 +28,20 @@ $(document).ready(function() {
 
                     for(category in preferences){
                         if(preferences[category] == false){
-                            $("#" + category).removeAttr('checked');
-                        }else{
-                            if($("#" + category).attr('checked') === false || $("#" + category).attr('checked') === undefined ){
-                                $("#" + category).attr('checked');
+                            if (document.getElementById(category).hasAttribute('checked')==true) {
+                                $("#" + category).removeAttr('checked').change();
+                            }
+                        } else{
+                                if (document.getElementById(category).hasAttribute('checked')==false) {
+                                    $("#" + category).attr('checked').change();
+                                }
                             }
                         }
                     }
-                }
             });
 
             user.getToken().then(function(accessToken) {
-                $(".dropdown-button").text("Logged In")
+                $(".dropdown-button").text("Logged In");
                 $("#sign-out").html("Sign Out");
                 $("#sign-out").on("click",function(){
                     firebase.auth().signOut().then(function() {
