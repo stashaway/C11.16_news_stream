@@ -96,7 +96,7 @@ $(document).ready(function() {
             first_load=false;
         } else {
             // alert('update received');
-            $('#update_btn').toggle();
+            $('#update_btn').show();
             updated_list = snapshot.val();
         }
     });

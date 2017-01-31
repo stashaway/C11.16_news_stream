@@ -229,15 +229,17 @@ cursor: pointer; cursor: hand;
 
 #update_btn {
     position: relative;
-    border-radius: 10px;
+    border-radius: 7px;
     top: 0;
     left: 0;
+    background-color: #a76d6d;
+    padding: 0 10px;
 }
 
 #update_div {
     position: absolute;
     top: 50%;
-    right: 18%;
+    right: 20%;
     transform: translate(0,-50%);
     height: 50%;
 }
@@ -370,6 +372,8 @@ div#main {
     content: " ";
 }
 .tooltipped:hover {
+    color:white;
+    border:none;
     cursor: pointer;
     cursor: hand;
 }
@@ -385,16 +389,19 @@ div#main {
     /*height: 30px;*/
 }
 div#modal1.modal.open {
-    max-height: 70%;
-    width:99%;
+    max-height: 80%;
+    width:96%;
+}
+.modal-fixed-footer.open{
+  height:80%;
 }
 .live_chat{
     float:right;
-    margin-right: 10%;
+    margin-right: 5%;
 }
 .live_video{
     float:left;
-    margin-left: 10%;
+    margin-left: 4%;
 }
 p.welcome_text.valign{
     margin: 0 20px;
@@ -427,5 +434,5 @@ i.small.material-icons{
 }
 div.valign-wrapper{
     position: absolute;
-    right: 3%;
+    right: 4%;
 }
