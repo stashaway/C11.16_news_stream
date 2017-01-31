@@ -105,7 +105,6 @@ $(document).ready(function() {
         update_preview(this);
     }));
     $('#update_btn').click(handleUpdate).toggle();
-    $('#spinner').hide();
 });
 function signOut(){
     firebase.auth().signOut().then(function() {
@@ -282,6 +281,8 @@ function buildThumbnails(){
     $('.grid').imagesLoaded().always( function() {
         checkImageSize('.grid img');
     });
+    $('#spinner').hide();
+
 }
 
 
