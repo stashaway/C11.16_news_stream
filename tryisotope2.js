@@ -11,24 +11,33 @@ $(document).ready(function() {
     var fb_ref = firebase.database();
     // firebase.auth().signInAnonymously();
     firebase.auth().onAuthStateChanged(function(user) {
+        console.log('Prefs at state change: ', preferences);
         if(user){
             $(".firebaseui-container").remove();
             $('.dropdown-button').dropdown('close');
             console.log("User is signed in" , user.uid);
             uid = user.uid;
-         fb_ref.ref("users/" + uid).on("value", function(snapshot){
-             preferences = snapshot.val();
-             for(category in preferences['categories']){
-                if(preferences['categories'][category] == false){
-                    $("#" + category).removeAttr("checked");
+
+            fb_ref.ref('users/' + uid).once('value', function(ss){
+                var snap = ss.val();
+                console.log('Snapshot: ', snap);
+                if(!snap){
+                    fb_ref.ref('users/' + uid + '/categories').update(preferences);
                 }else{
-                    if($("#" + category).attr('checked') === false || $("#" + category).attr('checked') === undefined ){
-                        $("#" + category).attr("checked");
+                    preferences = snap.categories;
+
+                    for(category in preferences){
+                        if(preferences[category] == false){
+                            $("#" + category).removeAttr('checked');
+                        }else{
+                            if($("#" + category).attr('checked') === false || $("#" + category).attr('checked') === undefined ){
+                                $("#" + category).attr('checked');
+                            }
+                        }
                     }
                 }
-             }
-             console.log("Pref:" , snapshot.val());
-         });
+            });
+
             user.getToken().then(function(accessToken) {
                 $(".dropdown-button").text("Logged In")
                 $("#sign-out").html("Sign Out");
@@ -90,12 +99,14 @@ $(document).ready(function() {
         // console.log(this.name);
         // $grid1.isotope('hideItemElements', $('.'+this.name));
 
+        preferences[this.name] = !preferences[this.name];
         $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
-            preferences['categories'][this.name] = !preferences['categories'][this.name];
-            console.log(preferences);
-            fb_ref.ref("users/" + uid).update(preferences);
+            console.log('UID:', uid);
+            console.log('Prefs:', preferences);
+            console.log('Prefs after update:', preferences);
+            fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
     });
 
@@ -109,7 +120,14 @@ $(document).ready(function() {
 var updated_list = null;
 var first_load = true;
 var master_list = null;
-var preferences;
+var preferences = {
+    'entertainment': true,
+    'gaming': true,
+    'life': true,
+    'technology': true,
+    'news': true,
+    'misc': true
+};
 var uid = null;
 function handleUpdate(){
     console.log('update handler called');
