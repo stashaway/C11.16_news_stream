@@ -419,10 +419,11 @@ img.circle.profile-pic{
 .login_status{
     position: absolute;
     right: 7vw;
+    cursor: pointer;
 }
 i.small.material-icons{
     position: relative;
-    right: 27%;
+    right: 2vw;
 }
 div.valign-wrapper{
     position: absolute;

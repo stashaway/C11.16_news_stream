@@ -36,7 +36,7 @@ $(document).ready(function() {
                     }
                 }
             });
-            user.getToken().then(function(accessToken) {
+            user.getToken().then(function(accessToken){
                 $("#firebaseui-auth-container").hide();
                 $("#sign-out").hide();
                 $(".login_status").hide();
@@ -105,7 +105,7 @@ $(document).ready(function() {
         update_preview(this);
     }));
     $('#update_btn').click(handleUpdate).toggle();
-    $('#spinner').hide();
+
 });
 function signOut(){
     firebase.auth().signOut().then(function() {
@@ -282,6 +282,7 @@ function buildThumbnails(){
     $('.grid').imagesLoaded().always( function() {
         checkImageSize('.grid img');
     });
+    $('#spinner').hide();
 }
 
 
