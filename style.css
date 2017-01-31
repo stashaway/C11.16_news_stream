@@ -2,7 +2,7 @@ body{
     background-color: #bfc3c5;
 }
 header{
-    font-family: 'Assistant', sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     top:0;
     left:0;
@@ -84,6 +84,7 @@ div label input {
 }
 
 .header_logo{
+    font-family: 'Roboto', sans-serif;
     top: 0;
     position: absolute;
     left: 50%;
@@ -392,10 +393,9 @@ div#modal1.modal.open {
     float:left;
     margin-left: 10%;
 }
-ul#dropdown1.dropdown-content.active{
-    width: 259.734px !important;
-    left: 1468.69px !important;
+p.welcome_text.valign{
+    margin: 0 20px;
 }
-.firebaseui-container{
-    width:103%;
+img.circle.profile-pic{
+    width:3vw;
 }

@@ -15,9 +15,8 @@ $(document).ready(function() {
         if(user){
             $(".firebaseui-container").remove();
             $('.dropdown-button').dropdown('close');
-            console.log("User is signed in" , user.uid);
+            console.log("User is signed in" , user);
             uid = user.uid;
-
             fb_ref.ref('users/' + uid).once('value', function(ss){
                 var snap = ss.val();
                 console.log('Snapshot: ', snap);
@@ -37,10 +36,12 @@ $(document).ready(function() {
                     }
                 }
             });
-
             user.getToken().then(function(accessToken) {
-                $(".dropdown-button").text("Logged In")
-                $("#sign-out").html("Sign Out");
+                $(".welcome_text").text("Welcome " + user.displayName);
+                $(".profile-pic").attr("src", user.photoURL);
+                $(".dropdown-button").text("Log Out");
+                $(".login_status").text("Sign Out");
+                $("#sign-out").show();
                 $("#sign-out").on("click",function(){
                     firebase.auth().signOut().then(function() {
                         console.log("signed out");
@@ -50,7 +51,8 @@ $(document).ready(function() {
         } else {
             //start firebase ui
             // FirebaseUI config.
-            $("#sign-out").text(" ");
+            $("#sign-out").hide();
+            $(".login_status").text("Log In")
             $(".dropdown-button").text("Log In");
             console.log("User is not logged in")
             var uiConfig = {
