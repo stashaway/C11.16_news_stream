@@ -9,7 +9,21 @@ $(document).ready(function() {
     };
     firebase.initializeApp(config);
     var fb_ref = firebase.database();
-    // firebase.auth().signInAnonymously();
+
+    var uiConfig = {
+        signInFlow: "popup",
+        signInSuccessUrl: '#',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+    };
+
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
+
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
@@ -23,6 +37,7 @@ $(document).ready(function() {
                 console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
+                    applyNavClickHandler(fb_ref);
                 } else{
                     preferences = snap.categories;
 
@@ -42,6 +57,7 @@ $(document).ready(function() {
                         }
                     }
                     $grid.isotope({ filter: '*:not(.hidden)' });
+                    applyNavClickHandler(fb_ref);
                 }
             });
 
@@ -51,6 +67,7 @@ $(document).ready(function() {
                 $("#sign-out").on("click",function(){
                     firebase.auth().signOut().then(function() {
                         console.log("signed out");
+                        uid=null;
                     });
                 })
             });
@@ -60,21 +77,22 @@ $(document).ready(function() {
             $("#sign-out").text(" ");
             $(".dropdown-button").text("Log In");
             console.log("User is not logged in");
-            var uiConfig = {
-                signInFlow: "popup",
-                signInSuccessUrl: '#',
-                signInOptions: [
-                    // Leave the lines as is for the providers you want to offer your users.
-                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                    firebase.auth.EmailAuthProvider.PROVIDER_ID
-                ]
+            // var uiConfig = {
+            //     signInFlow: "popup",
+            //     signInSuccessUrl: '#',
+            //     signInOptions: [
+            //         // Leave the lines as is for the providers you want to offer your users.
+            //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            //         firebase.auth.EmailAuthProvider.PROVIDER_ID
+            //     ]
                 // Terms of service url.
                 // tosUrl: 'localhost:8888'
-            };
+            // };
             // Initialize the FirebaseUI Widget using Firebase.
-            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            // todo: The next line needs to check if it's already been done once..
+            // var ui = new firebaseui.auth.AuthUI(firebase.auth());
             // The start method will wait until the DOM is loaded.
-            ui.start('#firebaseui-auth-container', uiConfig);
+            // ui.start('#firebaseui-auth-container', uiConfig);
             //end firebase ui
         }
     });
@@ -106,19 +124,22 @@ $(document).ready(function() {
     }));
     $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
+});
+
+function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = !preferences[this.name];
         $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
+            console.log('We think user is logged in, so updating prefs on db');
             console.log('UID:', uid);
             console.log('Prefs:', preferences);
             console.log('Prefs after update:', preferences);
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
     });
-
-});
+}
 var updated_list = null;
 var first_load = true;
 var master_list = null;
