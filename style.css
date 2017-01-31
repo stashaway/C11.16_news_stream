@@ -43,15 +43,23 @@ body {
 #chart path {
     stroke: #fff;
 }
+#thumbnail{
+    position: absolute;
+    top: 20%;
+    left: 28%;
+    height: 60%;
+    width: 44%;
+    border-radius: 50%;
+}
 
 #explanation {
     position: absolute;
-    top: 65%;
-    left: 64%;
-    width: 40%;
+    top: 69%;
+    left: 50%;
+    width: 25%;
     text-align: center;
     color: #666;
-    z-index: -1;
+
     transform: translate(-50%,-50%);
     background-color: black;
 }

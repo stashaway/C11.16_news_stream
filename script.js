@@ -96,8 +96,9 @@ function mouseover(d) {
     var v = d.data.viewers ? d.data.viewers + " viewers" : d.data.tviewers + " viewers";
     d3.select("#percentage").text(percentageString+" "+v);
     d3.select("#title").text(d.data.name);
-    d3.select("#explanation")
-        .style("visibility", "");
+    $('#thumbnail').attr('src', d.data.thumbnail).appendTo('#veiwport');
+    d3.select('#veiwport').style("visibility", '');
+    d3.select("#explanation").style("visibility", "");
 
 
     var sequenceArray = d.ancestors().reverse();
