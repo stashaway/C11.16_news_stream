@@ -9,7 +9,21 @@ $(document).ready(function() {
     };
     firebase.initializeApp(config);
     var fb_ref = firebase.database();
-    // firebase.auth().signInAnonymously();
+
+    var uiConfig = {
+        signInFlow: "popup",
+        signInSuccessUrl: '#',
+        signInOptions: [
+            // Leave the lines as is for the providers you want to offer your users.
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ]
+    };
+
+
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    ui.start('#firebaseui-auth-container', uiConfig);
+
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
@@ -23,27 +37,37 @@ $(document).ready(function() {
                 console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
-                }else{
+                    applyNavClickHandler(fb_ref);
+                } else{
                     preferences = snap.categories;
 
                     for(category in preferences){
                         if(preferences[category] == false){
-                            $("#" + category).removeAttr('checked');
-                        }else{
-                            if($("#" + category).attr('checked') === false || $("#" + category).attr('checked') === undefined ){
-                                $("#" + category).attr('checked');
+                            if (document.getElementById(category).hasAttribute('checked')==true) {
+                                $("#" + category).removeAttr('checked').change();
                             }
+                            $('.'+category + ':not(.grid-item--large').addClass('hidden');
+
+                        } else{
+                                if (document.getElementById(category).hasAttribute('checked')==false) {
+                                    $("#" + category).attr('checked').change();
+                                }
+                            $('.'+category + ':not(.grid-item--large').removeClass('hidden');
+
                         }
                     }
+                    $grid.isotope({ filter: '*:not(.hidden)' });
+                    applyNavClickHandler(fb_ref);
                 }
             });
 
             user.getToken().then(function(accessToken) {
-                $(".dropdown-button").text("Logged In")
+                $(".dropdown-button").text("Logged In");
                 $("#sign-out").html("Sign Out");
                 $("#sign-out").on("click",function(){
                     firebase.auth().signOut().then(function() {
                         console.log("signed out");
+                        uid=null;
                     });
                 })
             });
@@ -52,22 +76,23 @@ $(document).ready(function() {
             // FirebaseUI config.
             $("#sign-out").text(" ");
             $(".dropdown-button").text("Log In");
-            console.log("User is not logged in")
-            var uiConfig = {
-                signInFlow: "popup",
-                signInSuccessUrl: '#',
-                signInOptions: [
-                    // Leave the lines as is for the providers you want to offer your users.
-                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                    firebase.auth.EmailAuthProvider.PROVIDER_ID
-                ],
+            console.log("User is not logged in");
+            // var uiConfig = {
+            //     signInFlow: "popup",
+            //     signInSuccessUrl: '#',
+            //     signInOptions: [
+            //         // Leave the lines as is for the providers you want to offer your users.
+            //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            //         firebase.auth.EmailAuthProvider.PROVIDER_ID
+            //     ]
                 // Terms of service url.
                 // tosUrl: 'localhost:8888'
-            };
+            // };
             // Initialize the FirebaseUI Widget using Firebase.
-            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            // todo: The next line needs to check if it's already been done once..
+            // var ui = new firebaseui.auth.AuthUI(firebase.auth());
             // The start method will wait until the DOM is loaded.
-            ui.start('#firebaseui-auth-container', uiConfig);
+            // ui.start('#firebaseui-auth-container', uiConfig);
             //end firebase ui
         }
     });
@@ -94,29 +119,27 @@ $(document).ready(function() {
         }
     });
 
-    $('.top_nav input:checkbox').change(function() {
-        // 'this' will contain a reference to the checkbox
-        // console.log(this.name);
-        // $grid1.isotope('hideItemElements', $('.'+this.name));
+    $('.large').on('click','.grid-item',(function(){
+        update_preview(this);
+    }));
+    $('#update_btn').click(handleUpdate).toggle();
+    $('#spinner').hide();
+});
 
+function applyNavClickHandler(fb_ref){
+    $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = !preferences[this.name];
         $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
+            console.log('We think user is logged in, so updating prefs on db');
             console.log('UID:', uid);
             console.log('Prefs:', preferences);
             console.log('Prefs after update:', preferences);
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
     });
-
-    $('.large').on('click','.grid-item',(function(){
-        update_preview(this);
-    }));
-    $('#update_btn').click(handleUpdate).toggle();
-    $('#spinner').hide();
-
-});
+}
 var updated_list = null;
 var first_load = true;
 var master_list = null;
@@ -129,6 +152,7 @@ var preferences = {
     'misc': true
 };
 var uid = null;
+
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
