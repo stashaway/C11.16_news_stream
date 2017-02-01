@@ -289,26 +289,26 @@ div#main {
 .grid-sizer-f,
 .grid-item-f {
     float: left;
-    width: 33.2%;
+    width: 33.33%;
 }
 
 .grid-sizer,
 .grid-item {
     float: left;
-    width: 8.3%;
+    width: 16.66%;
 }
 
 .grid-item-f--large{
-    width: 33.2%;
+    width: 33.33%;
 }
 
 .grid-item--medium {
-    width: 16.6%;
+    width: 16.66%;
 }
 
-.grid-item--small {
-    width: 8.3%;
-}
+/*.grid-item--small {*/
+    /*width: 8.3%;*/
+/*}*/
 
 /*.grid-item--divider {*/
     /*width: 100%;*/
