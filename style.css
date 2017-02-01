@@ -118,6 +118,14 @@ p.header_tagline{
     transition: 0s;
 }
 
+.preview_spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: 0s;
+}
+
 img.logo {
     top:0;
     left:50%;
@@ -503,12 +511,12 @@ div.medium.z-depth-3, div.fixed{
 }
 /*------------------Hover Effects-------------------*/
 
-div.effect-apollo {
+.effect-apollo {
     /*background-color: rgba(113, 142, 156, 1);*/
     overflow: hidden;
 }
 
-div.effect-apollo img {
+.effect-apollo img {
     opacity: 0.95;
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
@@ -516,7 +524,7 @@ div.effect-apollo img {
     transform: scale3d(1.05,1.05,1);
 }
 
-div.effect-apollo .figcaption::before {
+.effect-apollo .figcaption::before {
     position: absolute;
     top: 0;
     left: 0;
@@ -529,7 +537,7 @@ div.effect-apollo .figcaption::before {
     -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
     transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
 }
-div.effect-apollo p.video_title {
+.effect-apollo .video_title {
     text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
     font-size: 2em;
     padding-right: 8px;
@@ -547,7 +555,7 @@ div.effect-apollo p.video_title {
     -webkit-transition: opacity 0.35s;
     transition: opacity 0.35s;
 }
-div.effect-apollo p.channel_title {
+.effect-apollo .channel_title {
     text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
     padding-right: 8px;
     font-size: 1.5em;
@@ -564,34 +572,34 @@ div.effect-apollo p.channel_title {
     transition: opacity 0.35s;
 }
 
-div.effect-apollo h2 {
+.effect-apollo h2 {
     text-align: left;
 }
 
-div.effect-apollo:hover img {
+.effect-apollo:hover img {
     opacity: 0.1;
     -webkit-transform: scale3d(1,1,1);
     transform: scale3d(1,1,1);
 }
 
-div.effect-apollo:hover .figcaption::before {
+.effect-apollo:hover .figcaption::before {
     -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
     transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
 }
 
-div.effect-apollo:hover p {
+.effect-apollo:hover p {
     opacity: 1;
     -webkit-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
-.medium div.effect-apollo p.video_title{
+.medium .effect-apollo .video_title{
     left: 0;
     top: 3%;
     font-size: 1.5em;
     margin:10%;
     max-width:75%;
 }
-.medium div.effect-apollo p.channel_title{
+.medium .effect-apollo .channel_title{
     font-size: 1em;
     position: absolute;
     left: 51%;
