@@ -9,7 +9,7 @@ header{
 }
 html {
     height: auto !important;
-    padding-bottom: 700px !important;
+    #padding-bottom: 700px !important;
 }
 
 div label input {
@@ -149,13 +149,23 @@ img.logo {
 .model-content{
    color:black
 }
-
+/*Preview*/
+#full-screen {
+    background-color: rgba(38, 50, 56, 0.8);
+    width:100%;
+    height:100%;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index: 1000;
+    display: none;
+}
 #preview{
     border-radius: 4px;
     font-family: 'Assistant', sans-serif;
-    background-color: rgba(144,144,144,0.8);
-    width: 20vw;
-    height: 38vh;
+    background-color: rgba(38, 50, 56, 0.8);
+    width: 400px;
+    height: 225px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -165,33 +175,50 @@ img.logo {
     box-shadow:         -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
 }
 
-#preview img {
+/*#preview img {*/
+    /*position: absolute;*/
+    /*height: 60%;*/
+    /*width: 100%;*/
+    /*bottom: 0;*/
+/*}*/
+
+/*#preview_title {*/
+    /*font-size: 1.5em;*/
+    /*color: black;*/
+    /*!*text-shadow: 2px 2px #252222;*!*/
+    /*position: absolute;*/
+    /*left: 4%;*/
+    /*cursor: default;*/
+    /*width: 85%;*/
+    /*text-align: center;*/
+/*}*/
+
+/*#preview_category {*/
+    /*text-transform:capitalize;*/
+    /*cursor: default;*/
+/*}*/
+
+/*#preview_viewers{*/
+    /*cursor: default;*/
+/*}*/
+
+.embed-btn {
     position: absolute;
-    height: 60%;
-    width: 100%;
-    bottom: 0;
+    left: 0;
+    top: 0;
 }
 
-#preview_title {
-    font-size: 1.5em;
-    color: black;
-    /*text-shadow: 2px 2px #252222;*/
-    position: absolute;
-    left: 4%;
-    cursor: default;
-    width: 85%;
-    text-align: center;
+#close_preview {
+    transform: translate(-50%,-50%);
 }
 
-#preview_category {
-    text-transform:capitalize;
-    cursor: default;
+#open_full {
+    transform: translate(-50%,50%);
 }
 
-#preview_viewers{
-    cursor: default;
+#close_preview:hover {
+    cursor: pointer; cursor: hand;
 }
-
 #viewers_p{
     position: absolute;
     top: 23%;
@@ -210,18 +237,6 @@ img.logo {
     cursor: default;
 }
 
-#close_preview {
-    position: absolute;
-    right: 3%;
-    top: 1%;
-    color: white;
-    z-index: 100;
-}
-
-#close_preview:hover {
-cursor: pointer; cursor: hand;
-}
-
 #sign_out{
     height: 50px;
     width: 240px;
@@ -229,15 +244,17 @@ cursor: pointer; cursor: hand;
 
 #update_btn {
     position: relative;
-    border-radius: 10px;
+    border-radius: 7px;
     top: 0;
     left: 0;
+    background-color: #a76d6d;
+    padding: 0 10px;
 }
 
 #update_div {
     position: absolute;
     top: 50%;
-    right: 18%;
+    right: 20%;
     transform: translate(0,-50%);
     height: 50%;
 }
@@ -247,16 +264,16 @@ cursor: pointer; cursor: hand;
     box-sizing: border-box;
 }
 div#main {
-    width: 98.5vw;
+    #width: 98.5vw;
     /*margin-top: 10px;*/
     /*margin: auto;*/
     /*margin-top: 20px;*/
 }
 
 .fixed, .grid-f {
-    width: 100%
-    top:10%;
-    left: 0;
+    width: 100%;
+    #top:10%;
+    #left: 0;
     display: block;
 }
 .medium, .grid {
@@ -280,6 +297,7 @@ div#main {
     float: left;
     width: 8.3%;
 }
+
 .grid-item-f--large{
     width: 33.2%;
 }
@@ -303,15 +321,16 @@ div#main {
 /*}*/
 .grid-item img, .grid-item-f img {
     width:100%;
-    height: 95%;
 }
 /*************Isotope Classes*************/
 
 .gaming {
-    background-color: #9d3636;
+    color:white;
+    background-color:rgba(157,54,54,1);
     position: relative;
+    #border:2px solid #9d3636;
 }
-.gaming::after {
+/*.gaming::before {
     opacity: .2;
     background-color: #9d3636;
     position: absolute;
@@ -320,26 +339,30 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .news {
-    background-color: #158065;
+    color:white;
+    background-color: rgba(21,128,101,1);
     position: relative;
+    #border:2px solid #158065;
 }
-.news::after {
+/*.news::after {
     opacity: .2;
-    background-color: #158065;
+    background-color:#158065;
     position: absolute;
     top: 0;
     left: 0;
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .entertainment {
-    background-color: #3f6d87;
+    color:white;
+    background-color: rgba(63,109,135,1);
     position: relative;
+    #border:2px solid #3f6d87;
 }
-.entertainment::after {
+/*.entertainment::after {
     opacity: .2;
     background-color: #3f6d87;
     position: absolute;
@@ -348,12 +371,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .misc {
-    background-color: #40496a;
+    color:white;
+    background-color:rgba(64,73,106,1);
     position: relative;
+    #border:2px solid #40496a;
 }
-.misc::after {
+/*.misc::after {
     opacity: .2;
     background-color: #40496a;
     position: absolute;
@@ -362,12 +387,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .life {
-    background-color: #83545d;
+    color:white;
+    background-color:rgba(131,84,93,1);
     position: relative;
+    #border:2px solid #83545d;
 }
-.life::after {
+/*.life::after {
     opacity: .2;
     background-color: #83545d;
     position: absolute;
@@ -376,12 +403,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .technology {
-    background-color: #7e578f;
+    color:white;
+    background-color:rgba(126,87,143,1);
     position: relative;
+    #border:2px solid #7e578f;
 }
-.technology::after {
+/*.technology::after {
     opacity: .2;
     background-color: #7e578f;
     position: absolute;
@@ -390,8 +419,10 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}
+}*/
 .tooltipped:hover {
+    color:white;
+    border:none;
     cursor: pointer;
     cursor: hand;
 }
@@ -407,16 +438,19 @@ div#main {
     /*height: 30px;*/
 }
 div#modal1.modal.open {
-    max-height: 70%;
-    width:99%;
+    max-height: 80%;
+    width:96%;
+}
+.modal-fixed-footer.open{
+  height:80%;
 }
 .live_chat{
     float:right;
-    margin-right: 10%;
+    margin-right: 5%;
 }
 .live_video{
     float:left;
-    margin-left: 10%;
+    margin-left: 4%;
 }
 p.welcome_text.valign{
     margin: 0 20px;
@@ -426,8 +460,8 @@ img.circle.profile-pic{
 }
 .firebaseui-container{
     width: 235px;
-    right: 1vw;
-    top: 9vh;
+    right: 2vw;
+    top: 7vh;
     position: absolute;
     background:white;
 }
@@ -441,12 +475,28 @@ img.circle.profile-pic{
 .login_status{
     position: absolute;
     right: 7vw;
+    cursor: pointer;
 }
 i.small.material-icons{
     position: relative;
-    right: 27%;
+    right: 2vw;
 }
 div.valign-wrapper{
     position: absolute;
-    right: 3%;
+    right: 4%;
+}
+.modal-content{
+    background-color:black;
+}
+.modal.modal-fixed-footer .modal-footer{
+    background-color: #ccbfbb;
+}
+.chip{
+    padding: 0px 5px;
+    border-radius: 0px 5px 0px 3px;
+    position:absolute;
+    bottom:-2px;
+}
+div.medium.z-depth-3, div.fixed{
+    background-color: white;
 }

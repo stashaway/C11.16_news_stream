@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
     <title>Streamism.tv</title>
 
@@ -71,7 +72,7 @@
                         </label>
                     </div>
                 </div>
-                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Updated Streams Available</a></div>
+                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
                 <div class="right">
                     <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on any thumbnail to preview information, then click on the thumbnail to view the stream."><i class="small material-icons">info_outline</i>
                     </div>
@@ -86,7 +87,6 @@
             </div>
         </nav>
     </div>
-
 
 </header>
 <div id="main">
@@ -134,18 +134,18 @@
         </div>
     </div>
 
-    <div class="fixed z-depth-3"></div>
-    <div class="medium z-depth-3"></div>
+    <div class="panel fixed z-depth-3"></div>
+    <div class="panel medium z-depth-3"></div>
 
     <div id="modal1" class="modal modal1 modal-fixed-footer">
         <div class="modal-content">
             <h4 class="full_screen_header"></h4>
             <p>
-                <iframe class="live_video" width="660" height="415" frameborder="0" allowfullscreen></iframe>
-                <div class="loading">
+                <iframe class="live_video" width="860" height="515" frameborder="0" allowfullscreen></iframe>
+            <div class="loading">
                 Chat Unavailable
-                </div>
-            <iframe class="live_chat" width="460" height="415" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <iframe class="live_chat" width="660" height="515" frameborder="0" allowfullscreen></iframe>
             </p>
         </div>
         <div class="modal-footer">
@@ -153,14 +153,34 @@
         </div>
     </div>
     <div id="preview">
-        <div id="preview_details">
-            <span id="close_preview">X</span>
-            <span id="preview_title"></span>
-            <p id="category_p">Category: <span id="preview_category"></span></p>
-            <p id="viewers_p">Viewers: <span id="preview_viewers"></span></p>
+        <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light blue-grey"><i class="material-icons">clear</i></a>
+        <a id="open_full" class="btn-floating waves-effect waves-light blue-grey"><i class="material-icons">launch</i></a>
+
+        <div class="spinner">
+            <div class="preloader-wrapper active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+                </div>
+            </div>
         </div>
-        <a href="#modal1"><img src="images/noimage.jpg" id="preview_thumb"></a>
+
+        <!--<div id="preview_details">-->
+            <!--<span id="close_preview">X</span>-->
+            <!--<span id="preview_title"></span>-->
+            <!--<p id="category_p">Category: <span id="preview_category"></span></p>-->
+            <!--<p id="viewers_p">Viewers: <span id="preview_viewers"></span></p>-->
+        <!--</div>-->
+        <!--<a href="#modal1"><img src="images/noimage.jpg" id="preview_thumb"></a>-->
     </div>
+</div>
+<div id="full-screen">
+    <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue-grey"><i class="material-icons">clear</i></a>
 </div>
 </body>
 </html>

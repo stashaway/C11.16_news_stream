@@ -1,3 +1,14 @@
+var data = null;
+var filtered = null;
+var cats = {
+    gaming:true,
+    entertainment:true,
+    news:true,
+    technology:true,
+    life:true,
+    misc:true
+};
+
 $(document).ready(function() {
     first_load = true;
     var config = {
@@ -36,14 +47,13 @@ $(document).ready(function() {
                     }
                 }
             });
-            user.getToken().then(function(accessToken) {
+            user.getToken().then(function(accessToken){
                 $("#firebaseui-auth-container").hide();
                 $("#sign-out").hide();
                 $(".login_status").hide();
                 $(".welcome_text").show();
                 $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
-
                 $(".profile-pic").attr("src", user.photoURL).on("click",function(){
                     $("#sign-out").toggle().on("click",function(){
                         firebase.auth().signOut().then(function() {
@@ -82,7 +92,9 @@ $(document).ready(function() {
         console.log('on triggered');
         if (first_load === true){
             master_list = snapshot.val();
+            master_list = shuffle(master_list);
             buildThumbnails(master_list);
+
             $grid = $('.grid').imagesLoaded().always( function() {
                 setTimeout(function(){
                     $grid.isotope({
@@ -115,19 +127,58 @@ $(document).ready(function() {
             first_load=false;
         } else {
             // alert('update received');
-            $('#update_btn').toggle();
+            $('#update_btn').show();
             updated_list = snapshot.val();
         }
     });
+
     applyNavClickHandler(fb_ref);
+
     $('.medium').on('click','.grid-item',(function(){
         update_preview(this);
     }));
     $('.fixed').on('click','.grid-item-f',(function(){
         update_preview(this);
     }));
+
     $('#update_btn').click(handleUpdate).toggle();
 });
+
+function shuffle(snapshot) {
+    var data = [];
+    var max = 0;
+    var filtered = [];
+
+    //filter into just selected categories
+    for (var i in snapshot.streams) {
+        if (snapshot.streams.hasOwnProperty(i)) {
+            var cat = snapshot.streams[i];
+            if (cats[cat.id]) {
+                data.push(cat);
+                if (cat.streams.length > max) max = cat.streams.length;
+            }
+        }
+    }
+
+    for (var j = 0; j < max; j++) {
+        var sub = [];
+
+        for (var k = 0; k < data.length; k++) {
+            var category = data[k];
+            var stream = category.streams[j];
+            if (stream) {
+                sub.push(stream);
+            }
+        }
+
+        if (sub.length > 0) {
+            sub.sort(function(){return 0.5 - Math.random()});
+            filtered = filtered.concat(sub);
+        }
+    }
+
+    return filtered;
+}
 
 var soundEffect = new Audio('audio/transporter.mp3');
 soundEffect.play();
@@ -138,6 +189,7 @@ function signOut(){
         uid = null;
     });
 }
+
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = this.checked;
@@ -173,8 +225,10 @@ var $gridFixed;
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
-    $('.large *').remove();
-    buildThumbnails(master_list);
+    $('.panel *').remove();
+    //buildThumbnails(master_list);
+    filtered = shuffle(master_list);
+    go(filtered);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
             $grid.isotope({
@@ -188,7 +242,7 @@ function handleUpdate(){
     $('#update_btn').toggle();
 }
 
-function shuffle(array) {
+/*function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     // While there remain elements to shuffle...
@@ -205,7 +259,17 @@ function shuffle(array) {
     }
 
     return array;
-}
+}*/
+function redistributeGrid(){
+    var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
+        console.log(this);
+        var index = $(this).attr('data-index');
+        console.log('index- '+index);
+        return index<5;
+        }).length;
+    console.log('Number not hidden'+x);
+};
+var master_list=null;
 
 function populateArray(cycles, depth) {
     var output_array = [];
@@ -227,13 +291,13 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    // console.log(output_array);
+    console.log(output_array);
     return output_array.slice()
 }
 
-var main_array=[];
-function buildThumbnails(){
-    main_array = populateArray(36,0);
+//var main_array=[];
+function buildThumbnails(main_array){
+    //main_array = populateArray(36,0);
     // console.log('main array',main_array);
     var featured_object = {
         category: "divider",
@@ -249,6 +313,8 @@ function buildThumbnails(){
     var new_thumb;
     var new_item;
     var new_img;
+    var new_chip;
+    var new_cat;
     var the_grid = $('<div>',{
         class: 'grid-f'
     });
@@ -265,20 +331,25 @@ function buildThumbnails(){
     });
     $(the_grid2).append(sizer2);
     for (var i=0; i<main_array.length; i++){
-
         if (i<7) {
-
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category);
+            new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }
         else {
-
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category);
+            new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid2).append(new_item);
         }
@@ -291,7 +362,6 @@ function buildThumbnails(){
         checkImageSize('.grid-f img');
     });
     $('#spinner').hide();
-
 }
 
 
