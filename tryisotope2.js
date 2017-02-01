@@ -134,9 +134,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.large').on('click','.grid-item',(function(){
-        update_preview(this);
-    }));
+
     $('#update_btn').click(handleUpdate).toggle();
     $('#spinner').hide();
 });
