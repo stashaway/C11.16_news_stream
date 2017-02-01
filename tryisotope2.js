@@ -120,7 +120,10 @@ $(document).ready(function() {
         }
     });
     applyNavClickHandler(fb_ref);
-    $('.large').on('click','.grid-item',(function(){
+    $('.medium').on('click','.grid-item',(function(){
+        update_preview(this);
+    }));
+    $('.fixed').on('click','.grid-item-f',(function(){
         update_preview(this);
     }));
     $('#update_btn').click(handleUpdate).toggle();
