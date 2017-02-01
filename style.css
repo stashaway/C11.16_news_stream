@@ -118,6 +118,14 @@ p.header_tagline{
     transition: 0s;
 }
 
+.preview_spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    transition: 0s;
+}
+
 img.logo {
     top:0;
     left:50%;
@@ -289,36 +297,23 @@ div#main {
 .grid-sizer-f,
 .grid-item-f {
     float: left;
-    width: 33.2%;
+    width: 33.33%;
 }
 
 .grid-sizer,
 .grid-item {
     float: left;
-    width: 8.3%;
+    width: 16.66%;
 }
 
 .grid-item-f--large{
-    width: 33.2%;
+    width: 33.33%;
 }
 
 .grid-item--medium {
-    width: 16.6%;
+    width: 16.66%;
 }
 
-.grid-item--small {
-    width: 8.3%;
-}
-
-/*.grid-item--divider {*/
-    /*width: 100%;*/
-    /*height: 20px;*/
-/*}*/
-/*.fixed {*/
-    /*-webkit-box-shadow: -1px 10px 5px -5px rgba(0,0,0,0.75);*/
-    /*-moz-box-shadow: -1px 10px 5px -5px rgba(0,0,0,0.75);*/
-    /*box-shadow: -1px 10px 5px -5px rgba(0,0,0,0.75);*/
-/*}*/
 .grid-item img, .grid-item-f img {
     width:100%;
 }
@@ -330,7 +325,7 @@ div#main {
     position: relative;
     #border:2px solid #9d3636;
 }
-/*.gaming::before {
+.gaming::before {
     opacity: .2;
     background-color: #9d3636;
     position: absolute;
@@ -339,14 +334,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}*/
+}
 .news {
     color:white;
     background-color: rgba(21,128,101,0.8);
     position: relative;
     #border:2px solid #158065;
 }
-/*.news::after {
+.news::after {
     opacity: .2;
     background-color:#158065;
     position: absolute;
@@ -355,14 +350,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}*/
+}
 .entertainment {
     color:white;
     background-color: rgba(63,109,135,0.8);
     position: relative;
     #border:2px solid #3f6d87;
 }
-/*.entertainment::after {
+.entertainment::after {
     opacity: .2;
     background-color: #3f6d87;
     position: absolute;
@@ -371,14 +366,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}*/
+}
 .misc {
     color:white;
     background-color:rgba(64,73,106,0.8);
     position: relative;
     #border:2px solid #40496a;
 }
-/*.misc::after {
+.misc::after {
     opacity: .2;
     background-color: #40496a;
     position: absolute;
@@ -387,14 +382,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}*/
+}
 .life {
     color:white;
     background-color:rgba(131,84,93,0.8);
     position: relative;
     #border:2px solid #83545d;
 }
-/*.life::after {
+.life::after {
     opacity: .2;
     background-color: #83545d;
     position: absolute;
@@ -403,14 +398,14 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}*/
+}
 .technology {
     color:white;
     background-color:rgba(126,87,143,0.8);
     position: relative;
     #border:2px solid #7e578f;
 }
-/*.technology::after {
+.technology::after {
     opacity: .2;
     background-color: #7e578f;
     position: absolute;
@@ -419,23 +414,19 @@ div#main {
     height: 95%;
     width: 100%;
     content: " ";
-}*/
+}
 .tooltipped:hover {
     color:white;
     border:none;
     cursor: pointer;
     cursor: hand;
 }
-/*Tooltip Fixes*/
+
 [data-tooltip] {
-    /*position: relative;*/
-    /*z-index: 2;*/
-    /*cursor: pointer;*/
     position: absolute;
     transform: translate(0%, -50%);
     top: 50%;
     right: 0;
-    /*height: 30px;*/
 }
 div#modal1.modal.open {
     max-height: 80%;
@@ -503,13 +494,14 @@ div.medium.z-depth-3, div.fixed{
 }
 /*------------------Hover Effects-------------------*/
 
-div.effect-apollo {
+.effect-apollo {
     /*background-color: rgba(113, 142, 156, 1);*/
     overflow: hidden;
 }
 
 div.effect-apollo img {
     opacity: 1;
+
     -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
     transition: opacity 0.35s, transform 0.35s;
     -webkit-transform: scale3d(1.05,1.05,1);
@@ -529,41 +521,46 @@ div.effect-apollo p.video_title, div.effect-apollo p.channel_title {
     -webkit-transition: opacity 0.35s;
     transition: opacity 0.35s;
 }
+
 div.effect-apollo p.video_title{
     font-size: 2em;
     right: 20%;
     top: 10%;
 }
 div.effect-apollo p.channel_title {
+
     font-size: 1.5em;
     right: 20%;
     top: 25%;
     margin-top: 2em;
     border-right: 4px solid #fff;
+
 }
 div.effect-apollo:hover img {
+
     opacity: 0.1;
     -webkit-transform: scale3d(1,1,1);
     transform: scale3d(1,1,1);
 }
 
-div.effect-apollo:hover .figcaption::before {
+.effect-apollo:hover .figcaption::before {
     -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
     transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
 }
 
-div.effect-apollo:hover p {
+.effect-apollo:hover p {
     opacity: 1;
     -webkit-transition-delay: 0.1s;
     transition-delay: 0.1s;
 }
+
 .medium div.effect-apollo p.video_title{
     right: 10%;
     top: 6%;
     font-size: 1.5em;
     max-width:75%;
 }
-.medium div.effect-apollo p.channel_title{
+.medium .effect-apollo .channel_title{
     font-size: 1em;
     position: absolute;
     right: 10%;
