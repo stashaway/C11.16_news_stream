@@ -130,10 +130,10 @@ $(document).ready(function() {
 
     applyNavClickHandler(fb_ref);
 
-    $('.medium').on('click','.grid-item',(function(){
+    $('body').on('click','.grid-item',(function(){
         update_preview(this);
     }));
-    $('.fixed').on('click','.grid-item-f',(function(){
+    $('body').on('click','.grid-item-f',(function(){
         update_preview(this);
     }));
 
