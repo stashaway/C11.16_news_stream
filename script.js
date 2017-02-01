@@ -149,10 +149,11 @@ function change_veiw(){
 }
 
 function path_click(){
-    console.log('enbigginate!')
+    console.log('enbigginate!');
     $('#viewport').toggleClass('bigport');
     $('#viewport').toggleClass('viewport');
-
+    var current_preview_obj = determine_info(this);
+    $(".live_video").attr("src",current_preview_obj.video);
 }
 
 $(document).ready(function() {

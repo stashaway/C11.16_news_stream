@@ -91,7 +91,7 @@ function createVisualization(json) {
 function sun_video(d){
     console.log('click handled');
     // window.location.href = d.data.link;
-    onYouTubeIframeAPIReady();
+    // onYouTubeIframeAPIReady();
 }
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
@@ -304,17 +304,17 @@ function buildHierarchy(csv) {
     return root;
 };
 
-var player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: 'M7lc1UVf-VE',
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
-    });
-    console.log('youtube video ready')
-
-}
+// var player;
+// function onYouTubeIframeAPIReady() {
+//     player = new YT.Player('player', {
+//         height: '390',
+//         width: '640',
+//         videoId: 'M7lc1UVf-VE',
+//         events: {
+//             'onReady': onPlayerReady,
+//             'onStateChange': onPlayerStateChange
+//         }
+//     });
+//     console.log('youtube video ready')
+//
+// }
