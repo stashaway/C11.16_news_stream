@@ -66,6 +66,7 @@ $(document).ready(function() {
             $(".welcome_text").hide();
             $(".profile-pic").hide();
             $(".login_status").text("Log In").on("click", function(){
+                console.log("log in clicked")
                 $("#firebaseui-auth-container").toggle();
             });
             console.log("User is not logged in");
@@ -129,10 +130,10 @@ $(document).ready(function() {
 
     applyNavClickHandler(fb_ref);
 
-    $('.medium').on('click','.grid-item',(function(){
+    $('body').on('click','.grid-item',(function(){
         update_preview(this);
     }));
-    $('.fixed').on('click','.grid-item-f',(function(){
+    $('body').on('click','.grid-item-f',(function(){
         update_preview(this);
     }));
 
@@ -286,7 +287,7 @@ function buildThumbnails(){
     var featured_object = {
         category: "divider",
         thumbnail: "images/featured.png",
-        title: "Featured",
+        title: "",
         viewers: null
     };
     // main_array.splice(0,0,featured_object);
