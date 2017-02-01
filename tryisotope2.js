@@ -106,6 +106,10 @@ $(document).ready(function() {
     }));
     $('#update_btn').click(handleUpdate).toggle();
 });
+
+var soundEffect = new Audio('audio/transporter.mp3');
+soundEffect.play();
+
 function signOut(){
     firebase.auth().signOut().then(function() {
         console.log("signed out");
@@ -215,10 +219,10 @@ function buildThumbnails(){
         title: "Featured",
         viewers: null
     };
-    main_array.splice(0,0,featured_object);
-    main_array.splice(4,0,featured_object);
-    main_array.splice(53,0,featured_object);
-    main_array.splice(-3);
+    // main_array.splice(0,0,featured_object);
+    main_array.splice(6,0,featured_object);
+    // main_array.splice(53,0,featured_object);
+    // main_array.splice(-3);
     // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
@@ -232,7 +236,7 @@ function buildThumbnails(){
     $(the_grid).append(sizer);
     for (var i=0; i<main_array.length; i++){
 
-        if (i<5) {
+        if (i<7) {
             if (main_array[i].category==='divider'){
                 new_thumb = main_array[i].thumbnail;
                 new_item = $('<div class="stamp grid-item grid-item--divider">');
@@ -247,7 +251,7 @@ function buildThumbnails(){
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }
-        else if (i<53) {
+        else {
             if (main_array[i].category==='divider'){
                 new_thumb = main_array[i].thumbnail;
                 new_item = $('<div class="stamp grid-item grid-item--divider">');
@@ -261,21 +265,22 @@ function buildThumbnails(){
             new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
             $(the_grid).append(new_item);
-        } else {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
-            new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--small ' + main_array[i].category + '" data-index=' + i + '>');
-            new_img = $('<img src="' + new_thumb + '">');
-            new_item.append(new_img);
-            $(the_grid).append(new_item);
         }
+        // else {
+        //     if (main_array[i].category==='divider'){
+        //         new_thumb = main_array[i].thumbnail;
+        //         new_item = $('<div class="stamp grid-item grid-item--divider">');
+        //         new_img = $('<img src="' + new_thumb + '">');
+        //         new_item.append(new_img);
+        //         $(the_grid).append(new_item);
+        //         continue;
+        //     }
+        //     new_thumb = main_array[i].thumbnail;
+        //     new_item = $('<div class="grid-item grid-item--small ' + main_array[i].category + '" data-index=' + i + '>');
+        //     new_img = $('<img src="' + new_thumb + '">');
+        //     new_item.append(new_img);
+        //     $(the_grid).append(new_item);
+        // }
         $('.large').append(the_grid)
     }
     $('.grid').imagesLoaded().always( function() {
