@@ -40,11 +40,12 @@ var arc = d3.arc()
     .innerRadius(function(d) { return Math.sqrt(d.y0); })
     .outerRadius(function(d) { return Math.sqrt(d.y1); });
 
-createVisualization(fullData);
+
 
 // Main function to draw and set up the visualization, once we have the data.
 function createVisualization(json) {
-
+    var stringified = JSON.stringify(json).replace(/streams/g, 'children');
+    json = JSON.parse(stringified);
     // Basic setup of page elements.
     initializeBreadcrumbTrail();
     drawLegend();
@@ -104,8 +105,8 @@ function mouseover(d) {
     var v = d.data.viewers ? d.data.viewers + " viewers" : d.data.tviewers + " viewers";
     d3.select("#percentage").text(percentageString+" "+v);
     d3.select("#title").text(d.data.name);
-    $('#thumbnail').attr('src', d.data.thumbnail).appendTo('#veiwport');
-    d3.select('#veiwport').style("visibility", '');
+    $('#thumbnail').attr('src', d.data.thumbnail).appendTo('#viewport');
+    d3.select('#viewport').style("visibility", '');
     d3.select("#explanation").style("visibility", "");
 
     var sequenceArray = d.ancestors().reverse();

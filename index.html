@@ -13,7 +13,6 @@
     <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
     <script src="//d3js.org/d3.v4.min.js"></script>
     <script src="./sunburstView/sunburstDummyData.js"></script>
-    <script type="text/javascript" src="./sunburstView/sunScript.js" defer></script>
 
 
 
@@ -24,6 +23,8 @@
     <!-- Internal Script Files -->
     <script src="tryisotope2.js"></script>
     <script src="script.js"></script>
+    <script type="text/javascript" src="./sunburstView/sunScript.js" defer></script>
+
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
@@ -178,7 +179,7 @@
     <div>
         <div id="sequence"></div>
         <div id="chart">
-            <div id="veiwport" style="visibility: hidden;">
+            <div id='viewport' class="viewport" style="visibility: hidden;">
                 <div >
                     <img id="thumbnail" src="">
                     <div id="explanation" style="visibility: hidden;">

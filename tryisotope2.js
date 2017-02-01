@@ -82,6 +82,7 @@ $(document).ready(function() {
         console.log('on triggered');
         if (first_load === true){
             master_list = snapshot.val();
+            createVisualization(master_list);
             buildThumbnails(master_list);
             $grid = $('.grid').imagesLoaded().always( function() {
                 setTimeout(function(){

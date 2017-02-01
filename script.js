@@ -148,7 +148,16 @@ function change_veiw(){
 
 }
 
+function path_click(){
+    console.log('enbigginate!')
+    $('#viewport').toggleClass('bigport');
+    $('#viewport').toggleClass('viewport');
+
+}
+
 $(document).ready(function() {
+    $('path').click(path_click);
+    // $('path').css('color', d.data.category);
     $('#sunburst_sequence_container').hide();
     $('#change_view').click(change_veiw);
     $('#modal1').modal();
