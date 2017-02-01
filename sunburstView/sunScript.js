@@ -2,8 +2,8 @@
  * Created by baultik on 1/18/17.
  */
 // Dimensions of sunburst.
-var width = document.body.clientWidth + 200;
-var height = document.body.clientHeight + 200;
+var width = document.body.clientWidth + 100;
+var height = document.body.clientHeight + 100;
 var radius = Math.min(width, height) / 2;
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
