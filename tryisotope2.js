@@ -70,6 +70,7 @@ $(document).ready(function() {
             $(".welcome_text").hide();
             $(".profile-pic").hide();
             $(".login_status").text("Log In").on("click", function(){
+                console.log("log in clicked")
                 $("#firebaseui-auth-container").toggle();
             });
             console.log("User is not logged in");
@@ -295,7 +296,7 @@ function buildThumbnails(main_array){
     var featured_object = {
         category: "divider",
         thumbnail: "images/featured.png",
-        title: "Featured",
+        title: "",
         viewers: null
     };
     // main_array.splice(0,0,featured_object);
