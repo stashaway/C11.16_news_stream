@@ -91,7 +91,26 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
+                    $gridFixed.isotope({
+                        itemSelector: '.grid-item-f',
+                        masonry: { columnWidth: '.grid-sizer-f'},
+                        stagger: 5,
+                        percentPosition: true
+                    });
+
+
                 },1500);
+            $gridFixed = $('.grid-f').imagesLoaded().always( function() {
+                setTimeout(function(){
+                    // $gridFixed.isotope({
+                    //     itemSelector: '.grid-item-f',
+                    //     masonry: { columnWidth: '.grid-sizer-f'},
+                    //     stagger: 5,
+                    //     percentPosition: true
+                    // });
+                },1500);
+            });
+
             });
             first_load=false;
         } else {
@@ -106,6 +125,10 @@ $(document).ready(function() {
     }));
     $('#update_btn').click(handleUpdate).toggle();
 });
+
+var soundEffect = new Audio('audio/transporter.mp3');
+soundEffect.play();
+
 function signOut(){
     firebase.auth().signOut().then(function() {
         console.log("signed out");
@@ -143,7 +166,7 @@ var preferences = {
 };
 var uid = null;
 var $grid;
-
+var $gridFixed;
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
@@ -215,71 +238,54 @@ function buildThumbnails(){
         title: "Featured",
         viewers: null
     };
-    main_array.splice(0,0,featured_object);
-    main_array.splice(4,0,featured_object);
-    main_array.splice(53,0,featured_object);
-    main_array.splice(-3);
+    // main_array.splice(0,0,featured_object);
+    main_array.splice(6,0,featured_object);
+    // main_array.splice(53,0,featured_object);
+    // main_array.splice(-3);
     // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;
     var the_grid = $('<div>',{
-        class: 'grid'
+        class: 'grid-f'
     });
     var sizer=$('<div>',{
-        class: 'grid-sizer'
+        class: 'grid-sizer-f'
     });
     $(the_grid).append(sizer);
+
+    var the_grid2 = $('<div>',{
+        class: 'grid'
+    });
+    var sizer2=$('<div>',{
+        class: 'grid-sizer'
+    });
+    $(the_grid2).append(sizer2);
     for (var i=0; i<main_array.length; i++){
 
-        if (i<5) {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
+        if (i<7) {
+
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }
-        else if (i<53) {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
+        else {
+
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_item.append(new_img);
-            $(the_grid).append(new_item);
-        } else {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
-            new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--small ' + main_array[i].category + '" data-index=' + i + '>');
-            new_img = $('<img src="' + new_thumb + '">');
-            new_item.append(new_img);
-            $(the_grid).append(new_item);
+            $(the_grid2).append(new_item);
         }
-        $('.large').append(the_grid)
+
+        $('.fixed').append(the_grid);
+        $('.medium').append(the_grid2);
     }
     $('.grid').imagesLoaded().always( function() {
         checkImageSize('.grid img');
+        checkImageSize('.grid-f img');
     });
     $('#spinner').hide();
 
