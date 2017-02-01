@@ -199,7 +199,14 @@ $(document).ready(function() {
     var preview = $('#preview');
     preview.hide();
     preview.on('click','#close_preview',close_preview);
-    $(".panel").on('click','.grid-item',(function(){
+    $("body").on('click','.grid-item',(function(){
+        //update_preview(this);
+        var index = $(this).attr('data-index');
+        item = master_list[index];
+        embedPreview.play(item, preview);
+        preview.show(500);
+    }));
+    $("body").on('click','.grid-item-f',(function(){
         //update_preview(this);
         var index = $(this).attr('data-index');
         item = master_list[index];
