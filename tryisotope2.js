@@ -92,7 +92,6 @@ $(document).ready(function() {
         console.log('on triggered');
         if (first_load === true){
             master_list = snapshot.val();
-            master_list = shuffle(master_list);
             buildThumbnails(master_list);
 
             $grid = $('.grid').imagesLoaded().always( function() {
@@ -137,7 +136,7 @@ $(document).ready(function() {
     $('#update_btn').click(handleUpdate).toggle();
 });
 
-function shuffle(snapshot) {
+function fullShuffle(snapshot) {
     var data = [];
     var max = 0;
     var filtered = [];
@@ -219,9 +218,8 @@ function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
     $('.panel *').remove();
-    //buildThumbnails(master_list);
-    filtered = shuffle(master_list);
-    go(filtered);
+
+    buildThumbnails(master_list);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
             $grid.isotope({
@@ -235,7 +233,7 @@ function handleUpdate(){
     $('#update_btn').toggle();
 }
 
-/*function shuffle(array) {
+function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     // While there remain elements to shuffle...
@@ -252,7 +250,7 @@ function handleUpdate(){
     }
 
     return array;
-}*/
+}
 function redistributeGrid(){
     var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
         console.log(this);
@@ -290,7 +288,9 @@ function populateArray(cycles, depth) {
 
 //var main_array=[];
 function buildThumbnails(main_array){
-    //main_array = populateArray(36,0);
+    main_array = populateArray(36,0);//Curated list
+    //main_array = fullShuffle(master_list);//Full list
+
     // console.log('main array',main_array);
     var featured_object = {
         category: "divider",
