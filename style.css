@@ -1,5 +1,5 @@
 body{
-    background-color: #333131;
+    background-color: rgba(191,186,185,0.32);
 }
 header{
     font-family: 'Roboto', sans-serif;
@@ -84,8 +84,9 @@ div label input {
 }
 
 h2.header_logo{
+    color:#d2cfcf;
     font-size: 40px;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Gruppo', cursive;
     top: 0;
     position: absolute;
     left: 50%;
@@ -247,9 +248,11 @@ cursor: pointer; cursor: hand;
     box-sizing: border-box;
 }
 div#main {
-    width: 98.5vw;
+    width: 100vw;
+    max-width:100%;
+    overflow: hidden;
     /*margin-top: 10px;*/
-    /*margin: auto;*/
+    margin: auto;
     /*margin-top: 20px;*/
 }
 
@@ -262,7 +265,6 @@ div#main {
 .medium, .grid {
     width: 100%;
     /*top: 100%;*/
-    margin-top: 20px;
     left: 0;
     display: inline-block;
 }
@@ -469,11 +471,89 @@ div.valign-wrapper{
     background-color: #ccbfbb;
 }
 .chip{
+    z-index: 100;
     padding: 0px 5px;
-    border-radius: 0px 5px 0px 3px;
+    border-radius: 0px 5px 0px 0px;
     position:absolute;
-    bottom:-2px;
+    bottom:-3px;
 }
 div.medium.z-depth-3, div.fixed{
     background-color: white;
+}
+/*------------------Hover Effects-------------------*/
+
+div.effect-apollo {
+    /*background-color: rgba(113, 142, 156, 1);*/
+    overflow: hidden;
+}
+
+div.effect-apollo img {
+    opacity: 0.95;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: scale3d(1.05,1.05,1);
+    transform: scale3d(1.05,1.05,1);
+}
+
+div.effect-apollo .figcaption::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    content: '';
+    -webkit-transition: -webkit-transform 0.6s;
+    transition: transform 0.6s;
+    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-100%,0);
+}
+
+div.effect-apollo p {
+    padding-right: 8px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 3em;
+    max-width: 150px;
+    border-right: 4px solid #fff;
+    text-align: right;
+    opacity: 0;
+    -webkit-transition: opacity 0.35s;
+    transition: opacity 0.35s;
+}
+
+div.effect-apollo h2 {
+    text-align: left;
+}
+
+div.effect-apollo:hover img {
+    opacity: 0.1;
+    -webkit-transform: scale3d(1,1,1);
+    transform: scale3d(1,1,1);
+}
+
+div.effect-apollo:hover .figcaption::before {
+    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
+}
+
+div.effect-apollo:hover p {
+    opacity: 1;
+    -webkit-transition-delay: 0.1s;
+    transition-delay: 0.1s;
+}
+.fixed{
+    -webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
+}
+.medium{
+    margin-top: 23px;
+    -webkit-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
+    box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
 }

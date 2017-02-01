@@ -246,7 +246,8 @@ function buildThumbnails(){
     var new_item;
     var new_img;
     var new_chip;
-    var new_cat;
+    var new_fig;
+    var new_title;
     var the_grid = $('<div>',{
         class: 'grid-f'
     });
@@ -266,23 +267,35 @@ function buildThumbnails(){
 
         if (i<7) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large effect-apollo ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
+            new_fig  = $("<div>");
+            new_title = $("<p>");
             new_chip.text(main_array[i].viewers);
-            new_chip.addClass(main_array[i].category)
+            new_chip.addClass(main_array[i].category);
+            new_title.text(main_array[i].title);
+            new_fig.addClass('figcaption');
+            new_fig.append(new_title);
+            new_item.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }
         else {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item grid-item--medium effect-apollo ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
+            new_fig  = $("<div>");
+            new_title = $("<p>");
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category)
+            new_title.text(main_array[i].title);
+            new_fig.addClass('figcaption');
+            new_fig.append(new_title);
             new_item.append(new_chip);
+            new_item.append(new_fig);
             new_item.append(new_img);
             $(the_grid2).append(new_item);
         }
