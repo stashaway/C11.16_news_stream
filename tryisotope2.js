@@ -319,7 +319,7 @@ function buildThumbnails(){
     for (var i=0; i<main_array.length; i++){
         if (i<7) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large effect-apollo ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
             new_fig  = $("<div>");
@@ -339,7 +339,7 @@ function buildThumbnails(){
         }
         else {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item grid-item--medium effect-apollo ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
