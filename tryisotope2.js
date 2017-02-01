@@ -9,6 +9,20 @@ var cats = {
     misc:true
 };
 
+var updated_list = null;
+var first_load = true;
+var master_list = null;
+var uid = null;
+var $grid;
+var $gridFixed;
+var preferences = {
+    'entertainment': true,
+    'gaming': true,
+    'life': true,
+    'technology': true,
+    'news': true,
+    'misc': true
+};
 $(document).ready(function() {
     first_load = true;
     var config = {
@@ -36,15 +50,7 @@ $(document).ready(function() {
 
                 } else{
                     preferences = snap.categories;
-                    for(var category in preferences){
-                        var currentSelector = $("#" + category);
-                        if(preferences[category] == false){
-                            currentSelector.removeAttr('checked');
-                        } else{
-                            currentSelector.attr('checked');
-                        }
-                        currentSelector.change();
-                    }
+                    conformDomElements();
                 }
             });
             user.getToken().then(function(accessToken){
@@ -103,7 +109,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-                    $gridFixed.isotope({
+                    $gridFixed = $('.grid-f').isotope({
                         itemSelector: '.grid-item-f',
                         masonry: { columnWidth: '.grid-sizer-f'},
                         stagger: 5,
@@ -112,16 +118,16 @@ $(document).ready(function() {
 
 
                 },1500);
-            $gridFixed = $('.grid-f').imagesLoaded().always( function() {
-                setTimeout(function(){
-                    // $gridFixed.isotope({
-                    //     itemSelector: '.grid-item-f',
-                    //     masonry: { columnWidth: '.grid-sizer-f'},
-                    //     stagger: 5,
-                    //     percentPosition: true
-                    // });
-                },1500);
-            });
+            // $gridFixed = $('.grid-f').imagesLoaded().always( function() {
+            //     setTimeout(function(){
+            //         // $gridFixed.isotope({
+            //         //     itemSelector: '.grid-item-f',
+            //         //     masonry: { columnWidth: '.grid-sizer-f'},
+            //         //     stagger: 5,
+            //         //     percentPosition: true
+            //         // });
+            //     },1500);
+            // });
 
             });
             first_load=false;
@@ -134,8 +140,28 @@ $(document).ready(function() {
 
     applyNavClickHandler(fb_ref);
 
+    $('.medium').on('click','.grid-item',(function(){
+        update_preview(this);
+    }));
+    $('.fixed').on('click','.grid-item-f',(function(){
+        update_preview(this);
+    }));
+
     $('#update_btn').click(handleUpdate).toggle();
 });
+
+
+function conformDomElements(){
+    for(var category in preferences){
+        var currentSelector = $("#" + category);
+        if(preferences[category] == false){
+            currentSelector.removeAttr('checked');
+        } else{
+            currentSelector.attr('checked');
+        }
+        currentSelector.change();
+    }
+}
 
 function shuffle(snapshot) {
     var data = [];
@@ -201,27 +227,15 @@ function applyNavClickHandler(fb_ref){
         }
     });
 }
-var updated_list = null;
-var first_load = true;
-var master_list = null;
-var preferences = {
-    'entertainment': true,
-    'gaming': true,
-    'life': true,
-    'technology': true,
-    'news': true,
-    'misc': true
-};
-var uid = null;
-var $grid;
-var $gridFixed;
+
+
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
     $('.panel *').remove();
     //buildThumbnails(master_list);
-    filtered = shuffle(master_list);
-    go(filtered);
+    master_list = shuffle(master_list);
+    buildThumbnails(master_list);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
             $grid.isotope({
@@ -232,6 +246,7 @@ function handleUpdate(){
             });
         },1500);
     });
+    conformDomElements();
     $('#update_btn').toggle();
 }
 
@@ -253,16 +268,7 @@ function handleUpdate(){
 
     return array;
 }*/
-function redistributeGrid(){
-    var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
-        console.log(this);
-        var index = $(this).attr('data-index');
-        console.log('index- '+index);
-        return index<5;
-        }).length;
-    console.log('Number not hidden'+x);
-};
-var master_list=null;
+
 
 function populateArray(cycles, depth) {
     var output_array = [];
