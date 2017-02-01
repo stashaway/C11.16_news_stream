@@ -43,7 +43,6 @@ $(document).ready(function() {
                 $(".welcome_text").show();
                 $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
-
                 $(".profile-pic").attr("src", user.photoURL).on("click",function(){
                     $("#sign-out").toggle().on("click",function(){
                         firebase.auth().signOut().then(function() {
@@ -202,7 +201,7 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    // console.log(output_array);
+    console.log(output_array);
     return output_array.slice()
 }
 
@@ -224,6 +223,8 @@ function buildThumbnails(){
     var new_thumb;
     var new_item;
     var new_img;
+    var new_chip;
+    var new_cat;
     var the_grid = $('<div>',{
         class: 'grid'
     });
@@ -245,6 +246,10 @@ function buildThumbnails(){
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category)
+            new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }
@@ -253,6 +258,7 @@ function buildThumbnails(){
                 new_thumb = main_array[i].thumbnail;
                 new_item = $('<div class="stamp grid-item grid-item--divider">');
                 new_img = $('<img src="' + new_thumb + '">');
+
                 new_item.append(new_img);
                 $(the_grid).append(new_item);
                 continue;
@@ -260,6 +266,10 @@ function buildThumbnails(){
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category)
+            new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
         } else {
@@ -274,6 +284,10 @@ function buildThumbnails(){
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--small ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category)
+            new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }

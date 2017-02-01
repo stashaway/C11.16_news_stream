@@ -288,7 +288,8 @@ div#main {
 /*************Isotope Classes*************/
 
 .gaming {
-    background-color: #9d3636;
+    color:white;
+    background-color:rgba(157,54,54,1);
     position: relative;
 }
 .gaming::after {
@@ -302,12 +303,13 @@ div#main {
     content: " ";
 }
 .news {
-    background-color: #158065;
+    color:white;
+    background-color: rgba(21,128,101,1);
     position: relative;
 }
 .news::after {
     opacity: .2;
-    background-color: #158065;
+    background-color:#158065;
     position: absolute;
     top: 0;
     left: 0;
@@ -316,7 +318,8 @@ div#main {
     content: " ";
 }
 .entertainment {
-    background-color: #3f6d87;
+    color:white;
+    background-color: rgba(63,109,135,1);
     position: relative;
 }
 .entertainment::after {
@@ -330,7 +333,8 @@ div#main {
     content: " ";
 }
 .misc {
-    background-color: #40496a;
+    color:white;
+    background-color:rgba(64,73,106,1);
     position: relative;
 }
 .misc::after {
@@ -344,7 +348,8 @@ div#main {
     content: " ";
 }
 .life {
-    background-color: #83545d;
+    color:white;
+    background-color:rgba(131,84,93,1);
     position: relative;
 }
 .life::after {
@@ -358,7 +363,8 @@ div#main {
     content: " ";
 }
 .technology {
-    background-color: #7e578f;
+    color:white;
+    background-color:rgba(126,87,143,1);
     position: relative;
 }
 .technology::after {
@@ -411,8 +417,8 @@ img.circle.profile-pic{
 }
 .firebaseui-container{
     width: 235px;
-    right: 1vw;
-    top: 9vh;
+    right: 2vw;
+    top: 7vh;
     position: absolute;
     background:white;
 }
@@ -435,4 +441,16 @@ i.small.material-icons{
 div.valign-wrapper{
     position: absolute;
     right: 4%;
+}
+.modal-content{
+    background-color:black;
+}
+.modal.modal-fixed-footer .modal-footer{
+    background-color: #ccbfbb;
+}
+.chip{
+    padding: 0px 5px;
+    border-radius: 0px 5px 0px 3px;
+    position:absolute;
+    bottom-:2px;
 }
