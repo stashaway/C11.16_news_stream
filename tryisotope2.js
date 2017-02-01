@@ -1,3 +1,18 @@
+var updated_list = null;
+var first_load = true;
+var master_list = null;
+var uid = null;
+var $grid;
+var $gridFixed;
+var preferences = {
+    'entertainment': true,
+    'gaming': true,
+    'life': true,
+    'technology': true,
+    'news': true,
+    'misc': true
+};
+
 $(document).ready(function() {
     first_load = true;
     var config = {
@@ -25,15 +40,7 @@ $(document).ready(function() {
 
                 } else{
                     preferences = snap.categories;
-                    for(var category in preferences){
-                        var currentSelector = $("#" + category);
-                        if(preferences[category] == false){
-                            currentSelector.removeAttr('checked');
-                        } else{
-                            currentSelector.attr('checked');
-                        }
-                        currentSelector.change();
-                    }
+                    conformDomElements();
                 }
             });
             user.getToken().then(function(accessToken){
@@ -91,7 +98,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-                    $gridFixed.isotope({
+                    $gridFixed = $('.grid-f').isotope({
                         itemSelector: '.grid-item-f',
                         masonry: { columnWidth: '.grid-sizer-f'},
                         stagger: 5,
@@ -100,16 +107,16 @@ $(document).ready(function() {
 
 
                 },1500);
-            $gridFixed = $('.grid-f').imagesLoaded().always( function() {
-                setTimeout(function(){
-                    // $gridFixed.isotope({
-                    //     itemSelector: '.grid-item-f',
-                    //     masonry: { columnWidth: '.grid-sizer-f'},
-                    //     stagger: 5,
-                    //     percentPosition: true
-                    // });
-                },1500);
-            });
+            // $gridFixed = $('.grid-f').imagesLoaded().always( function() {
+            //     setTimeout(function(){
+            //         // $gridFixed.isotope({
+            //         //     itemSelector: '.grid-item-f',
+            //         //     masonry: { columnWidth: '.grid-sizer-f'},
+            //         //     stagger: 5,
+            //         //     percentPosition: true
+            //         // });
+            //     },1500);
+            // });
 
             });
             first_load=false;
@@ -122,8 +129,27 @@ $(document).ready(function() {
 
     applyNavClickHandler(fb_ref);
 
+    $('.medium').on('click','.grid-item',(function(){
+        update_preview(this);
+    }));
+    $('.fixed').on('click','.grid-item-f',(function(){
+        update_preview(this);
+    }));
+
     $('#update_btn').click(handleUpdate).toggle();
 });
+
+function conformDomElements(){
+    for(var category in preferences){
+        var currentSelector = $("#" + category);
+        if(preferences[category] == false){
+            currentSelector.removeAttr('checked');
+        } else{
+            currentSelector.attr('checked');
+        }
+        currentSelector.change();
+    }
+}
 
 function fullShuffle(snapshot) {
     var data = [];
@@ -187,25 +213,12 @@ function applyNavClickHandler(fb_ref){
         }
     });
 }
-var updated_list = null;
-var first_load = true;
-var master_list = null;
-var preferences = {
-    'entertainment': true,
-    'gaming': true,
-    'life': true,
-    'technology': true,
-    'news': true,
-    'misc': true
-};
-var uid = null;
-var $grid;
-var $gridFixed;
+
+
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
     $('.panel *').remove();
-
     buildThumbnails(master_list);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
@@ -217,6 +230,7 @@ function handleUpdate(){
             });
         },1500);
     });
+    conformDomElements();
     $('#update_btn').toggle();
 }
 
@@ -238,16 +252,6 @@ function shuffle(array) {
 
     return array;
 }
-function redistributeGrid(){
-    var x = $('.grid > div').not('.hidden, .grid-item--large').filter(function(){
-        console.log(this);
-        var index = $(this).attr('data-index');
-        console.log('index- '+index);
-        return index<5;
-        }).length;
-    console.log('Number not hidden'+x);
-};
-var master_list=null;
 
 function populateArray(cycles, depth) {
     var output_array = [];
@@ -275,8 +279,8 @@ function populateArray(cycles, depth) {
 
 var main_array=[];
 function buildThumbnails(){
-    //main_array = populateArray(36,0);//Curated list
-    main_array = fullShuffle(master_list);//Full list
+    //main_array = populateArray(36,0);     //Curated list
+    main_array = fullShuffle(master_list);  //Full list
 
     // console.log('main array',main_array);
     var featured_object = {
@@ -294,7 +298,9 @@ function buildThumbnails(){
     var new_item;
     var new_img;
     var new_chip;
-    var new_cat;
+    var new_fig;
+    var new_title;
+    var new_channel;
     var the_grid = $('<div>',{
         class: 'grid-f'
     });
@@ -313,11 +319,20 @@ function buildThumbnails(){
     for (var i=0; i<main_array.length; i++){
         if (i<7) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
+            new_fig  = $("<div>");
+            new_title = $("<p>");
+            new_channel = $("<p>");
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category);
+            new_title.text(main_array[i].title).addClass("video_title");
+            new_channel.text(main_array[i].channel).addClass("channel_title");
+            new_fig.addClass('figcaption');
+            new_fig.append(new_channel);
+            new_fig.append(new_title);
+            new_item.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
@@ -326,9 +341,19 @@ function buildThumbnails(){
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
+            new_fig  = $("<div>");
+            new_title = $("<p>");
+            new_channel = $("<p>");
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category);
+            new_title.text(main_array[i].title).addClass("video_title");
+            new_channel.text(main_array[i].channel).addClass("channel_title");
+            new_fig.addClass('figcaption');
+            new_fig.append(new_channel);
+            new_fig.append(new_title);
+            new_item.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid2).append(new_item);
