@@ -113,7 +113,7 @@ function update_preview(parent){
     //console.log(parent);
     //var current_preview_obj = determine_info(parent);
     //console.log(current_preview_obj);
-    $('#preview').show(500);
+    $('#preview').show(500).css('overflow', 'visible');
     //$('#preview_thumb').attr("src",current_preview_obj.thumbnail);
     //$('#preview_thumb').on("click", open_modal.bind(parent));
     //$('#preview_category').text(current_preview_obj.category);
@@ -202,9 +202,9 @@ $(document).ready(function() {
     $(".panel").on('click','.grid-item',(function(){
         //update_preview(this);
         var index = $(this).attr('data-index');
-        item = master_list[index];
+        item = main_array[index];
         embedPreview.play(item, preview);
-        preview.show(500);
+        preview.show(500).css('overflow', 'visible');
     }));
 });
 
@@ -215,21 +215,6 @@ function Embed() {
     this.width = 0;
     this.height = 0;
     this.src = "";
-
-    /*
-    * category:  "gaming"
-     channel:  "Starladder1"
-     embedChat: "https://www.twitch.tv/starladder1/chat"
-     embedVideo: "http://player.twitch.tv/?channel=starladder1"
-     id: "starladder1"
-     link:  "https://www.twitch.tv/starladder1"
-     source: "twitch"
-     startTime:  "2017-01-31T14:29:08Z"
-     thumbnail:  "https://static-cdn.jtvnw.net/previews-ttv/live_..."
-     title:  "Navi vs Vega Squadron [BO2] | SL I-League StarS..."
-     viewers:  93519
-     *
-    * */
 }
 
 Embed.prototype.play = function (data, parent, type) {
@@ -237,7 +222,7 @@ Embed.prototype.play = function (data, parent, type) {
 
     this.data = data;
     this.parentElement = $(parent);
-    var src = this.data.source==="twitch" ? this.data.embedVideo :
+    this.src = this.data.source==="twitch" ? this.data.embedVideo :
         this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
 
     var width = this.parentElement.width();
@@ -260,7 +245,7 @@ Embed.prototype.play = function (data, parent, type) {
                 left = this.parentElement.width() *0.75;
                 width = this.parentElement.width() - left;
             }
-            src = this.data.embedChat;
+            this.src = this.data.embedChat;
         }
     }
 
@@ -270,7 +255,7 @@ Embed.prototype.play = function (data, parent, type) {
         scrolling:"no",
         width:width,
         height:height,
-        src:src
+        src:this.src
     };
 
     var style = {

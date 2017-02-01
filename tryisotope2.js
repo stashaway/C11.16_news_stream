@@ -1,14 +1,3 @@
-var data = null;
-var filtered = null;
-var cats = {
-    gaming:true,
-    entertainment:true,
-    news:true,
-    technology:true,
-    life:true,
-    misc:true
-};
-
 $(document).ready(function() {
     first_load = true;
     var config = {
@@ -145,10 +134,8 @@ function fullShuffle(snapshot) {
     for (var i in snapshot.streams) {
         if (snapshot.streams.hasOwnProperty(i)) {
             var cat = snapshot.streams[i];
-            if (cats[cat.id]) {
-                data.push(cat);
-                if (cat.streams.length > max) max = cat.streams.length;
-            }
+            data.push(cat);
+            if (cat.streams.length > max) max = cat.streams.length;
         }
     }
 
@@ -286,10 +273,10 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
-//var main_array=[];
-function buildThumbnails(main_array){
-    main_array = populateArray(36,0);//Curated list
-    //main_array = fullShuffle(master_list);//Full list
+var main_array=[];
+function buildThumbnails(){
+    //main_array = populateArray(36,0);//Curated list
+    main_array = fullShuffle(master_list);//Full list
 
     // console.log('main array',main_array);
     var featured_object = {
