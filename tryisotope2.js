@@ -20,25 +20,11 @@ $(document).ready(function() {
     };
     firebase.initializeApp(config);
     var fb_ref = firebase.database();
-
-    var uiConfig = {
-        signInFlow: "popup",
-        signInSuccessUrl: '#',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-        ]
-    };
-
-
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    ui.start('#firebaseui-auth-container', uiConfig);
-
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
-            $(".firebaseui-container").remove();
+            $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             console.log("User is signed in" , user);
             uid = user.uid;
@@ -47,65 +33,58 @@ $(document).ready(function() {
                 console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
-                    applyNavClickHandler(fb_ref);
+
                 } else{
                     preferences = snap.categories;
-
-                    for(category in preferences){
+                    for(var category in preferences){
+                        var currentSelector = $("#" + category);
                         if(preferences[category] == false){
-                            if (document.getElementById(category).hasAttribute('checked')==true) {
-                                $("#" + category).removeAttr('checked').change();
-                            }
-                            $('.'+category + ':not(.grid-item--large').addClass('hidden');
-
+                            currentSelector.removeAttr('checked');
                         } else{
-                                if (document.getElementById(category).hasAttribute('checked')==false) {
-                                    $("#" + category).attr('checked').change();
-                                }
-                            $('.'+category + ':not(.grid-item--large').removeClass('hidden');
-
+                            currentSelector.attr('checked');
                         }
+                        currentSelector.change();
                     }
-                    $grid.isotope({ filter: '*:not(.hidden)' });
-                    applyNavClickHandler(fb_ref);
                 }
             });
-            user.getToken().then(function(accessToken) {
+            user.getToken().then(function(accessToken){
+                $("#firebaseui-auth-container").hide();
+                $("#sign-out").hide();
+                $(".login_status").hide();
+                $(".welcome_text").show();
+                $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
-                $(".profile-pic").attr("src", user.photoURL);
-                $(".dropdown-button").text("Log Out");
-                $(".login_status").text("Sign Out");
-                $("#sign-out").show();
-                $("#sign-out").on("click",function(){
-                    firebase.auth().signOut().then(function() {
-                        console.log("signed out");
-                        uid=null;
+                $(".profile-pic").attr("src", user.photoURL).on("click",function(){
+                    $("#sign-out").toggle().on("click",function(){
+                        firebase.auth().signOut().then(function() {
+                            console.log("signed out");
+                            uid = null;
+                        });
                     });
                 })
             });
         } else {
-            //start firebase ui
-            // FirebaseUI config.
+            $(".login_status").show();
+            $("#firebaseui-auth-container").hide();
             $("#sign-out").hide();
-            $(".login_status").text("Log In")
-            $(".dropdown-button").text("Log In");
+            $(".welcome_text").hide();
+            $(".profile-pic").hide();
+            $(".login_status").text("Log In").on("click", function(){
+                $("#firebaseui-auth-container").toggle();
+            });
             console.log("User is not logged in");
-            // var uiConfig = {
-            //     signInFlow: "popup",
-            //     signInSuccessUrl: '#',
-            //     signInOptions: [
-            //         // Leave the lines as is for the providers you want to offer your users.
-            //         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            //         firebase.auth.EmailAuthProvider.PROVIDER_ID
-            //     ]
-                // Terms of service url.
-                // tosUrl: 'localhost:8888'
-            // };
-            // Initialize the FirebaseUI Widget using Firebase.
-            // todo: The next line needs to check if it's already been done once..
-            // var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            //firebase config
+            var uiConfig = {
+                signInFlow: "popup",
+                signInSuccessUrl: '#',
+                signInOptions: [
+                    // Leave the lines as is for the providers you want to offer your users.
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+                ]
+            };
             // The start method will wait until the DOM is loaded.
-            // ui.start('#firebaseui-auth-container', uiConfig);
+            ui.start('#firebaseui-auth-container', uiConfig);
             //end firebase ui
         }
     });
@@ -124,19 +103,41 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
+                    $gridFixed.isotope({
+                        itemSelector: '.grid-item-f',
+                        masonry: { columnWidth: '.grid-sizer-f'},
+                        stagger: 5,
+                        percentPosition: true
+                    });
+
+
                 },1500);
+            $gridFixed = $('.grid-f').imagesLoaded().always( function() {
+                setTimeout(function(){
+                    // $gridFixed.isotope({
+                    //     itemSelector: '.grid-item-f',
+                    //     masonry: { columnWidth: '.grid-sizer-f'},
+                    //     stagger: 5,
+                    //     percentPosition: true
+                    // });
+                },1500);
+            });
+
             });
             first_load=false;
         } else {
             // alert('update received');
-            $('#update_btn').toggle();
+            $('#update_btn').show();
             updated_list = snapshot.val();
         }
     });
 
+    applyNavClickHandler(fb_ref);
+    $('.large').on('click','.grid-item',(function(){
+        update_preview(this);
+    }));
 
     $('#update_btn').click(handleUpdate).toggle();
-    $('#spinner').hide();
 });
 
 function shuffle(snapshot) {
@@ -201,11 +202,24 @@ function go(filtered) {
     });
 }
 
+var soundEffect = new Audio('audio/transporter.mp3');
+soundEffect.play();
+
+function signOut(){
+    firebase.auth().signOut().then(function() {
+        console.log("signed out");
+        uid = null;
+    });
+}
 
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
-        preferences[this.name] = !preferences[this.name];
-        $('.'+this.name+':not(.grid-item--large').toggleClass('hidden');
+        preferences[this.name] = this.checked;
+        if (preferences[this.name]===true) {
+            $('.'+this.name+':not(.grid-item--large').removeClass('hidden');
+        } else {
+            $('.'+this.name+':not(.grid-item--large').addClass('hidden');
+        }
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
             console.log('We think user is logged in, so updating prefs on db');
@@ -228,7 +242,8 @@ var preferences = {
     'misc': true
 };
 var uid = null;
-
+var $grid;
+var $gridFixed;
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
@@ -298,7 +313,7 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    // console.log(output_array);
+    console.log(output_array);
     return output_array.slice()
 }
 
@@ -312,72 +327,64 @@ function buildThumbnails(){
         title: "Featured",
         viewers: null
     };
-    main_array.splice(0,0,featured_object);
-    main_array.splice(4,0,featured_object);
-    main_array.splice(53,0,featured_object);
-    main_array.splice(-3);
+    // main_array.splice(0,0,featured_object);
+    main_array.splice(6,0,featured_object);
+    // main_array.splice(53,0,featured_object);
+    // main_array.splice(-3);
     // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;
+    var new_chip;
+    var new_cat;
     var the_grid = $('<div>',{
-        class: 'grid'
+        class: 'grid-f'
     });
     var sizer=$('<div>',{
-        class: 'grid-sizer'
+        class: 'grid-sizer-f'
     });
     $(the_grid).append(sizer);
+
+    var the_grid2 = $('<div>',{
+        class: 'grid'
+    });
+    var sizer2=$('<div>',{
+        class: 'grid-sizer'
+    });
+    $(the_grid2).append(sizer2);
     for (var i=0; i<main_array.length; i++){
 
-        if (i<5) {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
+        if (i<7) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category)
+            new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
         }
-        else if (i<53) {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
+        else {
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
+            new_chip= $(' <div class="chip">');
+            new_chip.text(main_array[i].viewers);
+            new_chip.addClass(main_array[i].category)
+            new_item.append(new_chip);
             new_item.append(new_img);
-            $(the_grid).append(new_item);
-        } else {
-            if (main_array[i].category==='divider'){
-                new_thumb = main_array[i].thumbnail;
-                new_item = $('<div class="stamp grid-item grid-item--divider">');
-                new_img = $('<img src="' + new_thumb + '">');
-                new_item.append(new_img);
-                $(the_grid).append(new_item);
-                continue;
-            }
-            new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--small ' + main_array[i].category + '" data-index=' + i + '>');
-            new_img = $('<img src="' + new_thumb + '">');
-            new_item.append(new_img);
-            $(the_grid).append(new_item);
+            $(the_grid2).append(new_item);
         }
-        $('.large').append(the_grid)
+
+        $('.fixed').append(the_grid);
+        $('.medium').append(the_grid2);
     }
     $('.grid').imagesLoaded().always( function() {
         checkImageSize('.grid img');
+        checkImageSize('.grid-f img');
     });
+    $('#spinner').hide();
 }
 
 
