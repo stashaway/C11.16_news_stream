@@ -87,7 +87,7 @@ function determine_info (item){
     // }
     // console.log(master_list);
     var index = $(item).attr('data-index');
-    var current_item_details = filtered[index];
+    var current_item_details = master_list[index];
     return {
         'index' : index,
         'thumbnail': current_item_details.thumbnail,
@@ -111,7 +111,7 @@ var item = null;
 
 function update_preview(parent){
     //console.log(parent);
-    var current_preview_obj = determine_info(parent);
+    //var current_preview_obj = determine_info(parent);
     //console.log(current_preview_obj);
     $('#preview').show(500);
     //$('#preview_thumb').attr("src",current_preview_obj.thumbnail);
@@ -199,10 +199,10 @@ $(document).ready(function() {
     var preview = $('#preview');
     preview.hide();
     preview.on('click','#close_preview',close_preview);
-    $(".large").on('click','.grid-item',(function(){
+    $(".panel").on('click','.grid-item',(function(){
         //update_preview(this);
         var index = $(this).attr('data-index');
-        item = filtered[index];
+        item = master_list[index];
         embedPreview.play(item, preview);
         preview.show(500);
     }));

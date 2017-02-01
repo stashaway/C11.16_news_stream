@@ -92,9 +92,9 @@ $(document).ready(function() {
         console.log('on triggered');
         if (first_load === true){
             master_list = snapshot.val();
-            //buildThumbnails(master_list);
-            filtered = shuffle(master_list);
-            go(filtered);
+            master_list = shuffle(master_list);
+            buildThumbnails(master_list);
+
             $grid = $('.grid').imagesLoaded().always( function() {
                 setTimeout(function(){
                     $grid.isotope({
@@ -133,9 +133,6 @@ $(document).ready(function() {
     });
 
     applyNavClickHandler(fb_ref);
-    $('.large').on('click','.grid-item',(function(){
-        update_preview(this);
-    }));
 
     $('#update_btn').click(handleUpdate).toggle();
 });
@@ -174,32 +171,6 @@ function shuffle(snapshot) {
     }
 
     return filtered;
-}
-
-function go(filtered) {
-    //$('.large').html('');
-    var the_grid = $('<div>',{
-        class: 'grid'
-    });
-    var sizer=$('<div>',{
-        class: 'grid-sizer'
-    });
-    $(the_grid).append(sizer);
-    for (var i=0; i<filtered.length; i++){
-            var size = "grid-item--medium";
-            if (i < 6) size = "grid-item--large";
-            //else if (i < 51) size = "grid-item--medium";
-            var new_thumb = filtered[i].thumbnail;
-            var new_item = $('<div class="grid-item ' + size + ' ' + filtered[i].category + '" data-index=' + i + '>');
-            var new_img = $('<img src="' + new_thumb + '">');
-            new_item.append(new_img);
-            $(the_grid).append(new_item);
-
-        $('.large').append(the_grid)
-    }
-    $('.grid').imagesLoaded().always( function() {
-        checkImageSize('.grid img');
-    });
 }
 
 var soundEffect = new Audio('audio/transporter.mp3');
@@ -247,7 +218,7 @@ var $gridFixed;
 function handleUpdate(){
     console.log('update handler called');
     master_list = updated_list;
-    $('.large *').remove();
+    $('.panel *').remove();
     //buildThumbnails(master_list);
     filtered = shuffle(master_list);
     go(filtered);
@@ -317,9 +288,9 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
-var main_array=[];
-function buildThumbnails(){
-    main_array = populateArray(36,0);
+//var main_array=[];
+function buildThumbnails(main_array){
+    //main_array = populateArray(36,0);
     // console.log('main array',main_array);
     var featured_object = {
         category: "divider",
@@ -353,14 +324,13 @@ function buildThumbnails(){
     });
     $(the_grid2).append(sizer2);
     for (var i=0; i<main_array.length; i++){
-
         if (i<7) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
             new_chip.text(main_array[i].viewers);
-            new_chip.addClass(main_array[i].category)
+            new_chip.addClass(main_array[i].category);
             new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid).append(new_item);
@@ -371,7 +341,7 @@ function buildThumbnails(){
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
             new_chip.text(main_array[i].viewers);
-            new_chip.addClass(main_array[i].category)
+            new_chip.addClass(main_array[i].category);
             new_item.append(new_chip);
             new_item.append(new_img);
             $(the_grid2).append(new_item);
