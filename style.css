@@ -1,5 +1,5 @@
 body{
-    background-color: #bfc3c5;
+    background-color: #333131;
 }
 header{
     font-family: 'Roboto', sans-serif;
@@ -9,7 +9,7 @@ header{
 }
 html {
     height: auto !important;
-    padding-bottom: 700px !important;
+    padding-bottom: 20px !important;
 }
 
 div label input {
@@ -83,8 +83,9 @@ div label input {
     left: 15%;
 }
 
-.header_logo{
-    font-family: 'Roboto', sans-serif;
+h2.header_logo{
+    font-size: 40px;
+    font-family: 'Quicksand', sans-serif;
     top: 0;
     position: absolute;
     left: 50%;
@@ -95,12 +96,8 @@ div label input {
 p.header_tagline{
     font-size: 1rem;
 }
-h2.header_logo {
-    font-family: 'Julius Sans One', sans-serif;
-    font-size: 40px;
-}
-
 .header_tagline {
+    font-family: 'Quicksand', sans-serif;
     position: absolute;
     top: 40px;
     left: 50%;
@@ -108,6 +105,7 @@ h2.header_logo {
 }
 
 .nav-wrapper {
+    font-family: 'Quicksand', sans-serif;
     background-color: #718792;
 }
 
