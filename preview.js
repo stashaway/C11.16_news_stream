@@ -1,7 +1,6 @@
 /**
  * Created by baultik on 2/2/17.
  */
-(function () {
     var embedPreview = null;
     var timer = null;
 
@@ -205,5 +204,3 @@
             this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
         }
     };
-
-})();
