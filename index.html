@@ -24,14 +24,15 @@
     <!-- Internal Script Files -->
     <script src="tryisotope2.js"></script>
     <script src="script.js"></script>
+    <script src="preview.js"></script>
     <script type="text/javascript" src="./sunburstView/sunScript.js" defer></script>
 
 
+
     <!-- Stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Mallanna" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gruppo|Quicksand:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
@@ -44,12 +45,9 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo">
-                    <img class="logo" src="images/logo1.png"/>
-                    <h2 class="header_logo">Streamism</h2>
-                    <p class="header_tagline">Stream until your streams come true</p>
-                </a>
                 <div id="top_nav" class="top_nav">
+                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail below to preview. Click on a category above to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>
+                    </div>
                     <div class="ck-button">
                         <label>
                             <input type="checkbox" id="gaming" name="gaming" checked><span>Games</span>
@@ -85,13 +83,20 @@
                     </div>
 
                 </div>
+                <!--<a href="#!" class="brand-logo">-->
+                <div class="logo_container">
+                    <img class="logo" src="images/logo1.png"/>
+                    <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
+                    <p class="header_tagline">Stream until your streams come true</p>
+                </div>
+                <!--</a>-->
                 <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
                 <div class="right">
-                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on any thumbnail to preview information, then click on the thumbnail to view the stream."><i class="small material-icons">info_outline</i>
-                    </div>
+                    <!--<div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail to preview. Click on a Category to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>-->
+                    <!--</div>-->
                     <div class="login_status"></div>
                     <div id="firebaseui-auth-container"></div>
-                    <button type="button" id="sign-out"><a class="waves-effect waves-light btn">Sign Out</i></a></button>
+                    <button type="button" id="sign-out"><a class="waves-effect waves-light btn sign_out_button">Sign Out</i></a></button>
                     <div class="valign-wrapper col s5 pull-s7">
                         <p class="welcome_text valign"></p>
                         <img src="" alt="" class="circle profile-pic valign">
@@ -147,8 +152,8 @@
         </div>
     </div>
 
-    <div class="panel fixed z-depth-3"></div>
-    <div class="panel medium z-depth-3"></div>
+    <div class="fixed panel"></div>
+    <div class="medium panel"></div>
 
     <div id="modal1" class="modal modal1 modal-fixed-footer">
         <div class="modal-content">
@@ -165,32 +170,7 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
     </div>
-    <div id="preview">
-        <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light blue-grey"><i class="material-icons">clear</i></a>
-        <a id="open_full" class="btn-floating waves-effect waves-light blue-grey"><i class="material-icons">launch</i></a>
 
-        <div class="spinner">
-            <div class="preloader-wrapper active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-                </div>
-            </div>
-        </div>
-
-        <!--<div id="preview_details">-->
-            <!--<span id="close_preview">X</span>-->
-            <!--<span id="preview_title"></span>-->
-            <!--<p id="category_p">Category: <span id="preview_category"></span></p>-->
-            <!--<p id="viewers_p">Viewers: <span id="preview_viewers"></span></p>-->
-        <!--</div>-->
-        <!--<a href="#modal1"><img src="images/noimage.jpg" id="preview_thumb"></a>-->
-    </div>
 </div>
 <!--SUNBURST VIEW-->
 <div id="sunburst_sequence_container">
@@ -218,9 +198,10 @@
     </script>
 </div>
 <!--SUNBURST VIEW-->
-
-<div id="full-screen">
-    <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue-grey"><i class="material-icons">clear</i></a>
+<div id="preview">
+    <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light red"><i class="material-icons">clear</i></a>
+    <a id="open_full" class="embed-btn btn-floating waves-effect waves-light blue"><i class="material-icons">fullscreen</i></a>
+    <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue"><i class="material-icons">fullscreen_exit</i></a>
 </div>
 </body>
 </html>

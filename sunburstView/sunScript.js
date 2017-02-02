@@ -45,6 +45,7 @@ var arc = d3.arc()
 
 
 // Main function to draw and set up the visualization, once we have the data.
+
 function createVisualization(json) {
     var stringified = JSON.stringify(json).replace(/streams/g, 'children');
     json = JSON.parse(stringified);
@@ -70,7 +71,6 @@ function createVisualization(json) {
             return (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
         });
     var index_count = -1;
-
     var path = vis.data([json]).selectAll("path")
         .data(nodes)
 
@@ -99,69 +99,72 @@ function createVisualization(json) {
 function sun_video(d, i){
 
     console.log('click handled', i);
-    $('#viewport').toggleClass('bigport');
-    $('#viewport').toggleClass('viewport');
-    var current_preview_obj = determine_sunburst_info(this, sunburst_array);
-    console.log(current_preview_obj);
-    embedFullVideo.play(item,fullscreen,"left");
-    embedFullChat.play(item,fullscreen,"right");
-    fullscreen.show();
+    // $('#viewport').toggleClass('bigport');
+    // $('#viewport').toggleClass('viewport');
+    var index = parseInt($(this).attr('data-index'));
+    var current_item_details = sunburst_array[index].__data__.data;
+    // var current_preview_obj = determine_sunburst_info(this, sunburst_array);
+    console.log(current_item_details);
+    embedPreview.play(current_item_details);
+    // embedFullVideo.play(item,fullscreen,"left");
+    // embedFullChat.play(item,fullscreen,"right");
+    // fullscreen.show();
 
     // window.location.href = d.data.link;
     // onYouTubeIframeAPIReady();
 }
 
-Embed.prototype.sunplay = function (data, parent, type) {
-    this.stop();
-
-    this.data = data;
-    this.parentElement = $(parent);
-    var src = this.__data__.data.source==="twitch" ? this.__data__.data.embedVideo :
-        this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
-
-    var width = this.parentElement.width();
-    var height = this.parentElement.height();
-    var top = 0;
-    var left = 0;
-
-    if (type) {
-        if (type=="left") {
-            if (this.parentElement.height() > this.parentElement.width()) {
-                height = width * 0.5625;
-            } else {
-                width = this.parentElement.width() *0.75;
-            }
-        } else if (type=="right") {
-            if (this.parentElement.height() > this.parentElement.width()) {
-                top = width * 0.5625;
-                height = this.parentElement.height() - top;
-            } else {
-                left = this.parentElement.width() *0.75;
-                width = this.parentElement.width() - left;
-            }
-            src = this.data.embedChat;
-        }
-    }
-
-    var params = {
-        id:"preview_iframe",
-        frameborder:"0",
-        scrolling:"no",
-        width:width,
-        height:height,
-        src:src
-    };
-
-    var style = {
-        position: "absolute",
-        left: left,
-        top: top,
-        display:"inline-block"
-    };
-
-    this.iframeElement = $("<iframe>",params).css(style);
-    $(this.parentElement).append(this.iframeElement);
-};
+// Embed.prototype.sunplay = function (data, parent, type) {
+//     this.stop();
+//
+//     this.data = data;
+//     this.parentElement = $(parent);
+//     var src = this.__data__.data.source==="twitch" ? this.__data__.data.embedVideo :
+//         this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
+//
+//     var width = this.parentElement.width();
+//     var height = this.parentElement.height();
+//     var top = 0;
+//     var left = 0;
+//
+//     if (type) {
+//         if (type=="left") {
+//             if (this.parentElement.height() > this.parentElement.width()) {
+//                 height = width * 0.5625;
+//             } else {
+//                 width = this.parentElement.width() *0.75;
+//             }
+//         } else if (type=="right") {
+//             if (this.parentElement.height() > this.parentElement.width()) {
+//                 top = width * 0.5625;
+//                 height = this.parentElement.height() - top;
+//             } else {
+//                 left = this.parentElement.width() *0.75;
+//                 width = this.parentElement.width() - left;
+//             }
+//             src = this.data.embedChat;
+//         }
+//     }
+//
+//     var params = {
+//         id:"preview_iframe",
+//         frameborder:"0",
+//         scrolling:"no",
+//         width:width,
+//         height:height,
+//         src:src
+//     };
+//
+//     var style = {
+//         position: "absolute",
+//         left: left,
+//         top: top,
+//         display:"inline-block"
+//     };
+//
+//     this.iframeElement = $("<iframe>",params).css(style);
+//     $(this.parentElement).append(this.iframeElement);
+// };
 
 
 function determine_sunburst_info (item, array) {
