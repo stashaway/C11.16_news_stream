@@ -1,6 +1,6 @@
-function openNav() {
-    $("#side_nav").toggleClass("open_nav");
-}
+// function openNav() {
+//     $("#side_nav").toggleClass("open_nav");
+// }
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -108,7 +108,7 @@ $(document).ready(function() {
         renderButton();
     }
 
-    $('.tooltipped').click(openNav);
+    // $('.tooltipped').click(openNav);
 
     preview = $('#preview');
     previewContent = $("#preview_content");
