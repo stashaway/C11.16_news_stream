@@ -130,14 +130,6 @@ p.header_tagline{
     transition: 0s;
 }
 
-.preview_spinner {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    transition: 0s;
-}
-
 img.logo {
     top:0;
     left:50%;

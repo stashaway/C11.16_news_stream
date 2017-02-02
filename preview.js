@@ -6,38 +6,34 @@
     var timer = null;
 
     $(document).ready(function() {
-        $("body").on('click','.grid-item',(function(){
+        embedPreview = new Preview();
+        embedPreview.init();
+
+        var body = $("body");
+        body.on('click','.grid-item',(function(){
             updatePreview(this);
         }));
 
-        $("body").on('click','.grid-item-f',(function(){
+        body.on('click','.grid-item-f',(function(){
             updatePreview(this);
         }));
 
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-
-        embedPreview = new Preview();
-        embedPreview.init();
     });
 
     function updatePreview(parent){
         var index = $(parent).attr('data-index');
         var item = main_array[index];
-
-        preview.show();
         embedPreview.play(item);
-    }
-
-    function closePreview(){
-        embedPreview.stop();
-        preview.hide();
     }
 
     //TODO: account for window resizing
     function updateFullScreen() {
-
+        if (embedPreview.expanded) {
+            embedPreview.position(0);
+        }
     }
 
     function onResize(time, callback) {
@@ -51,7 +47,7 @@
 
     function Preview() {
         this.data = null;
-        this.previewElement = $('#preview');
+        this.preview = $('#preview');
         this.expandBtn = $("#open_full");
         this.contractBtn = $("#close_full");
         this.closeBtn = $("#close_preview");
@@ -64,6 +60,7 @@
         this.defaultHeight = 0;
         this.expandedBtnGutter = 40;
         this.expanded = false;
+        this.mobile = false;
     }
 
     Preview.prototype.init = function () {
@@ -71,9 +68,9 @@
         this.defaultWidth = this.preview.width();
         this.defaultHeight = this.preview.height();
 
-        this.previewElement.on('click','#close_preview',closePreview);
-        this.previewElement.on('click','#open_full',this.expand.bind(embedPreview));
-        this.previewElement.on('click','#close_full',this.contract.bind(embedPreview));
+        this.preview.on('click','#close_preview',this.stop.bind(this));
+        this.preview.on('click','#open_full',this.expand.bind(this));
+        this.preview.on('click','#close_full',this.contract.bind(this));
 
         //Create iframes - used until preview is close
         this.iframeChatElement = $("<iframe>",
@@ -85,10 +82,6 @@
             {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:"about:blank"})
             .css({position: "absolute",display:"inline-block",left:"0",top:"0"});
         this.preview.append(this.iframeVideoElement);
-
-        if (this.defaultWidth > $(window).width()) {
-            this.position(true,0);
-        }
     };
 
     Preview.prototype.expand = function () {
@@ -99,7 +92,7 @@
         this.expanded = true;//save state
 
         //animate position
-        this.position(true, this.animationTime, function () {
+        this.position(this.animationTime, function () {
             //show appropriate buttons
             this.closeBtn.css({transform:"none"});
             this.contractBtn.show();
@@ -115,7 +108,7 @@
         this.expanded = false;//save state
 
         //animate position
-        this.position(false, this.animationTime, function () {
+        this.position(this.animationTime, function () {
             //show appropriate buttons
             this.closeBtn.css({transform:"translate(-50%,-50%)"});
             this.expandBtn.show();
@@ -123,39 +116,46 @@
         });
     };
 
-    Preview.prototype.position = function (expanded,time,callback) {
+    Preview.prototype.position = function (time,callback) {
+        if (time === undefined) time = this.animationTime;
+        callback = callback ? callback.bind(this) : function () {};
+
         //get main div and content div and sizes
         var prevWidth = this.defaultWidth, prevHeight = this.defaultHeight;
         var contentWidth = prevWidth, contentHeight = prevHeight, contentLeft = 0;
 
-        if (expanded) {
+        //set up sizes for video and chat and position for chat
+        var vWidth = contentWidth,  cWidth = vWidth;
+        var vHeight = contentHeight, cHeight = vHeight;
+        var top = 0, left = contentLeft;
+
+        if (this.expanded) {
             //if fullscreen changes sizes to fullscreen layout
             prevWidth = $(window).width();
             prevHeight = $(window).height();
             contentWidth = prevWidth - this.expandedBtnGutter;
             contentHeight = prevHeight;
             contentLeft = this.expandedBtnGutter;
-        }
+            vWidth = cWidth = contentWidth;
+            vHeight = cHeight = contentHeight;
+            left = contentLeft;
 
-        //set up sizes for video and chat and position for chat
-        var vWidth = contentWidth,  cWidth = vWidth;
-        var vHeight = contentHeight, cHeight = vHeight;
-        var top = 0, left = 0;
-
-        if (expanded) {
             //If fullscreen account for if screen is taller than wide - otherwise use default sizes with chat hidden
             if (contentHeight > contentWidth) {
                 //Make video full width at appropriate aspect ratio with chat filling below
                 vHeight = contentWidth * 0.5625;
+
                 top = vHeight;
                 cHeight = contentHeight - top;
             } else {
                 //Make video and chat side by side
                 vWidth = contentWidth * 0.75;
-                left = vWidth;
-                cWidth = contentWidth - left;
+
+                left = vWidth + contentLeft;
+                cWidth = contentWidth - vWidth;
             }
         }
+
         //Animate to sizes
         this.preview.animate({width:prevWidth,height:prevHeight},time,callback);
         this.iframeVideoElement.animate({width:vWidth,height:vHeight,left:contentLeft},time);
@@ -171,9 +171,24 @@
 
         this.iframeVideoElement.attr("src",this.videoSrc);
         this.iframeChatElement.attr("src",this.chatSrc);
+
+        //On mobile and smaller window sizes - only do expanded view
+        if (this.defaultWidth > $(window).width()) {
+            this.contractBtn.hide();
+            this.expandBtn.hide();
+            this.closeBtn.css({transform:"none"});
+            this.mobile = true;
+        } else {
+            this.mobile = false;
+            this.reset();
+        }
+        this.expanded = this.mobile;
+        this.position(0);
+        this.preview.show();
     };
 
     Preview.prototype.stop = function () {
+        this.preview.hide();
         this.iframeVideoElement.attr("src","about:blank");
         this.iframeChatElement.attr("src","about:blank");
 
@@ -183,10 +198,12 @@
 
     Preview.prototype.reset = function () {
         //reset divs and buttons
-        preview.css({width:this.defaultWidth,height:this.defaultHeight});
-        expandBtn.show().css({transform:"translate(-50%,50%"});
-        contractBtn.hide();
-        closeBtn.show().css({transform:"translate(-50%,-50%)"});
+        if (!this.mobile) {
+            this.preview.css({width: this.defaultWidth, height: this.defaultHeight});
+            this.expandBtn.show().css({transform: "translate(-50%,50%"});
+            this.contractBtn.hide();
+            this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
+        }
     };
 
 })();
