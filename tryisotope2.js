@@ -129,14 +129,14 @@ $(document).ready(function() {
     });
 
     applyNavClickHandler(fb_ref);
-
+/*
     $('body').on('click','.grid-item',(function(){
         update_preview(this);
     }));
     $('body').on('click','.grid-item-f',(function(){
         update_preview(this);
     }));
-
+*/
     $('#update_btn').click(handleUpdate).toggle();
 });
 
@@ -291,7 +291,7 @@ function buildThumbnails(){
         viewers: null
     };
     // main_array.splice(0,0,featured_object);
-    main_array.splice(6,0,featured_object);
+    //main_array.splice(6,0,featured_object);
     // main_array.splice(53,0,featured_object);
     // main_array.splice(-3);
     // console.log('main array after splice',main_array);
@@ -318,9 +318,9 @@ function buildThumbnails(){
     });
     $(the_grid2).append(sizer2);
     for (var i=0; i<main_array.length; i++){
-        if (i<7) {
+        if (i<6) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item-f grid-item-f--large effect-apollo ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large  ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
             new_fig  = $("<div>");
@@ -340,7 +340,7 @@ function buildThumbnails(){
         }
         else {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--medium effect-apollo ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item grid-item--medium  ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
