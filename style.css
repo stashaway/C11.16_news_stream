@@ -16,7 +16,7 @@ div label input {
     margin-right:100px;
 }
 .ck-button {
-    height: 5vh;
+    height: 43px;
     margin:11px 6px 5px 5px;
     background-color: #EFEFEF;
     border-radius: 4px;
@@ -36,7 +36,7 @@ div label input {
     padding:0px 10px;
     display:block;
     height:100%;
-    line-height: 5vh;
+    line-height: 3.5em;
 }
 
 .ck-button label input {
@@ -56,11 +56,11 @@ div label input {
     color:#fff;
 }
 #entertainment:checked + span {
-    background-color:#3f6d87;
+    background-color:rgba(37, 40, 175, 1);
     color:#fff;
 }
 #misc:checked + span {
-    background-color:#40496a;
+    background-color:rgba(245, 196, 76, 1);
     color:#fff;
 }
 #life:checked + span {
@@ -85,7 +85,7 @@ div label input {
 
 h2.header_logo{
     color:#d2cfcf;
-    font-size: 40px;
+    font-size: 3vw;
     font-family: 'Gruppo', cursive;
     top: 0;
     position: absolute;
@@ -96,7 +96,7 @@ h2.header_logo{
 
 p.header_tagline{
     font-family: 'Gruppo', cursive;
-    font-size: 1rem;
+    font-size: 1vw;
 }
 .header_tagline {
     font-family: 'Quicksand', sans-serif;
@@ -107,10 +107,13 @@ p.header_tagline{
 }
 
 .nav-wrapper {
+    font-weight: lighter;
     font-family: 'Quicksand', sans-serif;
     background-color: #718792;
 }
-
+#top_nav{
+    margin-left: 10%;
+}
 #spinner {
     position: fixed;
     top: 50%;
@@ -131,7 +134,7 @@ img.logo {
     top:0;
     left:50%;
     transform: translate(-50%,0);
-    height: 80px;
+    width: 23vh;
     position: absolute;
     opacity: .5;
 }
@@ -358,13 +361,13 @@ div#main {
 }
 .entertainment {
     color:white;
-    background-color: rgba(63,109,135,0.8);
+    background-color: rgba(37, 40, 175, 0.8);
     position: relative;
-    #border:2px solid #3f6d87;
+    #border:2px solid rgba(37, 40, 175, 1);
 }
 .entertainment::after {
     opacity: .2;
-    background-color: #3f6d87;
+    background-color: rgba(37, 40, 175, 1);
     position: absolute;
     top: 0;
     left: 0;
@@ -374,13 +377,13 @@ div#main {
 }
 .misc {
     color:white;
-    background-color:rgba(64,73,106,0.8);
+    background-color:rgba(245, 196, 76, 0.8);
     position: relative;
-    #border:2px solid #40496a;
+    #border:2px solid rgba(245, 196, 76, 1);
 }
 .misc::after {
     opacity: .2;
-    background-color: #40496a;
+    background-color: rgba(245, 196, 76, 1);
     position: absolute;
     top: 0;
     left: 0;
