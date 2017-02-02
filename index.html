@@ -34,12 +34,53 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo">
-                    <img class="logo" src="images/logo1.png"/>
-                    <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
-                    <p class="header_tagline">Stream until your streams come true</p>
-                </a>
-                <div id="top_nav" class="top_nav">
+                <div class="fixed-action-btn horizontal click-to-toggle hide-on-med-and-up">
+                    <a class="btn-floating btn-large red">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="top_nav" id="responsive_nav">
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="gaming" name="gaming" checked><span>Games</span>
+                            </label>
+                            </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="entertainment" name="entertainment" checked><span>Entertainment</span>
+                            </label>
+                            </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="news" name="news" checked><span>News</span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="technology" name="technology" checked><span>Tech</span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="life" name="life" checked><span>Life</span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="misc" name="misc" checked><span>Misc</span>
+                            </label>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="top_nav" class="top_nav hide-on-med-and-down">
+                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail to preview. Click on a Category to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>
+                    </div>
                     <div class="ck-button">
                         <label>
                             <input type="checkbox" id="gaming" name="gaming" checked><span>Games</span>
@@ -71,10 +112,17 @@
                         </label>
                     </div>
                 </div>
+                <a href="#!" class="brand-logo">
+                <div class="logo_container">
+                    <img class="logo" src="images/logo1.png"/>
+                    <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
+                    <p class="header_tagline">Stream until your streams come true</p>
+                </div>
+                </a>
                 <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
                 <div class="right">
-                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on any thumbnail to preview, then click on the full-screen button to view the stream."><i class="small material-icons">info_outline</i>
-                    </div>
+                    <!--<div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail to preview. Click on a Category to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>-->
+                    <!--</div>-->
                     <div class="login_status"></div>
                     <div id="firebaseui-auth-container"></div>
                     <button type="button" id="sign-out"><a class="waves-effect waves-light btn sign_out_button">Sign Out</i></a></button>
@@ -178,5 +226,6 @@
     <!--<a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue-grey"><i class="material-icons">clear</i></a>-->
     <!--<div id="embed_co"></div>-->
 <!--</div>-->
+
 </body>
 </html>

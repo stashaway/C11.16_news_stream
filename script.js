@@ -99,6 +99,7 @@ function checkImageSize(selector){
 }
 
 $(document).ready(function() {
+    $('.collapsible').collapsible();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
     if(isUserLoggedIn() === true){

@@ -5,6 +5,7 @@ var uid = null;
 var $grid;
 var $gridFixed;
 var clicked = false;
+var main_array = [];
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -83,6 +84,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
+                    $('#spinner').hide();
                 },1500);
             });
             first_load=false;
@@ -118,6 +120,7 @@ function sign_in_show_element(){
     $(".welcome_text").show();
     $(".profile-pic").show();
 }
+
 function sign_out_element(){
     $(".login_status").show();
     $("#firebaseui-auth-container").hide();
@@ -125,6 +128,7 @@ function sign_out_element(){
     $(".welcome_text").hide();
     $(".profile-pic").hide();
 }
+
 function conformDomElements(){
     for(var category in preferences){
         var currentSelector = $("#" + category);
@@ -264,9 +268,8 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
-var main_array=[];
 function buildThumbnails(){
-    main_array = populateArray(36,0);     //Curated list
+    main_array = populateArray(46,0);     //Curated list
     // main_array = fullShuffle(master_list);  //Full list
 
     var new_thumb;
@@ -352,7 +355,6 @@ function buildThumbnails(){
         checkImageSize('.grid img');
         checkImageSize('.grid-f img');
     });
-    $('#spinner').hide();
 }
 
 
