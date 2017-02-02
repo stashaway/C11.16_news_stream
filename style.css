@@ -23,7 +23,7 @@ label {
 }
 .ck-button {
     height: 43px;
-    margin:11px 6px 5px 5px;
+    margin: 11px 3px 5px 3px;
     background-color: #EFEFEF;
     border-radius: 4px;
     border: 1px solid #D0D0D0;
@@ -549,7 +549,7 @@ img.circle.profile-pic {
 i.small.material-icons {
     position: relative;
     /* right: 2vw; */
-    left: 1vw;
+    /*left: 1vw;*/
     color: lightblue;
     display: inline-block;
 }

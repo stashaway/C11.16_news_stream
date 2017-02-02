@@ -66,6 +66,7 @@ $(document).ready(function() {
     });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
+        $('#spinner').show();
         if (first_load === true){
             master_list = snapshot.val();
             buildThumbnails(master_list);
@@ -91,6 +92,7 @@ $(document).ready(function() {
         } else {
             // alert('update received');
             $('#update_btn').show();
+            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded');
             updated_list = snapshot.val();
         }
     });
@@ -296,61 +298,43 @@ function buildThumbnails(){
         class: 'grid-sizer'
     });
     $(the_grid2).append(sizer2);
+
     for (var i=0; i<main_array.length; i++){
-        if (i<6) {
-            new_thumb = main_array[i].thumbnail;
+        new_thumb = main_array[i].thumbnail;
+        if(i<6){
             new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
-            new_img = $('<img src="' + new_thumb + '">');
-
-            hover_div = $('<div class="hover_effect">');
-            hover_div.addClass(main_array[i].category);
-            new_chip = $('<div class="chip">');
-            new_fig = $('<div class="figcaption">');
-            new_title = $('<p>');
-            new_channel = $('<p>');
-            view_count = $('<p class="view_count">Viewer Count</p>');
-            new_chip.text(main_array[i].viewers);
-            new_chip.addClass(main_array[i].category);
-            new_title.text(main_array[i].title).addClass("video_title");
-            new_channel.text(main_array[i].channel).addClass("channel_title");
-            new_fig.append(new_channel);
-            new_fig.append(new_title);
-            new_fig.append(view_count);
-            hover_div.append(new_fig);
-            new_item.append(new_chip);
-            new_item.append(new_img);
-            new_item.append(hover_div);
-            $(the_grid).append(new_item);
-        }
-        else {
-            new_thumb = main_array[i].thumbnail;
+        } else {
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
-            new_img = $('<img src="' + new_thumb + '">');
+        }
+        new_img = $('<img src="' + new_thumb + '">');
 
-            hover_div = $('<div class="hover_effect">');
-            hover_div.addClass(main_array[i].category);
-            new_chip = $('<div class="chip">');
-            new_fig = $('<div class="figcaption">');
-            new_title = $('<p>');
-            new_channel = $('<p>');
-            view_count = $('<p class="view_count">Viewer Count</p>');
-            new_chip.text(main_array[i].viewers);
-            new_chip.addClass(main_array[i].category);
-            new_title.text(main_array[i].title).addClass("video_title");
-            new_channel.text(main_array[i].channel).addClass("channel_title");
-            new_fig.append(new_channel);
-            new_fig.append(new_title);
-            new_fig.append(view_count);
-            hover_div.append(new_fig);
-            new_item.append(new_chip);
-            new_item.append(new_img);
-            new_item.append(hover_div);
+        hover_div = $('<div class="hover_effect">');
+        hover_div.addClass(main_array[i].category);
+        new_chip = $('<div class="chip hide-on-med-and-down">');
+        new_fig = $('<div class="figcaption">');
+        new_title = $('<p>');
+        new_channel = $('<p>');
+        view_count = $('<p class="view_count">Viewer Count</p>');
+        new_chip.text(main_array[i].viewers);
+        new_chip.addClass(main_array[i].category);
+        new_title.text(main_array[i].title).addClass("video_title");
+        new_channel.text(main_array[i].channel).addClass("channel_title");
+        new_fig.append(new_channel);
+        new_fig.append(new_title);
+        new_fig.append(view_count);
+        hover_div.append(new_fig);
+        new_item.append(new_chip);
+        new_item.append(new_img);
+        new_item.append(hover_div);
+        if (i<6){
+            $(the_grid).append(new_item);
+        } else {
             $(the_grid2).append(new_item);
         }
-
-        $('.fixed').append(the_grid);
-        $('.medium').append(the_grid2);
     }
+    $('.fixed').append(the_grid);
+    $('.medium').append(the_grid2);
+
     $('.grid').imagesLoaded().always( function() {
         checkImageSize('.grid img');
         checkImageSize('.grid-f img');
