@@ -15,6 +15,11 @@ html {
 div label input {
     margin-right:100px;
 }
+label {
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 .ck-button {
     height: 43px;
     margin:11px 6px 5px 5px;
@@ -259,6 +264,7 @@ img.logo {
 
 
 #update_btn {
+    color:white;
     position: relative;
     border-radius: 7px;
     top: 0;
@@ -459,8 +465,8 @@ img.circle.profile-pic{
 }
 .firebaseui-container{
     width: 235px;
-    right: 2vw;
-    top: 7vh;
+    right: 1%;
+    top: 100%;
     position: absolute;
     background:white;
 }
@@ -468,8 +474,8 @@ img.circle.profile-pic{
     background-color: white;
     border: none;
     position: absolute;
-    right: 3vw;
-    top: 9vh;
+    right: 1%;
+    top: 100%;
 }
 .login_status{
     position: absolute;
@@ -478,7 +484,7 @@ img.circle.profile-pic{
 }
 i.small.material-icons{
     position: relative;
-    right: 2vw;
+    right: 100%;
 }
 div.valign-wrapper{
     position: absolute;
@@ -490,12 +496,12 @@ div.valign-wrapper{
 .modal.modal-fixed-footer .modal-footer{
     background-color: #ccbfbb;
 }
-.chip{
+.chip {
     z-index: 10;
     padding: 0px 5px;
     border-radius: 0px 5px 0px 0px;
-    position:absolute;
-    bottom:1px;
+    position: absolute;
+    bottom: 1px;
 }
 div.medium.z-depth-3, div.fixed{
     background-color: white;
@@ -540,6 +546,23 @@ p.channel_title {
     right: 10%;
     top: 20%;
     margin-top: 3em;
+}
+
+.view_count {
+    font-weight: 500;
+    position: absolute;
+
+}
+.fixed .view_count {
+    font-size: 1em;
+    left: 1%;
+    bottom: 6%;
+}
+
+.medium .view_count {
+    font-size: .9em;
+    left: 1%;
+    bottom: 11%;
 }
 
 .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
