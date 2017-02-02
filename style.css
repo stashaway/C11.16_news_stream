@@ -15,6 +15,11 @@ html {
 div label input {
     margin-right:100px;
 }
+label {
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 .ck-button {
     height: 43px;
     margin:11px 6px 5px 5px;
@@ -495,8 +500,9 @@ div.valign-wrapper{
     padding: 0px 5px;
     border-radius: 0px 5px 0px 0px;
     position:absolute;
-    bottom:-3px;
+    bottom: 1px;
 }
+
 div.medium.z-depth-3, div.fixed{
     background-color: white;
 }
@@ -540,6 +546,23 @@ p.channel_title {
     right: 10%;
     top: 20%;
     margin-top: 3em;
+}
+
+.view_count {
+    font-weight: 500;
+    position: absolute;
+
+}
+.fixed .view_count {
+    font-size: 1em;
+    left: 1%;
+    bottom: 6%;
+}
+
+.medium .view_count {
+    font-size: .9em;
+    left: 1%;
+    bottom: 11%;
 }
 
 .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
