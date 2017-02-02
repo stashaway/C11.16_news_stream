@@ -178,6 +178,7 @@ function path_click(){
     $('#viewport').toggleClass('bigport');
     $('#viewport').toggleClass('viewport');
     var current_preview_obj = determine_info(this);
+    console.log(current_preview_obj);
     $(".live_video").attr("src",current_preview_obj.video);
 }
 
@@ -196,7 +197,6 @@ $(document).ready(function() {
         close_modal();
     });
 
-// >>>>>>> 7e2d272ce25b655d6483d2ad7d26c6b016f4f433
     $('#modal1').modal();
     $(".dropdown-button").dropdown({
     });

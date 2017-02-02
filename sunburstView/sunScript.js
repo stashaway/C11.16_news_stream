@@ -5,6 +5,7 @@
 var width = document.body.clientWidth + 100;
 var height = document.body.clientHeight + 100;
 var radius = Math.min(width, height) / 2;
+var sunburst_array = [];
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
 var b = {
@@ -12,13 +13,14 @@ var b = {
 };
 
 // Mapping of step names to colors.
+
 var colors = {
-    "gaming": "#8437d1",
-    "entertainment": "#d61a02",
-    "life":"#3f27A3",
-    "current":"#41e792",
-    "learning":"#90ceb1",
-    "other":"#4d6a0a"
+    "gaming": $('#gaming:checked + span').css('background-color'),
+    "entertainment": $('#entertainment:checked + span').css('background-color'),
+    "life":$('#life:checked + span').css('background-color'),
+    "news":$('#news:checked + span').css('background-color'),
+    "technology":$('#technology:checked + span').css('background-color'),
+    "misc":$('#misc:checked + span').css('background-color')
 };
 
 // Total size of all segments; we set this later, after loading the data.
@@ -67,19 +69,25 @@ function createVisualization(json) {
         .filter(function(d) {
             return (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
         });
+    var index_count = -1;
 
     var path = vis.data([json]).selectAll("path")
         .data(nodes)
+
         .enter().append("svg:path")
-        .attr("display", function(d) { return d.depth ? null : "none"; })
+        .attr("display", function(d) {sunburst_array.push(this); return d.depth ? null : "none"; })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
-        .style("fill", function(d) { return colors[d.data.name] || !(d.parent) ? colors[d.data.name] : colors[d.parent.data.name]; })
+        // .attr('data-index', index_count++ )
+        .attr('data-index', function() {index_count += 1; return index_count})
+        .style("fill", function(d) { return colors[d.data.category] || !(d.parent) ? colors[d.data.category] : colors[d.parent.data.category]; })
         .style("opacity", 1)
         .on("mouseover", mouseover)
         .on('click',
             sun_video
         );
+        // var path_index = $("");
+     // $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
 
 
     // Add the mouseleave handler to the bounding circle.
@@ -88,10 +96,109 @@ function createVisualization(json) {
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
 }
-function sun_video(d){
-    console.log('click handled');
+function sun_video(d, i){
+
+    console.log('click handled', i);
+    $('#viewport').toggleClass('bigport');
+    $('#viewport').toggleClass('viewport');
+    var current_preview_obj = determine_sunburst_info(this, sunburst_array);
+    console.log(current_preview_obj);
+    embedFullVideo.play(item,fullscreen,"left");
+    embedFullChat.play(item,fullscreen,"right");
+    fullscreen.show();
+
     // window.location.href = d.data.link;
     // onYouTubeIframeAPIReady();
+}
+
+Embed.prototype.sunplay = function (data, parent, type) {
+    this.stop();
+
+    this.data = data;
+    this.parentElement = $(parent);
+    var src = this.__data__.data.source==="twitch" ? this.__data__.data.embedVideo :
+        this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
+
+    var width = this.parentElement.width();
+    var height = this.parentElement.height();
+    var top = 0;
+    var left = 0;
+
+    if (type) {
+        if (type=="left") {
+            if (this.parentElement.height() > this.parentElement.width()) {
+                height = width * 0.5625;
+            } else {
+                width = this.parentElement.width() *0.75;
+            }
+        } else if (type=="right") {
+            if (this.parentElement.height() > this.parentElement.width()) {
+                top = width * 0.5625;
+                height = this.parentElement.height() - top;
+            } else {
+                left = this.parentElement.width() *0.75;
+                width = this.parentElement.width() - left;
+            }
+            src = this.data.embedChat;
+        }
+    }
+
+    var params = {
+        id:"preview_iframe",
+        frameborder:"0",
+        scrolling:"no",
+        width:width,
+        height:height,
+        src:src
+    };
+
+    var style = {
+        position: "absolute",
+        left: left,
+        top: top,
+        display:"inline-block"
+    };
+
+    this.iframeElement = $("<iframe>",params).css(style);
+    $(this.parentElement).append(this.iframeElement);
+};
+
+
+function determine_sunburst_info (item, array) {
+    // var current_item=$(item);
+    // var category_number;
+    // if (current_item.hasClass('games')){
+    //     category_number = 0;
+    // } else if (current_item.hasClass('entertainment')){
+    //     category_number = 1;
+    // } else if (current_item.hasClass('life')){
+    //     category_number = 2;
+    // } else if (current_item.hasClass('news')) {
+    //     category_number = 3;
+    // } else if (current_item.hasClass('technology')) {
+    //     category_number = 4;
+    // } else if (current_item.hasClass('misc')) {
+    //     category_number = 5;
+    // } else {
+    //     category_number = 0;
+    // }
+    // console.log(master_list);
+    var index = parseInt($(item).attr('data-index'));
+    var current_item_details = array[index].__data__.data;
+    return {
+        'index': index,
+        'thumbnail': current_item_details.thumbnail,
+        'link': current_item_details.link,
+        'category': current_item_details.category,
+        'channel': current_item_details.channel,
+        'viewers': current_item_details.viewers,
+        'start': current_item_details.startTime,
+        'title': current_item_details.title,
+        'id': current_item_details.id,
+        'chat': current_item_details.embedChat,
+        'video': current_item_details.embedVideo,
+        'source': item.source
+    };
 }
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {

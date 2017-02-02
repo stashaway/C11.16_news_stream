@@ -92,11 +92,9 @@ $(document).ready(function() {
         console.log('on triggered');
         if (first_load === true){
             master_list = snapshot.val();
-// <<<<<<< HEAD
             createVisualization(master_list);
-// =======
+
             master_list = shuffle(master_list);
-// >>>>>>> 7e2d272ce25b655d6483d2ad7d26c6b016f4f433
             buildThumbnails(master_list);
 
             $grid = $('.grid').imagesLoaded().always( function() {
@@ -312,6 +310,7 @@ function buildThumbnails(main_array){
     var new_img;
     var new_chip;
     var new_cat;
+    var new_path;
     var the_grid = $('<div>',{
         class: 'grid-f'
     });
@@ -331,6 +330,7 @@ function buildThumbnails(main_array){
         if (i<7) {
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            // new_path = $('path ' + main_array[i].category + '" data-index=' + i + '');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
             new_chip.text(main_array[i].viewers);
@@ -342,6 +342,7 @@ function buildThumbnails(main_array){
         else {
             new_thumb = main_array[i].thumbnail;
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
+            // new_path = $('path ' + main_array[i].category + '" data-index=' + i + '');
             new_img = $('<img src="' + new_thumb + '">');
             new_chip= $(' <div class="chip">');
             new_chip.text(main_array[i].viewers);
