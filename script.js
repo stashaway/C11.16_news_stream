@@ -67,97 +67,25 @@ function displayLogginState(){
     }
 }
 
-function determine_info (item){
-    // var current_item=$(item);
-    // var category_number;
-    // if (current_item.hasClass('games')){
-    //     category_number = 0;
-    // } else if (current_item.hasClass('entertainment')){
-    //     category_number = 1;
-    // } else if (current_item.hasClass('life')){
-    //     category_number = 2;
-    // } else if (current_item.hasClass('news')) {
-    //     category_number = 3;
-    // } else if (current_item.hasClass('technology')) {
-    //     category_number = 4;
-    // } else if (current_item.hasClass('misc')) {
-    //     category_number = 5;
-    // } else {
-    //     category_number = 0;
-    // }
-    // console.log(master_list);
-    var index = $(item).attr('data-index');
-    var current_item_details = master_list[index];
-    return {
-        'index' : index,
-        'thumbnail': current_item_details.thumbnail,
-        'link' : current_item_details.link,
-        'category' : current_item_details.category,
-        'channel' : current_item_details.channel,
-        'viewers' : current_item_details.viewers,
-        'start' : current_item_details.startTime,
-        'title' : current_item_details.title,
-        'id' : current_item_details.id,
-        'chat': current_item_details.embedChat,
-        'video': current_item_details.embedVideo,
-        'source': item.source
-    }
-}
-var embedPreview = new Embed();
-var embedFullVideo = new Embed();
-var embedFullChat = new Embed();
-var fullscreen = null;
-var item = null;
+var embedPreview = new Preview();
+var preview = null;
+var previewContent = null;
+var timer = null;
+var expandBtn = null;
+var contractBtn = null;
+var closeBtn = null;
 
 function update_preview(parent){
-    //console.log(parent);
-    //var current_preview_obj = determine_info(parent);
-    //console.log(current_preview_obj);
-    //$('#preview').show(500).css('overflow', 'visible');
-    //$('#preview_thumb').attr("src",current_preview_obj.thumbnail);
-    //$('#preview_thumb').on("click", open_modal.bind(parent));
-    //$('#preview_category').text(current_preview_obj.category);
-    //$('#preview_viewers').text(current_preview_obj.viewers);
-    //$('#preview_title').text(current_preview_obj.title.substring(0,35));
-}
+    var index = $(parent).attr('data-index');
+    var item = main_array[index];
 
-function open_modal(){
-    // var current_preview_obj = determine_info(this);
-    // $(".live_video").attr("src",current_preview_obj.video);
-    // $(".live_chat").attr("src",current_preview_obj.chat);
-    // $(".loading").hide();
-    // $('.full_screen_header').text(current_preview_obj.title);
-    // update_preview(this);
-    //var index = $(item).attr('data-index');
-
-    embedFullVideo.play(item,fullscreen,"left");
-    embedFullChat.play(item,fullscreen,"right");
-    fullscreen.show();
-    embedPreview.stop();
-    $('#preview').hide();
-}
-
-function close_modal(){
-    // var current_preview_obj = determine_info(this);
-    // $(".live_video").attr("src",current_preview_obj.video);
-    // $(".live_chat").attr("src",current_preview_obj.chat);
-    // $(".loading").hide();
-    // $('.full_screen_header').text(current_preview_obj.title);
-    // update_preview(this);
-    //var index = $(item).attr('data-index');
-    embedPreview.stop();
-    embedFullVideo.stop();
-    embedFullChat.stop();
-    fullscreen.hide();
+    preview.show();
+    embedPreview.play(item);
 }
 
 function close_preview(){
     embedPreview.stop();
-    $('#preview').hide();
-    //$('#preview').addClass("scale-in");
-}
-function end_video(){
-    $(".live_video").attr("src", " ");
+    preview.hide();
 }
 
 function checkImageSize(selector){
@@ -171,23 +99,6 @@ function checkImageSize(selector){
 }
 
 $(document).ready(function() {
-    fullscreen = $("#full-screen");
-    $("#open_full").on("click",function () {
-        open_modal();
-    });
-    $("#close_full").on("click",function () {
-        close_modal();
-    });
-
-    $('#modal1').modal();
-    $(".dropdown-button").dropdown({
-    });
-    $('.modal').modal({
-            complete: end_video
-        }
-    );
-
-    $('#modal2').modal();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
     if(isUserLoggedIn() === true){
@@ -198,94 +109,176 @@ $(document).ready(function() {
 
     $('.tooltipped').click(openNav);
 
-    //Get preview - on grid item click in grid -> show preview
-    var preview = $('#preview');
-    preview.hide();
-    preview.on('click','#close_preview',close_preview);
-    $("body").on('click','.grid-item-f',(function(){
-        //update_preview(this);
-        var index = $(this).attr('data-index');
-        item = main_array[index];
+    preview = $('#preview');
+    previewContent = $("#preview_content");
+    expandBtn = $("#open_full");
+    contractBtn = $("#close_full");
+    closeBtn = $("#close_preview");
 
-        //embedPreview.stop();
-        preview.show();
-        embedPreview.play(item, preview);
-    }));
+    preview.on('click','#close_preview',close_preview);
+    preview.on('click','#open_full',embedPreview.expand.bind(embedPreview));
+    preview.on('click','#close_full',embedPreview.contract.bind(embedPreview));
 
     $("body").on('click','.grid-item',(function(){
-        //update_preview(this);
-        var index = $(this).attr('data-index');
-        item = main_array[index];
-
-        //embedPreview.stop();
-        preview.show();
-        embedPreview.play(item, preview);
+        update_preview(this);
     }));
-});
 
-function Embed() {
-    this.data = null;
-    this.parentElement = null;
-    this.iframeElement = null;
-    this.width = 0;
-    this.height = 0;
-    this.src = "";
+    $("body").on('click','.grid-item-f',(function(){
+        update_preview(this);
+    }));
+
+    $(window).resize(function () {
+        onResize(500,updateFullScreen);
+    });
+
+    embedPreview.init();
+});
+//TODO: account for window resizing
+function updateFullScreen() {
+
 }
 
-Embed.prototype.play = function (data, parent, type) {
-    this.stop();
-
-    this.data = data;
-    this.parentElement = $(parent);
-    this.src = this.data.source==="twitch" ? this.data.embedVideo :
-        this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
-
-    var width = this.parentElement.width();
-    var height = this.parentElement.height();
-    var top = 0;
-    var left = 0;
-
-    if (type) {
-        if (type=="left") {
-            if (this.parentElement.height() > this.parentElement.width()) {
-                height = width * 0.5625;
-            } else {
-                width = this.parentElement.width() *0.75;
-            }
-        } else if (type=="right") {
-            if (this.parentElement.height() > this.parentElement.width()) {
-                top = width * 0.5625;
-                height = this.parentElement.height() - top;
-            } else {
-                left = this.parentElement.width() *0.75;
-                width = this.parentElement.width() - left;
-            }
-            this.src = this.data.embedChat;
-        }
+function onResize(time, callback) {
+    //console.log("Resized setting timer");
+    if (timer != null) {
+        clearTimeout(timer);
     }
 
-    var params = {
-        frameborder:"0",
-        scrolling:"no",
-        width:width,
-        height:height,
-        src:this.src
-    };
+    timer = setTimeout(callback,time);
+}
 
-    var style = {
-        position: "absolute",
-        left: left,
-        top: top,
-        display:"inline-block"
-    };
+function Preview() {
+    this.data = null;
+    this.iframeVideoElement = null;
+    this.iframeChatElement = null;
+    this.videoSrc = "";
+    this.chatSrc = "";
+    this.animationTime = 250;
+    this.defaultWidth = 0;
+    this.defaultHeight = 0;
+    this.expandedBtnGutter = 40;
+    this.expanded = false;
+}
 
-    this.iframeElement = $("<iframe>",params).css(style);
-    $(this.parentElement).append(this.iframeElement);
+Preview.prototype.expand = function () {
+    //get buttons and hide them
+    contractBtn.hide();
+    expandBtn.hide();
+    closeBtn.hide();
+    this.expanded = true;//save state
+
+    //animate position
+    this.position(true, function () {
+        //show appropriate buttons
+        closeBtn.css({transform:"none"});
+        contractBtn.show();
+        closeBtn.show();
+    });
 };
 
-Embed.prototype.stop = function () {
-    if (this.iframeElement) {
-        $(this.iframeElement).remove();
-        this.iframeElement = null;
+Preview.prototype.contract = function () {
+    //get buttons and hide them
+    contractBtn.hide();
+    expandBtn.hide();
+    closeBtn.hide();
+    this.expanded = false;//save state
+
+    //animate position
+    this.position(false, function () {
+        //show appropriate buttons
+        closeBtn.css({transform:"translate(-50%,-50%)"});
+        expandBtn.show();
+        closeBtn.show();
+    });
+};
+
+Preview.prototype.init = function () {
+    //get initial size
+    this.defaultWidth = preview.width();
+    this.defaultHeight = preview.height();
+};
+
+Preview.prototype.position = function (full,callback) {
+    //get main div and content div and sizes
+    var prevWidth = this.defaultWidth, prevHeight = this.defaultHeight;
+    var contentWidth = prevWidth, contentHeight = prevHeight, contentLeft = 0;
+
+    if (full) {
+        //if fullscreen changes sizes to fullscreen layout
+        prevWidth = $(window).width();
+        prevHeight = $(window).height();
+        contentWidth = prevWidth - this.expandedBtnGutter;
+        contentHeight = prevHeight;
+        contentLeft = this.expandedBtnGutter;
     }
+    //Animate to sizes
+    preview.animate({width:prevWidth,height:prevHeight},this.animationTime);
+    previewContent.animate({width:contentWidth,height:contentHeight,left:contentLeft},this.animationTime,callback);
+
+    //set up sizes for video and chat and position for chat
+    var vWidth = contentWidth,  cWidth = vWidth;
+    var vHeight = contentHeight, cHeight = vHeight;
+    var top = 0, left = 0;
+
+    if (full) {
+        //If fullscreen account for if screen is taller than wide - otherwise use default sizes with chat hidden
+        if (contentHeight > contentWidth) {
+            //Make video full width at appropriate aspect ratio with chat filling below
+            vHeight = vWidth * 0.5625;
+            top = vHeight;
+            cHeight = contentHeight - top;
+        } else {
+            //Make video and chat side by side
+            vWidth = contentWidth * 0.75;
+            left = vWidth;
+            cWidth = contentWidth - left;
+        }
+    }
+    //Animate to sizes
+    this.iframeVideoElement.animate({width:vWidth,height:vHeight},this.animationTime);
+    this.iframeChatElement.animate({width:cWidth,height:cHeight,left:left,top:top},this.animationTime);
+};
+
+Preview.prototype.play = function (data) {
+    this.stop();
+
+    //Get embed data
+    this.data = data;
+    this.videoSrc = this.data.source==="twitch" ? this.data.embedVideo :
+        this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
+    this.chatSrc = this.data.embedChat;
+
+    //Create iframes - used until preview is close
+    this.iframeChatElement = $("<iframe>",
+        {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:this.chatSrc})
+        .css({position: "absolute",display:"inline-block",left:"0",top:"0"});
+    previewContent.append(this.iframeChatElement);
+
+    this.iframeVideoElement = $("<iframe>",
+        {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:this.videoSrc})
+        .css({position: "absolute",display:"inline-block",left:"0",top:"0"});
+    previewContent.append(this.iframeVideoElement);
+};
+
+Preview.prototype.stop = function () {
+    //kill iframes to kill videos
+    if (this.iframeVideoElement) {
+        $(this.iframeVideoElement).remove();
+        this.iframeVideoElement = null;
+    }
+    if (this.iframeChatElement) {
+        $(this.iframeChatElement).remove();
+        this.iframeChatElement = null;
+    }
+    //reset to initial state
+    this.reset();
+};
+
+Preview.prototype.reset = function () {
+    //reset divs and buttons
+    previewContent.css({width:this.defaultWidth,height:this.defaultHeight,left:"0",top:"0"});
+    preview.css({width:this.defaultWidth,height:this.defaultHeight});
+    expandBtn.show().css({transform:"translate(-50%,50%"});
+    contractBtn.hide();
+    closeBtn.show().css({transform:"translate(-50%,-50%)"});
 };
