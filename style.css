@@ -84,10 +84,10 @@ div label input {
 }
 
 h2.header_logo{
-    color:#d2cfcf;
+    color:white;
     font-size: 3vw;
     font-family: 'Gruppo', cursive;
-    top: 0;
+    top:  -0.5vh;
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -101,7 +101,7 @@ p.header_tagline{
 .header_tagline {
     font-family: 'Quicksand', sans-serif;
     position: absolute;
-    top: 40px;
+    top: 4vh;
     left: 50%;
     transform: translate(-50%,-50%);
 }
@@ -495,7 +495,7 @@ div.valign-wrapper{
     padding: 0px 5px;
     border-radius: 0px 5px 0px 0px;
     position:absolute;
-    bottom:-3px;
+    bottom:1px;
 }
 div.medium.z-depth-3, div.fixed{
     background-color: white;
