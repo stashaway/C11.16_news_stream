@@ -105,20 +105,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-
-
                 },1500);
-            // $gridFixed = $('.grid-f').imagesLoaded().always( function() {
-            //     setTimeout(function(){
-            //         // $gridFixed.isotope({
-            //         //     itemSelector: '.grid-item-f',
-            //         //     masonry: { columnWidth: '.grid-sizer-f'},
-            //         //     stagger: 5,
-            //         //     percentPosition: true
-            //         // });
-            //     },1500);
-            // });
-
             });
             first_load=false;
         } else {
@@ -178,8 +165,8 @@ function fullShuffle(snapshot) {
     return filtered;
 }
 
-var soundEffect = new Audio('audio/transporter.mp3');
-soundEffect.play();
+// var soundEffect = new Audio('audio/transporter.mp3');
+// soundEffect.play();
 
 function signOut(){
     firebase.auth().signOut().then(function() {
@@ -213,6 +200,12 @@ function handleUpdate(){
             $grid.isotope({
                 itemSelector: '.grid-item',
                 masonry: { columnWidth: '.grid-sizer'},
+                stagger: 5,
+                percentPosition: true
+            });
+            $gridFixed = $('.grid-f').isotope({
+                itemSelector: '.grid-item-f',
+                masonry: { columnWidth: '.grid-sizer-f'},
                 stagger: 5,
                 percentPosition: true
             });
@@ -277,6 +270,7 @@ function buildThumbnails(){
     var new_title;
     var new_channel;
     var hover_div;
+    var view_count;
     var the_grid = $('<div>',{
         class: 'grid-f'
     });
@@ -304,12 +298,14 @@ function buildThumbnails(){
             new_fig = $('<div class="figcaption">');
             new_title = $('<p>');
             new_channel = $('<p>');
+            view_count = $('<p class="view_count">Viewer Count</p>');
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category);
             new_title.text(main_array[i].title).addClass("video_title");
             new_channel.text(main_array[i].channel).addClass("channel_title");
             new_fig.append(new_channel);
             new_fig.append(new_title);
+            new_fig.append(view_count);
             hover_div.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
@@ -327,12 +323,14 @@ function buildThumbnails(){
             new_fig = $('<div class="figcaption">');
             new_title = $('<p>');
             new_channel = $('<p>');
+            view_count = $('<p class="view_count">Viewer Count</p>');
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category);
             new_title.text(main_array[i].title).addClass("video_title");
             new_channel.text(main_array[i].channel).addClass("channel_title");
             new_fig.append(new_channel);
             new_fig.append(new_title);
+            new_fig.append(view_count);
             hover_div.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
