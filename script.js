@@ -66,43 +66,6 @@ function displayLogginState(){
         $('#my-signin2').show();
     }
 }
-/*
-function determine_info (item){
-    // var current_item=$(item);
-    // var category_number;
-    // if (current_item.hasClass('games')){
-    //     category_number = 0;
-    // } else if (current_item.hasClass('entertainment')){
-    //     category_number = 1;
-    // } else if (current_item.hasClass('life')){
-    //     category_number = 2;
-    // } else if (current_item.hasClass('news')) {
-    //     category_number = 3;
-    // } else if (current_item.hasClass('technology')) {
-    //     category_number = 4;
-    // } else if (current_item.hasClass('misc')) {
-    //     category_number = 5;
-    // } else {
-    //     category_number = 0;
-    // }
-    // console.log(master_list);
-    var index = $(item).attr('data-index');
-    var current_item_details = master_list[index];
-    return {
-        'index' : index,
-        'thumbnail': current_item_details.thumbnail,
-        'link' : current_item_details.link,
-        'category' : current_item_details.category,
-        'channel' : current_item_details.channel,
-        'viewers' : current_item_details.viewers,
-        'start' : current_item_details.startTime,
-        'title' : current_item_details.title,
-        'id' : current_item_details.id,
-        'chat': current_item_details.embedChat,
-        'video': current_item_details.embedVideo,
-        'source': item.source
-    }
-}*/
 
 var embedPreview = new Preview();
 var preview = null;
@@ -113,61 +76,16 @@ var contractBtn = null;
 var closeBtn = null;
 
 function update_preview(parent){
-    //console.log(parent);
-    //var current_preview_obj = determine_info(parent);
-    //console.log(current_preview_obj);
-    //$('#preview').show(500).css('overflow', 'visible');
-    //$('#preview_thumb').attr("src",current_preview_obj.thumbnail);
-    //$('#preview_thumb').on("click", open_modal.bind(parent));
-    //$('#preview_category').text(current_preview_obj.category);
-    //$('#preview_viewers').text(current_preview_obj.viewers);
-    //$('#preview_title').text(current_preview_obj.title.substring(0,35));
     var index = $(parent).attr('data-index');
     var item = main_array[index];
-    //embedPreview.stop();
+
     preview.show();
     embedPreview.play(item);
 }
 
-function open_modal(){
-    // var current_preview_obj = determine_info(this);
-    // $(".live_video").attr("src",current_preview_obj.video);
-    // $(".live_chat").attr("src",current_preview_obj.chat);
-    // $(".loading").hide();
-    // $('.full_screen_header').text(current_preview_obj.title);
-    // update_preview(this);
-    //var index = $(item).attr('data-index');
-
-    //var top  = window.pageYOffset || document.documentElement.scrollTop;
-    //fullscreen.css("top",top);
-
-    // embedFullVideo.play(item,fullscreen,"left");
-    // embedFullChat.play(item,fullscreen,"right");
-    //fullscreen.show();
-    //embedPreview.stop();
-    //$('#preview').hide();
-}
-
-function close_modal(){
-    // var current_preview_obj = determine_info(this);
-    // $(".live_video").attr("src",current_preview_obj.video);
-    // $(".live_chat").attr("src",current_preview_obj.chat);
-    // $(".loading").hide();
-    // $('.full_screen_header').text(current_preview_obj.title);
-    // update_preview(this);
-    //var index = $(item).attr('data-index');
-    //embedPreview.stop();
-    // embedFullVideo.stop();
-    // embedFullChat.stop();
-    //fullscreen.hide();
-}
-
 function close_preview(){
     embedPreview.stop();
-    $('#preview').hide();
-}
-function end_video(){
-    $(".live_video").attr("src", " ");
+    preview.hide();
 }
 
 function checkImageSize(selector){
@@ -181,23 +99,6 @@ function checkImageSize(selector){
 }
 
 $(document).ready(function() {
-    fullscreen = $("#full-screen");
-    // $("#open_full").on("click",function () {
-    //     open_modal();
-    // });
-    // $("#close_full").on("click",function () {
-    //     close_modal();
-    // });
-
-    $('#modal1').modal();
-    $(".dropdown-button").dropdown({
-    });
-    $('.modal').modal({
-            complete: end_video
-        }
-    );
-
-    $('#modal2').modal();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
     if(isUserLoggedIn() === true){
@@ -217,6 +118,7 @@ $(document).ready(function() {
     preview.on('click','#close_preview',close_preview);
     preview.on('click','#open_full',embedPreview.expand.bind(embedPreview));
     preview.on('click','#close_full',embedPreview.contract.bind(embedPreview));
+
     $("body").on('click','.grid-item',(function(){
         update_preview(this);
     }));

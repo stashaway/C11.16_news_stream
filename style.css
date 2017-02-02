@@ -15,8 +15,13 @@ html {
 div label input {
     margin-right:100px;
 }
+label {
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 .ck-button {
-    height: 5vh;
+    height: 43px;
     margin:11px 6px 5px 5px;
     background-color: #EFEFEF;
     border-radius: 4px;
@@ -36,7 +41,7 @@ div label input {
     padding:0px 10px;
     display:block;
     height:100%;
-    line-height: 5vh;
+    line-height: 3.5em;
 }
 
 .ck-button label input {
@@ -48,7 +53,7 @@ div label input {
 }
 
 #gaming:checked + span {
-    background-color: #9d3636;
+    background-color: rgba(234, 93, 83, 1);
     color:#fff;
 }
 #news:checked + span {
@@ -56,15 +61,15 @@ div label input {
     color:#fff;
 }
 #entertainment:checked + span {
-    background-color:#3f6d87;
+    background-color:rgba(14, 87, 195, 0.92);
     color:#fff;
 }
 #misc:checked + span {
-    background-color:#40496a;
+    background-color:rgba(245, 196, 76, 1);
     color:#fff;
 }
 #life:checked + span {
-    background-color: #83545d;
+    background-color: rgba(40, 180, 197,1);
     color:#fff;
 }
 #technology:checked + span {
@@ -84,32 +89,39 @@ div label input {
 }
 
 h2.header_logo{
-    color:#d2cfcf;
-    font-size: 40px;
+    color: #ffffff;
+    font-size: 3vw;
     font-family: 'Gruppo', cursive;
-    top: 0;
+    top:  -0.5vh;
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
-    /*text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);*/
+    text-shadow: -1px 2px 2px rgba(150, 150, 150, 1);
 }
 
+.header_logo span {
+    font-size: 2.4vw;
+}
 p.header_tagline{
-    font-size: 1rem;
+    font-family: 'Gruppo', cursive;
+    font-size: 1vw;
 }
 .header_tagline {
     font-family: 'Quicksand', sans-serif;
     position: absolute;
-    top: 40px;
+    top: 4vh;
     left: 50%;
     transform: translate(-50%,-50%);
 }
 
 .nav-wrapper {
+    font-weight: lighter;
     font-family: 'Quicksand', sans-serif;
     background-color: #718792;
 }
-
+#top_nav{
+    margin-left: 10%;
+}
 #spinner {
     position: fixed;
     top: 50%;
@@ -130,7 +142,7 @@ img.logo {
     top:0;
     left:50%;
     transform: translate(-50%,0);
-    height: 80px;
+    width: 23vh;
     position: absolute;
     opacity: .5;
 }
@@ -261,14 +273,20 @@ img.logo {
     height: 50px;
     width: 240px;
 }
+.sign_out_button{
+    background-color: rgba(167, 131, 104, 0.54);
+}
+
 
 #update_btn {
+    color:white;
     position: relative;
     border-radius: 7px;
     top: 0;
     left: 0;
-    background-color: #a76d6d;
+    background-color: #306b97;
     padding: 0 10px;
+    font-weight: 400;
 }
 
 #update_div {
@@ -333,13 +351,13 @@ div#main {
 
 .gaming {
     color:white;
-    background-color:rgba(157,54,54,0.8);
+    background-color:rgba(234, 93, 83, .8);
     position: relative;
-    #border:2px solid #9d3636;
+    #border:2px solid rgba(234, 93, 83, 1);
 }
 .gaming::before {
     opacity: .2;
-    background-color: #9d3636;
+    background-color: rgba(234, 93, 83, 1);
     position: absolute;
     top: 0;
     left: 0;
@@ -365,13 +383,13 @@ div#main {
 }
 .entertainment {
     color:white;
-    background-color: rgba(63,109,135,0.8);
+    background-color: rgba(14, 87, 195, 0.8);
     position: relative;
-    #border:2px solid #3f6d87;
+    #border:2px solid rgba(14, 87, 195, 0.92);
 }
 .entertainment::after {
     opacity: .2;
-    background-color: #3f6d87;
+    background-color: rgba(14, 87, 195, 0.92);
     position: absolute;
     top: 0;
     left: 0;
@@ -381,13 +399,13 @@ div#main {
 }
 .misc {
     color:white;
-    background-color:rgba(64,73,106,0.8);
+    background-color:rgba(245, 196, 76, 0.8);
     position: relative;
-    #border:2px solid #40496a;
+    #border:2px solid rgba(245, 196, 76, 1);
 }
 .misc::after {
     opacity: .2;
-    background-color: #40496a;
+    background-color: rgba(245, 196, 76, 1);
     position: absolute;
     top: 0;
     left: 0;
@@ -397,13 +415,13 @@ div#main {
 }
 .life {
     color:white;
-    background-color:rgba(131,84,93,0.8);
+    background-color:rgba(40, 180, 197,0.8);
     position: relative;
-    #border:2px solid #83545d;
+    #border:2px solid rgba(40, 180, 197,1);
 }
 .life::after {
     opacity: .2;
-    background-color: #83545d;
+    background-color: rgba(40, 180, 197,1);
     position: absolute;
     top: 0;
     left: 0;
@@ -463,8 +481,8 @@ img.circle.profile-pic{
 }
 .firebaseui-container{
     width: 235px;
-    right: 2vw;
-    top: 7vh;
+    right: 1%;
+    top: 100%;
     position: absolute;
     background:white;
 }
@@ -472,8 +490,8 @@ img.circle.profile-pic{
     background-color: white;
     border: none;
     position: absolute;
-    right: 3vw;
-    top: 9vh;
+    right: 1%;
+    top: 100%;
 }
 .login_status{
     position: absolute;
@@ -483,6 +501,7 @@ img.circle.profile-pic{
 i.small.material-icons{
     position: relative;
     right: 2vw;
+    color: lightblue;
 }
 div.valign-wrapper{
     position: absolute;
@@ -494,101 +513,96 @@ div.valign-wrapper{
 .modal.modal-fixed-footer .modal-footer{
     background-color: #ccbfbb;
 }
-.chip{
+.chip {
     z-index: 10;
     padding: 0px 5px;
     border-radius: 0px 5px 0px 0px;
-    position:absolute;
-    bottom:-3px;
+    position: absolute;
+    bottom: 1px;
 }
 div.medium.z-depth-3, div.fixed{
     background-color: white;
 }
 /*------------------Hover Effects-------------------*/
 
-.effect-apollo {
-    /*background-color: rgba(113, 142, 156, 1);*/
-    overflow: hidden;
-}
-
-div.effect-apollo img {
-    opacity: 1;
-
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
-    -webkit-transform: scale3d(1.05,1.05,1);
-    transform: scale3d(1.05,1.05,1);
-}
-
-div.effect-apollo p.video_title, div.effect-apollo p.channel_title {
+p.video_title, p.channel_title {
     font-family: 'Quicksand', sans-serif;
-
     text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
     padding-right: 8px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     position: absolute;
-     max-width: 70%;
+    max-width: 70%;
     text-align: right;
-    -webkit-transition: opacity 0.35s;
-    transition: opacity 0.35s;
 }
 
-div.effect-apollo p.video_title{
+p.video_title{
     font-size: 2em;
     right: 20%;
     top: 10%;
+    font-weight: 500
 }
-div.effect-apollo p.channel_title {
-
+p.channel_title {
     font-size: 1.5em;
     right: 20%;
     top: 25%;
     margin-top: 2em;
     border-right: 4px solid #fff;
-
+    font-weight: 400
 }
-div.effect-apollo:hover img {
-
-    opacity: 0.1;
-    -webkit-transform: scale3d(1,1,1);
-    transform: scale3d(1,1,1);
-}
-
-
-.effect-apollo:hover .figcaption::before {
-    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
-    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
-}
-
-.effect-apollo:hover p {
-    opacity: 1;
-    -webkit-transition-delay: 0.1s;
-    transition-delay: 0.1s;
-}
-
-.medium div.effect-apollo p.video_title{
+.medium p.video_title{
     right: 10%;
     top: 6%;
     font-size: 1.5em;
     max-width:75%;
 }
-.medium .effect-apollo .channel_title{
+.medium p.channel_title{
     font-size: 1em;
     position: absolute;
     right: 10%;
     top: 20%;
     margin-top: 3em;
 }
+
+.view_count {
+    font-weight: 500;
+    position: absolute;
+
+}
+.fixed .view_count {
+    font-size: 1em;
+    left: 1%;
+    bottom: 6%;
+}
+
+.medium .view_count {
+    font-size: .9em;
+    left: 1%;
+    bottom: 11%;
+}
+
+.grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
+    display: block;
+}
+
+.hover_effect {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+/*********************************/
 .fixed{
-    -webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
-    box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
+    /*-webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
+    /*-moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
+    box-shadow:  12px 17px 11px -4px rgba(0,0,0,0.75);
 }
 .medium{
     margin-top: 23px;
-    -webkit-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
-    box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
+    /*-webkit-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);*/
+    /*-moz-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);*/
+    /*box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);*/
 }

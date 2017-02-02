@@ -16,14 +16,13 @@
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
 
     <!-- Internal Script Files -->
-    <script src="dummyData.js"></script>
     <script src="tryisotope2.js"></script>
     <script src="script.js"></script>
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
-    <link href="https://fonts.googleapis.com/css?family=Gruppo|Quicksand:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gruppo|Quicksand:300,400,500" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
@@ -36,7 +35,7 @@
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo">
                     <img class="logo" src="images/logo1.png"/>
-                    <h2 class="header_logo">STREAMISM</h2>
+                    <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
                     <p class="header_tagline">Stream until your streams come true</p>
                 </a>
                 <div id="top_nav" class="top_nav">
@@ -73,11 +72,11 @@
                 </div>
                 <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
                 <div class="right">
-                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on any thumbnail to preview information, then click on the thumbnail to view the stream."><i class="small material-icons">info_outline</i>
+                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click on any thumbnail to preview, then click on the full-screen button to view the stream."><i class="small material-icons">info_outline</i>
                     </div>
                     <div class="login_status"></div>
                     <div id="firebaseui-auth-container"></div>
-                    <button type="button" id="sign-out"><a class="waves-effect waves-light btn">Sign Out</i></a></button>
+                    <button type="button" id="sign-out"><a class="waves-effect waves-light btn sign_out_button">Sign Out</i></a></button>
                     <div class="valign-wrapper col s5 pull-s7">
                         <p class="welcome_text valign"></p>
                         <img src="" alt="" class="circle profile-pic valign">
@@ -133,8 +132,8 @@
         </div>
     </div>
 
-    <div class="fixed"></div>
-    <div class="medium"></div>
+    <div class="fixed panel"></div>
+    <div class="medium panel"></div>
 
     <div id="modal1" class="modal modal1 modal-fixed-footer">
         <div class="modal-content">

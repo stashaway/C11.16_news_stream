@@ -4,6 +4,7 @@ var master_list = null;
 var uid = null;
 var $grid;
 var $gridFixed;
+var clicked = false;
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -30,7 +31,6 @@ $(document).ready(function() {
         if(user){
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
-            console.log("User is signed in" , user);
             uid = user.uid;
             fb_ref.ref('users/' + uid).once('value', function(ss){
                 var snap = ss.val();
@@ -44,33 +44,13 @@ $(document).ready(function() {
                 }
             });
             user.getToken().then(function(accessToken){
-                $("#firebaseui-auth-container").hide();
-                $("#sign-out").hide();
-                $(".login_status").hide();
-                $(".welcome_text").show();
-                $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
-                $(".profile-pic").attr("src", user.photoURL).on("click",function(){
-                    $("#sign-out").toggle().on("click",function(){
-                        firebase.auth().signOut().then(function() {
-                            console.log("signed out");
-                            uid = null;
-                        });
-                    });
+                sign_in_show_element();
+                $(".profile-pic").attr("src", user.photoURL);
                 })
-            });
         } else {
-            $(".login_status").show();
-            $("#firebaseui-auth-container").hide();
-            $("#sign-out").hide();
-            $(".welcome_text").hide();
-            $(".profile-pic").hide();
-            $(".login_status").text("Log In").on("click", function(){
-                console.log("log in clicked")
-                $("#firebaseui-auth-container").toggle();
-            });
-            console.log("User is not logged in");
-            //firebase config
+            sign_out_element();
+            $(".login_status").text("Log In");
             var uiConfig = {
                 signInFlow: "popup",
                 signInSuccessUrl: '#',
@@ -80,9 +60,7 @@ $(document).ready(function() {
                     firebase.auth.EmailAuthProvider.PROVIDER_ID
                 ]
             };
-            // The start method will wait until the DOM is loaded.
             ui.start('#firebaseui-auth-container', uiConfig);
-            //end firebase ui
         }
     });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
@@ -105,20 +83,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-
-
                 },1500);
-            // $gridFixed = $('.grid-f').imagesLoaded().always( function() {
-            //     setTimeout(function(){
-            //         // $gridFixed.isotope({
-            //         //     itemSelector: '.grid-item-f',
-            //         //     masonry: { columnWidth: '.grid-sizer-f'},
-            //         //     stagger: 5,
-            //         //     percentPosition: true
-            //         // });
-            //     },1500);
-            // });
-
             });
             first_load=false;
         } else {
@@ -127,19 +92,39 @@ $(document).ready(function() {
             updated_list = snapshot.val();
         }
     });
+    var body = $('body');
+    body.on("click",".login_status", function(){
+        $("#firebaseui-auth-container").toggle();
+    });
+    body.on("click", "#sign-out", function(){
+        console.log("log out");
+        firebase.auth().signOut().then(function() {
+            uid = null;
+        });
+    });
+    body.on("click",".profile-pic",function() {
+        console.log("Im being called");
+        $("#sign-out").toggle();
+    });
 
     applyNavClickHandler(fb_ref);
-/*
-    $('body').on('click','.grid-item',(function(){
-        update_preview(this);
-    }));
-    $('body').on('click','.grid-item-f',(function(){
-        update_preview(this);
-    }));
-*/
     $('#update_btn').click(handleUpdate).toggle();
 });
 
+function sign_in_show_element(){
+    $("#firebaseui-auth-container").hide();
+    $("#sign-out").hide();
+    $(".login_status").hide();
+    $(".welcome_text").show();
+    $(".profile-pic").show();
+}
+function sign_out_element(){
+    $(".login_status").show();
+    $("#firebaseui-auth-container").hide();
+    $("#sign-out").hide();
+    $(".welcome_text").hide();
+    $(".profile-pic").hide();
+}
 function conformDomElements(){
     for(var category in preferences){
         var currentSelector = $("#" + category);
@@ -186,8 +171,8 @@ function fullShuffle(snapshot) {
     return filtered;
 }
 
-var soundEffect = new Audio('audio/transporter.mp3');
-soundEffect.play();
+// var soundEffect = new Audio('audio/transporter.mp3');
+// soundEffect.play();
 
 function signOut(){
     firebase.auth().signOut().then(function() {
@@ -206,15 +191,10 @@ function applyNavClickHandler(fb_ref){
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
-            console.log('We think user is logged in, so updating prefs on db');
-            console.log('UID:', uid);
-            console.log('Prefs:', preferences);
-            console.log('Prefs after update:', preferences);
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
     });
 }
-
 
 function handleUpdate(){
     console.log('update handler called');
@@ -226,6 +206,12 @@ function handleUpdate(){
             $grid.isotope({
                 itemSelector: '.grid-item',
                 masonry: { columnWidth: '.grid-sizer'},
+                stagger: 5,
+                percentPosition: true
+            });
+            $gridFixed = $('.grid-f').isotope({
+                itemSelector: '.grid-item-f',
+                masonry: { columnWidth: '.grid-sizer-f'},
                 stagger: 5,
                 percentPosition: true
             });
@@ -280,21 +266,9 @@ function populateArray(cycles, depth) {
 
 var main_array=[];
 function buildThumbnails(){
-    //main_array = populateArray(36,0);     //Curated list
-    main_array = fullShuffle(master_list);  //Full list
+    main_array = populateArray(36,0);     //Curated list
+    // main_array = fullShuffle(master_list);  //Full list
 
-    // console.log('main array',main_array);
-    var featured_object = {
-        category: "divider",
-        thumbnail: "images/featured.png",
-        title: "",
-        viewers: null
-    };
-    // main_array.splice(0,0,featured_object);
-    //main_array.splice(6,0,featured_object);
-    // main_array.splice(53,0,featured_object);
-    // main_array.splice(-3);
-    // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;
@@ -302,6 +276,8 @@ function buildThumbnails(){
     var new_fig;
     var new_title;
     var new_channel;
+    var hover_div;
+    var view_count;
     var the_grid = $('<div>',{
         class: 'grid-f'
     });
@@ -320,43 +296,52 @@ function buildThumbnails(){
     for (var i=0; i<main_array.length; i++){
         if (i<6) {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item-f grid-item-f--large  ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
-            new_chip= $(' <div class="chip">');
-            new_fig  = $("<div>");
-            new_title = $("<p>");
-            new_channel = $("<p>");
+
+            hover_div = $('<div class="hover_effect">');
+            hover_div.addClass(main_array[i].category);
+            new_chip = $('<div class="chip">');
+            new_fig = $('<div class="figcaption">');
+            new_title = $('<p>');
+            new_channel = $('<p>');
+            view_count = $('<p class="view_count">Viewer Count</p>');
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category);
             new_title.text(main_array[i].title).addClass("video_title");
             new_channel.text(main_array[i].channel).addClass("channel_title");
-            new_fig.addClass('figcaption');
             new_fig.append(new_channel);
             new_fig.append(new_title);
-            new_item.append(new_fig);
+            new_fig.append(view_count);
+            hover_div.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
+            new_item.append(hover_div);
             $(the_grid).append(new_item);
         }
         else {
             new_thumb = main_array[i].thumbnail;
-            new_item = $('<div class="grid-item grid-item--medium  ' + main_array[i].category + '" data-index=' + i + '>');
+            new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
             new_img = $('<img src="' + new_thumb + '">');
-            new_img = $('<img src="' + new_thumb + '">');
-            new_chip= $(' <div class="chip">');
-            new_fig  = $("<div>");
-            new_title = $("<p>");
-            new_channel = $("<p>");
+
+            hover_div = $('<div class="hover_effect">');
+            hover_div.addClass(main_array[i].category);
+            new_chip = $('<div class="chip">');
+            new_fig = $('<div class="figcaption">');
+            new_title = $('<p>');
+            new_channel = $('<p>');
+            view_count = $('<p class="view_count">Viewer Count</p>');
             new_chip.text(main_array[i].viewers);
             new_chip.addClass(main_array[i].category);
             new_title.text(main_array[i].title).addClass("video_title");
             new_channel.text(main_array[i].channel).addClass("channel_title");
-            new_fig.addClass('figcaption');
             new_fig.append(new_channel);
             new_fig.append(new_title);
-            new_item.append(new_fig);
+            new_fig.append(view_count);
+            hover_div.append(new_fig);
             new_item.append(new_chip);
             new_item.append(new_img);
+            new_item.append(hover_div);
             $(the_grid2).append(new_item);
         }
 
