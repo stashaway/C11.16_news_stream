@@ -572,13 +572,13 @@ p.channel_title {
 .fixed .view_count {
     font-size: 1em;
     left: 1%;
-    bottom: 6%;
+    bottom: 7%;
 }
 
 .medium .view_count {
     font-size: .9em;
     left: 1%;
-    bottom: 11%;
+    bottom: 16%;
 }
 
 .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
