@@ -312,6 +312,10 @@ img.logo {
     width: 135px;
 }
 
+.toasty {
+    background-color: #306b97;
+    color: white;
+ }
 #update_div {
     position: absolute;
     top: 50%;
