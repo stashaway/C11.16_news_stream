@@ -129,13 +129,13 @@ $(document).ready(function() {
     });
 
     applyNavClickHandler(fb_ref);
-
-    $('.medium').on('click','.grid-item',(function(){
-        update_preview(this);
-    }));
-    $('.fixed').on('click','.grid-item-f',(function(){
-        update_preview(this);
-    }));
+    //
+    // $('body').on('click','.grid-item',(function(){
+    //     update_preview(this);
+    // }));
+    // $('body').on('click','.grid-item-f',(function(){
+    //     update_preview(this);
+    // }));
 
     $('#update_btn').click(handleUpdate).toggle();
 });
@@ -206,15 +206,10 @@ function applyNavClickHandler(fb_ref){
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
-            console.log('We think user is logged in, so updating prefs on db');
-            console.log('UID:', uid);
-            console.log('Prefs:', preferences);
-            console.log('Prefs after update:', preferences);
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
     });
 }
-
 
 function handleUpdate(){
     console.log('update handler called');
@@ -282,19 +277,13 @@ var main_array=[];
 function buildThumbnails(){
     //main_array = populateArray(36,0);     //Curated list
     main_array = fullShuffle(master_list);  //Full list
-
-    // console.log('main array',main_array);
     var featured_object = {
         category: "divider",
         thumbnail: "images/featured.png",
         title: "",
         viewers: null
     };
-    // main_array.splice(0,0,featured_object);
     main_array.splice(6,0,featured_object);
-    // main_array.splice(53,0,featured_object);
-    // main_array.splice(-3);
-    // console.log('main array after splice',main_array);
     var new_thumb;
     var new_item;
     var new_img;

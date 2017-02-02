@@ -48,7 +48,7 @@ div label input {
 }
 
 #gaming:checked + span {
-    background-color: #9d3636;
+    background-color: rgba(234, 93, 83, 1);
     color:#fff;
 }
 #news:checked + span {
@@ -64,7 +64,7 @@ div label input {
     color:#fff;
 }
 #life:checked + span {
-    background-color: #83545d;
+    background-color: rgba(40, 180, 197,1);
     color:#fff;
 }
 #technology:checked + span {
@@ -95,6 +95,7 @@ h2.header_logo{
 }
 
 p.header_tagline{
+    font-family: 'Gruppo', cursive;
     font-size: 1rem;
 }
 .header_tagline {
@@ -249,13 +250,17 @@ img.logo {
     height: 50px;
     width: 240px;
 }
+.sign_out_button{
+    background-color: rgba(167, 131, 104, 0.54);
+}
+
 
 #update_btn {
     position: relative;
     border-radius: 7px;
     top: 0;
     left: 0;
-    background-color: #a76d6d;
+    background-color: #5b9fd4;
     padding: 0 10px;
 }
 
@@ -321,13 +326,13 @@ div#main {
 
 .gaming {
     color:white;
-    background-color:rgba(157,54,54,0.8);
+    background-color:rgba(234, 93, 83, .8);
     position: relative;
-    #border:2px solid #9d3636;
+    #border:2px solid rgba(234, 93, 83, 1);
 }
 .gaming::before {
     opacity: .2;
-    background-color: #9d3636;
+    background-color: rgba(234, 93, 83, 1);
     position: absolute;
     top: 0;
     left: 0;
@@ -385,13 +390,13 @@ div#main {
 }
 .life {
     color:white;
-    background-color:rgba(131,84,93,0.8);
+    background-color:rgba(40, 180, 197,0.8);
     position: relative;
-    #border:2px solid #83545d;
+    #border:2px solid rgba(40, 180, 197,1);
 }
 .life::after {
     opacity: .2;
-    background-color: #83545d;
+    background-color: rgba(40, 180, 197,1);
     position: absolute;
     top: 0;
     left: 0;
@@ -495,16 +500,14 @@ div.medium.z-depth-3, div.fixed{
 /*------------------Hover Effects-------------------*/
 
 .effect-apollo {
-    /*background-color: rgba(113, 142, 156, 1);*/
     overflow: hidden;
 }
 
 div.effect-apollo img {
     opacity: 1;
-
-    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-    transition: opacity 0.35s, transform 0.35s;
-    -webkit-transform: scale3d(1.05,1.05,1);
+    /*-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;*/
+    /*transition: opacity 0.35s, transform 0.35s;*/
+    /*-webkit-transform: scale3d(1.05,1.05,1);*/
     transform: scale3d(1.05,1.05,1);
 }
 
@@ -518,8 +521,6 @@ div.effect-apollo p.video_title, div.effect-apollo p.channel_title {
     position: absolute;
      max-width: 70%;
     text-align: right;
-    -webkit-transition: opacity 0.35s;
-    transition: opacity 0.35s;
 }
 
 div.effect-apollo p.video_title{
@@ -528,7 +529,6 @@ div.effect-apollo p.video_title{
     top: 10%;
 }
 div.effect-apollo p.channel_title {
-
     font-size: 1.5em;
     right: 20%;
     top: 25%;
@@ -537,7 +537,7 @@ div.effect-apollo p.channel_title {
 
 }
 div.effect-apollo:hover img {
-
+    cursor: pointer;
     opacity: 0.1;
     -webkit-transform: scale3d(1,1,1);
     transform: scale3d(1,1,1);
@@ -549,6 +549,7 @@ div.effect-apollo:hover img {
 }
 
 .effect-apollo:hover p {
+    cursor: pointer;
     opacity: 1;
     -webkit-transition-delay: 0.1s;
     transition-delay: 0.1s;
@@ -568,13 +569,13 @@ div.effect-apollo:hover img {
     margin-top: 3em;
 }
 .fixed{
-    -webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
-    box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);
+    /*-webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
+    /*-moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
+    box-shadow:  12px 17px 11px -4px rgba(0,0,0,0.75);
 }
 .medium{
     margin-top: 23px;
-    -webkit-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
-    box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);
+    /*-webkit-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);*/
+    /*-moz-box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);*/
+    /*box-shadow: 0px -6px 17px -2px rgba(0,0,0,0.75);*/
 }

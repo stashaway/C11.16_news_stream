@@ -211,6 +211,15 @@ $(document).ready(function() {
         preview.show();
         embedPreview.play(item, preview);
     }));
+    $("body").on('click','.grid-item',(function(){
+        //update_preview(this);
+        var index = $(this).attr('data-index');
+        item = main_array[index];
+
+        //embedPreview.stop();
+        preview.show();
+        embedPreview.play(item, preview);
+    }));
 });
 
 function Embed() {
