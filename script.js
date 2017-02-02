@@ -211,7 +211,6 @@ $(document).ready(function() {
         preview.show();
         embedPreview.play(item, preview);
     }));
-
     $("body").on('click','.grid-item',(function(){
         //update_preview(this);
         var index = $(this).attr('data-index');
