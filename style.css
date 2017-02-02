@@ -61,7 +61,7 @@ label {
     color:#fff;
 }
 #entertainment:checked + span {
-    background-color:rgba(37, 40, 175, 1);
+    background-color:rgba(14, 87, 195, 0.92);
     color:#fff;
 }
 #misc:checked + span {
@@ -92,7 +92,7 @@ h2.header_logo{
     color: #ffffff;
     font-size: 3vw;
     font-family: 'Gruppo', cursive;
-    top: 0;
+    top:  -0.5vh;
     position: absolute;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -109,7 +109,7 @@ p.header_tagline{
 .header_tagline {
     font-family: 'Quicksand', sans-serif;
     position: absolute;
-    top: 40px;
+    top: 4vh;
     left: 50%;
     transform: translate(-50%,-50%);
 }
@@ -267,6 +267,7 @@ img.logo {
 
 
 #update_btn {
+    color:white;
     position: relative;
     border-radius: 7px;
     top: 0;
@@ -370,13 +371,13 @@ div#main {
 }
 .entertainment {
     color:white;
-    background-color: rgba(37, 40, 175, 0.8);
+    background-color: rgba(14, 87, 195, 0.8);
     position: relative;
-    #border:2px solid rgba(37, 40, 175, 1);
+    #border:2px solid rgba(14, 87, 195, 0.92);
 }
 .entertainment::after {
     opacity: .2;
-    background-color: rgba(37, 40, 175, 1);
+    background-color: rgba(14, 87, 195, 0.92);
     position: absolute;
     top: 0;
     left: 0;
@@ -468,8 +469,8 @@ img.circle.profile-pic{
 }
 .firebaseui-container{
     width: 235px;
-    right: 2vw;
-    top: 7vh;
+    right: 1%;
+    top: 100%;
     position: absolute;
     background:white;
 }
@@ -477,8 +478,8 @@ img.circle.profile-pic{
     background-color: white;
     border: none;
     position: absolute;
-    right: 3vw;
-    top: 9vh;
+    right: 1%;
+    top: 100%;
 }
 .login_status{
     position: absolute;
@@ -487,8 +488,12 @@ img.circle.profile-pic{
 }
 i.small.material-icons{
     position: relative;
+<<<<<<< HEAD
+    right: 100%;
+=======
     right: 2vw;
     color: lightblue;
+>>>>>>> bc13015df34175669486b0c7474564353c440cc4
 }
 div.valign-wrapper{
     position: absolute;
@@ -500,14 +505,13 @@ div.valign-wrapper{
 .modal.modal-fixed-footer .modal-footer{
     background-color: #ccbfbb;
 }
-.chip{
+.chip {
     z-index: 10;
     padding: 0px 5px;
     border-radius: 0px 5px 0px 0px;
-    position:absolute;
+    position: absolute;
     bottom: 1px;
 }
-
 div.medium.z-depth-3, div.fixed{
     background-color: white;
 }

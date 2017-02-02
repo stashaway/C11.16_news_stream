@@ -4,6 +4,7 @@ var master_list = null;
 var uid = null;
 var $grid;
 var $gridFixed;
+var clicked = false;
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -30,7 +31,6 @@ $(document).ready(function() {
         if(user){
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
-            console.log("User is signed in" , user);
             uid = user.uid;
             fb_ref.ref('users/' + uid).once('value', function(ss){
                 var snap = ss.val();
@@ -44,33 +44,13 @@ $(document).ready(function() {
                 }
             });
             user.getToken().then(function(accessToken){
-                $("#firebaseui-auth-container").hide();
-                $("#sign-out").hide();
-                $(".login_status").hide();
-                $(".welcome_text").show();
-                $(".profile-pic").show();
                 $(".welcome_text").text("Welcome " + user.displayName);
-                $(".profile-pic").attr("src", user.photoURL).on("click",function(){
-                    $("#sign-out").toggle().on("click",function(){
-                        firebase.auth().signOut().then(function() {
-                            console.log("signed out");
-                            uid = null;
-                        });
-                    });
+                sign_in_show_element();
+                $(".profile-pic").attr("src", user.photoURL);
                 })
-            });
         } else {
-            $(".login_status").show();
-            $("#firebaseui-auth-container").hide();
-            $("#sign-out").hide();
-            $(".welcome_text").hide();
-            $(".profile-pic").hide();
-            $(".login_status").text("Log In").on("click", function(){
-                console.log("log in clicked")
-                $("#firebaseui-auth-container").toggle();
-            });
-            console.log("User is not logged in");
-            //firebase config
+            sign_out_element();
+            $(".login_status").text("Log In");
             var uiConfig = {
                 signInFlow: "popup",
                 signInSuccessUrl: '#',
@@ -80,9 +60,7 @@ $(document).ready(function() {
                     firebase.auth.EmailAuthProvider.PROVIDER_ID
                 ]
             };
-            // The start method will wait until the DOM is loaded.
             ui.start('#firebaseui-auth-container', uiConfig);
-            //end firebase ui
         }
     });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
@@ -114,11 +92,39 @@ $(document).ready(function() {
             updated_list = snapshot.val();
         }
     });
+    var body = $('body');
+    body.on("click",".login_status", function(){
+        $("#firebaseui-auth-container").toggle();
+    });
+    body.on("click", "#sign-out", function(){
+        console.log("log out");
+        firebase.auth().signOut().then(function() {
+            uid = null;
+        });
+    });
+    body.on("click",".profile-pic",function() {
+        console.log("Im being called");
+        $("#sign-out").toggle();
+    });
 
     applyNavClickHandler(fb_ref);
     $('#update_btn').click(handleUpdate).toggle();
 });
 
+function sign_in_show_element(){
+    $("#firebaseui-auth-container").hide();
+    $("#sign-out").hide();
+    $(".login_status").hide();
+    $(".welcome_text").show();
+    $(".profile-pic").show();
+}
+function sign_out_element(){
+    $(".login_status").show();
+    $("#firebaseui-auth-container").hide();
+    $("#sign-out").hide();
+    $(".welcome_text").hide();
+    $(".profile-pic").hide();
+}
 function conformDomElements(){
     for(var category in preferences){
         var currentSelector = $("#" + category);
