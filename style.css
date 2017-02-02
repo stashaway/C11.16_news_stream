@@ -486,14 +486,9 @@ img.circle.profile-pic{
     right: 7vw;
     cursor: pointer;
 }
-i.small.material-icons{
+i.small.material-icons {
     position: relative;
-<<<<<<< HEAD
     right: 100%;
-=======
-    right: 2vw;
-    color: lightblue;
->>>>>>> bc13015df34175669486b0c7474564353c440cc4
 }
 div.valign-wrapper{
     position: absolute;
