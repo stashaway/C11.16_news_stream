@@ -499,19 +499,7 @@ div.medium.z-depth-3, div.fixed{
 }
 /*------------------Hover Effects-------------------*/
 
-.effect-apollo {
-    overflow: hidden;
-}
-
-div.effect-apollo img {
-    opacity: 1;
-    /*-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;*/
-    /*transition: opacity 0.35s, transform 0.35s;*/
-    /*-webkit-transform: scale3d(1.05,1.05,1);*/
-    transform: scale3d(1.05,1.05,1);
-}
-
-div.effect-apollo p.video_title, div.effect-apollo p.channel_title {
+p.video_title, p.channel_title {
     font-family: 'Quicksand', sans-serif;
     text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
     padding-right: 8px;
@@ -519,55 +507,51 @@ div.effect-apollo p.video_title, div.effect-apollo p.channel_title {
     white-space: nowrap;
     text-overflow: ellipsis;
     position: absolute;
-     max-width: 70%;
+    max-width: 70%;
     text-align: right;
 }
 
-div.effect-apollo p.video_title{
+p.video_title{
     font-size: 2em;
     right: 20%;
     top: 10%;
+    font-weight: 500
 }
-div.effect-apollo p.channel_title {
+p.channel_title {
     font-size: 1.5em;
     right: 20%;
     top: 25%;
     margin-top: 2em;
     border-right: 4px solid #fff;
-
+    font-weight: 400
 }
-div.effect-apollo:hover img {
-    cursor: pointer;
-    opacity: 0.1;
-    -webkit-transform: scale3d(1,1,1);
-    transform: scale3d(1,1,1);
-}
-
-.effect-apollo:hover .figcaption::before {
-    -webkit-transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
-    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,100%,0);
-}
-
-.effect-apollo:hover p {
-    cursor: pointer;
-    opacity: 1;
-    -webkit-transition-delay: 0.1s;
-    transition-delay: 0.1s;
-}
-
-.medium div.effect-apollo p.video_title{
+.medium p.video_title{
     right: 10%;
     top: 6%;
     font-size: 1.5em;
     max-width:75%;
 }
-.medium .effect-apollo .channel_title{
+.medium p.channel_title{
     font-size: 1em;
     position: absolute;
     right: 10%;
     top: 20%;
     margin-top: 3em;
 }
+
+.grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
+    display: block;
+}
+
+.hover_effect {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+/*********************************/
 .fixed{
     /*-webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
     /*-moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
