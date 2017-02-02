@@ -94,6 +94,7 @@ $(document).ready(function() {
             $('#update_btn').show();
             Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded');
             updated_list = snapshot.val();
+            $('#spinner').hide();
         }
     });
     var body = $('body');
@@ -204,6 +205,7 @@ function applyNavClickHandler(fb_ref){
 
 function handleUpdate(){
     console.log('update handler called');
+    $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
     buildThumbnails(master_list);
@@ -221,6 +223,7 @@ function handleUpdate(){
                 stagger: 5,
                 percentPosition: true
             });
+            $('#spinner').hide();
         },1500);
     });
     conformDomElements();
