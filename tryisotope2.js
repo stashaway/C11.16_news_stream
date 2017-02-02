@@ -268,6 +268,7 @@ var main_array=[];
 function buildThumbnails(){
     main_array = populateArray(36,0);     //Curated list
     // main_array = fullShuffle(master_list);  //Full list
+
     var new_thumb;
     var new_item;
     var new_img;
