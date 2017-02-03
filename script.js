@@ -150,6 +150,7 @@ function sign_out_element(){
 }
 
 function conformDomElements(){
+    debugger;
     for(var category in preferences){
         var currentSelector = $("#" + category);
         var smallSelector = $("#" + category + "_sm");
