@@ -84,7 +84,8 @@ $(document).ready(function() {
     });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
-        $('#spinner').show();
+        var spinner=$('#spinner');
+        spinner.show();
         if (first_load === true){
             master_list = snapshot.val();
             buildThumbnails(master_list);
@@ -103,7 +104,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-                    $('#spinner').hide();
+                    spinner.hide();
                 },1500);
             });
             first_load=false;
@@ -113,7 +114,7 @@ $(document).ready(function() {
             update_sound.play();
             Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
             updated_list = snapshot.val();
-            $('#spinner').hide();
+            spinner.hide();
         }
     });
     var body = $('body');
@@ -221,10 +222,6 @@ function applyNavClickHandler(fb_ref){
 function applySmallClickHandler(){
     $('#responsive_nav input:checkbox').change(function(){
         $("#"+ this.name).trigger("click");
-        // if(this.checked && $('#'+this.name+':checked').length == 0)
-        //     $('#'+this.name).attr('checked');
-        // else if(!this.checked && $('#'+this.name+':checked').length == 1)
-        //     $('#'+this.name).removeAttr('checked');
     })
 }
 function handleUpdate(){
