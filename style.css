@@ -54,7 +54,7 @@ label {
     float:left
 }
 
-#gaming:checked + span,#gaming_sm:checked + span  {
+#gaming:checked + span, #gaming_sm:checked + span  {
     background-color: rgba(234, 93, 83, 1);
     color:#fff;
 }
@@ -321,12 +321,15 @@ img.logo {
     background-color: #306b97;
     color: white;
  }
-#update_div {
+#update_div, #update_div_sm {
     position: absolute;
     top: 50%;
     right: 35%;
     transform: translate(0,-50%);
     height: 50%;
+}
+#update_div_sm{
+    right: 28%;
 }
 
 /************ Overall Stream Grid Containers ********************/
