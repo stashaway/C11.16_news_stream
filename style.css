@@ -33,6 +33,7 @@ label {
 }
 
 .ck-button label {
+    cursor: pointer;
     float:left;
     width:100%;
     height:100%;
@@ -534,6 +535,7 @@ p.welcome_text.valign {
 }
 
 img.circle.profile-pic {
+    cursor: pointer;
     width:85px;
 }
 
@@ -705,7 +707,7 @@ a.btn-floating.btn-large{
 @media screen and (max-width: 1024px){
     img.circle.profile-pic {
         margin: 4px 12px;
-        width: 48px;
+        width: 8vw;
     }
     h2.header_logo{
         font-size: 7vw;
