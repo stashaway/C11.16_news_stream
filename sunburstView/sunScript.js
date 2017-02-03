@@ -24,8 +24,10 @@ var colors = {
 };
 
 function sunburst_category_color(){
-    for(var i = 1; i<8; i++){
+    for(var i = 1; i<7; i++){
        var category = sunburst_array[i].__data__.data.id;
+       var category_color = colors.category;
+
        console.log(category);
     }
 }
@@ -85,7 +87,6 @@ function createVisualization(json) {
         .attr("display", function(d) {sunburst_array.push(this); return d.depth ? null : "none"; })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
-        // .attr('data-index', index_count++ )
         .attr('data-index', function() {index_count += 1; return index_count})
         .style("fill", function(d) { return colors[d.data.category] || !(d.parent) ? colors[d.data.category] : colors[d.parent.data.category]; })
         .style("opacity", 1)
@@ -102,6 +103,7 @@ function createVisualization(json) {
 
     // Get total size of the tree = value of root node from partition.
     totalSize = path.node().__data__.value;
+    sunburst_category_color();
 }
 function sun_video(d, i){
 

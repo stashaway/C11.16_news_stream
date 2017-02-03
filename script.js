@@ -159,7 +159,6 @@ function sign_out_element(){
 }
 
 function conformDomElements(){
-    debugger;
     for(var category in preferences){
         var currentSelector = $("#" + category);
         var smallSelector = $("#" + category + "_sm");
@@ -235,6 +234,7 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
+    createVisualization(master_list);
     console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
