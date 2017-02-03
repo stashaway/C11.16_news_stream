@@ -22,23 +22,26 @@ var db = admin.database();
 
 //streamism categories
 var categories = [
-    "gaming","entertainment","life","news","technology","misc"
+    "gaming","entertainment","people","news","sports","misc"
 ];
 
 //yt categories mapped to streamism categories
 var ytCategories = [
     {id:20,name:categories[0]},
-    {id:24,name:categories[1]},
     {id:1, name:categories[1]},
     {id:10,name:categories[1]},
+    {id:23,name:categories[1]},
+    {id:24,name:categories[1]},
     {id:22,name:categories[2]},
-    {id:19,name:categories[2]},
-    {id:17,name:categories[2]},
+    {id:19,name:categories[3]},
     {id:25,name:categories[3]},
     {id:29,name:categories[3]},
-    {id:27,name:categories[4]},
-    {id:28,name:categories[4]},
-    {id:15,name:categories[5]}
+    {id:17,name:categories[4]},
+    {id:2, name:categories[5]},
+    {id:15,name:categories[5]},
+    {id:26,name:categories[5]},
+    {id:27,name:categories[5]},
+    {id:28,name:categories[5]}
 ];
 
 function init() {
@@ -51,8 +54,6 @@ function init() {
 
     return set;
 }
-//tree root object to hold all stream data - categories are streamsets holding streams
-
 
 //temp write to file function
 function writeToFile(filename, obj) {

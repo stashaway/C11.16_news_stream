@@ -21,6 +21,8 @@ streamismTwitch.prototype.parse = function (data){
         var game = twitchStream.game;
 
         switch (game.toUpperCase()) {
+            case "CREATIVE":
+            case "GAME DEVELOPMENT":
             case "IRL":
             case "SOCIAL EATING":
                 set = this.streamSet.find(this.categories[2]);//life
@@ -33,11 +35,6 @@ streamismTwitch.prototype.parse = function (data){
             case "MUSIC":
                 set = this.streamSet.find(this.categories[1]);//ent
                 stream.category = this.categories[1];
-                break;
-            case "CREATIVE":
-            case "GAME DEVELOPMENT":
-                set = this.streamSet.find(this.categories[5]);//misc
-                stream.category = this.categories[5];
                 break;
         }
 
@@ -57,7 +54,7 @@ streamismTwitch.prototype.parse = function (data){
 
 streamismTwitch.prototype.start = function (callback) {
     var sTwitch = this;
-    sTwitch.api.getStreams({limit:50},function (error,data) {
+    sTwitch.api.getStreams({limit:100},function (error,data) {
         if (error) {
             console.log(error);
             return;
