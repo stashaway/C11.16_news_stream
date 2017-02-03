@@ -6,6 +6,7 @@ var $grid;
 var $gridFixed;
 var clicked = false;
 var main_array = [];
+var update_sound = new Audio('audio/update_sound.mp3');
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -95,7 +96,9 @@ $(document).ready(function() {
         } else {
             // alert('update received');
             $('#update_btn').show();
-            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded');
+            $('#update_btn_small').show();
+            update_sound.play();
+            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
             updated_list = snapshot.val();
             $('#spinner').hide();
         }
@@ -111,12 +114,12 @@ $(document).ready(function() {
         });
     });
     body.on("click",".profile-pic",function() {
-        console.log("Im being called");
         $("#sign-out").toggle();
     });
 
     applyNavClickHandler(fb_ref);
     $('#update_btn').click(handleUpdate).toggle();
+    $('#update_btn_small').click(handleUpdate).toggle();
 });
 
 function sign_in_show_element(){
@@ -138,8 +141,10 @@ function sign_out_element(){
 function conformDomElements(){
     for(var category in preferences){
         var currentSelector = $("#" + category);
+        var smallCurrent = $("#" + category + "_sm");
         if(preferences[category] == false){
             currentSelector.removeAttr('checked');
+            smallCurrent = $("#" + category + "_sm");
         } else{
             currentSelector.attr('checked');
         }
@@ -231,6 +236,7 @@ function handleUpdate(){
     });
     conformDomElements();
     $('#update_btn').toggle();
+    $('#update_btn_small').toggle();
 }
 
 function shuffle(array) {
