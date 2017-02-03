@@ -19,8 +19,8 @@ var update_sound = new Audio('audio/update_sound.mp3');
 var preferences = {
     'entertainment': true,
     'gaming': true,
-    'life': true,
-    'technology': true,
+    'people': true,
+    'sports': true,
     'news': true,
     'misc': true
 };
@@ -83,7 +83,8 @@ $(document).ready(function() {
     });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
-        $('#spinner').show();
+        var spinner=$('#spinner');
+        spinner.show();
         if (first_load === true){
             master_list = snapshot.val();
             createVisualization(master_list);
@@ -103,7 +104,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-                    $('#spinner').hide();
+                    spinner.hide();
                 },1500);
             });
             first_load=false;
@@ -113,7 +114,7 @@ $(document).ready(function() {
             update_sound.play();
             Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
             updated_list = snapshot.val();
-            $('#spinner').hide();
+            spinner.hide();
         }
     });
     var body = $('body');
@@ -169,7 +170,7 @@ function conformDomElements(){
             currentSelector.attr('checked');
             smallSelector.attr('checked');
         }
-        // currentSelector.change();
+        currentSelector.change();
     }
 }
 
@@ -227,10 +228,6 @@ function applyNavClickHandler(fb_ref){
 function applySmallClickHandler(){
     $('#responsive_nav input:checkbox').change(function(){
         $("#"+ this.name).trigger("click");
-        // if(this.checked && $('#'+this.name+':checked').length == 0)
-        //     $('#'+this.name).attr('checked');
-        // else if(!this.checked && $('#'+this.name+':checked').length == 1)
-        //     $('#'+this.name).removeAttr('checked');
     })
 }
 function handleUpdate(){
@@ -279,7 +276,7 @@ function populateArray(cycles, depth) {
     var output_array = [];
     var games_list = master_list['streams'][0]['streams'];
     var entertainment_list = master_list['streams'][1]['streams'];
-    var life_list = master_list['streams'][2]['streams'];
+    var people_list = master_list['streams'][2]['streams'];
     var current_list = master_list['streams'][3]['streams'];
     var tech_list = master_list['streams'][4]['streams'];
     var misc_list = master_list['streams'][5]['streams'];
@@ -288,7 +285,7 @@ function populateArray(cycles, depth) {
         var array = [];
         array.push(games_list[i]);
         array.push(entertainment_list[i]);
-        array.push(life_list[i]);
+        array.push(people_list[i]);
         array.push(current_list[i]);
         array.push(tech_list[i]);
         array.push(misc_list[i]);
