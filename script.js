@@ -46,6 +46,7 @@ $(document).ready(function() {
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
+            console.log(user);
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
@@ -63,7 +64,9 @@ $(document).ready(function() {
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
                 sign_in_show_element();
-                $(".profile-pic").attr("src", user.photoURL);
+                if(user.photoURL !== null){
+                    $(".profile-pic").attr("src", user.photoURL);
+                }
             })
         } else {
             sign_out_element();

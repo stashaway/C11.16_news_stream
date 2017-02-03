@@ -534,7 +534,7 @@ p.welcome_text.valign {
 }
 
 img.circle.profile-pic {
-    width:60px;
+    width:54px;
 }
 
 .firebaseui-container {
@@ -542,7 +542,8 @@ img.circle.profile-pic {
     right: 1%;
     top: 100%;
     position: absolute;
-    background:white;
+    background-color:darkslategrey;
+
 }
 
 #sign-out {
