@@ -23,6 +23,13 @@ var colors = {
     "misc":$('#misc:checked + span').css('background-color')
 };
 
+function sunburst_category_color(){
+    for(var i = 1; i<8; i++){
+       var category = sunburst_array[i].__data__.data.id;
+       console.log(category);
+    }
+}
+
 // Total size of all segments; we set this later, after loading the data.
 var totalSize = 0;
 
