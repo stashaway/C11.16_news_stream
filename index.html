@@ -14,9 +14,10 @@
     <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <script src="https://js.stripe.com/v2/"></script>
 
     <!-- Internal Script Files -->
-    <script src="tryisotope2.js"></script>
+    <!--<script src="tryisotope2.js"></script>-->
     <script src="script.js"></script>
     <script src="preview.js"></script>
 
@@ -33,10 +34,61 @@
 <header>
     <div class="navbar-fixed">
         <nav>
+            <!--show on medium and below-->
             <div class="nav-wrapper">
-                <div id="top_nav" class="top_nav">
-                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail below to preview. Click on a category above to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>
-                    </div>
+                <div class="fixed-action-btn horizontal click-to-toggle hide-on-large-only">
+                    <a class="btn-floating btn-large grey darken-3 cat_menu">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="top_nav" id="responsive_nav">
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="gaming" name="gaming" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-322-gamepad.png" height="19" width="27"/></span>
+                            </label>
+                            </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="entertainment" name="entertainment" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-330-soccer-ball.png" height="25" width="25"/></span>
+                            </label>
+                            </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="news" name="news" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-609-newspaper.png" height="22" width="25"/></span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="technology" name="technology" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-691-laptop.png" height="23" width="24"/></span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="life" name="life" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-500-family.png" height="22" width="35"/></span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="misc" name="misc" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-70-gift.png" height="25" width="24"/></span>
+                            </label>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--show on medium and above-->
+                <div id="top_nav" class="top_nav hide-on-med-and-down">
+                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail to preview. Click on a Category to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>
+                </div>
                     <div class="ck-button">
                         <label>
                             <input type="checkbox" id="gaming" name="gaming" checked><span>Games</span>
@@ -68,22 +120,22 @@
                         </label>
                     </div>
                 </div>
-                <!--<a href="#!" class="brand-logo">-->
+                <a href="#!" class="brand-logo">
                 <div class="logo_container">
                     <img class="logo" src="images/logo1.png"/>
                     <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
                     <p class="header_tagline">Stream until your streams come true</p>
                 </div>
-                <!--</a>-->
-                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
+                </a>
+                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped hide-on-med-and-down" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
+                <!--responsive button-->
+                <div id="update_div"><a id="update_btn_small" class="waves-effect waves-light btn tooltipped hide-on-med-and-up" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams"><i class="fa fa-exclamation" aria-hidden="true"></i></a></div>
                 <div class="right">
-                    <!--<div class="info_tooltip tooltipped" data-position="bottom" data-delay="50" data-tooltip="Welcome to Streamism.tv! Click on any thumbnail to preview. Click on a Category to decide what you want to see. Stream on!"><i class="small material-icons">info_outline</i>-->
-                    <!--</div>-->
                     <div class="login_status"></div>
                     <div id="firebaseui-auth-container"></div>
                     <button type="button" id="sign-out"><a class="waves-effect waves-light btn sign_out_button">Sign Out</i></a></button>
                     <div class="valign-wrapper col s5 pull-s7">
-                        <p class="welcome_text valign"></p>
+                        <p class="welcome_text valign hide-on-med-and-down"></p>
                         <img src="" alt="" class="circle profile-pic valign">
                     </div>
                 </div>
