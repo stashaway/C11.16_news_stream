@@ -27,7 +27,7 @@ function mainDisplayController(dbService) {
         var output_array = [];
         var games_list = ctrl.data['streams'][0]['streams'];
         var entertainment_list = ctrl.data['streams'][1]['streams'];
-        var life_list = ctrl.data['streams'][2]['streams'];
+        var people_list = ctrl.data['streams'][2]['streams'];
         var current_list = ctrl.data['streams'][3]['streams'];
         var tech_list = ctrl.data['streams'][4]['streams'];
         var misc_list = ctrl.data['streams'][5]['streams'];
@@ -36,7 +36,7 @@ function mainDisplayController(dbService) {
             var array = [];
             array.push(games_list[i]);
             array.push(entertainment_list[i]);
-            array.push(life_list[i]);
+            array.push(people_list[i]);
             array.push(current_list[i]);
             array.push(tech_list[i]);
             array.push(misc_list[i]);

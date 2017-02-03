@@ -5,7 +5,7 @@
 var categories = [
     "gaming",
     "entertainment",
-    "life",
+    "people",
     "current",
     "learning",
     "other"
