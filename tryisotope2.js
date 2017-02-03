@@ -93,7 +93,7 @@ $(document).ready(function() {
             // alert('update received');
             $('#update_btn').show();
             $('#update_btn_small').show();
-            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded');
+            Materialize.toast('Updated streams available. Click on the button to update.', 4000, 'rounded');
             updated_list = snapshot.val();
             $('#spinner').hide();
         }

@@ -99,6 +99,11 @@ function checkImageSize(selector){
 }
 
 $(document).ready(function() {
+    $(".cat_menu").on("click",function(){
+        $(".logo_container").toggle();
+        $(".valign-wrapper").toggle();
+        $("#update_btn_small").hide();
+    });
     $('.collapsible').collapsible();
     $('#sign_out').click(signOut);
     $('#sign_out').hide();
