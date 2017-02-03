@@ -19,8 +19,8 @@ var update_sound = new Audio('audio/update_sound.mp3');
 var preferences = {
     'entertainment': true,
     'gaming': true,
-    'life': true,
-    'technology': true,
+    'people': true,
+    'sports': true,
     'news': true,
     'misc': true
 };
@@ -274,7 +274,7 @@ function populateArray(cycles, depth) {
     var output_array = [];
     var games_list = master_list['streams'][0]['streams'];
     var entertainment_list = master_list['streams'][1]['streams'];
-    var life_list = master_list['streams'][2]['streams'];
+    var people_list = master_list['streams'][2]['streams'];
     var current_list = master_list['streams'][3]['streams'];
     var tech_list = master_list['streams'][4]['streams'];
     var misc_list = master_list['streams'][5]['streams'];
@@ -283,7 +283,7 @@ function populateArray(cycles, depth) {
         var array = [];
         array.push(games_list[i]);
         array.push(entertainment_list[i]);
-        array.push(life_list[i]);
+        array.push(people_list[i]);
         array.push(current_list[i]);
         array.push(tech_list[i]);
         array.push(misc_list[i]);
