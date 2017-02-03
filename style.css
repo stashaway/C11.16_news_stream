@@ -304,6 +304,10 @@ img.logo {
     width: 135px;
 }
 
+.toasty {
+    background-color: #306b97;
+    color: white;
+ }
 #update_div {
     position: absolute;
     top: 50%;
@@ -375,13 +379,13 @@ div#main {
     #border:2px solid rgba(234, 93, 83, 1);
 }
 
-.gaming::before {
+.gaming::after {
     opacity: .2;
     background-color: rgba(234, 93, 83, 1);
     position: absolute;
     top: 0;
     left: 0;
-    height: 95%;
+    height: 100%;
     width: 100%;
     content: " ";
 }
@@ -399,7 +403,7 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 95%;
+    height: 100%;
     width: 100%;
     content: " ";
 }
@@ -417,7 +421,7 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 95%;
+    height: 100%;
     width: 100%;
     content: " ";
 }
@@ -435,7 +439,7 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 95%;
+    height: 100%;
     width: 100%;
     content: " ";
 }
@@ -453,7 +457,7 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 95%;
+    height: 100%;
     width: 100%;
     content: " ";
 }
@@ -471,7 +475,7 @@ div#main {
     position: absolute;
     top: 0;
     left: 0;
-    height: 95%;
+    height: 100%;
     width: 100%;
     content: " ";
 }
@@ -618,13 +622,13 @@ p.channel_title {
 .fixed .view_count {
     font-size: 1em;
     left: 1%;
-    bottom: 6%;
+    bottom: 8%;
 }
 
 .medium .view_count {
     font-size: .9em;
     left: 1%;
-    bottom: 11%;
+    bottom: 13%;
 }
 
 .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{

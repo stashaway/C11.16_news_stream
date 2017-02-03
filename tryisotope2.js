@@ -6,6 +6,7 @@ var $grid;
 var $gridFixed;
 var clicked = false;
 var main_array = [];
+var update_sound = new Audio('audio/update_sound.mp3');
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -92,7 +93,8 @@ $(document).ready(function() {
         } else {
             // alert('update received');
             $('#update_btn').show();
-            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded');
+            update_sound.play();
+            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
             updated_list = snapshot.val();
             $('#spinner').hide();
         }
