@@ -150,6 +150,7 @@ function sign_out_element(){
 }
 
 function conformDomElements(){
+    debugger;
     for(var category in preferences){
         var currentSelector = $("#" + category);
         if(preferences[category] == false){
@@ -197,9 +198,9 @@ function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = this.checked;
         if (preferences[this.name]===true) {
-            $('.'+this.name+':not(.grid-item--large').removeClass('hidden');
+            $('.medium .'+this.name).removeClass('hidden');
         } else {
-            $('.'+this.name+':not(.grid-item--large').addClass('hidden');
+            $('.medium .'+this.name).addClass('hidden');
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
         if(uid){
