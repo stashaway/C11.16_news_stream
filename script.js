@@ -153,12 +153,15 @@ function conformDomElements(){
     debugger;
     for(var category in preferences){
         var currentSelector = $("#" + category);
+        var smallSelector = $("#" + category + "_sm");
         if(preferences[category] == false){
             currentSelector.removeAttr('checked');
+            smallSelector.removeAttr('checked');
         } else{
             currentSelector.attr('checked');
+            smallSelector.attr('checked');
         }
-        currentSelector.change();
+        // currentSelector.change();
     }
 }
 
@@ -206,9 +209,22 @@ function applyNavClickHandler(fb_ref){
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
+        if(this.checked)
+            $('#' + this.name + '_sm').attr('checked');
+        else if (!this.checked)
+            $('#' + this.name + '_sm').removeAttr('checked');
     });
+    applySmallClickHandler();
 }
-
+function applySmallClickHandler(){
+    $('#responsive_nav input:checkbox').change(function(){
+        $("#"+ this.name).trigger("click");
+        // if(this.checked && $('#'+this.name+':checked').length == 0)
+        //     $('#'+this.name).attr('checked');
+        // else if(!this.checked && $('#'+this.name+':checked').length == 1)
+        //     $('#'+this.name).removeAttr('checked');
+    })
+}
 function handleUpdate(){
     console.log('update handler called');
     $('#spinner').show();

@@ -23,7 +23,7 @@ label {
 }
 .ck-button {
     height: 43px;
-    margin: 11px 3px 5px 3px;
+    margin-top: 2%;
     background-color: #EFEFEF;
     border-radius: 4px;
     border: 1px solid #D0D0D0;
@@ -54,27 +54,27 @@ label {
     float:left
 }
 
-#gaming:checked + span {
+#gaming:checked + span,#gaming_sm:checked + span  {
     background-color: rgba(234, 93, 83, 1);
     color:#fff;
 }
-#news:checked + span {
+#news:checked + span, #news_sm:checked + span {
     background-color:#158065;
     color:#fff;
 }
-#entertainment:checked + span {
+#entertainment:checked + span, #entertainment_sm:checked + span {
     background-color:rgba(14, 87, 195, 0.92);
     color:#fff;
 }
-#misc:checked + span {
+ #misc:checked + span, #misc_sm:checked + span{
     background-color:rgba(245, 196, 76, 1);
     color:#fff;
 }
-#life:checked + span {
+#life:checked + span, #life_sm:checked + span {
     background-color: rgba(40, 180, 197,1);
     color:#fff;
 }
-#technology:checked + span {
+#technology:checked + span, #technology_sm:checked + span {
     background-color: #7e578f;
     color:#fff;
 }
@@ -134,7 +134,7 @@ p.header_tagline{
 
 #top_nav{
     margin-left: 3%;
-    width: 30%;
+    width: 40%;
     /* height: 60px; */
     /* display: inline-block; */
     /* left: 0px; */
@@ -531,7 +531,7 @@ p.welcome_text.valign {
 }
 
 img.circle.profile-pic {
-    width:8%;
+    width:60px;
 }
 
 .firebaseui-container {
@@ -563,8 +563,7 @@ i.small.material-icons {
 }
 
 div.valign-wrapper {
-    position: relative;
-    left: 60%;
+    justify-content: flex-end;
 }
 .modal-content{
     background-color:black;
@@ -699,12 +698,10 @@ a.btn-floating.btn-large{
     height: 2vh;
     width: 4vw;
 }
-@media screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2){
+@media screen and (max-width: 1024px) and (max-height: 1366px) and (-webkit-device-pixel-ratio: 2){
     img.circle.profile-pic{
-        position: relative;
-        width: 12%;
-        left: 23%;
-        margin-top: 1.5%;
+        width:50px;
+        margin-top:5px;
     }
     h2.header_logo{
         font-size: 7vw;
