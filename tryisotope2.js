@@ -111,7 +111,6 @@ $(document).ready(function() {
         });
     });
     body.on("click",".profile-pic",function() {
-        console.log("Im being called");
         $("#sign-out").toggle();
     });
 
@@ -139,8 +138,10 @@ function sign_out_element(){
 function conformDomElements(){
     for(var category in preferences){
         var currentSelector = $("#" + category);
+        var smallCurrent = $("#" + category + "_sm");
         if(preferences[category] == false){
             currentSelector.removeAttr('checked');
+            smallCurrent = $("#" + category + "_sm");
         } else{
             currentSelector.attr('checked');
         }
