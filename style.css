@@ -134,7 +134,7 @@ p.header_tagline{
 }
 
 #top_nav{
-    margin-left: 3%;
+    left:2%;
     width: 40%;
     /* height: 60px; */
     /* display: inline-block; */
@@ -536,15 +536,16 @@ p.welcome_text.valign {
 
 img.circle.profile-pic {
     cursor: pointer;
-    width:85px;
+    width:60px;
 }
 
 .firebaseui-container {
+    font-family: 'Quicksand', sans-serif;
     width: 235px;
     right: 1%;
     top: 100%;
     position: absolute;
-    background-color:darkslategrey;
+    background-color: rgba(62, 75, 79, 0.93);
 
 }
 
@@ -707,7 +708,7 @@ a.btn-floating.btn-large{
 @media screen and (max-width: 1024px){
     img.circle.profile-pic {
         margin: 4px 12px;
-        width: 8vw;
+        width: 16vw;
     }
     h2.header_logo{
         font-size: 7vw;
