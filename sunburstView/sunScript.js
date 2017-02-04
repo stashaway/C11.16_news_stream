@@ -17,16 +17,19 @@ var b = {
 var colors = {
     "gaming": $('#gaming:checked + span').css('background-color'),
     "entertainment": $('#entertainment:checked + span').css('background-color'),
-    "life":$('#life:checked + span').css('background-color'),
+    "people":$('#people:checked + span').css('background-color'),
     "news":$('#news:checked + span').css('background-color'),
-    "technology":$('#technology:checked + span').css('background-color'),
+    "sports":$('#sports:checked + span').css('background-color'),
     "misc":$('#misc:checked + span').css('background-color')
 };
 
 function sunburst_category_color(){
     for(var i = 1; i<7; i++){
        var category = sunburst_array[i].__data__.data.id;
-       var category_color = colors.category;
+       if(category === 'gaming'){
+           $('path').css(colors.gaming);
+       }
+
 
        console.log(category);
     }
@@ -52,22 +55,17 @@ var arc = d3.arc()
     .outerRadius(function(d) { return Math.sqrt(d.y1); });
 
 
+// Bounding circle underneath the sunburst, to make it easier to detect
+// when the mouse leaves the parent g.
+vis.append("svg:circle")
+    .attr("r", radius)
+    .style("opacity", 0);
 
 // Main function to draw and set up the visualization, once we have the data.
 
 function createVisualization(json) {
     var stringified = JSON.stringify(json).replace(/streams/g, 'children');
     json = JSON.parse(stringified);
-    // Basic setup of page elements.
-    initializeBreadcrumbTrail();
-    drawLegend();
-    d3.select("#togglelegend").on("click", toggleLegend);
-
-    // Bounding circle underneath the sunburst, to make it easier to detect
-    // when the mouse leaves the parent g.
-    vis.append("svg:circle")
-        .attr("r", radius)
-        .style("opacity", 0);
 
     // Turn the data into a d3 hierarchy and calculate the sums.
     var root = d3.hierarchy(json)
@@ -81,14 +79,22 @@ function createVisualization(json) {
         });
     var index_count = -1;
     var path = vis.data([json]).selectAll("path")
-        .data(nodes)
-
-        .enter().append("svg:path")
+        .data(nodes);
+    path.exit().remove();
+        var pathway = path.enter().append("svg:path")
+            .merge(path)
         .attr("display", function(d) {sunburst_array.push(this); return d.depth ? null : "none"; })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
         .attr('data-index', function() {index_count += 1; return index_count})
-        .style("fill", function(d) { return colors[d.data.category] || !(d.parent) ? colors[d.data.category] : colors[d.parent.data.category]; })
+        .style("fill", function(d) {
+            var color = colors[d.data.category] || !(d.parent) ? colors[d.data.category] : colors[d.parent.data.category]
+            console.log('Fill output:', color);
+            console.log('Colors object:', colors);
+            console.log('Category:', d.data.category);
+            console.log('Parent:', d.parent);
+            return color;
+        })
         .style("opacity", 1)
         .on("mouseover", mouseover)
         .on('click',
@@ -96,15 +102,25 @@ function createVisualization(json) {
         );
         // var path_index = $("");
      // $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
-
+        path.exit().remove();
 
     // Add the mouseleave handler to the bounding circle.
     d3.select("#container").on("mouseleave", mouseleave);
 
     // Get total size of the tree = value of root node from partition.
-    totalSize = path.node().__data__.value;
+    totalSize = pathway.node().__data__.value;
     sunburst_category_color();
 }
+
+function update_graph(data){
+    var path = g.selectAll('path').data(data);
+
+
+
+
+
+};
+
 function sun_video(d, i){
 
     console.log('click handled', i);

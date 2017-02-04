@@ -237,6 +237,7 @@ function handleUpdate(){
     master_list = updated_list;
     $('.panel *').remove();
     buildThumbnails(master_list);
+    createVisualization(master_list);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
             $grid.isotope({
