@@ -222,7 +222,9 @@ function applyNavClickHandler(fb_ref){
             $('#' + this.name + '_sm').attr('checked');
         else if (!this.checked)
             $('#' + this.name + '_sm').removeAttr('checked');
+        createVisualization(master_list);
     });
+
     applySmallClickHandler();
 }
 function applySmallClickHandler(){

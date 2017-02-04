@@ -24,7 +24,7 @@ var colors = {
 };
 
 function sunburst_category_color(){
-    for(var i = 1; i<7; i++){
+    for(var i =0 ; i < sunburst_array.length; i++){
        var category = sunburst_array[i].__data__.data.id;
        if(category === 'gaming'){
            $('path').css(colors.gaming);
@@ -64,21 +64,36 @@ vis.append("svg:circle")
 // Main function to draw and set up the visualization, once we have the data.
 
 function createVisualization(json) {
-    var stringified = JSON.stringify(json).replace(/streams/g, 'children');
-    json = JSON.parse(stringified);
+    var local_array = $.extend(true, {}, json);
+    debugger;
+    for(var i = 0; i<local_array.streams.length;){
+        var obj = local_array.streams[i];
+        if(preferences[obj.id]){
+            i++
+        }else{
+            local_array.streams.splice(i,1);
+        }
+    }
+
+    var stringified = JSON.stringify(local_array).replace(/streams/g, 'children');
+    local_array = JSON.parse(stringified);
 
     // Turn the data into a d3 hierarchy and calculate the sums.
-    var root = d3.hierarchy(json)
+    var root = d3.hierarchy(local_array)
         .sum(function(d) {console.log(d); return d.viewers; })
         .sort(function(a, b) { return b.value - a.value; });
 
     // For efficiency, filter nodes to keep only those large enough to see.
     var nodes = partition(root).descendants()
         .filter(function(d) {
-            return (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
+            var sunFilter = true;
+            if(d.data.hasOwnProperty('category')){
+                sunFilter = preferences[d.data.category];
+            }
+            return sunFilter && (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
         });
     var index_count = -1;
-    var path = vis.data([json]).selectAll("path")
+    var path = vis.data([local_array]).selectAll("path")
         .data(nodes);
     path.exit().remove();
         var pathway = path.enter().append("svg:path")
