@@ -16,18 +16,34 @@
         body.on('click','.grid-item-f',(function(){
             updatePreview(this);
         }));
-
+        $("#add_watch").on('click',function(){
+            getFavorite(this);
+        });
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
     });
-
+    function getFavorite(parent){
+        console.log("This is:" , parent);
+        // var index = $(parent).attr('data-index');
+        // var item = main_array[index];
+        // var channel = item.channel;
+        // addToWatch(channel)
+    }
     function updatePreview(parent){
         var index = $(parent).attr('data-index');
         var item = main_array[index];
+        console.log("Channel" ,item);
         embedPreview.play(item);
     }
-
+    function addToWatch(channel){
+        this.watchList = [];
+        if(user){
+            console.log("We have a user");
+        }
+          this.watchList.push(channel)
+        }
+    ;
     //TODO: account for window resizing
     function updateFullScreen() {
         if (embedPreview.expanded) {
@@ -60,6 +76,7 @@
         this.expandedBtnGutter = 40;
         this.expanded = false;
         this.mobile = false;
+        this.addWatch = $("#add_watch");
     }
 
     Preview.prototype.init = function () {
@@ -70,7 +87,6 @@
         this.preview.on('click','#close_preview',this.stop.bind(this));
         this.preview.on('click','#open_full',this.expand.bind(this));
         this.preview.on('click','#close_full',this.contract.bind(this));
-
         //Create iframes - used until preview is close
         this.iframeChatElement = $("<iframe>",
             {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:"about:blank"})

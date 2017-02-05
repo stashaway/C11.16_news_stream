@@ -223,10 +223,6 @@ function applyNavClickHandler(fb_ref){
 function applySmallClickHandler(){
     $('#responsive_nav input:checkbox').change(function(){
         $("#"+ this.name).trigger("click");
-        // if(this.checked && $('#'+this.name+':checked').length == 0)
-        //     $('#'+this.name).attr('checked');
-        // else if(!this.checked && $('#'+this.name+':checked').length == 1)
-        //     $('#'+this.name).removeAttr('checked');
     })
 }
 function handleUpdate(){
@@ -266,7 +262,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
