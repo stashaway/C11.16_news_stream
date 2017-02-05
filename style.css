@@ -50,6 +50,10 @@ label {
     position:absolute;
     top:-20px;
 }
+
+#share_btn{
+    left: 90%;
+}
 .toggle_cat{
     float:left
 }
