@@ -47,20 +47,17 @@ body {
 .viewport {
     position: absolute;
     top: 9.3%;
-    left: 24%;
-    width: 50%;
-    height: 100%;
+    left: 26%;
+    width: 48%;
+    height: 81.2%;
     z-index: -2;
 }
 
 #thumbnail{
 
-    position: absolute;
-    top: 0%;
-    left: 3%;
-    height: 81%;
-    width: 98%;
-    border-radius: 50%
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
 
 }
 

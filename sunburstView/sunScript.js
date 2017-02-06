@@ -65,7 +65,6 @@ vis.append("svg:circle")
 
 function createVisualization(json) {
     var local_array = $.extend(true, {}, json);
-    debugger;
     for(var i = 0; i<local_array.streams.length;){
         var obj = local_array.streams[i];
         if(preferences[obj.id]){
