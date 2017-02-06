@@ -30,7 +30,7 @@ var preferences = {
 
 $(document).ready(function() {
     $('#sunburst_sequence_container').hide();
-    $('#change_view').click(change_view);
+    $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
@@ -169,7 +169,7 @@ $(document).ready(function() {
 function change_view(){
     $('#main').toggle();
     $('#sunburst_sequence_container').toggle();
-
+    conformDomElements();
 }
 
 
