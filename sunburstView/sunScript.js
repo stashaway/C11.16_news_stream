@@ -31,7 +31,7 @@ function sunburst_category_color(){
        }
 
 
-       console.log(category);
+       // console.log(category);
     }
 }
 
@@ -79,7 +79,7 @@ function createVisualization(json) {
 
     // Turn the data into a d3 hierarchy and calculate the sums.
     var root = d3.hierarchy(local_array)
-        .sum(function(d) {console.log(d); return d.viewers; })
+        .sum(function(d) {return d.viewers; })
         .sort(function(a, b) { return b.value - a.value; });
 
     // For efficiency, filter nodes to keep only those large enough to see.
@@ -103,10 +103,10 @@ function createVisualization(json) {
         .attr('data-index', function() {index_count += 1; return index_count})
         .style("fill", function(d) {
             var color = colors[d.data.category] || !(d.parent) ? colors[d.data.category] : colors[d.parent.data.category]
-            console.log('Fill output:', color);
-            console.log('Colors object:', colors);
-            console.log('Category:', d.data.category);
-            console.log('Parent:', d.parent);
+            // console.log('Fill output:', color);
+            // console.log('Colors object:', colors);
+            // console.log('Category:', d.data.category);
+            // console.log('Parent:', d.parent);
             return color;
         })
         .style("opacity", 1)
@@ -137,7 +137,7 @@ function update_graph(data){
 
 function sun_video(d, i){
 
-    console.log('click handled', i);
+    // console.log('click handled', i);
     // $('#viewport').toggleClass('bigport');
     // $('#viewport').toggleClass('viewport');
     var index = parseInt($(this).attr('data-index'));
