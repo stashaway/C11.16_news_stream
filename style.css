@@ -51,6 +51,10 @@ label {
     position:absolute;
     top:-20px;
 }
+
+#share_btn{
+    left: 90%;
+}
 .toggle_cat{
     float:left
 }
@@ -617,6 +621,9 @@ p.channel_title {
     border-right: 4px solid #fff;
     font-weight: 400
 }
+.medium, .fixed {
+    cursor: pointer;
+}
 .medium p.video_title{
     right: 10%;
     top: 6%;
@@ -650,10 +657,12 @@ p.channel_title {
 
 .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
     display: block;
+    visibility: visible;
 }
 
 .hover_effect {
     display: none;
+    visibility: hidden;
     position: absolute;
     top: 0;
     left: 0;
@@ -728,4 +737,30 @@ a.btn-floating.btn-large{
     #update_div{
         right:83%;
     }
+    .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
+        display: none;
+        visibility: hidden;
+    }
+/*********************Changed isotope classes--------------------*/
+    .grid-sizer-f,
+    .grid-item-f {
+        float: left;
+        width: 50%;
+    }
+
+    .grid-sizer,
+    .grid-item {
+        float: left;
+        width: 33.33%;
+    }
+
+    .grid-item-f--large{
+        width: 50%;
+    }
+
+    .grid-item--medium {
+        width: 33.33%;
+    }
+
+/*********End isotope classes********************/
 }

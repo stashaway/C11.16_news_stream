@@ -22,11 +22,37 @@
         });
     });
 
-    function updatePreview(parent){
-        var index = $(parent).attr('data-index');
-        var item = main_array[index];
-        embedPreview.play(item);
+    function createShareableLink(){
+        var current_id = this.data.id;
+        var sharable_link = 'https://www.streamism.tv?shared='+current_id;
+        if (window.clipboardData && window.clipboardData.setData) {
+            // IE specific code path to prevent textarea being shown while dialog is visible.
+            return clipboardData.setData("Text", current_id);
+
+        } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+            var textarea = document.createElement("textarea");
+            textarea.textContent = sharable_link;
+            textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                Materialize.toast('Link copied to your clipboard. Share it with your friends!',4000, 'rounded toasty');
+                return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+            } catch (ex) {
+                console.warn("Copy to clipboard failed.", ex);
+                return false;
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
     }
+
+
+    function updatePreview(parent){
+            var index = $(parent).attr('data-index');
+            var item = main_array[index];
+            embedPreview.play(item);
+        }
 
     //TODO: account for window resizing
     function updateFullScreen() {
@@ -50,6 +76,7 @@
         this.expandBtn = $("#open_full");
         this.contractBtn = $("#close_full");
         this.closeBtn = $("#close_preview");
+        this.shareBtn = $('#share_btn');
         this.iframeVideoElement = null;
         this.iframeChatElement = null;
         this.videoSrc = "";
@@ -70,6 +97,7 @@
         this.preview.on('click','#close_preview',this.stop.bind(this));
         this.preview.on('click','#open_full',this.expand.bind(this));
         this.preview.on('click','#close_full',this.contract.bind(this));
+        this.preview.on('click','#share_btn',createShareableLink.bind(this));
 
         //Create iframes - used until preview is close
         this.iframeChatElement = $("<iframe>",
@@ -200,6 +228,7 @@
         if (!this.mobile) {
             this.preview.css({width: this.defaultWidth, height: this.defaultHeight});
             this.expandBtn.show().css({transform: "translate(-50%,50%"});
+            this.shareBtn.show();
             this.contractBtn.hide();
             this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
         }
