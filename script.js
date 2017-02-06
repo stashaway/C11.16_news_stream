@@ -17,6 +17,8 @@ var $gridFixed;
 var clicked = false;
 var main_array = [];
 var update_sound = new Audio('audio/update_sound.mp3');
+var shared_sound = new Audio('audio/shared.mp3');
+var urlGetVideo = null;
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -116,6 +118,19 @@ $(document).ready(function() {
                 },1500);
             });
             first_load=false;
+            if (urlGetVideo) {
+                // queue up the requested video
+                console.log('Received get query string, id is - ',urlGetVideo,main_array);
+                for (var i=0; i<main_array.length; i++){
+                    if (urlGetVideo == main_array[i].id) {
+                        console.log('Found it!. Playing video', main_array[i]);
+                        Materialize.toast('Welcome! Playing shared video.', 4000, 'rounded toasty');
+                        shared_sound.play();
+                        embedPreview.play(main_array[i]);
+
+                    }
+                }
+            }
         } else {
             $('#update_btn').show();
             $('#update_btn_small').show();
@@ -130,20 +145,37 @@ $(document).ready(function() {
         $("#firebaseui-auth-container").toggle();
     });
     body.on("click", "#sign-out", function(){
-        console.log("log out");
         firebase.auth().signOut().then(function() {
             uid = null;
         });
     });
     body.on("click",".profile-pic",function() {
-        console.log("Im being called");
         $("#sign-out").toggle();
     });
 
     applyNavClickHandler(fb_ref);
     $('#update_btn').click(handleUpdate).toggle();
     $('#update_btn_small').click(handleUpdate).toggle();
+    urlGetVideo = getUrlVars()['shared'];
+    console.log('result of urlgetvideo = '+ urlGetVideo);
+    // urlGetVideo = '2l7K60jU8S8';
+
 });
+
+function getUrlVars(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+
+
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
