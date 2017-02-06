@@ -32,11 +32,11 @@ body {
     fill: #fff;
 }
 
-/*#chart {*/
-    /*position: absolute;*/
-    /*top: 10%;*/
-    /*left: 20%;*/
-/*}*/
+#chart {
+    position: absolute;
+    top: 15%;
+    left: 0%;
+}
 
 
 
@@ -46,29 +46,21 @@ body {
 
 .viewport {
     position: absolute;
-    top: 24.5%;
-    left: 26.9%;
-    width: 51.5%;
-    height: 98.5%;
+    top: 9.3%;
+    left: 24%;
+    width: 50%;
+    height: 100%;
     z-index: -2;
-    overflow: hidden;
-    border-radius: 50%;
-}
-.bigport{
-    height: 90vh;
-    width: 88vw;
-    position: absolute;
-    top: 13%;
-    left: 9%;
-    transition: height 2s, width 2s;
 }
 
 #thumbnail{
-    /*position: absolute;*/
-    /*top: 10%;*/
-    /*left: 20%;*/
-    height: 100%;
-    width: 100%;
+
+    position: absolute;
+    top: 0%;
+    left: 3%;
+    height: 81%;
+    width: 98%;
+    border-radius: 50%
 
 }
 
