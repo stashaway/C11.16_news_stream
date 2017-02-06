@@ -11,6 +11,7 @@ var updated_list = null;
 var first_load = true;
 var master_list = null;
 var uid = null;
+var fb_ref;
 var $grid;
 var $gridFixed;
 var clicked = false;
@@ -45,11 +46,12 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
-    var fb_ref = firebase.database();
+    fb_ref = firebase.database();
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
+            console.log(user);
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
@@ -64,10 +66,20 @@ $(document).ready(function() {
                     conformDomElements();
                 }
             });
+            fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
+                userWatchList = snapshot.val();
+                // for(var key in watchList) {
+                //     userWatchList.push(watchList[key]);
+                // }
+            });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
                 sign_in_show_element();
-                $(".profile-pic").attr("src", user.photoURL);
+                if(user.photoURL !== null){
+                    $(".profile-pic").attr("src", user.photoURL);
+                }else{
+                    $(".profile-pic").attr("src", "images/defaultuser.png");
+                }
             })
         } else {
             sign_out_element();
@@ -85,8 +97,7 @@ $(document).ready(function() {
     });
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
-        var spinner=$('#spinner');
-        spinner.show();
+        $('#spinner').show();
         if (first_load === true){
             master_list = snapshot.val();
             createVisualization(master_list);
@@ -106,7 +117,7 @@ $(document).ready(function() {
                         stagger: 5,
                         percentPosition: true
                     });
-                    spinner.hide();
+                    $('#spinner').hide();
                 },1500);
             });
             first_load=false;
@@ -129,7 +140,7 @@ $(document).ready(function() {
             update_sound.play();
             Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
             updated_list = snapshot.val();
-            spinner.hide();
+            $('#spinner').hide();
         }
     });
     var body = $('body');
@@ -306,7 +317,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 
