@@ -29,6 +29,8 @@ var preferences = {
 };
 
 $(document).ready(function() {
+    $('#sunburst_sequence_container').hide();
+    $('#change_view').click(change_view);
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
@@ -98,6 +100,7 @@ $(document).ready(function() {
         $('#spinner').show();
         if (first_load === true){
             master_list = snapshot.val();
+            createVisualization(master_list);
             buildThumbnails(master_list);
 
             $grid = $('.grid').imagesLoaded().always( function() {
@@ -162,6 +165,14 @@ $(document).ready(function() {
 
 });
 
+
+function change_view(){
+    $('#main').toggle();
+    $('#sunburst_sequence_container').toggle();
+
+}
+
+
 function getUrlVars(){
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -173,6 +184,7 @@ function getUrlVars(){
     }
     return vars;
 }
+
 
 
 
@@ -256,7 +268,9 @@ function applyNavClickHandler(fb_ref){
             $('#' + this.name + '_sm').attr('checked');
         else if (!this.checked)
             $('#' + this.name + '_sm').removeAttr('checked');
+        createVisualization(master_list);
     });
+
     applySmallClickHandler();
 }
 function applySmallClickHandler(){
@@ -265,11 +279,13 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
+    createVisualization(master_list);
     console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
     buildThumbnails(master_list);
+    createVisualization(master_list);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
             $grid.isotope({

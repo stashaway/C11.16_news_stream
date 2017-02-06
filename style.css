@@ -80,6 +80,20 @@ label {
     background-color: #7e578f;
     color:#fff;
 }
+
+#change_view{
+    background-color: grey;
+    height: 4vh;
+    width: 8vw;
+    float: left;
+    text-align:center;
+    padding:0px 10px;
+    display:block;
+    height:100%;
+    line-height: 5vh;
+    padding-top: 5px;
+}
+
 #user_login{
     position: absolute;
     left: 75vw;
