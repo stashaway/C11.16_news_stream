@@ -11,6 +11,7 @@ var updated_list = null;
 var first_load = true;
 var master_list = null;
 var uid = null;
+var fb_ref;
 var $grid;
 var $gridFixed;
 var clicked = false;
@@ -41,7 +42,7 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
-    var fb_ref = firebase.database();
+    fb_ref = firebase.database();
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
@@ -60,6 +61,12 @@ $(document).ready(function() {
                     preferences = snap.categories;
                     conformDomElements();
                 }
+            });
+            fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
+                userWatchList = snapshot.val();
+                // for(var key in watchList) {
+                //     userWatchList.push(watchList[key]);
+                // }
             });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);

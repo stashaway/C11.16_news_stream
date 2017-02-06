@@ -3,7 +3,7 @@
  */
     var embedPreview = null;
     var timer = null;
-
+    var userWatchList = [];
     $(document).ready(function() {
         embedPreview = new Preview();
         embedPreview.init();
@@ -16,34 +16,64 @@
         body.on('click','.grid-item-f',(function(){
             updatePreview(this);
         }));
-        $("#add_watch").on('click',function(){
-            getFavorite(this);
+        $("#add_watch").on('click', function(){
+            getFavorite();
         });
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
+
+
     });
-    function getFavorite(parent){
-        console.log("This is:" , parent);
-        // var index = $(parent).attr('data-index');
-        // var item = main_array[index];
-        // var channel = item.channel;
-        // addToWatch(channel)
+    function getFavorite(){
+       var channel = embedPreview.data.channel;
+        if($('.add_watch_icon').text() == 'visibility_off') {
+            $('.add_watch_icon').text("visibility").css("background-color", "#ff9800");
+        } else {
+            $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
+        }
+        addToWatch(channel);
+    }
+    function checkWatchStatus(item) {
+        var foundItem = item.channel;
+        var foundKey = null;
+        if(uid !== null){
+            for (var key in userWatchList) {
+                if (userWatchList[key] == foundItem) {
+                    foundKey = foundItem
+                }
+            }
+            if(foundKey !== null){
+                $('.add_watch_icon').text("visibility").css("background-color", "#ff9800")
+            }else{
+                $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
+            }
+        }
+
     }
     function updatePreview(parent){
         var index = $(parent).attr('data-index');
         var item = main_array[index];
-        console.log("Channel" ,item);
+        checkWatchStatus(item);
         embedPreview.play(item);
     }
-    function addToWatch(channel){
-        this.watchList = [];
-        if(user){
-            console.log("We have a user");
+    function addToWatch(channel) {
+        if (uid !== null) {
+            var foundKey = null;
+            for(var key in userWatchList){
+               if(userWatchList[key] == channel){
+                   foundKey = key;
+               }
+            }
+            if(foundKey === null) {
+                fb_ref.ref("users/" + uid + "/watchList").push(channel);
+            }else{
+                fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
+            }
+        }else{
+            console.log("User is not logged in")
         }
-          this.watchList.push(channel)
-        }
-    ;
+    }
     //TODO: account for window resizing
     function updateFullScreen() {
         if (embedPreview.expanded) {
@@ -66,6 +96,7 @@
         this.expandBtn = $("#open_full");
         this.contractBtn = $("#close_full");
         this.closeBtn = $("#close_preview");
+        this.addWatch = $("#add_watch");
         this.iframeVideoElement = null;
         this.iframeChatElement = null;
         this.videoSrc = "";
@@ -104,14 +135,17 @@
         this.contractBtn.hide();
         this.expandBtn.hide();
         this.closeBtn.hide();
+        this.addWatch.hide();
         this.expanded = true;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
             this.closeBtn.css({transform:"none"});
+            this.addWatch.css({transform:"translateY(200%)"});
             this.contractBtn.show();
             this.closeBtn.show();
+            this.addWatch.show();
         });
     };
 
@@ -120,14 +154,17 @@
         this.contractBtn.hide();
         this.expandBtn.hide();
         this.closeBtn.hide();
+        this.addWatch.hide();
         this.expanded = false;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
             this.closeBtn.css({transform:"translate(-50%,-50%)"});
+            this.addWatch.css({transform:"translate(-50%, 150%)"});
             this.expandBtn.show();
             this.closeBtn.show();
+            this.addWatch.show();
         });
     };
 
@@ -192,6 +229,7 @@
             this.contractBtn.hide();
             this.expandBtn.hide();
             this.closeBtn.css({transform:"none"});
+            this.addWatch.css({transform: "translateY(100%)"});
             this.mobile = true;
         } else {
             this.mobile = false;
@@ -218,5 +256,6 @@
             this.expandBtn.show().css({transform: "translate(-50%,50%"});
             this.contractBtn.hide();
             this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
+            this.addWatch.show().css({transform: "translate(-50%, 150%)"});
         }
     };
