@@ -734,4 +734,26 @@ a.btn-floating.btn-large{
         display: none;
         visibility: hidden;
     }
+/*********************Changed isotope classes--------------------*/
+    .grid-sizer-f,
+    .grid-item-f {
+        float: left;
+        width: 50%;
+    }
+
+    .grid-sizer,
+    .grid-item {
+        float: left;
+        width: 33.33%;
+    }
+
+    .grid-item-f--large{
+        width: 50%;
+    }
+
+    .grid-item--medium {
+        width: 33.33%;
+    }
+
+/*********End isotope classes********************/
 }
