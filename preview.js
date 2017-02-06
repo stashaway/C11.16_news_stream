@@ -3,7 +3,7 @@
  */
     var embedPreview = null;
     var timer = null;
-
+    var userWatchList = [];
     $(document).ready(function() {
         embedPreview = new Preview();
         embedPreview.init();
@@ -16,12 +16,67 @@
         body.on('click','.grid-item-f',(function(){
             updatePreview(this);
         }));
-
+        $("#add_watch").on('click', function(){
+            getFavorite();
+        });
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-    });
 
+
+    });
+    function getFavorite(){
+       var channel = embedPreview.data.channel;
+        if(uid !== null){
+            if($('.add_watch_icon').text() == 'visibility_off') {
+                $('.add_watch_icon').text("visibility").css("background-color", "#ff9800");
+            } else {
+                $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
+            }
+            addToWatch(channel);
+        }else{
+           alert("Please sign in")
+        }
+    }
+    function checkWatchStatus(item) {
+        var foundItem = item.channel;
+        var foundKey = null;
+        if(uid !== null){
+            for (var key in userWatchList) {
+                if (userWatchList[key] == foundItem) {
+                    foundKey = foundItem
+                }
+            }
+            if(foundKey !== null){
+                $('.add_watch_icon').text("visibility").css("background-color", "#ff9800")
+            }else{
+                $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
+            }
+        }
+    }
+    function updatePreview(parent){
+        var index = $(parent).attr('data-index');
+        var item = main_array[index];
+        checkWatchStatus(item);
+        embedPreview.play(item);
+    }
+    function addToWatch(channel) {
+        if (uid !== null) {
+            var foundKey = null;
+            for(var key in userWatchList){
+               if(userWatchList[key] == channel){
+                   foundKey = key;
+               }
+            }
+            if(foundKey === null) {
+                fb_ref.ref("users/" + uid + "/watchList").push(channel);
+            }else{
+                fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
+            }
+        }else{
+            console.log("User is not logged in");
+        }
+    }
     function createShareableLink(){
         var current_id = this.data.id;
         var sharable_link = 'https://www.streamism.tv?shared='+current_id;
@@ -46,14 +101,6 @@
             }
         }
     }
-
-
-    function updatePreview(parent){
-            var index = $(parent).attr('data-index');
-            var item = main_array[index];
-            embedPreview.play(item);
-        }
-
     //TODO: account for window resizing
     function updateFullScreen() {
         if (embedPreview.expanded) {
@@ -76,6 +123,7 @@
         this.expandBtn = $("#open_full");
         this.contractBtn = $("#close_full");
         this.closeBtn = $("#close_preview");
+        this.addWatch = $("#add_watch");
         this.shareBtn = $('#share_btn');
         this.iframeVideoElement = null;
         this.iframeChatElement = null;
@@ -87,6 +135,7 @@
         this.expandedBtnGutter = 40;
         this.expanded = false;
         this.mobile = false;
+        this.addWatch = $("#add_watch");
     }
 
     Preview.prototype.init = function () {
@@ -98,7 +147,6 @@
         this.preview.on('click','#open_full',this.expand.bind(this));
         this.preview.on('click','#close_full',this.contract.bind(this));
         this.preview.on('click','#share_btn',createShareableLink.bind(this));
-
         //Create iframes - used until preview is close
         this.iframeChatElement = $("<iframe>",
             {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:"about:blank"})
@@ -116,14 +164,17 @@
         this.contractBtn.hide();
         this.expandBtn.hide();
         this.closeBtn.hide();
+        this.addWatch.hide();
         this.expanded = true;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
             this.closeBtn.css({transform:"none"});
+            this.addWatch.css({transform:"translateY(200%)"});
             this.contractBtn.show();
             this.closeBtn.show();
+            this.addWatch.show();
         });
     };
 
@@ -132,14 +183,17 @@
         this.contractBtn.hide();
         this.expandBtn.hide();
         this.closeBtn.hide();
+        this.addWatch.hide();
         this.expanded = false;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
             this.closeBtn.css({transform:"translate(-50%,-50%)"});
+            this.addWatch.css({transform:"translate(-50%, 150%)"});
             this.expandBtn.show();
             this.closeBtn.show();
+            this.addWatch.show();
         });
     };
 
@@ -204,6 +258,7 @@
             this.contractBtn.hide();
             this.expandBtn.hide();
             this.closeBtn.css({transform:"none"});
+            this.addWatch.css({transform: "translateY(100%)"});
             this.mobile = true;
         } else {
             this.mobile = false;
@@ -231,5 +286,6 @@
             this.shareBtn.show();
             this.contractBtn.hide();
             this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
+            this.addWatch.show().css({transform: "translate(-50%, 150%)"});
         }
     };
