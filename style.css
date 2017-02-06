@@ -52,9 +52,6 @@ label {
     top:-20px;
 }
 
-#share_btn{
-    left: 90%;
-}
 .toggle_cat{
     float:left
 }
@@ -262,8 +259,15 @@ img.logo {
 }
 
 #close_full {
-    display:none;
-    transform: translateY(100%);
+    transform: translate(-50%,50%);
+}
+
+#add_watch {
+    transform: translate(-50%,150%);
+}
+
+#share_btn {
+    transform: translate(-50%,250%);
 }
 
 #close_preview:hover {

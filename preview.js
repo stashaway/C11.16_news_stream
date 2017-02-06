@@ -22,8 +22,6 @@
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-
-
     });
     function getFavorite(){
        var channel = embedPreview.data.channel;
@@ -101,7 +99,7 @@
             }
         }
     }
-    //TODO: account for window resizing
+
     function updateFullScreen() {
         if (embedPreview.expanded) {
             embedPreview.position(0);
@@ -135,7 +133,6 @@
         this.expandedBtnGutter = 40;
         this.expanded = false;
         this.mobile = false;
-        this.addWatch = $("#add_watch");
     }
 
     Preview.prototype.init = function () {
@@ -143,11 +140,13 @@
         this.defaultWidth = this.preview.width();
         this.defaultHeight = this.preview.height();
 
+        //setup button click handlers
         this.preview.on('click','#close_preview',this.stop.bind(this));
         this.preview.on('click','#open_full',this.expand.bind(this));
         this.preview.on('click','#close_full',this.contract.bind(this));
         this.preview.on('click','#share_btn',createShareableLink.bind(this));
-        //Create iframes - used until preview is close
+
+        //Create iframes
         this.iframeChatElement = $("<iframe>",
             {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:"about:blank"})
             .css({position: "absolute",display:"inline-block",left:"0",top:"0"});
@@ -161,39 +160,41 @@
 
     Preview.prototype.expand = function () {
         //get buttons and hide them
-        this.contractBtn.hide();
-        this.expandBtn.hide();
-        this.closeBtn.hide();
+        this.shareBtn.hide();
         this.addWatch.hide();
+        this.expandBtn.hide();
+        this.contractBtn.hide();
+        this.closeBtn.hide();
         this.expanded = true;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
-            this.closeBtn.css({transform:"none"});
-            this.addWatch.css({transform:"translateY(200%)"});
-            this.contractBtn.show();
-            this.closeBtn.show();
-            this.addWatch.show();
+            this.closeBtn.show().css({transform:"none"});
+            this.contractBtn.show().css({transform:"translateY(100%)"});
+            this.expandBtn.css({transform:"translateY(100%)"});
+            this.addWatch.show().css({transform:"translateY(200%)"});
+            this.shareBtn.show().css({transform:"translateY(300%)"});
         });
     };
 
     Preview.prototype.contract = function () {
         //get buttons and hide them
-        this.contractBtn.hide();
-        this.expandBtn.hide();
-        this.closeBtn.hide();
+        this.shareBtn.hide();
         this.addWatch.hide();
+        this.expandBtn.hide();
+        this.contractBtn.hide();
+        this.closeBtn.hide();
         this.expanded = false;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
-            this.closeBtn.css({transform:"translate(-50%,-50%)"});
-            this.addWatch.css({transform:"translate(-50%, 150%)"});
-            this.expandBtn.show();
-            this.closeBtn.show();
-            this.addWatch.show();
+            this.closeBtn.show().css({transform:"translate(-50%,-50%)"});
+            this.expandBtn.show().css({transform:"translate(-50%,50%)"});
+            this.contractBtn.css({transform:"translate(-50%,50%)"});
+            this.addWatch.show().css({transform:"translate(-50%, 150%)"});
+            this.shareBtn.show().css({transform:"translate(-50%, 250%)"});
         });
     };
 
@@ -282,10 +283,10 @@
         //reset divs and buttons
         if (!this.mobile) {
             this.preview.css({width: this.defaultWidth, height: this.defaultHeight});
-            this.expandBtn.show().css({transform: "translate(-50%,50%"});
-            this.shareBtn.show();
             this.contractBtn.hide();
+            this.expandBtn.show().css({transform: "translate(-50%,50%"});
             this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
             this.addWatch.show().css({transform: "translate(-50%, 150%)"});
+            this.shareBtn.show().css({transform:"translate(-50%, 250%)"});
         }
     };
