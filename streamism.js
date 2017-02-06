@@ -74,7 +74,7 @@ setInterval(function () {
         sYt.start(function (ytdata) {
             db.ref("-KbHuqtKNuu96svHRgjz").set(ytdata);
             //writeToFile("new.json",ytdata);
-            console.log("Set database");
+            //console.log("Set database");
         });
     });
     //console.log("Running...");
