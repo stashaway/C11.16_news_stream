@@ -46,8 +46,6 @@
             }
         }
     }
-
-
     function updatePreview(parent){
             var index = $(parent).attr('data-index');
             var item = main_array[index];

@@ -26,7 +26,6 @@ var preferences = {
     'news': true,
     'misc': true
 };
-
 $(document).ready(function() {
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
