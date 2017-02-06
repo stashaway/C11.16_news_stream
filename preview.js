@@ -27,12 +27,16 @@
     });
     function getFavorite(){
        var channel = embedPreview.data.channel;
-        if($('.add_watch_icon').text() == 'visibility_off') {
-            $('.add_watch_icon').text("visibility").css("background-color", "#ff9800");
-        } else {
-            $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
+        if(uid !== null){
+            if($('.add_watch_icon').text() == 'visibility_off') {
+                $('.add_watch_icon').text("visibility").css("background-color", "#ff9800");
+            } else {
+                $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
+            }
+            addToWatch(channel);
+        }else{
+           alert("Please sign in")
         }
-        addToWatch(channel);
     }
     function checkWatchStatus(item) {
         var foundItem = item.channel;
@@ -71,7 +75,7 @@
                 fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
             }
         }else{
-            console.log("User is not logged in")
+            console.log("User is not logged in");
         }
     }
     //TODO: account for window resizing
