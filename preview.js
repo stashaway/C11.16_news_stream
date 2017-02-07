@@ -39,7 +39,6 @@
             }
             addToWatch(channel);
         }else{
-            $("#add_watch").data("tooltip", "Please sign in to create channel watchlist");
            alert("Please sign in to add channel to watch list!")
         }
     }

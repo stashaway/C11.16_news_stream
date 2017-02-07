@@ -1,6 +1,6 @@
-body{
-    background-color: #5a5757;
-}
+/*body{*/
+    /*background-color: rgba(191,186,185,0.32);*/
+/*}*/
 
 header{
     font-family: 'Roboto', sans-serif;
@@ -404,7 +404,6 @@ div#main {
 
 .medium, .grid {
     width: 100%;
-    /*top: 100%;*/
     left: 0;
     display: block;
 }
@@ -756,7 +755,8 @@ a.btn-floating.btn-large{
         display: none;
         visibility: hidden;
     }
-/*********************Changed isotope classes--------------------*/
+
+/*********************Changed isotope classes***************/
     .grid-sizer-f,
     .grid-item-f {
         float: left;
@@ -777,5 +777,5 @@ a.btn-floating.btn-large{
         width: 33.33%;
     }
 
-/*********End isotope classes********************/
+/******************End isotope classes********************/
 }
