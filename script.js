@@ -254,6 +254,7 @@ function applyNavClickHandler(fb_ref){
             $('.medium .'+this.name).addClass('hidden');
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
+        $gridFixed.isotope ({ filter: '*'});
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
