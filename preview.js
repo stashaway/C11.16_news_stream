@@ -39,7 +39,7 @@
             }
             addToWatch(channel);
         }else{
-           alert("Please sign in to add channel to watch list!")
+            $("#add_watch").attr("href","#watch_modal");
         }
     }
     //updates preview to reflect if video is watched
