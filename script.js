@@ -11,12 +11,14 @@ var updated_list = null;
 var first_load = true;
 var master_list = null;
 var uid = null;
+var fb_ref;
 var $grid;
 var $gridFixed;
 var clicked = false;
 var main_array = [];
 var update_sound = new Audio('audio/update_sound.mp3');
 var shared_sound = new Audio('audio/shared.mp3');
+var update_ready = false;
 var urlGetVideo = null;
 var preferences = {
     'entertainment': true,
@@ -27,10 +29,16 @@ var preferences = {
     'misc': true
 };
 $(document).ready(function() {
+    $('#sunburst_sequence_container').hide();
+    $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
         $("#update_btn_small").hide();
+        // update button checker
+        if ($('.logo_container').css('display')!='none' && update_ready==true) {
+            $('#update_btn_small').show();
+        }
     });
     $('.collapsible').collapsible();
     first_load = true;
@@ -42,7 +50,7 @@ $(document).ready(function() {
         messagingSenderId: "582125369559"
     };
     firebase.initializeApp(config);
-    var fb_ref = firebase.database();
+    fb_ref = firebase.database();
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
@@ -61,6 +69,12 @@ $(document).ready(function() {
                     preferences = snap.categories;
                     conformDomElements();
                 }
+            });
+            fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
+                userWatchList = snapshot.val();
+                // for(var key in watchList) {
+                //     userWatchList.push(watchList[key]);
+                // }
             });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
@@ -90,16 +104,19 @@ $(document).ready(function() {
         $('#spinner').show();
         if (first_load === true){
             master_list = snapshot.val();
+            createVisualization(master_list);
             buildThumbnails(master_list);
 
             $grid = $('.grid').imagesLoaded().always( function() {
                 setTimeout(function(){
+                    console.log('setting up grid 1');
                     $grid.isotope({
                         itemSelector: '.grid-item',
                         masonry: { columnWidth: '.grid-sizer'},
                         stagger: 5,
                         percentPosition: true
                     });
+                    console.log('setting up grid 2');
                     $gridFixed = $('.grid-f').isotope({
                         itemSelector: '.grid-item-f',
                         masonry: { columnWidth: '.grid-sizer-f'},
@@ -107,16 +124,15 @@ $(document).ready(function() {
                         percentPosition: true
                     });
                     $('#spinner').hide();
+                    // applyNavClickHandler(fb_ref);
                 },1500);
+
             });
             first_load=false;
             if (urlGetVideo) {
-                // queue up the requested video
-                console.log('Received get query string, id is - ',urlGetVideo,main_array);
                 for (var i=0; i<main_array.length; i++){
-                    if (urlGetVideo == main_array[i].id) {
-                        console.log('Found it!. Playing video', main_array[i]);
-                        Materialize.toast('Welcome! Playing shared video.', 4000, 'rounded toasty');
+                    if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
+                        Materialize.toast("Welcome to Streamism.tv! Playing shared video.", 4000, "rounded toasty");
                         shared_sound.play();
                         embedPreview.play(main_array[i]);
 
@@ -127,8 +143,9 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
+            Materialize.toast("Updated streams available. Click Got Streams (!) to update.", 4000, "rounded toasty");
             updated_list = snapshot.val();
+            update_ready = true;
             $('#spinner').hide();
         }
     });
@@ -146,13 +163,16 @@ $(document).ready(function() {
     });
 
     applyNavClickHandler(fb_ref);
-    $('#update_btn').click(handleUpdate).toggle();
-    $('#update_btn_small').click(handleUpdate).toggle();
+    $('#update_btn').click(handleUpdate).hide();
+    $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
-    console.log('result of urlgetvideo = '+ urlGetVideo);
-    // urlGetVideo = '2l7K60jU8S8';
-
 });
+
+function change_view(){
+    $('#main').toggle();
+    $('#sunburst_sequence_container').toggle();
+    conformDomElements();
+}
 
 function getUrlVars(){
     var vars = [], hash;
@@ -165,9 +185,6 @@ function getUrlVars(){
     }
     return vars;
 }
-
-
-
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
@@ -235,37 +252,43 @@ function fullShuffle(snapshot) {
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = this.checked;
-        if (preferences[this.name]===true) {
-            $('.medium .'+this.name).removeClass('hidden');
+        if (preferences[this.name] === true) {
+            $('.medium .' + this.name).removeClass('hidden');
         } else {
-            $('.medium .'+this.name).addClass('hidden');
+            $('.medium .' + this.name).addClass('hidden');
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
+        if($gridFixed){
+            $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+        }
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
-        if(this.checked)
+        if(this.checked) {
             $('#' + this.name + '_sm').attr('checked');
-        else if (!this.checked)
+            $('#' + this.name).attr('checked');
+        }
+        else if (!this.checked) {
             $('#' + this.name + '_sm').removeAttr('checked');
+            $('#' + this.name).removeAttr('checked');
+        }
+        createVisualization(master_list);
     });
     applySmallClickHandler();
 }
 function applySmallClickHandler(){
     $('#responsive_nav input:checkbox').change(function(){
         $("#"+ this.name).trigger("click");
-        // if(this.checked && $('#'+this.name+':checked').length == 0)
-        //     $('#'+this.name).attr('checked');
-        // else if(!this.checked && $('#'+this.name+':checked').length == 1)
-        //     $('#'+this.name).removeAttr('checked');
     })
 }
 function handleUpdate(){
+    // createVisualization(master_list);
     console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
     buildThumbnails(master_list);
+    createVisualization(master_list);
     $grid = $('.grid').imagesLoaded().always( function() {
         setTimeout(function(){
             $grid.isotope({
@@ -284,8 +307,9 @@ function handleUpdate(){
         },1500);
     });
     conformDomElements();
-    $('#update_btn').toggle();
-    $('#update_btn_small').toggle();
+    $('#update_btn').hide();
+    $('#update_btn_small').hide();
+    update_ready = false;
 }
 
 function shuffle(array) {
@@ -297,7 +321,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 

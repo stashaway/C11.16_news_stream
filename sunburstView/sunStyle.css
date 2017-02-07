@@ -1,0 +1,79 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #333131;
+
+}
+#sunburst_sequence_container{
+    width: 100vw;
+    height: 100vh;
+    /*position: absolute;*/
+}
+
+#sidebar {
+    width: 100px;
+    position: absolute;
+    top: 70%;
+    left: 85%;
+}
+
+#sequence {
+    width: 600px;
+    height: 70px;
+}
+
+#legend {
+    padding: 10px 0 0 3px;
+}
+
+#sequence text, #legend text {
+    font-weight: 600;
+    fill: #fff;
+}
+
+#chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#chart path {
+    stroke: #fff;
+}
+
+.viewport {
+    position: absolute;
+    z-index: -2;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform:translate(-50%,-45%);
+}
+
+#thumbnail{
+
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+
+}
+
+#explanation {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    width: 37%;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: yellow;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    opacity: 0.8;
+}
+
+#percentage,#title {
+    font-size: 1.5em;
+}

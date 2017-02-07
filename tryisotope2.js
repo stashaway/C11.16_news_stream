@@ -70,6 +70,9 @@ $(document).ready(function() {
         $('#spinner').show();
         if (first_load === true){
             master_list = snapshot.val();
+
+            createVisualization(master_list);
+
             buildThumbnails(master_list);
 
             $grid = $('.grid').imagesLoaded().always( function() {
@@ -263,7 +266,6 @@ function populateArray(cycles, depth) {
     var current_list = master_list['streams'][3]['streams'];
     var tech_list = master_list['streams'][4]['streams'];
     var misc_list = master_list['streams'][5]['streams'];
-
     for (var i=depth; i<=cycles; i++) {
         var array = [];
         array.push(games_list[i]);
@@ -292,6 +294,7 @@ function buildThumbnails(){
     var new_channel;
     var hover_div;
     var view_count;
+
     var the_grid = $('<div>',{
         class: 'grid-f'
     });

@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "C11.16_news_stream",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
