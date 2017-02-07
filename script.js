@@ -125,7 +125,7 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            var toast_text = "Updated streams available.<br> Click Got Streams or ! to update.";
+            var toast_text = "Click <i class='fa fa-refresh' aria-hidden='true' style='padding:0 5px'></i> to update streams.";
             Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
@@ -265,8 +265,6 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
-    // createVisualization(master_list);
-    console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
