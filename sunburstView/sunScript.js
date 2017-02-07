@@ -2,9 +2,15 @@
  * Created by baultik on 1/18/17.
  */
 // Dimensions of sunburst.
-var width = document.body.clientWidth + 100;
-var height = document.body.clientHeight + 100;
+var width = document.body.clientWidth;
+var height = document.body.clientHeight-100-$("nav").height()-30;
 var radius = Math.min(width, height) / 2;
+$("#sunburst_sequence_container").height(height);
+$("#chart").css({"padding-top": $("nav").height() + 20 +"px"}).height(height);
+$("#viewport").width(radius*2).height(radius*2);
+
+
+
 var sunburst_array = [];
 
 // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
@@ -67,6 +73,12 @@ function createVisualization(json) {
     var local_array = $.extend(true, {}, json);
     for(var i = 0; i<local_array.streams.length;){
         var obj = local_array.streams[i];
+        //Filter to 50 max videos for each category
+        obj.streams = obj.streams.filter(function (val,index) {
+            return index < 50;
+        });
+        local_array.streams[i] = obj;
+
         if(preferences[obj.id]){
             i++
         }else{
@@ -102,7 +114,7 @@ function createVisualization(json) {
         .attr("fill-rule", "evenodd")
         .attr('data-index', function() {index_count += 1; return index_count})
         .style("fill", function(d) {
-            var color = colors[d.data.category] || !(d.parent) ? colors[d.data.category] : colors[d.parent.data.category]
+            var color = colors[d.data.id] || colors[d.data.category];
             // console.log('Fill output:', color);
             // console.log('Colors object:', colors);
             // console.log('Category:', d.data.category);
@@ -123,7 +135,7 @@ function createVisualization(json) {
 
     // Get total size of the tree = value of root node from partition.
     totalSize = pathway.node().__data__.value;
-    sunburst_category_color();
+    //sunburst_category_color();
 }
 
 function update_graph(data){
@@ -143,8 +155,8 @@ function sun_video(d, i){
     var index = parseInt($(this).attr('data-index'));
     var current_item_details = sunburst_array[index].__data__.data;
     // var current_preview_obj = determine_sunburst_info(this, sunburst_array);
-    console.log(current_item_details);
-    embedPreview.play(current_item_details);
+    //console.log(current_item_details);
+    if (current_item_details.hasOwnProperty("embedVideo"))embedPreview.play(current_item_details);
     // embedFullVideo.play(item,fullscreen,"left");
     // embedFullChat.play(item,fullscreen,"right");
     // fullscreen.show();
@@ -244,23 +256,23 @@ function determine_sunburst_info (item, array) {
 }
 // Fade all but the current sequence, and show it in the breadcrumb trail.
 function mouseover(d) {
-
     var percentage = (100 * d.value / totalSize).toPrecision(3);
     var percentageString = percentage + "%";
     if (percentage < 0.1) {
         percentageString = "< 0.1%";
     }
 
-    var v = d.data.viewers ? d.data.viewers + " viewers" : d.data.tviewers + " viewers";
-    d3.select("#percentage").text(percentageString+" "+v);
-    d3.select("#title").text(d.data.name);
+    var v = d.data.viewers ? d.data.viewers + " viewers" : percentageString;
+    //d3.select("#percentage").text(percentageString+" "+v);
+    d3.select("#percentage").text(v);
+    d3.select("#title").text(d.data.title || d.data.id);
     $('#thumbnail').attr('src', d.data.thumbnail).appendTo('#viewport');
     d3.select('#viewport').style("visibility", '');
     d3.select("#explanation").style("visibility", "");
 
     var sequenceArray = d.ancestors().reverse();
     sequenceArray.shift(); // remove root node from the array
-    updateBreadcrumbs(sequenceArray, percentageString);
+    //updateBreadcrumbs(sequenceArray, percentageString);
 
     // Fade all the segments.
     d3.selectAll("path")
@@ -293,9 +305,10 @@ function mouseleave(d) {
             d3.select(this).on("mouseover", mouseover);
         });
 
-    d3.select("#explanation")
+    d3.select("#viewport")
         .style("visibility", "hidden");
 }
+/*
 
 function initializeBreadcrumbTrail() {
     // Add the svg area.
@@ -452,6 +465,7 @@ function buildHierarchy(csv) {
     }
     return root;
 };
+*/
 
 // var player;
 // function onYouTubeIframeAPIReady() {
