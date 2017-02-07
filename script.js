@@ -161,17 +161,14 @@ $(document).ready(function() {
     $('#update_btn_small').click(handleUpdate).toggle();
     urlGetVideo = getUrlVars()['shared'];
     console.log('result of urlgetvideo = '+ urlGetVideo);
-    // urlGetVideo = '2l7K60jU8S8';
 
 });
-
 
 function change_view(){
     $('#main').toggle();
     $('#sunburst_sequence_container').toggle();
     conformDomElements();
 }
-
 
 function getUrlVars(){
     var vars = [], hash;
@@ -184,10 +181,6 @@ function getUrlVars(){
     }
     return vars;
 }
-
-
-
-
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();

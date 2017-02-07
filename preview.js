@@ -77,7 +77,7 @@
     }
     function createShareableLink(){
         var current_id = this.data.id;
-        var sharable_link = 'https://www.streamism.tv?shared='+current_id;
+        var sharable_link = 'http://www.streamism.tv?shared='+current_id;
         if (window.clipboardData && window.clipboardData.setData) {
             // IE specific code path to prevent textarea being shown while dialog is visible.
             return clipboardData.setData("Text", current_id);
