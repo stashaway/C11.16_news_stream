@@ -74,10 +74,10 @@ function createVisualization(json) {
     for(var i = 0; i<local_array.streams.length;){
         var obj = local_array.streams[i];
         //Filter to 50 max videos for each category
-        /*obj.streams = obj.streams.filter(function (val,index) {
+        obj.streams = obj.streams.filter(function (val,index) {
             return index < 50;
         });
-        local_array.streams[i] = obj;*/
+        local_array.streams[i] = obj;
 
         if(preferences[obj.id]){
             i++
@@ -156,7 +156,7 @@ function sun_video(d, i){
     var current_item_details = sunburst_array[index].__data__.data;
     // var current_preview_obj = determine_sunburst_info(this, sunburst_array);
     //console.log(current_item_details);
-    embedPreview.play(current_item_details);
+    if (current_item_details.hasOwnProperty("embedVideo"))embedPreview.play(current_item_details);
     // embedFullVideo.play(item,fullscreen,"left");
     // embedFullChat.play(item,fullscreen,"right");
     // fullscreen.show();
@@ -262,7 +262,7 @@ function mouseover(d) {
         percentageString = "< 0.1%";
     }
 
-    var v = d.data.viewers ? d.data.viewers + " viewers" : "";
+    var v = d.data.viewers ? d.data.viewers + " viewers" : percentageString;
     //d3.select("#percentage").text(percentageString+" "+v);
     d3.select("#percentage").text(v);
     d3.select("#title").text(d.data.title || d.data.id);
@@ -305,7 +305,7 @@ function mouseleave(d) {
             d3.select(this).on("mouseover", mouseover);
         });
 
-    d3.select("#explanation")
+    d3.select("#viewport")
         .style("visibility", "hidden");
 }
 /*
