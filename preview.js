@@ -117,7 +117,8 @@
         var video_channel = $(this).data("channel");
         for (var i = 0; i < main_array.length; i++) {
             if (main_array[i].channel == video_channel) {
-                embedPreview.play(main_array[i])
+                embedPreview.play(main_array[i]);
+                checkWatchStatus(main_array[i]);
             }
         }
     }
