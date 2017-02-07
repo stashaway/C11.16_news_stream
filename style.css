@@ -1,6 +1,7 @@
 /*body{*/
     /*background-color: rgba(191,186,185,0.32);*/
 /*}*/
+
 header{
     font-family: 'Roboto', sans-serif;
     text-align: center;
@@ -15,11 +16,20 @@ html {
 div label input {
     margin-right:100px;
 }
+
 label {
     -moz-user-select: -moz-none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: rgba(161, 205, 239, 0.63);
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #3f6480;;
 }
 .ck-button {
     height: 43px;
@@ -30,6 +40,10 @@ label {
     overflow: hidden;
     /*float: left;*/
     display: inline-block;
+}
+
+#refresh_btn{
+    line-height: 36px;
 }
 
 .ck-button label {
@@ -60,22 +74,27 @@ label {
     background-color: rgba(234, 93, 83, 1);
     color:#fff;
 }
+
 #news:checked + span, #news_sm:checked + span {
     background-color:#158065;
     color:#fff;
 }
+
 #entertainment:checked + span, #entertainment_sm:checked + span {
     background-color:rgba(14, 87, 195, 0.92);
     color:#fff;
 }
+
  #misc:checked + span, #misc_sm:checked + span{
     background-color:rgba(245, 196, 76, 1);
     color:#fff;
 }
+
 #people:checked + span, #people_sm:checked + span {
     background-color: rgba(40, 180, 197,1);
     color:#fff;
 }
+
 #sports:checked + span, #sports_sm:checked + span {
     background-color: #7e578f;
     color:#fff;
@@ -152,21 +171,22 @@ p.header_tagline{
     left: 68%;
     position: absolute;
 }
+
 .switch label {
     color: white;
     font-size: 1.2em;
 }
+
 nav {
     height: 64px;
 }
+
 #top_nav{
     left: 1%;
     width: 458px;
-     /*height: 60px;*/
-    /* display: inline-block; */
-    /* left: 0px; */
     position: absolute;
 }
+
 #spinner {
     position: fixed;
     top: 50%;
@@ -201,9 +221,11 @@ img.logo {
 .profile_pic{
     width: 4vw;
 }
+
 .fixed-action-btn{
     top:1px;
 }
+
 .model-content{
    color:black
 }
@@ -219,6 +241,7 @@ img.logo {
     z-index: 1000;
     display: none;
 }
+
 #preview{
     z-index: 1000;
     border-radius: 4px;
@@ -235,6 +258,7 @@ img.logo {
     box-shadow:         -2px 3px 2px 0 rgba(50, 50, 50, 0.75);
     display:none;
 }
+
 #preview_content {
     position: absolute;
     width:100%;
@@ -273,17 +297,20 @@ img.logo {
     cursor: pointer;
     cursor: hand;
 }
+
 #viewers_p{
     position: absolute;
     top: 23%;
     left: 5%;
     cursor: default;
 }
+
 #click_thumbnail{
     position: absolute;
     top: 29%;
     left: 5%;
 }
+
 #category_p {
     position: absolute;
     top: 17%;
@@ -297,7 +324,24 @@ img.logo {
 }
 
 .sign_out_button{
+    display:block;
     background-color: rgba(167, 131, 104, 0.54);
+}
+
+.dropdown-button{
+    background-color: #a7a3a3;
+}
+
+.dropdown-button:hover, .sign_out_button:hover{
+    background-color: #4783b3;
+}
+
+.dropdown-content{
+    background-color: #a7a5a5;
+}
+
+.dropdown-content li:hover {
+    background-color: #1d5773;
 }
 
 #update_btn {
@@ -305,11 +349,11 @@ img.logo {
     position: absolute;
     border-radius: 7px;
     top: -3px;
-    left: 0;
+    left: 46px;
     background-color: #306b97;
     padding: 0 10px;
     font-weight: 400;
-    width: 135px;
+    width: 61px;
 }
 #update_btn_small{
     color:white;
@@ -321,13 +365,13 @@ img.logo {
     padding: 0 10px;
     font-weight: 400;
     width: 36px;
-    /*background-color:rgb(42, 85, 119);*/
-    /*bottom: -5px;*/
 }
+
 .toasty {
     background-color: #306b97;
     color: white;
  }
+
 #update_div, #update_div_sm {
     position: absolute;
     top: 50%;
@@ -447,7 +491,6 @@ div#main {
     position: absolute;
 
 }
-
 div#modal1.modal.open {
     max-height: 80%;
     width:96%;
@@ -476,7 +519,25 @@ img.circle.profile-pic {
     width:60px;
 }
 
+.live_video_now{
+    width:75%;
+    text-decoration: underline;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.remove_btn{
+    background-color: #607d8b;
+    right: 1%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
 .firebaseui-container {
+    border-radius: 10px;
     font-family: 'Quicksand', sans-serif;
     width: 235px;
     right: 1%;
@@ -486,12 +547,20 @@ img.circle.profile-pic {
 
 }
 
-#sign-out {
-    background-color: white;
+.login_menu{
+    background-color: rgba(62, 75, 79, 0.8);
     border: none;
     position: absolute;
     right: 1%;
     top: 100%;
+}
+
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+    color:white;
+}
+
+.mdl-button--raised.mdl-button--colored {
+    background: #9E9E9E;
 }
 
 .login_status {
@@ -509,9 +578,11 @@ i.small.material-icons {
 div.valign-wrapper {
     justify-content: flex-end;
 }
+
 .modal-content{
     background-color:black;
 }
+
 .modal.modal-fixed-footer .modal-footer{
     background-color: #ccbfbb;
 }
@@ -521,13 +592,15 @@ div.valign-wrapper {
     padding: 0px 5px;
     border-radius: 0px 5px 0px 0px;
     position: absolute;
-    bottom: 1px;
+    bottom: 0px;
 }
+
 div.medium.z-depth-3, div.fixed{
     background-color: white;
 }
 
 /*------------------Hover Effects-------------------*/
+
 p.video_title, p.channel_title {
     font-family: 'Quicksand', sans-serif;
     text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
@@ -546,6 +619,7 @@ p.video_title{
     top: 10%;
     font-weight: 500
 }
+
 p.channel_title {
     font-size: 1.5em;
     right: 20%;
@@ -554,15 +628,18 @@ p.channel_title {
     border-right: 4px solid #fff;
     font-weight: 400
 }
+
 .medium, .fixed {
     cursor: pointer;
 }
+
 .medium p.video_title{
     right: 10%;
     top: 6%;
     font-size: 1.5em;
     max-width:75%;
 }
+
 .medium p.channel_title{
     font-size: 1em;
     position: absolute;
@@ -576,6 +653,7 @@ p.channel_title {
     position: absolute;
 
 }
+
 .fixed .view_count {
     font-size: 1em;
     left: 1%;
@@ -584,15 +662,14 @@ p.channel_title {
 
 .medium .view_count {
     font-size: .9em;
-    left: 1%;
-    bottom: 13%;
+    left: 20%;
+    bottom: 0%;
 }
 
 .grid-item-f:hover .hover_effect, .grid-item:hover .hover_effect{
     display: block;
     visibility: visible;
 }
-
 .hover_effect {
     display: none;
     visibility: hidden;
@@ -604,25 +681,27 @@ p.channel_title {
 }
 
 .fixed, .medium {
-    /*-webkit-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
-    /*-moz-box-shadow: 0px 6px 17px -2px rgba(0,0,0,0.75);*/
-    box-shadow:  12px 17px 11px -4px rgba(0,0,0,0.75);
+    box-shadow: 12px 17px 11px -4px rgba(0, 0, 0, 0.75);
     margin-bottom: 25px;
 }
+
 .responsive{
     margin: 13px 0px 5px 0px;
     border-radius: 8px;
     border:none;
     height:5vh;
 }
+
 ul.responsive_nav li{
     margin: 15px 13px 0 0;
 }
+
 #responsive_nav{
     position: absolute;
-    top: 0;
+    top: 6px;
     left: 20%
 }
+
 .fixed-action-btn.horizontal{
     top:0;
     position: absolute;
@@ -630,6 +709,7 @@ ul.responsive_nav li{
     padding-top: 15px;
     z-index: 998;
 }
+
 a.btn-floating.btn-large{
     width: 43px;
     height: 43px;
@@ -637,16 +717,20 @@ a.btn-floating.btn-large{
     left: 5%;
     position: absolute;
 }
+
 .btn-floating.btn-large i {
     line-height: 43px;
 }
+
 .ck-button label span{
     line-height: 3.5em;
 }
+
 .category_icon{
     height: 2vh;
     width: 4vw;
 }
+
 @media screen and (max-width: 1024px){
     * {
         cursor: pointer;
@@ -656,16 +740,13 @@ a.btn-floating.btn-large{
         width: 60px;
     }
     h2.header_logo{
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     .header_logo span{
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     img.logo{
         width: 19vh;
-    }
-    #update_btn{
-        width:38px;
     }
     #update_div{
         right:83%;
