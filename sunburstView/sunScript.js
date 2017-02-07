@@ -97,6 +97,7 @@ function createVisualization(json) {
     path.exit().remove();
         var pathway = path.enter().append("svg:path")
             .merge(path)
+            // .transition()
         .attr("display", function(d) {sunburst_array.push(this); return d.depth ? null : "none"; })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
@@ -116,7 +117,7 @@ function createVisualization(json) {
         );
         // var path_index = $("");
      // $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
-        path.exit().remove();
+        path.exit().remove().transition();
 
     // Add the mouseleave handler to the bounding circle.
     d3.select("#container").on("mouseleave", mouseleave);
