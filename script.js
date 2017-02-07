@@ -107,33 +107,14 @@ $(document).ready(function() {
             master_list = snapshot.val();
             createVisualization(master_list);
             buildThumbnails(master_list);
+            initializeGrids();
 
-            $grid = $('.grid').imagesLoaded().always( function() {
-                setTimeout(function(){
-                    console.log('setting up grid 1');
-                    $grid.isotope({
-                        itemSelector: '.grid-item',
-                        masonry: { columnWidth: '.grid-sizer'},
-                        stagger: 5,
-                        percentPosition: true
-                    });
-                    console.log('setting up grid 2');
-                    $gridFixed = $('.grid-f').isotope({
-                        itemSelector: '.grid-item-f',
-                        masonry: { columnWidth: '.grid-sizer-f'},
-                        stagger: 5,
-                        percentPosition: true
-                    });
-                    $('#spinner').hide();
-                    // applyNavClickHandler(fb_ref);
-                },1500);
-
-            });
             first_load=false;
             if (urlGetVideo) {
                 for (var i=0; i<main_array.length; i++){
                     if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
-                        Materialize.toast("Welcome to Streamism.tv! Playing shared video.", 4000, "rounded toasty");
+                        var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
+                        Materialize.toast(toast_text, 4000, "rounded toasty");
                         shared_sound.play();
                         embedPreview.play(main_array[i]);
 
@@ -144,7 +125,8 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            Materialize.toast("Updated streams available. Click Got Streams (!) to update.", 4000, "rounded toasty");
+            var toast_text = "Updated streams available.<br> Click Got Streams or ! to update.";
+            Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
             $('#spinner').hide();
@@ -258,10 +240,10 @@ function applyNavClickHandler(fb_ref){
         } else {
             $('.medium .' + this.name).addClass('hidden');
         }
+
         $grid.isotope({ filter: '*:not(.hidden)' });
-        if($gridFixed){
-            $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
-        }
+        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
@@ -290,29 +272,54 @@ function handleUpdate(){
     $('.panel *').remove();
     buildThumbnails(master_list);
     createVisualization(master_list);
-    $grid = $('.grid').imagesLoaded().always( function() {
-        setTimeout(function(){
-            $grid.isotope({
-                itemSelector: '.grid-item',
-                masonry: { columnWidth: '.grid-sizer'},
-                stagger: 5,
-                percentPosition: true
-            });
-            $gridFixed = $('.grid-f').isotope({
-                itemSelector: '.grid-item-f',
-                masonry: { columnWidth: '.grid-sizer-f'},
-                stagger: 5,
-                percentPosition: true
-            });
-            $('#spinner').hide();
-        },1500);
-    });
+    initializeGrids();
     conformDomElements();
     $('#update_btn').hide();
     $('#update_btn_small').hide();
     update_ready = false;
 }
 
+function initializeGrids(){
+    $grid = $('.grid');
+    $gridFixed = $('.grid-f');
+    // $grid = $('.grid').imagesLoaded().always( function() {
+    //     setTimeout(function(){
+    //         console.log('setting up grid 1');
+    //         $grid.isotope({
+    //             itemSelector: '.grid-item',
+    //             masonry: { columnWidth: '.grid-sizer'},
+    //             stagger: 5,
+    //             percentPosition: true
+    //         });
+    //         console.log('setting up grid 2');
+    //         // $gridFixed = $('.grid-f').isotope({
+    //         $gridFixed.isotope({
+    //             itemSelector: '.grid-item-f',
+    //             masonry: { columnWidth: '.grid-sizer-f'},
+    //             stagger: 5,
+    //             percentPosition: true
+    //         });
+    //         $('#spinner').hide();
+    //     },100);
+    // });
+    $grid.imagesLoaded().always( function() {
+        $grid.isotope({
+            itemSelector: '.grid-item',
+            masonry: { columnWidth: '.grid-sizer'},
+            stagger: 5,
+            percentPosition: true
+        });
+    });
+    $grid.imagesLoaded().always( function() {
+        $gridFixed.isotope({
+            itemSelector: '.grid-item-f',
+            masonry: { columnWidth: '.grid-sizer-f'},
+            stagger: 5,
+            percentPosition: true
+        });
+    });
+    $('#spinner').hide();
+}
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
