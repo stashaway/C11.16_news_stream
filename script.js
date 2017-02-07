@@ -106,7 +106,10 @@ $(document).ready(function() {
             initializeGrids();
 
             first_load=false;
-            find_watched_videos();
+            fb_ref.ref('users/' + uid).on('value', function(snap){
+                console.log("Snap is:" , snap.val());
+                find_watched_videos(snap)
+            });
             if (urlGetVideo) {
                 for (var i=0; i<main_array.length; i++){
                     if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!

@@ -26,6 +26,7 @@
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
+
     });
     //toggles favorites on/off
     function getFavorite(){
@@ -86,14 +87,12 @@
         }
     }
     //makes watch video list open into preview if currently live
-    function find_watched_videos(){
-        fb_ref.ref('users/' + uid).on('value', function(snap){
+    function find_watched_videos(snap){
             user_info = snap.val();
             console.log(user_info);
             var user_watch_list = user_info.watchList;
             $("#dropdown1 *").remove();
             create_watch_list(user_watch_list);
-        });
     }
     function create_watch_list(user_watch_list) {
         for (var key in user_watch_list) {
