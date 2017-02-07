@@ -56,13 +56,12 @@ $(document).ready(function() {
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
-            console.log(user);
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
             fb_ref.ref('users/' + uid).once('value', function(ss){
-                var snap = ss.val();
-                console.log('Snapshot: ', snap);
+                snap = ss.val();
+                // console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
 
@@ -73,9 +72,6 @@ $(document).ready(function() {
             });
             fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
                 userWatchList = snapshot.val();
-                // for(var key in watchList) {
-                //     userWatchList.push(watchList[key]);
-                // }
             });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
@@ -110,6 +106,10 @@ $(document).ready(function() {
             initializeGrids();
 
             first_load=false;
+            fb_ref.ref('users/' + uid).on('value', function(snap){
+                console.log("Snap is:" , snap.val());
+                find_watched_videos(snap)
+            });
             if (urlGetVideo) {
                 for (var i=0; i<main_array.length; i++){
                     if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
@@ -125,7 +125,7 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            var toast_text = "Updated streams available.<br> Click Got Streams or ! to update.";
+            var toast_text = "Click <i class='fa fa-refresh' aria-hidden='true' style='padding:0 5px'></i> to update streams.";
             Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
@@ -142,13 +142,15 @@ $(document).ready(function() {
         });
     });
     body.on("click",".profile-pic",function() {
-        $("#sign-out").toggle();
+        $(".login_menu").toggle();
     });
 
     applyNavClickHandler(fb_ref);
     $('#update_btn').click(handleUpdate).hide();
     $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
+    // console.log('result of urlgetvideo = '+ urlGetVideo);
+    // urlGetVideo = '2l7K60jU8S8';
 });
 
 function change_view(){
@@ -171,7 +173,7 @@ function getUrlVars(){
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
-    $("#sign-out").hide();
+    $(".login_menu").hide();
     $(".login_status").hide();
     $(".welcome_text").show();
     $(".profile-pic").show();
@@ -180,7 +182,7 @@ function sign_in_show_element(){
 function sign_out_element(){
     $(".login_status").show();
     $("#firebaseui-auth-container").hide();
-    $("#sign-out").hide();
+    $(".login_menu").hide();
     $(".welcome_text").hide();
     $(".profile-pic").hide();
 }
@@ -265,8 +267,6 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
-    // createVisualization(master_list);
-    console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
@@ -352,14 +352,13 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    console.log(output_array);
+    // console.log(output_array);
     return output_array.slice()
 }
 
 function buildThumbnails(){
     main_array = populateArray(46,0);     //Curated list
     // main_array = fullShuffle(master_list);  //Full list
-
     var new_thumb;
     var new_item;
     var new_img;
@@ -426,4 +425,3 @@ function buildThumbnails(){
         checkImageSize('.grid-f img');
     });
 }
-
