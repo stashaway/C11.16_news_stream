@@ -279,8 +279,10 @@ function mouseover(d) {
     }
 
     var v = d.data.viewers ? d.data.viewers + " viewers" : percentageString;
+    var c = d.data.channel ? d.data.channel : "";
     //d3.select("#percentage").text(percentageString+" "+v);
     d3.select("#percentage").text(v);
+    d3.select("#channel").text(c);
     d3.select("#title").text(d.data.title || d.data.id);
     $('#thumbnail').attr('src', d.data.thumbnail).appendTo('#viewport');
     d3.select('#viewport').style("visibility", '');
