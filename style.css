@@ -378,6 +378,7 @@ img.logo {
     right: 41%;
     transform: translate(0,-50%);
     height: 50%;
+    z-index: 2000;
 }
 #update_div_sm{
     right: 55%;
@@ -567,6 +568,7 @@ img.circle.profile-pic {
     position: absolute;
     right: 7vw;
     cursor: pointer;
+    font-size: 1.5em;
 }
 
 i.small.material-icons {
@@ -755,7 +757,14 @@ a.btn-floating.btn-large{
         display: none;
         visibility: hidden;
     }
-
+    .login_status {
+        right: 5vw;
+        cursor: pointer;
+        z-index: 2000;
+    }
+    .right {
+        z-index: 2000;
+    }
 /*********************Changed isotope classes***************/
     .grid-sizer-f,
     .grid-item-f {
