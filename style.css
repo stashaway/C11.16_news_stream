@@ -1,6 +1,6 @@
-body{
-    background-color: rgba(191,186,185,0.32);
-}
+/*body{*/
+    /*background-color: rgba(191,186,185,0.32);*/
+/*}*/
 header{
     font-family: 'Roboto', sans-serif;
     text-align: center;
@@ -242,32 +242,6 @@ img.logo {
     left:0;
     top:0;
 }
-/*#preview img {*/
-    /*position: absolute;*/
-    /*height: 60%;*/
-    /*width: 100%;*/
-    /*bottom: 0;*/
-/*}*/
-
-/*#preview_title {*/
-    /*font-size: 1.5em;*/
-    /*color: black;*/
-    /*!*text-shadow: 2px 2px #252222;*!*/
-    /*position: absolute;*/
-    /*left: 4%;*/
-    /*cursor: default;*/
-    /*width: 85%;*/
-    /*text-align: center;*/
-/*}*/
-
-/*#preview_category {*/
-    /*text-transform:capitalize;*/
-    /*cursor: default;*/
-/*}*/
-
-/*#preview_viewers{*/
-    /*cursor: default;*/
-/*}*/
 
 .embed-btn {
     position: absolute;
@@ -374,9 +348,7 @@ div#main {
     width: 100vw;
     max-width:100%;
     overflow: hidden;
-    /*margin-top: 10px;*/
     margin: auto;
-    /*margin-top: 20px;*/
 }
 
 .fixed, .grid-f {
@@ -388,7 +360,6 @@ div#main {
 
 .medium, .grid {
     width: 100%;
-    /*top: 100%;*/
     left: 0;
     display: block;
 }
@@ -428,34 +399,12 @@ div#main {
     #border:2px solid rgba(234, 93, 83, 1);
 }
 
-/*.gaming::after {*/
-    /*opacity: .2;*/
-    /*background-color: rgba(234, 93, 83, 1);*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*content: " ";*/
-/*}*/
-
 .news {
     color:white;
     background-color: rgba(21,128,101,0.8);
     position: relative;
     #border:2px solid #158065;
 }
-
-/*.news::after {*/
-    /*opacity: .2;*/
-    /*background-color:#158065;*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*content: " ";*/
-/*}*/
 
 .entertainment {
     color:white;
@@ -464,34 +413,12 @@ div#main {
     #border:2px solid rgba(14, 87, 195, 0.92);
 }
 
-/*.entertainment::after {*/
-    /*opacity: .2;*/
-    /*background-color: rgba(14, 87, 195, 0.92);*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*content: " ";*/
-/*}*/
-
 .misc {
     color:white;
     background-color:rgba(245, 196, 76, 0.8);
     position: relative;
     #border:2px solid rgba(245, 196, 76, 1);
 }
-
-/*.misc::after {*/
-    /*opacity: .2;*/
-    /*background-color: rgba(245, 196, 76, 1);*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*content: " ";*/
-/*}*/
 
 .people {
     color:white;
@@ -500,34 +427,12 @@ div#main {
     #border:2px solid rgba(40, 180, 197,1);
 }
 
-/*.people::after {*/
-    /*opacity: .2;*/
-    /*background-color: rgba(40, 180, 197,1);*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*content: " ";*/
-/*}*/
-
 .sports {
     color:white;
     background-color:rgba(126,87,143,0.8);
     position: relative;
     #border:2px solid #7e578f;
 }
-
-/*.sports::after {*/
-    /*opacity: .2;*/
-    /*background-color: #7e578f;*/
-    /*position: absolute;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*content: " ";*/
-/*}*/
 
 /****************************************/
 
@@ -756,9 +661,6 @@ a.btn-floating.btn-large{
     .header_logo span{
         font-size: 2.5rem;
     }
-    /*p.header_tagline{*/
-        /*font-size: 2.5vw;*/
-    /*}*/
     img.logo{
         width: 19vh;
     }
@@ -772,7 +674,7 @@ a.btn-floating.btn-large{
         display: none;
         visibility: hidden;
     }
-/*********************Changed isotope classes--------------------*/
+/*********************Changed isotope classes***************/
     .grid-sizer-f,
     .grid-item-f {
         float: left;
@@ -793,5 +695,5 @@ a.btn-floating.btn-large{
         width: 33.33%;
     }
 
-/*********End isotope classes********************/
+/******************End isotope classes********************/
 }

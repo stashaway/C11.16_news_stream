@@ -265,8 +265,6 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
-    // createVisualization(master_list);
-    console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
