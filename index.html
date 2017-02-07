@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">
+    <!--<meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">-->
     <title>Streamism.tv</title>
 
     <!-- External Script Files -->
@@ -11,15 +11,16 @@
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>
+    <!--<script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>-->
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="./sunburstView/sunburstDummyData.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
-    <script src="https://js.stripe.com/v2/"></script>
 
     <!-- Internal Script Files -->
-    <!--<script src="tryisotope2.js"></script>-->
     <script src="script.js"></script>
     <script src="preview.js"></script>
+    <script type="text/javascript" src="./sunburstView/sunScript.js" defer></script>
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,6 +29,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <link rel="stylesheet" type="text/css" href="./sunburstView/sunStyle.css"/>
 
 </head>
 <body>
@@ -123,10 +126,15 @@
                         </label>
                     </div>
                 </div>
+                <div class="switch hide-on-med-and-down">
+                    <label>Data<input type="checkbox" id="change_view" checked><span class="lever"></span>Thumbs</label>
+                </div>
                 <div class="logo_container">
                     <img class="logo" src="images/logo1.png"/>
                     <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
-                    <p class="header_tagline">Stream until your streams come true</p>
+                    <p class="header_tagline hide-on-med-and-down">Stream until your streams come true</p>
+                    <p class="header_tagline hide-on-large-only">Stream on!</p>
+
                 </div>
                 <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped hide-on-med-and-down" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
                 <!--responsive button-->
@@ -139,7 +147,7 @@
                         <a class="waves-effect waves-light btn sign_out_button" id="sign-out">Sign Out</i></a>
                     </div>
                     <div class="valign-wrapper col s5 pull-s7">
-                        <p class="welcome_text valign hide-on-med-and-down"></p>
+                     <p class="welcome_text valign hide-on-med-and-down"></p>
                         <img src="" alt="" class="circle profile-pic valign">
                     </div>
                 </div>
@@ -199,29 +207,34 @@
 
     <div class="fixed panel"></div>
     <div class="medium panel"></div>
-
-    <div id="modal1" class="modal modal1 modal-fixed-footer">
-        <div class="modal-content">
-            <h4 class="full_screen_header"></h4>
-            <p>
-                <iframe class="live_video" width="860" height="515" frameborder="0" allowfullscreen></iframe>
-            <div class="loading">
-                Chat Unavailable
-            </div>
-            <iframe class="live_chat" width="660" height="515" frameborder="0" allowfullscreen></iframe>
-            </p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-        </div>
-    </div>
-    <div id="preview">
-        <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light red"><i class="material-icons">clear</i></a>
-        <a id="open_full" class="embed-btn btn-floating waves-effect waves-light blue"><i class="material-icons">fullscreen</i></a>
-        <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue"><i class="material-icons">fullscreen_exit</i></a>
-        <a id="add_watch" class="embed-btn btn-floating waves-effect waves-light grey"><i class="material-icons add_watch_icon">visibility_off</i></a>
-        <a id="share_btn" class="embed-btn btn-floating waves-effect waves-light teal"><i class="material-icons">present_to_all</i></a>
-    </div>
 </div>
+<!--SUNBURST VIEW-->
+<div id="sunburst_sequence_container">
+    <div>
+        <div id="chart">
+            <div id='viewport' class="viewport" style="visibility: hidden;">
+                <div >
+                    <img id="thumbnail" src="">
+                    <div id="explanation" style="visibility: hidden;">
+                        <div id="percentage"></div>
+                        <div id="title"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        d3.select(self.frameElement).style("height", "700px");
+    </script>
+</div>
+<!--SUNBURST VIEW-->
+    <div id="preview">
+        <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Close"><i class="material-icons">clear</i></a>
+        <a id="open_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Fullscreen"><i class="material-icons">fullscreen</i></a>
+        <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Windowed"><i class="material-icons">fullscreen_exit</i></a>
+        <a id="add_watch" class="embed-btn btn-floating waves-effect waves-light grey tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to watch list"><i class="material-icons add_watch_icon">visibility_off</i></a>
+        <a id="share_btn" class="embed-btn btn-floating waves-effect waves-light teal tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share"><i class="material-icons">present_to_all</i></a>
+    </div>
 </body>
 </html>
