@@ -77,7 +77,7 @@ function createVisualization(json) {
         obj.streams = obj.streams.filter(function (val,index) {
             return index < 50;
         });
-        local_array.streams[i] = obj;
+        //local_array.streams[i] = obj;
 
         if(preferences[obj.id]){
             i++
