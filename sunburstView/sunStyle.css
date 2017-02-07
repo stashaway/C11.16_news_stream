@@ -83,11 +83,6 @@ body {
     text-overflow: ellipsis;
 }
 
-#channel{
-    font-size: 1em;
-    font-weight: 400;
-}
 #title {
-    font-size: 1em;
     font-weight: 500;
 }
