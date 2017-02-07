@@ -108,7 +108,7 @@ label {
 
 h2.header_logo{
     color: #ffffff;
-    font-size: 3vw;
+    font-size: 3.5rem;
     font-family: 'Gruppo', cursive;
     top:  -0.5vh;
     position: absolute;
@@ -126,18 +126,18 @@ h2.header_logo{
 }
 
 .header_logo span {
-    font-size: 2.4vw;
+    font-size: 3rem;
 }
 
 p.header_tagline{
     font-family: 'Gruppo', cursive;
-    font-size: 1vw;
+    font-size: 1.5em;
 }
 
 .header_tagline {
     font-family: 'Quicksand', sans-serif;
     position: absolute;
-    top: 5vh;
+    top: 36px;
     left: 50%;
     transform: translate(-50%,-50%);
 }
@@ -156,11 +156,13 @@ p.header_tagline{
     color: white;
     font-size: 1.2em;
 }
-
+nav {
+    height: 64px;
+}
 #top_nav{
     left:2%;
     width: 40%;
-    /* height: 60px; */
+     /*height: 60px;*/
     /* display: inline-block; */
     /* left: 0px; */
     position: absolute;
@@ -741,19 +743,22 @@ a.btn-floating.btn-large{
     width: 4vw;
 }
 @media screen and (max-width: 1024px){
+    * {
+        cursor: pointer;
+    }
     img.circle.profile-pic {
         margin: 4px 12px;
-        width: 16vw;
+        width: 60px;
     }
     h2.header_logo{
-        font-size: 7vw;
+        font-size: 3rem;
     }
     .header_logo span{
-        font-size: 5.4vw;
+        font-size: 2.5rem;
     }
-    p.header_tagline{
-        font-size: 2.5vw;
-    }
+    /*p.header_tagline{*/
+        /*font-size: 2.5vw;*/
+    /*}*/
     img.logo{
         width: 19vh;
     }
