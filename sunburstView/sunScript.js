@@ -3,12 +3,11 @@
  */
 // Dimensions of sunburst.
 var width = document.body.clientWidth;
-var height = document.body.clientHeight-100-$("nav").height()-30;
+var height = document.body.clientHeight - 100 - $("nav").height() - 30;
 var radius = Math.min(width, height) / 2;
 $("#sunburst_sequence_container").height(height);
-$("#chart").css({"padding-top": $("nav").height() + 20 +"px"}).height(height);
-$("#viewport").width(radius*2).height(radius*2);
-
+$("#chart").css({"padding-top": $("nav").height() + 20 + "px"}).height(height);
+$("#viewport").width(radius * 2).height(radius * 2);
 
 
 var sunburst_array = [];
@@ -23,21 +22,21 @@ var b = {
 var colors = {
     "gaming": $('#gaming:checked + span').css('background-color'),
     "entertainment": $('#entertainment:checked + span').css('background-color'),
-    "people":$('#people:checked + span').css('background-color'),
-    "news":$('#news:checked + span').css('background-color'),
-    "sports":$('#sports:checked + span').css('background-color'),
-    "misc":$('#misc:checked + span').css('background-color')
+    "people": $('#people:checked + span').css('background-color'),
+    "news": $('#news:checked + span').css('background-color'),
+    "sports": $('#sports:checked + span').css('background-color'),
+    "misc": $('#misc:checked + span').css('background-color')
 };
 
-function sunburst_category_color(){
-    for(var i =0 ; i < sunburst_array.length; i++){
-       var category = sunburst_array[i].__data__.data.id;
-       if(category === 'gaming'){
-           $('path').css(colors.gaming);
-       }
+function sunburst_category_color() {
+    for (var i = 0; i < sunburst_array.length; i++) {
+        var category = sunburst_array[i].__data__.data.id;
+        if (category === 'gaming') {
+            $('path').css(colors.gaming);
+        }
 
 
-       // console.log(category);
+        // console.log(category);
     }
 }
 
@@ -52,13 +51,21 @@ var vis = d3.select("#chart").append("svg:svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var partition = d3.partition()
-    .size([2*Math.PI, radius * radius]);
+    .size([2 * Math.PI, radius * radius]);
 
 var arc = d3.arc()
-    .startAngle(function(d) { return d.x0; })
-    .endAngle(function(d) { return d.x1; })
-    .innerRadius(function(d) { return Math.sqrt(d.y0); })
-    .outerRadius(function(d) { return Math.sqrt(d.y1); });
+    .startAngle(function (d) {
+        return d.x0;
+    })
+    .endAngle(function (d) {
+        return d.x1;
+    })
+    .innerRadius(function (d) {
+        return Math.sqrt(d.y0);
+    })
+    .outerRadius(function (d) {
+        return Math.sqrt(d.y1);
+    });
 
 
 // Bounding circle underneath the sunburst, to make it easier to detect
@@ -71,34 +78,38 @@ vis.append("svg:circle")
 
 function createVisualization(json) {
     var local_array = $.extend(true, {}, json);
-    for(var i = 0; i<local_array.streams.length;){
+    for (var i = 0; i < local_array.streams.length;) {
         var obj = local_array.streams[i];
         //Filter to 50 max videos for each category
-        obj.streams = obj.streams.filter(function (val,index) {
+        obj.streams = obj.streams.filter(function (val, index) {
             return index < 50;
         });
         //local_array.streams[i] = obj;
 
-        if(preferences[obj.id]){
+        if (preferences[obj.id]) {
             i++
-        }else{
-            local_array.streams.splice(i,1);
+        } else {
+            local_array.streams.splice(i, 1);
         }
     }
 
-    var stringified = JSON.stringify(local_array).replace(/streams/g, 'children');
+    var stringified = JSON.stringify(local_array).replace(/"streams":/g, "\"children\":");
     local_array = JSON.parse(stringified);
 
     // Turn the data into a d3 hierarchy and calculate the sums.
     var root = d3.hierarchy(local_array)
-        .sum(function(d) {return d.viewers; })
-        .sort(function(a, b) { return b.value - a.value; });
+        .sum(function (d) {
+            return d.viewers;
+        })
+        .sort(function (a, b) {
+            return b.value - a.value;
+        });
 
     // For efficiency, filter nodes to keep only those large enough to see.
     var nodes = partition(root).descendants()
-        .filter(function(d) {
+        .filter(function (d) {
             var sunFilter = true;
-            if(d.data.hasOwnProperty('category')){
+            if (d.data.hasOwnProperty('category')) {
                 sunFilter = preferences[d.data.category];
             }
             return sunFilter && (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
@@ -106,14 +117,22 @@ function createVisualization(json) {
     var index_count = -1;
     var path = vis.data([local_array]).selectAll("path")
         .data(nodes);
+
     path.exit().remove();
-        var pathway = path.enter().append("svg:path")
-            .merge(path)
-        .attr("display", function(d) {sunburst_array.push(this); return d.depth ? null : "none"; })
+
+    var pathway = path.enter().append("svg:path")
+        .merge(path)
+        .attr("display", function (d) {
+            sunburst_array.push(this);
+            return d.depth ? null : "none";
+        })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
-        .attr('data-index', function() {index_count += 1; return index_count})
-        .style("fill", function(d) {
+        .attr('data-index', function () {
+            index_count += 1;
+            return index_count
+        })
+        .style("fill", function (d) {
             var color = colors[d.data.id] || colors[d.data.category];
             // console.log('Fill output:', color);
             // console.log('Colors object:', colors);
@@ -126,9 +145,9 @@ function createVisualization(json) {
         .on('click',
             sun_video
         );
-        // var path_index = $("");
-     // $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
-        path.exit().remove();
+    // var path_index = $("");
+    // $('<div class="grid-item grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+    path.exit().remove();
 
     // Add the mouseleave handler to the bounding circle.
     d3.select("#container").on("mouseleave", mouseleave);
@@ -138,16 +157,13 @@ function createVisualization(json) {
     //sunburst_category_color();
 }
 
-function update_graph(data){
+function update_graph(data) {
     var path = g.selectAll('path').data(data);
-
-
-
 
 
 };
 
-function sun_video(d, i){
+function sun_video(d, i) {
 
     // console.log('click handled', i);
     // $('#viewport').toggleClass('bigport');
@@ -156,7 +172,7 @@ function sun_video(d, i){
     var current_item_details = sunburst_array[index].__data__.data;
     // var current_preview_obj = determine_sunburst_info(this, sunburst_array);
     //console.log(current_item_details);
-    if (current_item_details.hasOwnProperty("embedVideo"))embedPreview.play(current_item_details);
+    if (current_item_details.hasOwnProperty("embedVideo")) embedPreview.play(current_item_details);
     // embedFullVideo.play(item,fullscreen,"left");
     // embedFullChat.play(item,fullscreen,"right");
     // fullscreen.show();
@@ -218,7 +234,7 @@ function sun_video(d, i){
 // };
 
 
-function determine_sunburst_info (item, array) {
+function determine_sunburst_info(item, array) {
     // var current_item=$(item);
     // var category_number;
     // if (current_item.hasClass('games')){
@@ -280,7 +296,7 @@ function mouseover(d) {
 
     // Then highlight only those that are an ancestor of the current segment.
     vis.selectAll("path")
-        .filter(function(node) {
+        .filter(function (node) {
             return (sequenceArray.indexOf(node) >= 0);
         })
         .style("opacity", 1);
@@ -301,7 +317,7 @@ function mouseleave(d) {
         .transition()
         .duration(1000)
         .style("opacity", 1)
-        .on("end", function() {
+        .on("end", function () {
             d3.select(this).on("mouseover", mouseover);
         });
 
@@ -310,162 +326,162 @@ function mouseleave(d) {
 }
 /*
 
-function initializeBreadcrumbTrail() {
-    // Add the svg area.
-    var trail = d3.select("#sequence").append("svg:svg")
-        .attr("width", width)
-        .attr("height", 50)
-        .attr("id", "trail");
-    // Add the label at the end, for the percentage.
-    trail.append("svg:text")
-        .attr("id", "endlabel")
-        .style("fill", "#000");
-}
+ function initializeBreadcrumbTrail() {
+ // Add the svg area.
+ var trail = d3.select("#sequence").append("svg:svg")
+ .attr("width", width)
+ .attr("height", 50)
+ .attr("id", "trail");
+ // Add the label at the end, for the percentage.
+ trail.append("svg:text")
+ .attr("id", "endlabel")
+ .style("fill", "#000");
+ }
 
-// Generate a string that describes the points of a breadcrumb polygon.
-function breadcrumbPoints(d, i) {
-    var points = [];
-    points.push("0,0");
-    points.push(b.w + ",0");
-    points.push(b.w + b.t + "," + (b.h / 2));
-    points.push(b.w + "," + b.h);
-    points.push("0," + b.h);
-    if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
-        points.push(b.t + "," + (b.h / 2));
-    }
-    return points.join(" ");
-}
+ // Generate a string that describes the points of a breadcrumb polygon.
+ function breadcrumbPoints(d, i) {
+ var points = [];
+ points.push("0,0");
+ points.push(b.w + ",0");
+ points.push(b.w + b.t + "," + (b.h / 2));
+ points.push(b.w + "," + b.h);
+ points.push("0," + b.h);
+ if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
+ points.push(b.t + "," + (b.h / 2));
+ }
+ return points.join(" ");
+ }
 
-// Update the breadcrumb trail to show the current sequence and percentage.
-function updateBreadcrumbs(nodeArray, percentageString) {
+ // Update the breadcrumb trail to show the current sequence and percentage.
+ function updateBreadcrumbs(nodeArray, percentageString) {
 
-    // Data join; key function combines name and depth (= position in sequence).
-    var trail = d3.select("#trail")
-        .selectAll("g")
-        .data(nodeArray, function(d) { return d.data.name + d.depth; });
+ // Data join; key function combines name and depth (= position in sequence).
+ var trail = d3.select("#trail")
+ .selectAll("g")
+ .data(nodeArray, function(d) { return d.data.name + d.depth; });
 
-    // Remove exiting nodes.
-    trail.exit().remove();
+ // Remove exiting nodes.
+ trail.exit().remove();
 
-    // Add breadcrumb and label for entering nodes.
-    var entering = trail.enter().append("svg:g");
+ // Add breadcrumb and label for entering nodes.
+ var entering = trail.enter().append("svg:g");
 
-    entering.append("svg:polygon")
-        .attr("points", breadcrumbPoints)
-        .style("fill", function(d) { return colors[d.data.name]; });
+ entering.append("svg:polygon")
+ .attr("points", breadcrumbPoints)
+ .style("fill", function(d) { return colors[d.data.name]; });
 
-    entering.append("svg:text")
-        .attr("x", (b.w + b.t) / 2)
-        .attr("y", b.h / 2)
-        .attr("dy", "0.35em")
-        .attr("text-anchor", "middle")
-        .text(function(d) { return d.data.name; });
+ entering.append("svg:text")
+ .attr("x", (b.w + b.t) / 2)
+ .attr("y", b.h / 2)
+ .attr("dy", "0.35em")
+ .attr("text-anchor", "middle")
+ .text(function(d) { return d.data.name; });
 
-    // Merge enter and update selections; set position for all nodes.
-    entering.merge(trail).attr("transform", function(d, i) {
-        return "translate(" + i * (b.w + b.s) + ", 0)";
-    });
+ // Merge enter and update selections; set position for all nodes.
+ entering.merge(trail).attr("transform", function(d, i) {
+ return "translate(" + i * (b.w + b.s) + ", 0)";
+ });
 
-    // Now move and update the percentage at the end.
-    d3.select("#trail").select("#endlabel")
-        .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
-        .attr("y", b.h / 2)
-        .attr("dy", "0.35em")
-        .attr("text-anchor", "middle")
-        .text(percentageString);
+ // Now move and update the percentage at the end.
+ d3.select("#trail").select("#endlabel")
+ .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+ .attr("y", b.h / 2)
+ .attr("dy", "0.35em")
+ .attr("text-anchor", "middle")
+ .text(percentageString);
 
-    // Make the breadcrumb trail visible, if it's hidden.
-    d3.select("#trail")
-        .style("visibility", "");
+ // Make the breadcrumb trail visible, if it's hidden.
+ d3.select("#trail")
+ .style("visibility", "");
 
-}
+ }
 
-function drawLegend() {
+ function drawLegend() {
 
-    // Dimensions of legend item: width, height, spacing, radius of rounded rect.
-    var li = {
-        w: 75, h: 30, s: 3, r: 3
-    };
+ // Dimensions of legend item: width, height, spacing, radius of rounded rect.
+ var li = {
+ w: 75, h: 30, s: 3, r: 3
+ };
 
-    var legend = d3.select("#legend").append("svg:svg")
-        .attr("width", li.w)
-        .attr("height", d3.keys(colors).length * (li.h + li.s));
+ var legend = d3.select("#legend").append("svg:svg")
+ .attr("width", li.w)
+ .attr("height", d3.keys(colors).length * (li.h + li.s));
 
-    var g = legend.selectAll("g")
-        .data(d3.entries(colors))
-        .enter().append("svg:g")
-        .attr("transform", function(d, i) {
-            return "translate(0," + i * (li.h + li.s) + ")";
-        });
+ var g = legend.selectAll("g")
+ .data(d3.entries(colors))
+ .enter().append("svg:g")
+ .attr("transform", function(d, i) {
+ return "translate(0," + i * (li.h + li.s) + ")";
+ });
 
-    g.append("svg:rect")
-        .attr("rx", li.r)
-        .attr("ry", li.r)
-        .attr("width", li.w)
-        .attr("height", li.h)
-        .style("fill", function(d) { return d.value; });
+ g.append("svg:rect")
+ .attr("rx", li.r)
+ .attr("ry", li.r)
+ .attr("width", li.w)
+ .attr("height", li.h)
+ .style("fill", function(d) { return d.value; });
 
-    g.append("svg:text")
-        .attr("x", li.w / 2)
-        .attr("y", li.h / 2)
-        .attr("dy", "0.35em")
-        .attr("text-anchor", "middle")
-        .text(function(d) { return d.key; });
-}
+ g.append("svg:text")
+ .attr("x", li.w / 2)
+ .attr("y", li.h / 2)
+ .attr("dy", "0.35em")
+ .attr("text-anchor", "middle")
+ .text(function(d) { return d.key; });
+ }
 
-function toggleLegend() {
-    var legend = d3.select("#legend");
-    if (legend.style("visibility") == "hidden") {
-        legend.style("visibility", "");
-    } else {
-        legend.style("visibility", "hidden");
-    }
-}
+ function toggleLegend() {
+ var legend = d3.select("#legend");
+ if (legend.style("visibility") == "hidden") {
+ legend.style("visibility", "");
+ } else {
+ legend.style("visibility", "hidden");
+ }
+ }
 
-// Take a 2-column CSV and transform it into a hierarchical structure suitable
-// for a partition layout. The first column is a sequence of step names, from
-// root to leaf, separated by hyphens. The second column is a count of how
-// often that sequence occurred.
-function buildHierarchy(csv) {
-    var root = {"name": "root", "children": []};
-    for (var i = 0; i < csv.length; i++) {
-        var sequence = csv[i][0];
-        var size = +csv[i][1];
-        if (isNaN(size)) { // e.g. if this is a header row
-            continue;
-        }
-        var parts = sequence.split("-");
-        var currentNode = root;
-        for (var j = 0; j < parts.length; j++) {
-            var children = currentNode["children"];
-            var nodeName = parts[j];
-            var childNode;
-            if (j + 1 < parts.length) {
-                // Not yet at the end of the sequence; move down the tree.
-                var foundChild = false;
-                for (var k = 0; k < children.length; k++) {
-                    if (children[k]["name"] == nodeName) {
-                        childNode = children[k];
-                        foundChild = true;
-                        break;
-                    }
-                }
-                // If we don't already have a child node for this branch, create it.
-                if (!foundChild) {
-                    childNode = {"name": nodeName, "children": []};
-                    children.push(childNode);
-                }
-                currentNode = childNode;
-            } else {
-                // Reached the end of the sequence; create a leaf node.
-                childNode = {"name": nodeName, "size": size};
-                children.push(childNode);
-            }
-        }
-    }
-    return root;
-};
-*/
+ // Take a 2-column CSV and transform it into a hierarchical structure suitable
+ // for a partition layout. The first column is a sequence of step names, from
+ // root to leaf, separated by hyphens. The second column is a count of how
+ // often that sequence occurred.
+ function buildHierarchy(csv) {
+ var root = {"name": "root", "children": []};
+ for (var i = 0; i < csv.length; i++) {
+ var sequence = csv[i][0];
+ var size = +csv[i][1];
+ if (isNaN(size)) { // e.g. if this is a header row
+ continue;
+ }
+ var parts = sequence.split("-");
+ var currentNode = root;
+ for (var j = 0; j < parts.length; j++) {
+ var children = currentNode["children"];
+ var nodeName = parts[j];
+ var childNode;
+ if (j + 1 < parts.length) {
+ // Not yet at the end of the sequence; move down the tree.
+ var foundChild = false;
+ for (var k = 0; k < children.length; k++) {
+ if (children[k]["name"] == nodeName) {
+ childNode = children[k];
+ foundChild = true;
+ break;
+ }
+ }
+ // If we don't already have a child node for this branch, create it.
+ if (!foundChild) {
+ childNode = {"name": nodeName, "children": []};
+ children.push(childNode);
+ }
+ currentNode = childNode;
+ } else {
+ // Reached the end of the sequence; create a leaf node.
+ childNode = {"name": nodeName, "size": size};
+ children.push(childNode);
+ }
+ }
+ }
+ return root;
+ };
+ */
 
 // var player;
 // function onYouTubeIframeAPIReady() {
