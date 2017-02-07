@@ -17,12 +17,13 @@
         body.on('click','.grid-item-f',(function(){
             updatePreview(this);
         }));
-        $("#add_watch").on('click', function(){
+        $("#add_watch").on('click touchend', function(){
             getFavorite();
         });
-        $("#dropdown1").click(function(event){
+        $("#dropdown1").on('click touchend', (function(event){
             event.stopPropagation();
-        });
+        })
+        );
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
@@ -188,10 +189,10 @@
         this.defaultHeight = this.preview.height();
 
         //setup button click handlers
-        this.preview.on('click','#close_preview',this.stop.bind(this));
-        this.preview.on('click','#open_full',this.expand.bind(this));
-        this.preview.on('click','#close_full',this.contract.bind(this));
-        this.preview.on('click','#share_btn',createShareableLink.bind(this));
+        this.preview.on('click touchend','#close_preview',this.stop.bind(this));
+        this.preview.on('click touchend','#open_full',this.expand.bind(this));
+        this.preview.on('click touchend','#close_full',this.contract.bind(this));
+        this.preview.on('click touchend','#share_btn',createShareableLink.bind(this));
 
         //Create iframes
         this.iframeChatElement = $("<iframe>",

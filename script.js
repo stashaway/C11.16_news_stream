@@ -36,6 +36,7 @@ $(document).ready(function() {
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
         $("#update_btn_small").hide();
+        $('.login_status').toggle();
         // update button checker
         if ($('.logo_container').css('display')!='none' && update_ready==true) {
             $('#update_btn_small').show();
@@ -133,7 +134,9 @@ $(document).ready(function() {
         }
     });
     var body = $('body');
-    body.on("click",".login_status", function(){
+    body.on("click touchend",".login_status", function(){
+        event.stopPropagation();
+        event.preventDefault();
         $("#firebaseui-auth-container").toggle();
     });
     body.on("click", "#sign-out", function(){
@@ -150,7 +153,7 @@ $(document).ready(function() {
     $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
     // console.log('result of urlgetvideo = '+ urlGetVideo);
-    // urlGetVideo = '2l7K60jU8S8';
+
 });
 
 function change_view(){
