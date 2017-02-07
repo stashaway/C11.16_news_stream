@@ -45,10 +45,9 @@ body {
 .viewport {
     position: absolute;
     z-index: -2;
-    top: 50%;
     left: 50%;
     text-align: center;
-    transform:translate(-50%,-45%);
+    transform:translate(-50%,0%);
 }
 
 #thumbnail{
@@ -61,19 +60,32 @@ body {
 
 #explanation {
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 50%;
-    width: 37%;
+    width: 50%;
+    max-height:20%;
     font-weight: bold;
     font-size: 16px;
-    text-align: center;
-    color: yellow;
     z-index: 0;
     transform: translate(-50%, -50%);
-    background-color: black;
     opacity: 0.8;
+    overflow: hidden;
+    border-radius: 4px;
 }
 
 #percentage,#title {
+    font-family: 'Quicksand', sans-serif;
+    text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
+    max-width: 100%;
+    color:#fff;
+    margin:0;
+}
+
+#percentage{
     font-size: 1.5em;
+    font-weight: 500
+}
+#title {
+    font-size: 1em;
+    font-weight: 400
 }
