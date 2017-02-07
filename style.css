@@ -148,6 +148,15 @@ p.header_tagline{
     background-color: #718792;
 }
 
+.switch {
+    left: 75%;
+    position: absolute;
+}
+.switch label {
+    color: white;
+    font-size: 1.2em;
+}
+
 #top_nav{
     left:2%;
     width: 40%;

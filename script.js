@@ -30,7 +30,7 @@ var preferences = {
 
 $(document).ready(function() {
     $('#sunburst_sequence_container').hide();
-    $('#change_view').click(change_view);
+    $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
@@ -161,17 +161,14 @@ $(document).ready(function() {
     $('#update_btn_small').click(handleUpdate).toggle();
     urlGetVideo = getUrlVars()['shared'];
     console.log('result of urlgetvideo = '+ urlGetVideo);
-    // urlGetVideo = '2l7K60jU8S8';
 
 });
-
 
 function change_view(){
     $('#main').toggle();
     $('#sunburst_sequence_container').toggle();
-
+    conformDomElements();
 }
-
 
 function getUrlVars(){
     var vars = [], hash;
@@ -184,10 +181,6 @@ function getUrlVars(){
     }
     return vars;
 }
-
-
-
-
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
@@ -261,6 +254,7 @@ function applyNavClickHandler(fb_ref){
             $('.medium .'+this.name).addClass('hidden');
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
+        $gridFixed.isotope ({ filter: '*'});
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
