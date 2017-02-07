@@ -18,6 +18,7 @@ var clicked = false;
 var main_array = [];
 var update_sound = new Audio('audio/update_sound.mp3');
 var shared_sound = new Audio('audio/shared.mp3');
+var update_ready = false;
 var urlGetVideo = null;
 var preferences = {
     'entertainment': true,
@@ -36,6 +37,9 @@ $(document).ready(function() {
         $(".valign-wrapper").toggle();
         $("#update_btn_small").hide();
         // update button checker
+        if ($('.logo_container').css('display')!='none' && update_ready==true) {
+            $('#update_btn_small').show();
+        }
     });
     $('.collapsible').collapsible();
     first_load = true;
@@ -106,12 +110,14 @@ $(document).ready(function() {
 
             $grid = $('.grid').imagesLoaded().always( function() {
                 setTimeout(function(){
+                    console.log('setting up grid 1');
                     $grid.isotope({
                         itemSelector: '.grid-item',
                         masonry: { columnWidth: '.grid-sizer'},
                         stagger: 5,
                         percentPosition: true
                     });
+                    console.log('setting up grid 2');
                     $gridFixed = $('.grid-f').isotope({
                         itemSelector: '.grid-item-f',
                         masonry: { columnWidth: '.grid-sizer-f'},
@@ -119,16 +125,15 @@ $(document).ready(function() {
                         percentPosition: true
                     });
                     $('#spinner').hide();
+                    // applyNavClickHandler(fb_ref);
                 },1500);
+
             });
             first_load=false;
             if (urlGetVideo) {
-                // queue up the requested video
-                console.log('Received get query string, id is - ',urlGetVideo,main_array);
                 for (var i=0; i<main_array.length; i++){
-                    if (urlGetVideo == main_array[i].id) {
-                        console.log('Found it!. Playing video', main_array[i]);
-                        Materialize.toast("Welcome to Streamism.tv!\nPlaying shared video.", 4000, "rounded toasty");
+                    if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
+                        Materialize.toast("Welcome to Streamism.tv! Playing shared video.", 4000, "rounded toasty");
                         shared_sound.play();
                         embedPreview.play(main_array[i]);
 
@@ -139,8 +144,9 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            Materialize.toast("Updated streams available.\nClick Got Streams (!) to update.", 4000, "rounded toasty");
+            Materialize.toast("Updated streams available. Click Got Streams (!) to update.", 4000, "rounded toasty");
             updated_list = snapshot.val();
+            update_ready = true;
             $('#spinner').hide();
         }
     });
@@ -161,8 +167,6 @@ $(document).ready(function() {
     $('#update_btn').click(handleUpdate).hide();
     $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
-    console.log('result of urlgetvideo = '+ urlGetVideo);
-
 });
 
 function change_view(){
@@ -249,23 +253,28 @@ function fullShuffle(snapshot) {
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
         preferences[this.name] = this.checked;
-        if (preferences[this.name]===true) {
-            $('.medium .'+this.name).removeClass('hidden');
+        if (preferences[this.name] === true) {
+            $('.medium .' + this.name).removeClass('hidden');
         } else {
-            $('.medium .'+this.name).addClass('hidden');
+            $('.medium .' + this.name).addClass('hidden');
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
-        $gridFixed.isotope ({ filter: '*'});
+        if($gridFixed){
+            $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+        }
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
-        if(this.checked)
+        if(this.checked) {
             $('#' + this.name + '_sm').attr('checked');
-        else if (!this.checked)
+            $('#' + this.name).attr('checked');
+        }
+        else if (!this.checked) {
             $('#' + this.name + '_sm').removeAttr('checked');
+            $('#' + this.name).removeAttr('checked');
+        }
         createVisualization(master_list);
     });
-
     applySmallClickHandler();
 }
 function applySmallClickHandler(){
@@ -274,7 +283,7 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
-    createVisualization(master_list);
+    // createVisualization(master_list);
     console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
@@ -299,8 +308,9 @@ function handleUpdate(){
         },1500);
     });
     conformDomElements();
-    $('#update_btn').toggle();
-    $('#update_btn_small').toggle();
+    $('#update_btn').hide();
+    $('#update_btn_small').hide();
+    update_ready = false;
 }
 
 function shuffle(array) {
