@@ -349,7 +349,7 @@ img.logo {
     position: absolute;
     border-radius: 7px;
     top: -3px;
-    left: 0;
+    left: 46px;
     background-color: #306b97;
     padding: 0 10px;
     font-weight: 400;
@@ -724,7 +724,9 @@ p.channel_title {
     display: block;
     visibility: visible;
 }
-
+.fa-refresh{
+    line-height: 36px;
+}
 .hover_effect {
     display: none;
     visibility: hidden;
