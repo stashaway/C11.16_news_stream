@@ -310,7 +310,7 @@ function initializeGrids(){
             percentPosition: true
         });
     });
-    $grid.imagesLoaded().always( function() {
+    $gridFixed.imagesLoaded().always( function() {
         $gridFixed.isotope({
             itemSelector: '.grid-item-f',
             masonry: { columnWidth: '.grid-sizer-f'},
