@@ -29,7 +29,6 @@ var preferences = {
 };
 
 $(document).ready(function() {
-    $('.watch_side_nav').sideNav();
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();

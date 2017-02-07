@@ -294,9 +294,15 @@ img.logo {
 }
 
 .sign_out_button{
+    display:block;
     background-color: rgba(167, 131, 104, 0.54);
 }
-
+.dropdown-button{
+    background-color: #da4516;
+}
+.dropdown-content{
+    background-color: #a7a5a5;
+}
 #update_btn {
     color:white;
     position: absolute;
@@ -541,7 +547,21 @@ img.circle.profile-pic {
     cursor: pointer;
     width:60px;
 }
-
+.live_video_now{
+    width:75%;
+    text-decoration: underline;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.remove_btn{
+    background-color: #2664a6;
+    right: 1%;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
 .firebaseui-container {
     font-family: 'Quicksand', sans-serif;
     width: 235px;
