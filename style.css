@@ -149,7 +149,7 @@ p.header_tagline{
 }
 
 .switch {
-    left: 75%;
+    left: 68%;
     position: absolute;
 }
 .switch label {
@@ -160,8 +160,8 @@ nav {
     height: 64px;
 }
 #top_nav{
-    left:2%;
-    width: 40%;
+    left: 1%;
+    width: 458px;
      /*height: 60px;*/
     /* display: inline-block; */
     /* left: 0px; */
@@ -357,12 +357,12 @@ img.logo {
 #update_div, #update_div_sm {
     position: absolute;
     top: 50%;
-    right: 35%;
+    right: 41%;
     transform: translate(0,-50%);
     height: 50%;
 }
 #update_div_sm{
-    right: 28%;
+    right: 55%;
 }
 
 /************ Overall Stream Grid Containers ********************/
