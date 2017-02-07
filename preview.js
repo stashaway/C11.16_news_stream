@@ -1,6 +1,7 @@
 /**
  * Created by baultik on 2/2/17.
  */
+    var user_info = null;
     var embedPreview = null;
     var timer = null;
     var userWatchList = [];
@@ -19,12 +20,15 @@
         $("#add_watch").on('click', function(){
             getFavorite();
         });
+        $("#dropdown1").click(function(event){
+            event.stopPropagation();
+        });
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-
-
     });
+
+    //toggles favorites on/off
     function getFavorite(){
        var channel = embedPreview.data.channel;
         if(uid !== null){
@@ -35,15 +39,16 @@
             }
             addToWatch(channel);
         }else{
-           alert("Please sign in")
+           alert("Please sign in to add channel to watch list!")
         }
     }
+    //updates preview to reflect if video is watched
     function checkWatchStatus(item) {
         var foundItem = item.channel;
         var foundKey = null;
         if(uid !== null){
             for (var key in userWatchList) {
-                if (userWatchList[key] == foundItem) {
+                if (key == foundItem) {
                     foundKey = foundItem
                 }
             }
@@ -60,22 +65,61 @@
         checkWatchStatus(item);
         embedPreview.play(item);
     }
+    //pushes channel to user's table
     function addToWatch(channel) {
         if (uid !== null) {
+            var new_channel = {};
             var foundKey = null;
             for(var key in userWatchList){
-               if(userWatchList[key] == channel){
+               if(key == channel){
                    foundKey = key;
                }
             }
             if(foundKey === null) {
-                fb_ref.ref("users/" + uid + "/watchList").push(channel);
+                new_channel[channel] = false;
+                fb_ref.ref("users/" + uid + "/watchList").update(new_channel);
             }else{
                 fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
             }
         }else{
             console.log("User is not logged in");
         }
+    }
+    //makes watch video list open into preview if currently live
+    function find_watched_videos(){
+        var change_channel = {};
+        var video_title_link;
+        var live_stream_key;
+        fb_ref.ref('users/' + uid).once('value', function(snap){
+            user_info = snap.val();
+            var user_watch_list = user_info.watchList;
+            for(var key in user_watch_list){
+                video_title_link = $("<li>").text(key);
+                video_title_link.click(function(){
+                    var video_channel = $(this).text();
+                    for(var i = 0; i < main_array.length; i++){
+                       if(main_array[i].channel == video_channel ){
+                           embedPreview.play(main_array[i])
+                       }
+                    }
+                });
+                $("#dropdown1").append(video_title_link);
+                for(var i = 0; i < main_array.length; i++){
+                    if(key === main_array[i].channel){
+
+                        video_title_link.addClass("live_video_now");
+                        $(".live_video_now").css("color", "red");
+                        change_channel[key] = true;
+                        fb_ref.ref("users/" + uid + "/watchList").update(change_channel);
+                    }
+                }
+            }
+        });
+    }
+    function open_preview() {
+            $(this).click(function(){
+                console.log("Click handler was attached", this)
+            });
     }
     function createShareableLink(){
         var current_id = this.data.id;

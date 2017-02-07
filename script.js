@@ -29,6 +29,7 @@ var preferences = {
 };
 
 $(document).ready(function() {
+    $('.watch_side_nav').sideNav();
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
@@ -49,13 +50,12 @@ $(document).ready(function() {
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
-            console.log(user);
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
             fb_ref.ref('users/' + uid).once('value', function(ss){
-                var snap = ss.val();
-                console.log('Snapshot: ', snap);
+                snap = ss.val();
+                // console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
 
@@ -66,9 +66,6 @@ $(document).ready(function() {
             });
             fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
                 userWatchList = snapshot.val();
-                // for(var key in watchList) {
-                //     userWatchList.push(watchList[key]);
-                // }
             });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
@@ -118,6 +115,7 @@ $(document).ready(function() {
                 },1500);
             });
             first_load=false;
+            find_watched_videos();
             if (urlGetVideo) {
                 // queue up the requested video
                 console.log('Received get query string, id is - ',urlGetVideo,main_array);
@@ -150,7 +148,7 @@ $(document).ready(function() {
         });
     });
     body.on("click",".profile-pic",function() {
-        $("#sign-out").toggle();
+        $(".login_menu").toggle();
     });
 
     applyNavClickHandler(fb_ref);
@@ -159,7 +157,6 @@ $(document).ready(function() {
     urlGetVideo = getUrlVars()['shared'];
     console.log('result of urlgetvideo = '+ urlGetVideo);
     // urlGetVideo = '2l7K60jU8S8';
-
 });
 
 function getUrlVars(){
@@ -174,12 +171,9 @@ function getUrlVars(){
     return vars;
 }
 
-
-
-
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
-    $("#sign-out").hide();
+    $(".login_menu").hide();
     $(".login_status").hide();
     $(".welcome_text").show();
     $(".profile-pic").show();
@@ -188,7 +182,7 @@ function sign_in_show_element(){
 function sign_out_element(){
     $(".login_status").show();
     $("#firebaseui-auth-container").hide();
-    $("#sign-out").hide();
+    $(".login_menu").hide();
     $(".welcome_text").hide();
     $(".profile-pic").hide();
 }
@@ -324,14 +318,13 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    console.log(output_array);
+    // console.log(output_array);
     return output_array.slice()
 }
 
 function buildThumbnails(){
     main_array = populateArray(46,0);     //Curated list
     // main_array = fullShuffle(master_list);  //Full list
-
     var new_thumb;
     var new_item;
     var new_img;
@@ -398,4 +391,3 @@ function buildThumbnails(){
         checkImageSize('.grid-f img');
     });
 }
-

@@ -552,14 +552,20 @@ img.circle.profile-pic {
 
 }
 
-#sign-out {
+/*#sign-out {*/
+    /*background-color: white;*/
+    /*border: none;*/
+    /*position: absolute;*/
+    /*right: 1%;*/
+    /*top: 100%;*/
+/*}*/
+.login_menu{
     background-color: white;
     border: none;
     position: absolute;
     right: 1%;
     top: 100%;
 }
-
 .login_status {
     position: absolute;
     right: 7vw;
