@@ -741,6 +741,9 @@ a.btn-floating.btn-large{
     width: 4vw;
 }
 @media screen and (max-width: 1024px){
+    * {
+        cursor: pointer;
+    }
     img.circle.profile-pic {
         margin: 4px 12px;
         width: 16vw;

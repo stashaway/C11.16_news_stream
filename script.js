@@ -35,6 +35,7 @@ $(document).ready(function() {
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
         $("#update_btn_small").hide();
+        // update button checker
     });
     $('.collapsible').collapsible();
     first_load = true;
@@ -127,7 +128,7 @@ $(document).ready(function() {
                 for (var i=0; i<main_array.length; i++){
                     if (urlGetVideo == main_array[i].id) {
                         console.log('Found it!. Playing video', main_array[i]);
-                        Materialize.toast('Welcome! Playing shared video.', 4000, 'rounded toasty');
+                        Materialize.toast("Welcome to Streamism.tv!\nPlaying shared video.", 4000, "rounded toasty");
                         shared_sound.play();
                         embedPreview.play(main_array[i]);
 
@@ -138,7 +139,7 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
+            Materialize.toast("Updated streams available.\nClick Got Streams (!) to update.", 4000, "rounded toasty");
             updated_list = snapshot.val();
             $('#spinner').hide();
         }
@@ -157,8 +158,8 @@ $(document).ready(function() {
     });
 
     applyNavClickHandler(fb_ref);
-    $('#update_btn').click(handleUpdate).toggle();
-    $('#update_btn_small').click(handleUpdate).toggle();
+    $('#update_btn').click(handleUpdate).hide();
+    $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
     console.log('result of urlgetvideo = '+ urlGetVideo);
 
