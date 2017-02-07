@@ -284,7 +284,7 @@ function mouseover(d) {
     d3.select("#title").text(d.data.title || d.data.id);
     $('#thumbnail').attr('src', d.data.thumbnail).appendTo('#viewport');
     d3.select('#viewport').style("visibility", '');
-    d3.select("#explanation").style("visibility", "");
+    d3.select("#explanation").style("visibility", "").style("background-color",colors[d.data.id] || colors[d.data.category]);
 
     var sequenceArray = d.ancestors().reverse();
     sequenceArray.shift(); // remove root node from the array
