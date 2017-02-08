@@ -29,6 +29,7 @@ var preferences = {
 };
 
 $(document).ready(function() {
+
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
@@ -163,6 +164,12 @@ $(document).ready(function() {
     console.log('result of urlgetvideo = '+ urlGetVideo);
 
 });
+
+function applyInnerSunburstFilter(){
+    for(var i = 1; i<7; i++){
+
+    }
+}
 
 function change_view(){
     $('#main').toggle();
