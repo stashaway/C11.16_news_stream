@@ -131,7 +131,7 @@ $(document).ready(function() {
             $('#update_btn_small').show();
             update_sound.play();
             var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up'' aria-hidden='true'></i>&nbsp; to update streams";
-            Materialize.toast(toast_text, 104000, "rounded toasty");
+            Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
             $('#spinner').hide();
