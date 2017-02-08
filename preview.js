@@ -98,6 +98,7 @@
             $("#dropdown1 *").remove();
             create_watch_list(user_watch_list);
     }
+    //creates dropdown list li with channel title
     function create_watch_list(user_watch_list) {
         for (var key in user_watch_list) {
             var video_title_link = $("<li>").text(key);
