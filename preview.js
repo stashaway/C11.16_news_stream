@@ -10,18 +10,21 @@
         embedPreview.init();
 
         var body = $("body");
-        body.on('click','.grid-item',(function(){
+        body.on('click','.grid-item',(function(event){
+            stopPropagation(event);
             updatePreview(this);
         }));
 
-        body.on('click','.grid-item-f',(function(){
+        body.on('click','.grid-item-f',(function(event){
+            stopPropagation(event);
             updatePreview(this);
         }));
-        $("#add_watch").on('click touchend', function(){
+        $("#add_watch").on('click touchend', function(event){
+            stopPropagation(event);
             getFavorite();
         });
         $("#dropdown1").on('click touchend', (function(event){
-            event.stopPropagation();
+            stopPropagation(event);
         })
         );
         $(window).resize(function () {
@@ -189,10 +192,14 @@
         this.defaultHeight = this.preview.height();
 
         //setup button click handlers
-        this.preview.on('click touchend','#close_preview',this.stop.bind(this));
-        this.preview.on('click touchend','#open_full',this.expand.bind(this));
-        this.preview.on('click touchend','#close_full',this.contract.bind(this));
-        this.preview.on('click touchend','#share_btn',createShareableLink.bind(this));
+        this.preview.on('click touchend','#close_preview',this.stop.bind(this))
+                    .on('click touchend', '#close_preview', stopPropagation);
+        this.preview.on('click touchend','#open_full',this.expand.bind(this))
+                    .on('click touchend', '#open_full', stopPropagation);
+        this.preview.on('click touchend','#close_full',this.contract.bind(this))
+                    .on('click touchend', '#close_full', stopPropagation);
+        this.preview.on('click touchend','#share_btn',createShareableLink.bind(this))
+                    .on('click touchend', '#share_btn', stopPropagation);
 
         //Create iframes
         this.iframeChatElement = $("<iframe>",
@@ -205,7 +212,10 @@
             .css({position: "absolute",display:"inline-block",left:"0",top:"0"});
         this.preview.append(this.iframeVideoElement);
     };
-
+function stopPropagation(e){
+    e.stopPropagation();
+    e.preventDefault();
+}
     Preview.prototype.expand = function () {
         //get buttons and hide them
         this.shareBtn.hide();
