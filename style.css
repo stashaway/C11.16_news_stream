@@ -248,8 +248,8 @@ img.logo {
     border-radius: 4px;
     font-family: 'Assistant', sans-serif;
     background-color: rgba(38, 50, 56, 0.8);
-    width: 400px;
-    height: 225px;
+    width: 420px;
+    height: 236px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -260,38 +260,20 @@ img.logo {
     display:none;
 }
 
-#preview_content {
+#preview-btn-container {
     position: absolute;
-    width:100%;
-    height:100%;
     left:0;
     top:0;
+    display: inline-block;
+    z-index: 2;
 }
 
 .embed-btn {
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: block;
 }
 
-#close_preview {
-    transform: translate(-50%,-50%);
-}
-
-#open_full {
-    transform: translate(-50%,50%);
-}
-
-#close_full {
-    transform: translate(-50%,50%);
-}
-
-#add_watch {
-    transform: translate(-50%,150%);
-}
-
-#share_btn {
-    transform: translate(-50%,250%);
+#close_preview, #open_full, #close_full, #add_watch,#share_btn{
+   position: static;
 }
 
 #close_preview:hover {
