@@ -110,7 +110,12 @@
             remove_watch_btn.click(function () {
                 fb_ref.ref("users/" + uid + "/watchList").child($(this).data("channel")).remove()
             });
-            video_title_link.click(play_watch_list);
+
+            video_title_link.on('click',function(event){
+                stopPropagation(event);
+                play_watch_list.call(this);
+            });
+
             for (var i = 0; i < main_array.length; i++) {
                 if (key === main_array[i].channel) {
                     video_title_link.addClass("live_video_now");
@@ -228,10 +233,7 @@
             .css({position: "absolute",display:"inline-block",left:"0",top:"0"});
         this.preview.append(this.iframeVideoElement);
     };
-function stopPropagation(e){
-    e.stopPropagation();
-    e.preventDefault();
-}
+
     Preview.prototype.expand = function () {
         //get buttons and hide them
         this.btnContainer.hide();
