@@ -24,7 +24,8 @@
             getFavorite();
         });
         $("#dropdown1").on('click touchend', (function(event){
-            stopPropagation(event);
+            // stopPropagation(event);
+            event.stopPropagation();
         })
         );
         $(window).resize(function () {
