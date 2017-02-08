@@ -159,6 +159,7 @@ $(document).ready(function() {
         console.log(event);
         // stopPropagation(event);
         event.stopPropagation();
+
         if ($('.login_menu').css('display')!='none'){
             $(".login_menu").addClass("hide");
         }
