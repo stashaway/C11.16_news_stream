@@ -542,6 +542,7 @@ img.circle.profile-pic {
     position: absolute;
     right: 1%;
     top: 100%;
+    z-index: 2000;
 }
 
 .mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
