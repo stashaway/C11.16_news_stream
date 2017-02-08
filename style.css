@@ -185,6 +185,7 @@ nav {
 #top_nav{
     left: 1%;
     width: 458px;
+    height: 64px;
     position: absolute;
 }
 
@@ -248,8 +249,8 @@ img.logo {
     border-radius: 4px;
     font-family: 'Assistant', sans-serif;
     background-color: rgba(38, 50, 56, 0.8);
-    width: 400px;
-    height: 225px;
+    width: 420px;
+    height: 236px;
     position: fixed;
     bottom: 0;
     right: 0;
@@ -260,38 +261,20 @@ img.logo {
     display:none;
 }
 
-#preview_content {
+#preview-btn-container {
     position: absolute;
-    width:100%;
-    height:100%;
     left:0;
     top:0;
+    display: inline-block;
+    z-index: 2;
 }
 
 .embed-btn {
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: block;
 }
 
-#close_preview {
-    transform: translate(-50%,-50%);
-}
-
-#open_full {
-    transform: translate(-50%,50%);
-}
-
-#close_full {
-    transform: translate(-50%,50%);
-}
-
-#add_watch {
-    transform: translate(-50%,150%);
-}
-
-#share_btn {
-    transform: translate(-50%,250%);
+#close_preview, #open_full, #close_full, #add_watch,#share_btn{
+   position: static;
 }
 
 #close_preview:hover {
@@ -349,7 +332,7 @@ img.logo {
     position: absolute;
     border-radius: 7px;
     top: -3px;
-    left: 46px;
+    /*left: 46px;*/
     background-color: #306b97;
     padding: 0 10px;
     font-weight: 400;
@@ -375,7 +358,7 @@ img.logo {
 #update_div, #update_div_sm {
     position: absolute;
     top: 50%;
-    right: 41%;
+    right: 20%;
     transform: translate(0,-50%);
     height: 50%;
     z-index: 2000;
@@ -742,6 +725,14 @@ a.btn-floating.btn-large{
     width: 4vw;
 }
 
+#toast-container {
+    top: 10%;
+    bottom: unset;
+}
+
+.fa-refresh, fa-arrow-up {
+    font-size: 1.3em;
+}
 @media screen and (max-width: 1024px){
     * {
         cursor: pointer;
@@ -774,6 +765,7 @@ a.btn-floating.btn-large{
     .right {
         z-index: 2000;
     }
+
 /*********************Changed isotope classes***************/
     .grid-sizer-f,
     .grid-item-f {
@@ -797,3 +789,9 @@ a.btn-floating.btn-large{
 
 /******************End isotope classes********************/
 }
+
+/*@media only screen and (max-width: 600px) {*/
+    /*#toast-container {*/
+        /*min-width: 65%;*/
+    /*}*/
+/*}*/

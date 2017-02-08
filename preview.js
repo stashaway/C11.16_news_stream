@@ -24,7 +24,8 @@
             getFavorite();
         });
         $("#dropdown1").on('click touchend', (function(event){
-            stopPropagation(event);
+            // stopPropagation(event);
+            event.stopPropagation();
         })
         );
         $(window).resize(function () {
@@ -157,9 +158,7 @@
     }
 
     function updateFullScreen() {
-        if (embedPreview.expanded) {
-            embedPreview.position(0);
-        }
+        embedPreview.determineLayout();
     }
 
     function onResize(time, callback) {
@@ -174,6 +173,7 @@
     function Preview() {
         this.data = null;
         this.preview = $('#preview');
+        this.btnContainer = $("#preview-btn-container");
         this.expandBtn = $("#open_full");
         this.contractBtn = $("#close_full");
         this.closeBtn = $("#close_preview");
@@ -186,7 +186,8 @@
         this.animationTime = 250;
         this.defaultWidth = 0;
         this.defaultHeight = 0;
-        this.expandedBtnGutter = 40;
+        this.expandedBtnGutter = 0;
+        this.minChatWidth = 400;
         this.expanded = false;
         this.mobile = false;
     }
@@ -206,6 +207,20 @@
         this.preview.on('click touchend','#share_btn',createShareableLink.bind(this))
                     .on('click touchend', '#share_btn', stopPropagation);
 
+        /*var hoverOn = function(){
+            if (!this.mobile) {
+                this.btnContainer.show();
+            }
+        }.bind(this);
+
+        var hoverOff = function(){
+            if (!this.mobile) {
+                this.btnContainer.hide();
+            }
+        }.bind(this);
+
+        this.preview.hover(hoverOn,hoverOff);*/
+
         //Create iframes
         this.iframeChatElement = $("<iframe>",
             {frameborder:"0",scrolling:"no",width:this.defaultWidth+"px",height:this.defaultHeight+"px",src:"about:blank"})
@@ -220,41 +235,29 @@
 
     Preview.prototype.expand = function () {
         //get buttons and hide them
-        this.shareBtn.hide();
-        this.addWatch.hide();
+        this.btnContainer.hide();
         this.expandBtn.hide();
-        this.contractBtn.hide();
-        this.closeBtn.hide();
+        this.contractBtn.show();
         this.expanded = true;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
-            this.closeBtn.show().css({transform:"none"});
-            this.contractBtn.show().css({transform:"translateY(100%)"});
-            this.expandBtn.css({transform:"translateY(100%)"});
-            this.addWatch.show().css({transform:"translateY(200%)"});
-            this.shareBtn.show().css({transform:"translateY(300%)"});
+            this.btnContainer.show();
         });
     };
 
     Preview.prototype.contract = function () {
         //get buttons and hide them
-        this.shareBtn.hide();
-        this.addWatch.hide();
-        this.expandBtn.hide();
+        this.btnContainer.hide();
+        this.expandBtn.show();
         this.contractBtn.hide();
-        this.closeBtn.hide();
         this.expanded = false;//save state
 
         //animate position
         this.position(this.animationTime, function () {
             //show appropriate buttons
-            this.closeBtn.show().css({transform:"translate(-50%,-50%)"});
-            this.expandBtn.show().css({transform:"translate(-50%,50%)"});
-            this.contractBtn.css({transform:"translate(-50%,50%)"});
-            this.addWatch.show().css({transform:"translate(-50%, 150%)"});
-            this.shareBtn.show().css({transform:"translate(-50%, 250%)"});
+            this.btnContainer.show();
         });
     };
 
@@ -291,7 +294,7 @@
                 cHeight = contentHeight - top;
             } else {
                 //Make video and chat side by side
-                vWidth = contentWidth * 0.75;
+                vWidth = contentWidth - Math.min(this.minChatWidth,contentWidth/2);
 
                 left = vWidth + contentLeft;
                 cWidth = contentWidth - vWidth;
@@ -304,6 +307,21 @@
         this.iframeChatElement.animate({width:cWidth,height:cHeight,left:left,top:top},time);
     };
 
+    Preview.prototype.determineLayout = function () {
+        //On mobile and smaller window sizes - only do expanded view
+        if (this.defaultWidth + this.expandedBtnGutter > $(window).width()) {
+            this.expandBtn.hide();
+            this.contractBtn.hide();
+            this.mobile = true;
+        } else {
+            this.mobile = false;
+            this.reset();
+            //this.btnContainer.hide();
+        }
+        this.expanded = this.mobile;
+        this.position(0);
+    };
+
     Preview.prototype.play = function (data) {
         //Get embed data
         this.data = data;
@@ -314,19 +332,7 @@
         this.iframeVideoElement.attr("src",this.videoSrc);
         this.iframeChatElement.attr("src",this.chatSrc);
 
-        //On mobile and smaller window sizes - only do expanded view
-        if (this.defaultWidth > $(window).width()) {
-            this.contractBtn.hide();
-            this.expandBtn.hide();
-            this.closeBtn.css({transform:"none"});
-            this.addWatch.css({transform: "translateY(100%)"});
-            this.mobile = true;
-        } else {
-            this.mobile = false;
-            this.reset();
-        }
-        this.expanded = this.mobile;
-        this.position(0);
+        this.determineLayout();
         this.preview.show();
     };
 
@@ -343,10 +349,8 @@
         //reset divs and buttons
         if (!this.mobile) {
             this.preview.css({width: this.defaultWidth, height: this.defaultHeight});
+            this.btnContainer.show();
             this.contractBtn.hide();
-            this.expandBtn.show().css({transform: "translate(-50%,50%"});
-            this.closeBtn.show().css({transform: "translate(-50%,-50%)"});
-            this.addWatch.show().css({transform: "translate(-50%, 150%)"});
-            this.shareBtn.show().css({transform:"translate(-50%, 250%)"});
+            this.expandBtn.show();
         }
     };
