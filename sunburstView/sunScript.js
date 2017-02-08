@@ -119,7 +119,7 @@ function createVisualization(json) {
         .data(nodes);
 
     path.exit().remove();
-
+    sunburst_array = [];//clear out array - fixes wrong preview
     var pathway = path.enter().append("svg:path")
         .merge(path)
         .attr("display", function (d) {
