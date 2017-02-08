@@ -235,10 +235,9 @@ function stopPropagation(e){
         this.btnContainer.hide();
         this.expandBtn.hide();
         this.contractBtn.show();
-        this.expanded = true;//save state
 
         //animate position
-        this.position(this.animationTime, function () {
+        this.position(this.animationTime, true, function () {
             //show appropriate buttons
             this.btnContainer.show();
         });
@@ -249,18 +248,18 @@ function stopPropagation(e){
         this.btnContainer.hide();
         this.expandBtn.show();
         this.contractBtn.hide();
-        this.expanded = false;//save state
 
         //animate position
-        this.position(this.animationTime, function () {
+        this.position(this.animationTime, false, function () {
             //show appropriate buttons
             this.btnContainer.show();
         });
     };
 
-    Preview.prototype.position = function (time,callback) {
+    Preview.prototype.position = function (time,expanded,callback) {
         if (time === undefined) time = this.animationTime;
         callback = callback ? callback.bind(this) : function () {};
+        if (expanded !== undefined) this.expanded = expanded;
 
         //get main div and content div and sizes
         var prevWidth = this.defaultWidth, prevHeight = this.defaultHeight;
@@ -274,7 +273,7 @@ function stopPropagation(e){
         if (this.expanded) {
             //if fullscreen changes sizes to fullscreen layout
             prevWidth = $(window).width();
-            prevHeight = $(window).height();
+            prevHeight = $(window).height()-$("nav").height();
             contentWidth = prevWidth - this.expandedBtnGutter;
             contentHeight = prevHeight;
             contentLeft = this.expandedBtnGutter;
@@ -304,17 +303,19 @@ function stopPropagation(e){
         this.iframeChatElement.animate({width:cWidth,height:cHeight,left:left,top:top},time);
     };
 
-    Preview.prototype.determineLayout = function () {
+    Preview.prototype.determineLayout = function (expanded) {
+        if (expanded === undefined) expanded = this.expanded;
+
         //On mobile and smaller window sizes - only do expanded view
         if (this.defaultWidth + this.expandedBtnGutter > $(window).width()) {
             this.expandBtn.hide();
             this.contractBtn.hide();
             this.mobile = true;
-            this.expanded = true;
+            expanded = true;
         } else {
             this.mobile = false;
             this.reset();
-            if (this.expanded) {
+            if (expanded) {
                 this.expandBtn.hide();
                 this.contractBtn.show();
             } else {
@@ -324,10 +325,10 @@ function stopPropagation(e){
             //this.btnContainer.hide();
         }
 
-        this.position(0);
+        this.position(0,expanded);
     };
 
-    Preview.prototype.play = function (data) {
+    Preview.prototype.play = function (data,expanded) {
         //Get embed data
         this.data = data;
         this.videoSrc = this.data.source==="twitch" ? this.data.embedVideo :
@@ -337,7 +338,7 @@ function stopPropagation(e){
         this.iframeVideoElement.attr("src",this.videoSrc);
         this.iframeChatElement.attr("src",this.chatSrc);
 
-        this.determineLayout();
+        this.determineLayout(expanded);
         this.preview.show();
     };
 
