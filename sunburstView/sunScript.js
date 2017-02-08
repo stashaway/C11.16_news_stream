@@ -95,15 +95,22 @@ function createVisualization(json) {
     }
 
     function innerFilter() {
-        for (var i = 0; i < local_array.streams.length;) {
+        var local_array = $.extend(true, {}, json);
+        var dataIndex = $(this).attr('data-index');
+        for (var i = 0; i < local_array.streams.length; i++) {
             var obj = local_array.streams[i];
             var preference = preferences[obj.id];
+
             obj.streams = obj.streams.filter(function (val, index) {
                 return index < 50;
             });
-            if (preference !== preferences[obj.id]) {
-            }
+           if(i > 0 && i <7 && i !== dataIndex){
+                   local_array.streams.splice(i,1);
+           }else{
+               i++
+           }
         }
+    }
 
         var stringified = JSON.stringify(local_array).replace(/streams/g, 'children');
         local_array = JSON.parse(stringified);
@@ -141,6 +148,11 @@ function createVisualization(json) {
             .attr("display", function (d) {
                 sunburst_array.push(this);
                 return d.depth ? null : "none";
+            })
+            .attr("inner-filter", function(){
+                for(var i = 1; i<6; i++){
+                    $(this).click(innerFilter);
+                }
             })
             .attr("d", arc)
             .attr("fill-rule", "evenodd")
@@ -182,7 +194,7 @@ function createVisualization(json) {
         var path = g.selectAll('path').data(data);
 
 
-    };
+    }
 
     function sun_video(d, i) {
 
@@ -346,7 +358,7 @@ function createVisualization(json) {
         d3.select("#viewport")
             .style("visibility", "hidden");
     }
-}
+
 /*
 
 function initializeBreadcrumbTrail() {
