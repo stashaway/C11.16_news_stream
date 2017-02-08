@@ -36,11 +36,16 @@ $(document).ready(function() {
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
         $("#update_btn_small").hide();
+        $('.login_status').toggle();
         // update button checker
         if ($('.logo_container').css('display')!='none' && update_ready==true) {
             $('#update_btn_small').show();
         }
+        if ($('.profile-pic').css('display')!='none') {
+            $('.login_status').hide();
+        }
     });
+    $('.modal').modal();
     $('.collapsible').collapsible();
     first_load = true;
     var config = {
@@ -133,7 +138,9 @@ $(document).ready(function() {
         }
     });
     var body = $('body');
-    body.on("click",".login_status", function(){
+    body.on("click touchend",".login_status", function(){
+        event.stopPropagation();
+        event.preventDefault();
         $("#firebaseui-auth-container").toggle();
     });
     body.on("click", "#sign-out", function(){
@@ -141,8 +148,14 @@ $(document).ready(function() {
             uid = null;
         });
     });
-    body.on("click",".profile-pic",function() {
-        $(".login_menu").toggle();
+    body.on("click",".profile-pic",function(event) {
+        event.stopPropagation();
+        $(".login_menu").toggleClass("hide");
+    });
+    body.on("click","#main",function() {
+        if ($('.login_menu').css('display')!='none'){
+            $(".login_menu").addClass("hide");
+        }
     });
 
     applyNavClickHandler(fb_ref);
@@ -150,7 +163,7 @@ $(document).ready(function() {
     $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
     // console.log('result of urlgetvideo = '+ urlGetVideo);
-    // urlGetVideo = '2l7K60jU8S8';
+
 });
 
 function change_view(){
@@ -173,8 +186,7 @@ function getUrlVars(){
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
-    $(".login_menu").hide();
-    $(".login_status").hide();
+    $(".login_status").css("display", "none");
     $(".welcome_text").show();
     $(".profile-pic").show();
 }
@@ -182,7 +194,7 @@ function sign_in_show_element(){
 function sign_out_element(){
     $(".login_status").show();
     $("#firebaseui-auth-container").hide();
-    $(".login_menu").hide();
+    $(".login_menu").addClass("hide");
     $(".welcome_text").hide();
     $(".profile-pic").hide();
 }
