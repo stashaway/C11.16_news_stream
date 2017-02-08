@@ -1,7 +1,6 @@
 /**
  * Created by baultik on 2/2/17.
  */
-    var user_info = null;
     var embedPreview = null;
     var timer = null;
     var userWatchList = [];
@@ -96,11 +95,9 @@
         }
     }
     //makes watch video list open into preview if currently live
-    function find_watched_videos(snap){
-            user_info = snap.val();
-            var user_watch_list = user_info.watchList;
+    function find_watched_videos(){
             $("#dropdown1 *").remove();
-            create_watch_list(user_watch_list);
+            create_watch_list(userWatchList);
     }
     //creates dropdown list li with channel title
     function create_watch_list(user_watch_list) {
