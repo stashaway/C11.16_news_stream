@@ -100,7 +100,10 @@ $(document).ready(function() {
             };
             ui.start('#firebaseui-auth-container', uiConfig);
         }
-    });
+    }, function(error){
+            console.log('A Firebase error occured- ',error);
+        }
+    );
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
         $('#spinner').show();
@@ -130,7 +133,7 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            var toast_text = "Click <i class='fa fa-refresh' aria-hidden='true' style='padding:0 5px'></i> to update streams.";
+            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up'' aria-hidden='true'></i>&nbsp; to update streams";
             Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
@@ -138,21 +141,25 @@ $(document).ready(function() {
         }
     });
     var body = $('body');
-    body.on("click touchend",".login_status", function(){
-        event.stopPropagation();
-        event.preventDefault();
+    body.on("click touchend",".login_status", function(event){
+        stopPropagation(event);
         $("#firebaseui-auth-container").toggle();
     });
-    body.on("click", "#sign-out", function(){
+    body.on("click touchend", "#sign-out", function(event){
+        stopPropagation(event);
         firebase.auth().signOut().then(function() {
             uid = null;
         });
     });
-    body.on("click",".profile-pic",function(event) {
-        event.stopPropagation();
+    body.on("click touchend",".profile-pic",function(event) {
+        stopPropagation(event);
         $(".login_menu").toggleClass("hide");
     });
-    body.on("click","#main",function() {
+    body.on("click touchend","#main",function(event) {
+        console.log(event);
+        // stopPropagation(event);
+        event.stopPropagation();
+
         if ($('.login_menu').css('display')!='none'){
             $(".login_menu").addClass("hide");
         }
@@ -165,6 +172,11 @@ $(document).ready(function() {
     // console.log('result of urlgetvideo = '+ urlGetVideo);
 
 });
+
+function stopPropagation(e){
+    e.stopPropagation();
+    e.preventDefault();
+}
 
 function change_view(){
     $('#main').toggle();
