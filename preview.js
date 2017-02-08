@@ -103,7 +103,7 @@
     //creates dropdown list li with channel title
     function create_watch_list(user_watch_list) {
         for (var key in user_watch_list) {
-            var video_title_link = $("<li>").text(key);
+            var video_title_link = $("<li>").text(key).data("channel", key);
             var remove_watch_btn = $("<button>").addClass("btn-floating remove_btn").text("x").data("channel", key);
             video_title_link.append(remove_watch_btn);
             $("#dropdown1").append(video_title_link);
