@@ -41,7 +41,11 @@ $(document).ready(function() {
         if ($('.logo_container').css('display')!='none' && update_ready==true) {
             $('#update_btn_small').show();
         }
+        if ($('.profile-pic').css('display')!='none') {
+            $('.login_status').hide();
+        }
     });
+    $('.modal').modal();
     $('.collapsible').collapsible();
     first_load = true;
     var config = {
@@ -144,8 +148,14 @@ $(document).ready(function() {
             uid = null;
         });
     });
-    body.on("click",".profile-pic",function() {
-        $(".login_menu").toggle();
+    body.on("click",".profile-pic",function(event) {
+        event.stopPropagation();
+        $(".login_menu").toggleClass("hide");
+    });
+    body.on("click","#main",function() {
+        if ($('.login_menu').css('display')!='none'){
+            $(".login_menu").addClass("hide");
+        }
     });
 
     applyNavClickHandler(fb_ref);
@@ -176,8 +186,7 @@ function getUrlVars(){
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
-    $(".login_menu").hide();
-    $(".login_status").hide();
+    $(".login_status").css("display", "none");
     $(".welcome_text").show();
     $(".profile-pic").show();
 }
@@ -185,7 +194,7 @@ function sign_in_show_element(){
 function sign_out_element(){
     $(".login_status").show();
     $("#firebaseui-auth-container").hide();
-    $(".login_menu").hide();
+    $(".login_menu").addClass("hide");
     $(".welcome_text").hide();
     $(".profile-pic").hide();
 }
