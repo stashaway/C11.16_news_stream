@@ -149,7 +149,8 @@
             document.body.appendChild(textarea);
             textarea.select();
             try {
-                Materialize.toast('Link copied to your clipboard. Share it with your friends!',4000, 'rounded toasty');
+                var toast_text = "Link copied to your clipboard.<br>Share it with your friends!";
+                Materialize.toast(toast_text,4000, 'rounded toasty');
                 return document.execCommand("copy");  // Security exception may be thrown by some browsers.
             } catch (ex) {
                 console.warn("Copy to clipboard failed.", ex);
