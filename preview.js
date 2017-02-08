@@ -63,6 +63,8 @@
             }else{
                 $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
             }
+        }else{
+            $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
         }
     }
     function updatePreview(parent){
