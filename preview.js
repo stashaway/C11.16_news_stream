@@ -44,9 +44,6 @@
             }
             addToWatch(channel);
         }
-        // else{
-        //     $("#add_watch").attr("href","#watch_modal");
-        // }
     }
     //updates preview to reflect if video is watched
     function checkWatchStatus(item) {
@@ -70,7 +67,12 @@
     function updatePreview(parent){
         var index = $(parent).attr('data-index');
         var item = main_array[index];
-        checkWatchStatus(item);
+        if(uid !== null){
+            $("#add_watch").show();
+            checkWatchStatus(item);
+        }else{
+            $("#add_watch").hide();
+        }
         embedPreview.play(item);
     }
     //pushes channel to user's table
