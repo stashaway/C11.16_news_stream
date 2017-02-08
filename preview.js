@@ -310,12 +310,20 @@ function stopPropagation(e){
             this.expandBtn.hide();
             this.contractBtn.hide();
             this.mobile = true;
+            this.expanded = true;
         } else {
             this.mobile = false;
             this.reset();
+            if (this.expanded) {
+                this.expandBtn.hide();
+                this.contractBtn.show();
+            } else {
+                this.expandBtn.show();
+                this.contractBtn.hide();
+            }
             //this.btnContainer.hide();
         }
-        this.expanded = this.mobile;
+
         this.position(0);
     };
 
