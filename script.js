@@ -30,11 +30,6 @@ var preferences = {
 };
 
 $(document).ready(function() {
-    // fb_ref.ref('users/' + uid).on('value', function(snap){
-    //     console.log("Snap is:" , snap.val());
-    //     find_watched_videos(snap)
-    // });
-
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
@@ -71,7 +66,6 @@ $(document).ready(function() {
             uid = user.uid;
             fb_ref.ref("users/" + uid).on('value', function(snapshot) {
                 userWatchList = snapshot.val().watchList;
-                console.log("user watch list is" , userWatchList);
                 if(userWatchList !== null && main_array.length > 0){
                     find_watched_videos()
                 }
@@ -114,7 +108,6 @@ $(document).ready(function() {
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
         $('#spinner').show();
-        main_array = main_array
         if (first_load === true){
             master_list = snapshot.val();
             createVisualization(master_list);
@@ -142,7 +135,6 @@ $(document).ready(function() {
             update_ready = true;
             $('#spinner').hide();
         }
-        console.log("main array is: ", main_array);
         if(userWatchList.length > 0 && main_array.length > 0){
             find_watched_videos();
         }
