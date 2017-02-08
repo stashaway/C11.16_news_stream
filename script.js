@@ -124,7 +124,7 @@ $(document).ready(function() {
                         var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
                         Materialize.toast(toast_text, 4000, "rounded toasty");
                         shared_sound.play();
-                        embedPreview.play(main_array[i]);
+                        embedPreview.play(main_array[i], true);
 
                     }
                 }

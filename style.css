@@ -737,6 +737,9 @@ a.btn-floating.btn-large{
     * {
         cursor: pointer;
     }
+    #share_btn{
+        display: none;
+    }
     img.circle.profile-pic {
         margin: 4px 12px;
         width: 60px;
