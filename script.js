@@ -18,6 +18,7 @@ var clicked = false;
 var main_array = [];
 var update_sound = new Audio('audio/update_sound.mp3');
 var shared_sound = new Audio('audio/shared.mp3');
+var update_ready = false;
 var urlGetVideo = null;
 var preferences = {
     'entertainment': true,
@@ -27,7 +28,6 @@ var preferences = {
     'news': true,
     'misc': true
 };
-
 $(document).ready(function() {
 
     $('#sunburst_sequence_container').hide();
@@ -36,7 +36,16 @@ $(document).ready(function() {
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
         $("#update_btn_small").hide();
+        $('.login_status').toggle();
+        // update button checker
+        if ($('.logo_container').css('display')!='none' && update_ready==true) {
+            $('#update_btn_small').show();
+        }
+        if ($('.profile-pic').css('display')!='none') {
+            $('.login_status').hide();
+        }
     });
+    $('.modal').modal();
     $('.collapsible').collapsible();
     first_load = true;
     var config = {
@@ -52,26 +61,23 @@ $(document).ready(function() {
     firebase.auth().onAuthStateChanged(function(user) {
         console.log('Prefs at state change: ', preferences);
         if(user){
-            console.log(user);
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
+            fb_ref.ref("users/" + uid).on('value', function(snapshot) {
+                userWatchList = snapshot.val().watchList;
+                if(userWatchList !== null && main_array.length > 0){
+                    find_watched_videos()
+                }
+            });
             fb_ref.ref('users/' + uid).once('value', function(ss){
-                var snap = ss.val();
-                console.log('Snapshot: ', snap);
+                snap = ss.val();
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
-
                 } else{
                     preferences = snap.categories;
                     conformDomElements();
                 }
-            });
-            fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
-                userWatchList = snapshot.val();
-                // for(var key in watchList) {
-                //     userWatchList.push(watchList[key]);
-                // }
             });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
@@ -95,7 +101,10 @@ $(document).ready(function() {
             };
             ui.start('#firebaseui-auth-container', uiConfig);
         }
-    });
+    }, function(error){
+            console.log('A Firebase error occured- ',error);
+        }
+    );
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
         console.log('on triggered');
         $('#spinner').show();
@@ -103,34 +112,15 @@ $(document).ready(function() {
             master_list = snapshot.val();
             createVisualization(master_list);
             buildThumbnails(master_list);
-
-            $grid = $('.grid').imagesLoaded().always( function() {
-                setTimeout(function(){
-                    $grid.isotope({
-                        itemSelector: '.grid-item',
-                        masonry: { columnWidth: '.grid-sizer'},
-                        stagger: 5,
-                        percentPosition: true
-                    });
-                    $gridFixed = $('.grid-f').isotope({
-                        itemSelector: '.grid-item-f',
-                        masonry: { columnWidth: '.grid-sizer-f'},
-                        stagger: 5,
-                        percentPosition: true
-                    });
-                    $('#spinner').hide();
-                },1500);
-            });
+            initializeGrids();
             first_load=false;
             if (urlGetVideo) {
-                // queue up the requested video
-                console.log('Received get query string, id is - ',urlGetVideo,main_array);
                 for (var i=0; i<main_array.length; i++){
-                    if (urlGetVideo == main_array[i].id) {
-                        console.log('Found it!. Playing video', main_array[i]);
-                        Materialize.toast('Welcome! Playing shared video.', 4000, 'rounded toasty');
+                    if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
+                        var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
+                        Materialize.toast(toast_text, 4000, "rounded toasty");
                         shared_sound.play();
-                        embedPreview.play(main_array[i]);
+                        embedPreview.play(main_array[i], true);
 
                     }
                 }
@@ -139,36 +129,54 @@ $(document).ready(function() {
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            Materialize.toast('Updated streams available. Click Got Streams to update.', 4000, 'rounded toasty');
+            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up'' aria-hidden='true'></i>&nbsp; to update streams";
+            Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
+            update_ready = true;
             $('#spinner').hide();
         }
+        if(userWatchList.length > 0 && main_array.length > 0){
+            find_watched_videos();
+        }
+
     });
     var body = $('body');
-    body.on("click",".login_status", function(){
+    body.on("click touchend",".login_status", function(event){
+        stopPropagation(event);
         $("#firebaseui-auth-container").toggle();
     });
-    body.on("click", "#sign-out", function(){
+    body.on("click touchend", "#sign-out", function(event){
+        stopPropagation(event);
         firebase.auth().signOut().then(function() {
             uid = null;
         });
     });
-    body.on("click",".profile-pic",function() {
-        $("#sign-out").toggle();
+    body.on("click touchend",".profile-pic",function(event) {
+        stopPropagation(event);
+        $(".login_menu").toggleClass("hide");
+    });
+    body.on("click touchend","#main",function(event) {
+        console.log(event);
+        // stopPropagation(event);
+        event.stopPropagation();
+        if ($('.login_menu').css('display')!='none'){
+            $(".login_menu").addClass("hide");
+        }
     });
 
     applyNavClickHandler(fb_ref);
-    $('#update_btn').click(handleUpdate).toggle();
-    $('#update_btn_small').click(handleUpdate).toggle();
+    $('#update_btn').click(handleUpdate).hide();
+    $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
-    console.log('result of urlgetvideo = '+ urlGetVideo);
+    // console.log('result of urlgetvideo = '+ urlGetVideo);
 
 });
 
-function applyInnerSunburstFilter(){
-    for(var i = 1; i<6; i++){
 
-    }
+
+function stopPropagation(e){
+    e.stopPropagation();
+    e.preventDefault();
 }
 
 function change_view(){
@@ -191,8 +199,7 @@ function getUrlVars(){
 
 function sign_in_show_element(){
     $("#firebaseui-auth-container").hide();
-    $("#sign-out").hide();
-    $(".login_status").hide();
+    $(".login_status").css("display", "none");
     $(".welcome_text").show();
     $(".profile-pic").show();
 }
@@ -200,7 +207,7 @@ function sign_in_show_element(){
 function sign_out_element(){
     $(".login_status").show();
     $("#firebaseui-auth-container").hide();
-    $("#sign-out").hide();
+    $(".login_menu").addClass("hide");
     $(".welcome_text").hide();
     $(".profile-pic").hide();
 }
@@ -252,26 +259,40 @@ function fullShuffle(snapshot) {
     return filtered;
 }
 
+function setPreferences(pref){
+    for (var obj in pref) {
+        preferences[obj] = pref[obj];
+
+    }
+    conformDomElements();
+}
+
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
+
         preferences[this.name] = this.checked;
-        if (preferences[this.name]===true) {
-            $('.medium .'+this.name).removeClass('hidden');
+        if (preferences[this.name] === true) {
+            $('.medium .' + this.name).removeClass('hidden');
         } else {
-            $('.medium .'+this.name).addClass('hidden');
+            $('.medium .' + this.name).addClass('hidden');
+        }
+        if(this.checked) {
+            $('#' + this.name + '_sm').attr('checked');
+            $('#' + this.name).attr('checked');
+        }
+        else if (!this.checked) {
+            $('#' + this.name + '_sm').removeAttr('checked');
+            $('#' + this.name).removeAttr('checked');
         }
         $grid.isotope({ filter: '*:not(.hidden)' });
-        $gridFixed.isotope ({ filter: '*'});
+        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
         if(uid){
             fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
-        if(this.checked)
-            $('#' + this.name + '_sm').attr('checked');
-        else if (!this.checked)
-            $('#' + this.name + '_sm').removeAttr('checked');
+
         createVisualization(master_list);
     });
-
     applySmallClickHandler();
 }
 function applySmallClickHandler(){
@@ -280,35 +301,59 @@ function applySmallClickHandler(){
     })
 }
 function handleUpdate(){
-    createVisualization(master_list);
-    console.log('update handler called');
     $('#spinner').show();
     master_list = updated_list;
     $('.panel *').remove();
     buildThumbnails(master_list);
     createVisualization(master_list);
-    $grid = $('.grid').imagesLoaded().always( function() {
-        setTimeout(function(){
-            $grid.isotope({
-                itemSelector: '.grid-item',
-                masonry: { columnWidth: '.grid-sizer'},
-                stagger: 5,
-                percentPosition: true
-            });
-            $gridFixed = $('.grid-f').isotope({
-                itemSelector: '.grid-item-f',
-                masonry: { columnWidth: '.grid-sizer-f'},
-                stagger: 5,
-                percentPosition: true
-            });
-            $('#spinner').hide();
-        },1500);
-    });
+    initializeGrids();
     conformDomElements();
-    $('#update_btn').toggle();
-    $('#update_btn_small').toggle();
+    $('#update_btn').hide();
+    $('#update_btn_small').hide();
+    update_ready = false;
 }
 
+function initializeGrids(){
+    $grid = $('.grid');
+    $gridFixed = $('.grid-f');
+    // $grid = $('.grid').imagesLoaded().always( function() {
+    //     setTimeout(function(){
+    //         console.log('setting up grid 1');
+    //         $grid.isotope({
+    //             itemSelector: '.grid-item',
+    //             masonry: { columnWidth: '.grid-sizer'},
+    //             stagger: 5,
+    //             percentPosition: true
+    //         });
+    //         console.log('setting up grid 2');
+    //         // $gridFixed = $('.grid-f').isotope({
+    //         $gridFixed.isotope({
+    //             itemSelector: '.grid-item-f',
+    //             masonry: { columnWidth: '.grid-sizer-f'},
+    //             stagger: 5,
+    //             percentPosition: true
+    //         });
+    //         $('#spinner').hide();
+    //     },100);
+    // });
+    $grid.imagesLoaded().always( function() {
+        $grid.isotope({
+            itemSelector: '.grid-item',
+            masonry: { columnWidth: '.grid-sizer'},
+            stagger: 5,
+            percentPosition: true
+        });
+    });
+    $gridFixed.imagesLoaded().always( function() {
+        $gridFixed.isotope({
+            itemSelector: '.grid-item-f',
+            masonry: { columnWidth: '.grid-sizer-f'},
+            stagger: 5,
+            percentPosition: true
+        });
+    });
+    $('#spinner').hide();
+}
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
@@ -341,14 +386,13 @@ function populateArray(cycles, depth) {
         shuffle(array);
         output_array = output_array.concat(array);
     }
-    console.log(output_array);
+    // console.log(output_array);
     return output_array.slice()
 }
 
 function buildThumbnails(){
     main_array = populateArray(46,0);     //Curated list
     // main_array = fullShuffle(master_list);  //Full list
-
     var new_thumb;
     var new_item;
     var new_img;
@@ -414,5 +458,5 @@ function buildThumbnails(){
         checkImageSize('.grid img');
         checkImageSize('.grid-f img');
     });
-}
 
+}
