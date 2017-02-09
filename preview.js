@@ -336,7 +336,7 @@
         //Get embed data
         this.data = data;
         this.videoSrc = this.data.source==="twitch" ? this.data.embedVideo :
-            this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
+            this.data.embedVideo+"?&autoplay=1&fs=1&modestbranding=1&playsinline=1&rel=0";
         this.chatSrc = this.data.embedChat;
 
         this.iframeVideoElement.attr("src",this.videoSrc);
