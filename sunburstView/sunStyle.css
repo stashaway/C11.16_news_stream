@@ -23,6 +23,38 @@ body {
     height: 70px;
 }
 
+div#title {
+    position: absolute;
+    top: 35%;
+    text-align: center;
+    width: 100%;
+}
+
+div#info_window {
+    /*background-color: cornflowerblue;*/
+    position: fixed;
+    left: 74%;
+    top: 15%;
+    height: 45%;
+    width: 24%;
+    /*border: 3px groove #001F47;*/
+}
+div#info_title{
+    text-align: center;
+    /*background-color: #306b97;*/
+    color: white;
+    position: absolute;
+    left: 0%;
+    width: 100%;
+    z-index: 1;
+}
+
+#percentage, #title {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+}
+
 #legend {
     padding: 10px 0 0 3px;
 }
@@ -61,16 +93,16 @@ body {
 
 #explanation {
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 50%;
-    width: 37%;
+    width: 100%;
+    height: 100%;
     font-weight: bold;
     font-size: 16px;
     text-align: center;
-    color: yellow;
+    color: cornflowerblue;
     z-index: 0;
     transform: translate(-50%, -50%);
-    background-color: black;
     opacity: 0.8;
 }
 

@@ -96,20 +96,26 @@ function createVisualization(json) {
 
     function innerFilter() {
         var local_array = $.extend(true, {}, json);
-        var dataIndex = $(this).attr('data-index');
-        for (var i = 0; i < local_array.streams.length; i++) {
+        var dataIndex = parseInt($(this).attr('data-index'));
+        for (var i = 0; i < local_array.streams.length;) {
             var obj = local_array.streams[i];
             var preference = preferences[obj.id];
 
             obj.streams = obj.streams.filter(function (val, index) {
                 return index < 50;
             });
-           if(i > 0 && i <7 && i !== dataIndex){
-                   local_array.streams.splice(i,1);
-           }else{
-               i++
-           }
+            if(dataIndex > 0 && dataIndex < 6) {
+                if (i < local_array.streams.length && obj.id !== this.__data__.data.id) {
+                    local_array.streams.splice(i, 1);
+
+                } else {
+                    i++
+                }
+            }else{
+                return
+            }
         }
+        conformDomElements()
     }
 
         var stringified = JSON.stringify(local_array).replace(/streams/g, 'children');
