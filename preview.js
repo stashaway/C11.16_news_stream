@@ -12,11 +12,17 @@
         body.on('click','.grid-item',(function(event){
             stopPropagation(event);
             updatePreview(this);
+            if ($('.login_menu').css('display')!='none'){
+                $(".login_menu").addClass("hide");
+            }
         }));
 
         body.on('click','.grid-item-f',(function(event){
             stopPropagation(event);
             updatePreview(this);
+            if ($('.login_menu').css('display')!='none'){
+                $(".login_menu").addClass("hide");
+            }
         }));
         $("#add_watch").on('click touchend', function(event){
             stopPropagation(event);
@@ -30,10 +36,6 @@
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-        $('.dropdown-button').dropdown({
-            hover:true
-        });
-
     });
     //toggles favorites on/off
     function getFavorite(){
@@ -111,6 +113,7 @@
             $("#dropdown1").append(video_title_link);
             remove_watch_btn.click(function () {
                 fb_ref.ref("users/" + uid + "/watchList").child($(this).data("channel")).remove()
+                checkWatchStatus($(this).data("channel"))
             });
 
             video_title_link.on('click',function(event){
@@ -339,7 +342,7 @@
         //Get embed data
         this.data = data;
         this.videoSrc = this.data.source==="twitch" ? this.data.embedVideo :
-            this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
+            this.data.embedVideo+"?&autoplay=1&fs=1&modestbranding=1&playsinline=1&rel=0";
         this.chatSrc = this.data.embedChat;
 
         this.iframeVideoElement.attr("src",this.videoSrc);

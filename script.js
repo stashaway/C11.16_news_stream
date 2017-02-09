@@ -28,7 +28,6 @@ var preferences = {
     'news': true,
     'misc': true
 };
-
 $(document).ready(function() {
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
@@ -159,7 +158,6 @@ $(document).ready(function() {
         console.log(event);
         // stopPropagation(event);
         event.stopPropagation();
-
         if ($('.login_menu').css('display')!='none'){
             $(".login_menu").addClass("hide");
         }
