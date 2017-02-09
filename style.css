@@ -309,11 +309,11 @@ img.logo {
 
 .sign_out_button{
     display:block;
-    background-color: rgba(167, 131, 104, 0.54);
+    background-color: black;
 }
 
 .dropdown-button{
-    background-color: #a7a3a3;
+    background-color: #3a5c6d;
 }
 
 .dropdown-button:hover, .sign_out_button:hover{
@@ -470,7 +470,9 @@ div#main {
     cursor: pointer;
     cursor: hand;
 }
-
+ul#dropdown1.dropdown-content.active{
+    right:100%;
+}
 [data-tooltip]{
     position: absolute;
 
