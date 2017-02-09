@@ -24,6 +24,7 @@ var preferences = {
 };
 
 $(document).ready(function() {
+
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
@@ -340,24 +341,41 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
-/**
- * Helper function to set up the click handlers on the category filters
- * @param fb_ref - the reference to our Firebase object
- */
+function setPreferences(pref) {
+    for (var key in pref) {
+        preferences[key] = pref[key];
+        if (preferences[key] === true) {
+            $('.medium .' + key).removeClass('hidden');
+            $('#' + key + '_sm').prop('checked',true);
+            $('#' + key).prop('checked',true);
+        } else {
+            $('.medium .' + key).addClass('hidden');
+            $('#' + key + '_sm').prop('checked',false);
+            $('#' + key).prop('checked',false);
+        }
+    }
+
+    $grid.isotope({ filter: '*:not(.hidden)' });
+    $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
+    if(uid){
+        fb_ref.ref("users/" + uid + '/categories').update(preferences);
+    }
+
+    createVisualization(master_list);
+}
+
+function getPreferences() {
+    return preferences;
+}
+
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
-        preferences[this.name] = this.checked;
+        /*preferences[this.name] = this.checked;
         if (preferences[this.name] === true) {
             $('.medium .' + this.name).removeClass('hidden');
         } else {
             $('.medium .' + this.name).addClass('hidden');
-        }
-
-        $grid.isotope({ filter: '*:not(.hidden)' });
-        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
-
-        if(uid){
-            fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
         if(this.checked) {
             $('#' + this.name + '_sm').attr('checked');
@@ -367,7 +385,11 @@ function applyNavClickHandler(fb_ref){
             $('#' + this.name + '_sm').removeAttr('checked');
             $('#' + this.name).removeAttr('checked');
         }
-        createVisualization(master_list);
+        createVisualization(master_list);*/
+        var obj = {};
+        obj[this.name] = this.checked;
+        setPreferences(obj);
+
     });
     applySmallClickHandler();
 }
