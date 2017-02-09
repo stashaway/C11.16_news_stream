@@ -1,13 +1,10 @@
-/*body{*/
-    /*background-color: rgba(191,186,185,0.32);*/
-/*}*/
-
 header{
     font-family: 'Roboto', sans-serif;
     text-align: center;
     top:0;
     left:0;
 }
+
 html {
     height: auto !important;
     padding-bottom: 20px !important;
@@ -24,7 +21,6 @@ label {
     user-select: none;
 }
 
-
 .switch label input[type=checkbox]:checked+.lever {
     background-color: rgba(161, 205, 239, 0.63);
 }
@@ -32,6 +28,7 @@ label {
 .switch label input[type=checkbox]:checked+.lever:after {
     background-color: #3f6480;;
 }
+
 .ck-button {
     height: 43px;
     margin-top: 2%;
@@ -39,7 +36,6 @@ label {
     border-radius: 4px;
     border: 1px solid #D0D0D0;
     overflow: hidden;
-    /*float: left;*/
     display: inline-block;
 }
 
@@ -56,7 +52,7 @@ label {
 
 .ck-button label span {
     text-align:center;
-    padding:0px 10px;
+    padding:0 10px;
     display:block;
     height:100%;
     line-height: 3.5em;
@@ -103,15 +99,14 @@ label {
 
 #change_view{
     background-color: grey;
-    height: 4vh;
     width: 8vw;
     float: left;
     text-align:center;
-    padding:0px 10px;
+    padding:5px 10px 0 10px;
     display:block;
     height:100%;
     line-height: 5vh;
-    padding-top: 5px;
+    /*padding-top: 5px;*/
 }
 
 #user_login{
@@ -216,7 +211,7 @@ img.logo {
     width: 5%;
     position: absolute;
     left: 80%;
-    top: 0%;
+    top: 0;
     padding-right: 1%;
 }
 
@@ -232,7 +227,7 @@ img.logo {
    color:black
 }
 
-/*Preview*/
+/*************Preview********************/
 #full-screen {
     background-color: rgba(38, 50, 56, 0.8);
     width:100%;
@@ -323,6 +318,7 @@ img.logo {
 .dropdown-content{
     background-color: rgba(90, 100, 103, .9);
 }
+
 .dropdown-content li:hover {
     background-color: #1d5773;
 }
@@ -338,6 +334,7 @@ img.logo {
     font-weight: 400;
     width: 61px;
 }
+
 #update_btn_small{
     color:white;
     position: absolute;
@@ -379,20 +376,19 @@ div#main {
     margin: auto;
 }
 
-.fixed, .grid-f {
-    width: 100%;
-    #top:10%;
-    #left: 0;
-    display: block;
+.fixed, .medium {
+    box-shadow: 12px 17px 11px -4px rgba(0, 0, 0, 0.75);
+    margin-bottom: 25px;
+    cursor: pointer;
 }
 
-.medium, .grid {
+.medium, .fixed, .grid, .grid-f {
     width: 100%;
     left: 0;
     display: block;
 }
 
-/*************Masonry Classes*************/
+/*************Isotope/Masonry Classes*************/
 
 .grid-sizer-f,
 .grid-item-f {
@@ -418,48 +414,40 @@ div#main {
     width:100%;
 }
 
-/*************Isotope Classes*************/
-
 .gaming {
     color:white;
-    background-color:rgba(234, 93, 83, .8);
+    background-color:rgba(234, 93, 83,  0.8);
     position: relative;
-    #border:2px solid rgba(234, 93, 83, 1);
 }
 
 .news {
     color:white;
-    background-color: rgba(21,128,101,0.8);
+    background-color: rgba(21,128,101,  0.8);
     position: relative;
-    #border:2px solid #158065;
 }
 
 .entertainment {
     color:white;
     background-color: rgba(14, 87, 195, 0.8);
     position: relative;
-    #border:2px solid rgba(14, 87, 195, 0.92);
 }
 
 .misc {
     color:white;
-    background-color:rgba(245, 196, 76, 0.8);
+    background-color:rgba(245, 196, 76,  0.8);
     position: relative;
-    #border:2px solid rgba(245, 196, 76, 1);
 }
 
 .people {
     color:white;
-    background-color:rgba(40, 180, 197,0.8);
+    background-color:rgba(40, 180, 197,  0.8);
     position: relative;
-    #border:2px solid rgba(40, 180, 197,1);
 }
 
 .sports {
     color:white;
-    background-color:rgba(126,87,143,0.8);
+    background-color:rgba(126,87,143,  0.8);
     position: relative;
-    #border:2px solid #7e578f;
 }
 
 /****************************************/
@@ -483,7 +471,7 @@ div#modal1.modal.open {
     width:96%;
 }
 
-.modal-fixed-footer.open{
+.modal-fixed-footer.open {
   height:80%;
 }
 
@@ -499,6 +487,7 @@ div#modal1.modal.open {
 
 p.welcome_text.valign {
     margin: 0 20px;
+    font-size: 1.2em;
 }
 
 img.circle.profile-pic {
@@ -514,11 +503,13 @@ img.circle.profile-pic {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 #dropdown1 li{
     width:80%;
     padding: 10px;
     font-size: 1.2em;
 }
+
 .remove_btn{
     background-color: #2c6e8e;
     right: 3%;
@@ -586,14 +577,10 @@ div.valign-wrapper {
 
 .chip {
     z-index: 10;
-    padding: 0px 5px;
-    border-radius: 0px 5px 0px 0px;
+    padding: 0 5px;
+    border-radius: 0 5px 0 0;
     position: absolute;
-    bottom: 0px;
-}
-
-div.medium.z-depth-3, div.fixed{
-    background-color: white;
+    bottom: -2px;
 }
 
 /*------------------Hover Effects-------------------*/
@@ -613,7 +600,7 @@ p.video_title, p.channel_title {
 p.video_title{
     font-size: 2em;
     right: 20%;
-    top: 10%;
+    top: 15%;
     font-weight: 500
 }
 
@@ -624,10 +611,6 @@ p.channel_title {
     margin-top: 2em;
     border-right: 4px solid #fff;
     font-weight: 400
-}
-
-.medium, .fixed {
-    cursor: pointer;
 }
 
 .medium p.video_title{
@@ -667,6 +650,17 @@ p.channel_title {
     display: block;
     visibility: visible;
 }
+
+.featured_title{
+    padding: 0 0 0 20px;
+    text-shadow: -2px 2px 2px rgba(0, 0, 0, 1);
+    z-index: 995;
+    font-size: 2em;
+    text-transform: capitalize;
+    font-variant: small-caps;
+    text-decoration: underline;
+}
+
 .hover_effect {
     display: none;
     visibility: hidden;
@@ -675,11 +669,6 @@ p.channel_title {
     left: 0;
     height: 100%;
     width: 100%;
-}
-
-.fixed, .medium {
-    box-shadow: 12px 17px 11px -4px rgba(0, 0, 0, 0.75);
-    margin-bottom: 25px;
 }
 
 .responsive{
@@ -736,6 +725,8 @@ a.btn-floating.btn-large{
 .fa-refresh, fa-arrow-up {
     font-size: 1.3em;
 }
+
+/********************Media queries***************************/
 @media screen and (max-width: 1024px){
     * {
         cursor: pointer;
