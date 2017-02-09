@@ -1,162 +1,3 @@
-function openNav() {
-    $("#side_nav").toggleClass("open_nav");
-}
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail());
-}
-var auth2=null;
-
-function onSuccess(googleUser) {
-    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    auth2 = gapi.auth2.init();
-    if (isUserLoggedIn()) {
-        var profile = auth2.currentUser.get().getBasicProfile();
-        console.log('ID: ' + profile.getId());
-        console.log('Full Name: ' + profile.getName());
-        console.log('Given Name: ' + profile.getGivenName());
-        console.log('Family Name: ' + profile.getFamilyName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
-        $('.circle').attr('src', profile.getImageUrl());
-        $('.circle').show();
-
-    }
-    displayLogginState();
-}
-function onFailure(error) {
-    console.log(error);
-}
-function renderButton() {
-    gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-    });
-}
-function signOut() {
-    auth2.signOut().then(function () {
-        console.log('User signed out.')
-    });
-    $('#sign_out').hide();
-    $('#my-signin2').show();
-    $('.circle').hide();
-}
-function isUserLoggedIn(){
-    if(auth2){
-        return auth2.isSignedIn.get()!=false;
-    }
-    return false;
-}
-function displayLogginState(){
-    if (isUserLoggedIn()) {
-        $('#sign_out').show();
-        $('.circle').show();
-        $('#my-signin2').hide();
-    } else {
-        $('#sign_out').hide();
-        $('.circle').hide();
-        $('#my-signin2').show();
-    }
-}
-
-function determine_info (item){
-    // var current_item=$(item);
-    // var category_number;
-    // if (current_item.hasClass('games')){
-    //     category_number = 0;
-    // } else if (current_item.hasClass('entertainment')){
-    //     category_number = 1;
-    // } else if (current_item.hasClass('life')){
-    //     category_number = 2;
-    // } else if (current_item.hasClass('news')) {
-    //     category_number = 3;
-    // } else if (current_item.hasClass('technology')) {
-    //     category_number = 4;
-    // } else if (current_item.hasClass('misc')) {
-    //     category_number = 5;
-    // } else {
-    //     category_number = 0;
-    // }
-    // console.log(master_list);
-    var index = $(item).attr('data-index');
-    var current_item_details = master_list[index];
-    return {
-        'index' : index,
-        'thumbnail': current_item_details.thumbnail,
-        'link' : current_item_details.link,
-        'category' : current_item_details.category,
-        'channel' : current_item_details.channel,
-        'viewers' : current_item_details.viewers,
-        'start' : current_item_details.startTime,
-        'title' : current_item_details.title,
-        'id' : current_item_details.id,
-        'chat': current_item_details.embedChat,
-        'video': current_item_details.embedVideo,
-        'source': item.source
-    }
-}
-var embedPreview = new Embed();
-var embedFullVideo = new Embed();
-var embedFullChat = new Embed();
-var fullscreen = null;
-var item = null;
-
-function update_preview(parent){
-    //console.log(parent);
-    //var current_preview_obj = determine_info(parent);
-    //console.log(current_preview_obj);
-    $('#preview').show(500);
-    //$('#preview_thumb').attr("src",current_preview_obj.thumbnail);
-    //$('#preview_thumb').on("click", open_modal.bind(parent));
-    //$('#preview_category').text(current_preview_obj.category);
-    //$('#preview_viewers').text(current_preview_obj.viewers);
-    //$('#preview_title').text(current_preview_obj.title.substring(0,35));
-}
-
-function open_modal(){
-    // var current_preview_obj = determine_info(this);
-    // $(".live_video").attr("src",current_preview_obj.video);
-    // $(".live_chat").attr("src",current_preview_obj.chat);
-    // $(".loading").hide();
-    // $('.full_screen_header').text(current_preview_obj.title);
-    // update_preview(this);
-    //var index = $(item).attr('data-index');
-    embedPreview.stop();
-    embedFullVideo.play(item,fullscreen,"left");
-    embedFullChat.play(item,fullscreen,"right");
-    fullscreen.show();
-    $('#preview').hide();
-}
-
-function close_modal(){
-    // var current_preview_obj = determine_info(this);
-    // $(".live_video").attr("src",current_preview_obj.video);
-    // $(".live_chat").attr("src",current_preview_obj.chat);
-    // $(".loading").hide();
-    // $('.full_screen_header').text(current_preview_obj.title);
-    // update_preview(this);
-    //var index = $(item).attr('data-index');
-    embedPreview.stop();
-    embedFullVideo.stop();
-    embedFullChat.stop();
-    fullscreen.hide();
-}
-
-function close_preview(){
-    $('#preview').hide(500);
-}
-function end_video(){
-    $(".live_video").attr("src", " ");
-}
-
 function checkImageSize(selector){
     $(selector).each(function() {
         var height = this.naturalHeight;
@@ -166,127 +7,444 @@ function checkImageSize(selector){
         }
     });
 }
-
+var updated_list = null;
+var first_load = true;
+var master_list = null;
+var uid = null;
+var fb_ref;
+var $grid;
+var $gridFixed;
+var clicked = false;
+var main_array = [];
+var update_sound = new Audio('audio/update_sound.mp3');
+var shared_sound = new Audio('audio/shared.mp3');
+var update_ready = false;
+var urlGetVideo = null;
+var preferences = {
+    'entertainment': true,
+    'gaming': true,
+    'people': true,
+    'sports': true,
+    'news': true,
+    'misc': true
+};
 $(document).ready(function() {
-    fullscreen = $("#full-screen");
-    $("#open_full").on("click",function () {
-        open_modal();
+    $('#sunburst_sequence_container').hide();
+    $('#change_view').change(change_view);
+    $(".cat_menu").on("click",function(){
+        $(".logo_container").toggle();
+        $(".valign-wrapper").toggle();
+        $("#update_btn_small").hide();
+        $('.login_status').toggle();
+        // update button checker
+        if ($('.logo_container').css('display')!='none' && update_ready==true) {
+            $('#update_btn_small').show();
+        }
+        if ($('.profile-pic').css('display')!='none') {
+            $('.login_status').hide();
+        }
     });
-    $("#close_full").on("click",function () {
-        close_modal();
-    });
-
-    $('#modal1').modal();
-    $(".dropdown-button").dropdown({
-    });
-    $('.modal').modal({
-            complete: end_video
+    $('.modal').modal();
+    $('.collapsible').collapsible();
+    first_load = true;
+    var config = {
+        apiKey: "AIzaSyCkUkWgpUJC7FeS2_w1ueRcLMhSz75Rh9Q",
+        authDomain: "streamism-cccb0.firebaseapp.com",
+        databaseURL: "https://streamism-cccb0.firebaseio.com",
+        storageBucket: "streamism-cccb0.appspot.com",
+        messagingSenderId: "582125369559"
+    };
+    firebase.initializeApp(config);
+    fb_ref = firebase.database();
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    firebase.auth().onAuthStateChanged(function(user) {
+        console.log('Prefs at state change: ', preferences);
+        if(user){
+            $(".firebaseui-container").hide();
+            $('.dropdown-button').dropdown('close');
+            uid = user.uid;
+            fb_ref.ref("users/" + uid).on('value', function(snapshot) {
+                userWatchList = snapshot.val().watchList;
+                if(userWatchList !== null && main_array.length > 0){
+                    find_watched_videos()
+                }
+            });
+            fb_ref.ref('users/' + uid).once('value', function(ss){
+                snap = ss.val();
+                if(!snap){
+                    fb_ref.ref('users/' + uid + '/categories').update(preferences);
+                } else{
+                    preferences = snap.categories;
+                    conformDomElements();
+                }
+            });
+            user.getToken().then(function(accessToken){
+                $(".welcome_text").text("Welcome " + user.displayName);
+                sign_in_show_element();
+                if(user.photoURL !== null){
+                    $(".profile-pic").attr("src", user.photoURL);
+                }else{
+                    $(".profile-pic").attr("src", "images/defaultuser.png");
+                }
+            })
+        } else {
+            sign_out_element();
+            $(".login_status").text("Log In");
+            var uiConfig = {
+                signInFlow: "popup",
+                signInSuccessUrl: '#',
+                signInOptions: [
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID
+                ]
+            };
+            ui.start('#firebaseui-auth-container', uiConfig);
+        }
+    }, function(error){
+            console.log('A Firebase error occured- ',error);
         }
     );
+    fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
+        console.log('on triggered');
+        $('#spinner').show();
+        if (first_load === true){
+            master_list = snapshot.val();
+            createVisualization(master_list);
+            buildThumbnails(master_list);
+            initializeGrids();
+            first_load=false;
+            if (urlGetVideo) {
+                for (var i=0; i<main_array.length; i++){
+                    if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
+                        var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
+                        Materialize.toast(toast_text, 4000, "rounded toasty");
+                        shared_sound.play();
+                        embedPreview.play(main_array[i], true);
 
-    $('#modal2').modal();
-    $('#sign_out').click(signOut);
-    $('#sign_out').hide();
-    if(isUserLoggedIn() === true){
-        $('#sign_out').show();
-    }else{
-        renderButton();
-    }
+                    }
+                }
+            }
+        } else {
+            $('#update_btn').show();
+            $('#update_btn_small').show();
+            update_sound.play();
+            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up'' aria-hidden='true'></i>&nbsp; to update streams";
+            Materialize.toast(toast_text, 4000, "rounded toasty");
+            updated_list = snapshot.val();
+            update_ready = true;
+            $('#spinner').hide();
+        }
+        if(userWatchList.length > 0 && main_array.length > 0){
+            find_watched_videos();
+        }
 
-    $('.tooltipped').click(openNav);
+    });
+    var body = $('body');
+    body.on("click touchend",".login_status", function(event){
+        stopPropagation(event);
+        $("#firebaseui-auth-container").toggle();
+    });
+    body.on("click touchend", "#sign-out", function(event){
+        stopPropagation(event);
+        firebase.auth().signOut().then(function() {
+            uid = null;
+        });
+    });
+    body.on("click touchend",".profile-pic",function(event) {
+        stopPropagation(event);
+        $(".login_menu").toggleClass("hide");
+    });
+    body.on("click touchend","#main",function(event) {
+        console.log(event);
+        // stopPropagation(event);
+        event.stopPropagation();
+        if ($('.login_menu').css('display')!='none'){
+            $(".login_menu").addClass("hide");
+        }
+    });
 
-    //Get preview - on grid item click in grid -> show preview
-    var preview = $('#preview');
-    preview.hide();
-    preview.on('click','#close_preview',close_preview);
-    $(".panel").on('click','.grid-item',(function(){
-        //update_preview(this);
-        var index = $(this).attr('data-index');
-        item = master_list[index];
-        embedPreview.play(item, preview);
-        preview.show(500);
-    }));
+    applyNavClickHandler(fb_ref);
+    $('#update_btn').click(handleUpdate).hide();
+    $('#update_btn_small').on('click touchend',handleUpdate).hide();
+    urlGetVideo = getUrlVars()['shared'];
+    // console.log('result of urlgetvideo = '+ urlGetVideo);
+
 });
 
-function Embed() {
-    this.data = null;
-    this.parentElement = null;
-    this.iframeElement = null;
-    this.width = 0;
-    this.height = 0;
-    this.src = "";
-
-    /*
-    * category:  "gaming"
-     channel:  "Starladder1"
-     embedChat: "https://www.twitch.tv/starladder1/chat"
-     embedVideo: "http://player.twitch.tv/?channel=starladder1"
-     id: "starladder1"
-     link:  "https://www.twitch.tv/starladder1"
-     source: "twitch"
-     startTime:  "2017-01-31T14:29:08Z"
-     thumbnail:  "https://static-cdn.jtvnw.net/previews-ttv/live_..."
-     title:  "Navi vs Vega Squadron [BO2] | SL I-League StarS..."
-     viewers:  93519
-     *
-    * */
+function stopPropagation(e){
+    e.stopPropagation();
+    e.preventDefault();
 }
 
-Embed.prototype.play = function (data, parent, type) {
-    this.stop();
+function change_view(){
+    $('#main').toggle();
+    $('#sunburst_sequence_container').toggle();
+    conformDomElements();
+}
 
-    this.data = data;
-    this.parentElement = $(parent);
-    var src = this.data.source==="twitch" ? this.data.embedVideo :
-        this.data.embedVideo+"?&autoplay=1&fs=0&modestbranding=1&playsinline=1&rel=0";
+function getUrlVars(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
 
-    var width = this.parentElement.width();
-    var height = this.parentElement.height();
-    var top = 0;
-    var left = 0;
+function sign_in_show_element(){
+    $("#firebaseui-auth-container").hide();
+    $(".login_status").css("display", "none");
+    $(".welcome_text").show();
+    $(".profile-pic").show();
+}
 
-    if (type) {
-        if (type=="left") {
-            if (this.parentElement.height() > this.parentElement.width()) {
-                height = width * 0.5625;
-            } else {
-                width = this.parentElement.width() *0.75;
-            }
-        } else if (type=="right") {
-            if (this.parentElement.height() > this.parentElement.width()) {
-                top = width * 0.5625;
-                height = this.parentElement.height() - top;
-            } else {
-                left = this.parentElement.width() *0.75;
-                width = this.parentElement.width() - left;
-            }
-            src = this.data.embedChat;
+function sign_out_element(){
+    $(".login_status").show();
+    $("#firebaseui-auth-container").hide();
+    $(".login_menu").addClass("hide");
+    $(".welcome_text").hide();
+    $(".profile-pic").hide();
+}
+
+function conformDomElements(){
+    for(var category in preferences){
+        var currentSelector = $("#" + category);
+        var smallSelector = $("#" + category + "_sm");
+        if(preferences[category] == false){
+            currentSelector.removeAttr('checked');
+            smallSelector.removeAttr('checked');
+        } else{
+            currentSelector.attr('checked');
+            smallSelector.attr('checked');
+        }
+        currentSelector.change();
+    }
+}
+
+function fullShuffle(snapshot) {
+    var data = [];
+    var max = 0;
+    var filtered = [];
+    for (var i in snapshot.streams) {
+        if (snapshot.streams.hasOwnProperty(i)) {
+            var cat = snapshot.streams[i];
+            data.push(cat);
+            if (cat.streams.length > max) max = cat.streams.length;
         }
     }
 
-    var params = {
-        id:"preview_iframe",
-        frameborder:"0",
-        scrolling:"no",
-        width:width,
-        height:height,
-        src:src
-    };
+    for (var j = 0; j < max; j++) {
+        var sub = [];
 
-    var style = {
-        position: "absolute",
-        left: left,
-        top: top,
-        display:"inline-block"
-    };
+        for (var k = 0; k < data.length; k++) {
+            var category = data[k];
+            var stream = category.streams[j];
+            if (stream) {
+                sub.push(stream);
+            }
+        }
 
-    this.iframeElement = $("<iframe>",params).css(style);
-    $(this.parentElement).append(this.iframeElement);
-};
-
-Embed.prototype.stop = function () {
-    if (this.iframeElement) {
-        $(this.iframeElement).remove();
-        this.iframeElement = null;
+        if (sub.length > 0) {
+            sub.sort(function(){return 0.5 - Math.random()});
+            filtered = filtered.concat(sub);
+        }
     }
-};
+
+    return filtered;
+}
+
+function applyNavClickHandler(fb_ref){
+    $('.top_nav input:checkbox').change(function() {
+        preferences[this.name] = this.checked;
+        if (preferences[this.name] === true) {
+            $('.medium .' + this.name).removeClass('hidden');
+        } else {
+            $('.medium .' + this.name).addClass('hidden');
+        }
+
+        $grid.isotope({ filter: '*:not(.hidden)' });
+        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
+        if(uid){
+            fb_ref.ref("users/" + uid + '/categories').update(preferences);
+        }
+        if(this.checked) {
+            $('#' + this.name + '_sm').attr('checked');
+            $('#' + this.name).attr('checked');
+        }
+        else if (!this.checked) {
+            $('#' + this.name + '_sm').removeAttr('checked');
+            $('#' + this.name).removeAttr('checked');
+        }
+        createVisualization(master_list);
+    });
+    applySmallClickHandler();
+}
+function applySmallClickHandler(){
+    $('#responsive_nav input:checkbox').change(function(){
+        $("#"+ this.name).trigger("click");
+    })
+}
+function handleUpdate(){
+    $('#spinner').show();
+    master_list = updated_list;
+    $('.panel *').remove();
+    buildThumbnails(master_list);
+    createVisualization(master_list);
+    initializeGrids();
+    conformDomElements();
+    $('#update_btn').hide();
+    $('#update_btn_small').hide();
+    update_ready = false;
+}
+
+function initializeGrids(){
+    $grid = $('.grid');
+    $gridFixed = $('.grid-f');
+    // $grid = $('.grid').imagesLoaded().always( function() {
+    //     setTimeout(function(){
+    //         console.log('setting up grid 1');
+    //         $grid.isotope({
+    //             itemSelector: '.grid-item',
+    //             masonry: { columnWidth: '.grid-sizer'},
+    //             stagger: 5,
+    //             percentPosition: true
+    //         });
+    //         console.log('setting up grid 2');
+    //         // $gridFixed = $('.grid-f').isotope({
+    //         $gridFixed.isotope({
+    //             itemSelector: '.grid-item-f',
+    //             masonry: { columnWidth: '.grid-sizer-f'},
+    //             stagger: 5,
+    //             percentPosition: true
+    //         });
+    //         $('#spinner').hide();
+    //     },100);
+    // });
+    $grid.imagesLoaded().always( function() {
+        $grid.isotope({
+            itemSelector: '.grid-item',
+            masonry: { columnWidth: '.grid-sizer'},
+            stagger: 5,
+            percentPosition: true
+        });
+    });
+    $gridFixed.imagesLoaded().always( function() {
+        $gridFixed.isotope({
+            itemSelector: '.grid-item-f',
+            masonry: { columnWidth: '.grid-sizer-f'},
+            stagger: 5,
+            percentPosition: true
+        });
+    });
+    $('#spinner').hide();
+}
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
+
+function populateArray(cycles, depth) {
+    var output_array = [];
+    var games_list = master_list['streams'][0]['streams'];
+    var entertainment_list = master_list['streams'][1]['streams'];
+    var people_list = master_list['streams'][2]['streams'];
+    var current_list = master_list['streams'][3]['streams'];
+    var tech_list = master_list['streams'][4]['streams'];
+    var misc_list = master_list['streams'][5]['streams'];
+
+    for (var i=depth; i<=cycles; i++) {
+        var array = [];
+        array.push(games_list[i]);
+        array.push(entertainment_list[i]);
+        array.push(people_list[i]);
+        array.push(current_list[i]);
+        array.push(tech_list[i]);
+        array.push(misc_list[i]);
+        shuffle(array);
+        output_array = output_array.concat(array);
+    }
+    // console.log(output_array);
+    return output_array.slice()
+}
+
+function buildThumbnails(){
+    main_array = populateArray(46,0);     //Curated list
+    // main_array = fullShuffle(master_list);  //Full list
+    var new_thumb;
+    var new_item;
+    var new_img;
+    var new_chip;
+    var new_fig;
+    var new_title;
+    var new_channel;
+    var hover_div;
+    var view_count;
+    var the_grid = $('<div>',{
+        class: 'grid-f'
+    });
+    var sizer=$('<div>',{
+        class: 'grid-sizer-f'
+    });
+    $(the_grid).append(sizer);
+
+    var the_grid2 = $('<div>',{
+        class: 'grid'
+    });
+    var sizer2=$('<div>',{
+        class: 'grid-sizer'
+    });
+    $(the_grid2).append(sizer2);
+
+    for (var i=0; i<main_array.length; i++){
+        new_thumb = main_array[i].thumbnail;
+        if(i<6){
+            new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+        } else {
+            new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
+        }
+        new_img = $('<img src="' + new_thumb + '">');
+
+        hover_div = $('<div class="hover_effect">');
+        hover_div.addClass(main_array[i].category);
+        new_chip = $('<div class="chip hide-on-med-and-down">');
+        new_fig = $('<div class="figcaption">');
+        new_title = $('<p>');
+        new_channel = $('<p>');
+        view_count = $('<p class="view_count">Viewer Count</p>');
+        new_chip.text(main_array[i].viewers);
+        new_chip.addClass(main_array[i].category);
+        new_title.text(main_array[i].title).addClass("video_title");
+        new_channel.text(main_array[i].channel).addClass("channel_title");
+        new_fig.append(new_channel);
+        new_fig.append(new_title);
+        new_fig.append(view_count);
+        hover_div.append(new_fig);
+        new_item.append(new_chip);
+        new_item.append(new_img);
+        new_item.append(hover_div);
+        if (i<6){
+            $(the_grid).append(new_item);
+        } else {
+            $(the_grid2).append(new_item);
+        }
+    }
+    $('.fixed').append(the_grid);
+    $('.medium').append(the_grid2);
+
+    $('.grid').imagesLoaded().always( function() {
+        checkImageSize('.grid img');
+        checkImageSize('.grid-f img');
+    });
+
+}
