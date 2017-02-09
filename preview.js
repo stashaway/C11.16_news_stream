@@ -36,10 +36,6 @@
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-        $('.dropdown-button').dropdown({
-            hover:true
-        });
-
     });
     //toggles favorites on/off
     function getFavorite(){
