@@ -24,6 +24,7 @@ var preferences = {
 };
 
 $(document).ready(function() {
+
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
     $(".cat_menu").on("click",function(){
@@ -293,6 +294,15 @@ function fullShuffle(snapshot) {
     return filtered;
 }
 
+function setPreferences(pref){
+    for (var obj in pref) {
+        preferences[obj] = pref[obj];
+
+    }
+    conformDomElements();
+}
+
+
 /**
  * Takes in an array, shuffles the order and returns it.
  * @param array
@@ -346,18 +356,12 @@ function populateArray(cycles, depth) {
  */
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
+
         preferences[this.name] = this.checked;
         if (preferences[this.name] === true) {
             $('.medium .' + this.name).removeClass('hidden');
         } else {
             $('.medium .' + this.name).addClass('hidden');
-        }
-
-        $grid.isotope({ filter: '*:not(.hidden)' });
-        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
-
-        if(uid){
-            fb_ref.ref("users/" + uid + '/categories').update(preferences);
         }
         if(this.checked) {
             $('#' + this.name + '_sm').attr('checked');
@@ -367,6 +371,13 @@ function applyNavClickHandler(fb_ref){
             $('#' + this.name + '_sm').removeAttr('checked');
             $('#' + this.name).removeAttr('checked');
         }
+        $grid.isotope({ filter: '*:not(.hidden)' });
+        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
+        if(uid){
+            fb_ref.ref("users/" + uid + '/categories').update(preferences);
+        }
+
         createVisualization(master_list);
     });
     applySmallClickHandler();
