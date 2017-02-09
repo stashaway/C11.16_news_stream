@@ -12,11 +12,17 @@
         body.on('click','.grid-item',(function(event){
             stopPropagation(event);
             updatePreview(this);
+            if ($('.login_menu').css('display')!='none'){
+                $(".login_menu").addClass("hide");
+            }
         }));
 
         body.on('click','.grid-item-f',(function(event){
             stopPropagation(event);
             updatePreview(this);
+            if ($('.login_menu').css('display')!='none'){
+                $(".login_menu").addClass("hide");
+            }
         }));
         $("#add_watch").on('click touchend', function(event){
             stopPropagation(event);
@@ -29,6 +35,9 @@
         );
         $(window).resize(function () {
             onResize(500,updateFullScreen);
+        });
+        $('.dropdown-button').dropdown({
+            hover:true
         });
 
     });
