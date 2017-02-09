@@ -22,6 +22,7 @@ var preferences = {
     'news': true,
     'misc': true
 };
+
 $(document).ready(function() {
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
@@ -75,7 +76,7 @@ $(document).ready(function() {
                 }
             });
             user.getToken().then(function(accessToken){
-                $(".welcome_text").text("Welcome " + user.displayName);
+                $(".welcome_text").text("Welcome " + user.displayName + "!");
                 sign_in_show_element();
                 if(user.photoURL !== null){
                     $(".profile-pic").attr("src", user.photoURL);
@@ -427,7 +428,7 @@ function initializeGrids(){
 function buildThumbnails(){
     main_array = populateArray(46,0);             //Curated list
     // main_array = fullShuffle(master_list);  //Full list
-
+    var featured_title;
     var new_thumb;
     var new_item;
     var new_img;
@@ -462,6 +463,8 @@ function buildThumbnails(){
         new_thumb = main_array[i].thumbnail;
         if(i<6){
             new_item = $('<div class="grid-item-f grid-item-f--large ' + main_array[i].category + '" data-index=' + i + '>');
+            featured_title = $("<p class='featured_title hover_effect'>Featured Stream in " + main_array[i].category  + "</p>");
+            new_item.append(featured_title);
         } else {
             new_item = $('<div class="grid-item grid-item--medium ' + main_array[i].category + '" data-index=' + i + '>');
         }

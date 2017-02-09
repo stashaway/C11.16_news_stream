@@ -35,7 +35,7 @@
         );
         $(window).resize(function () {
             onResize(500,updateFullScreen);
-        });
+        })
     });
     //toggles favorites on/off
     function getFavorite(){
@@ -107,6 +107,7 @@
     //creates dropdown list li with channel title
     function create_watch_list(user_watch_list) {
         for (var key in user_watch_list) {
+            var live_chip= $("<div>").addClass("chip live_chip").text("Live!");
             var video_title_link = $("<li>").text(key).data("channel", key);
             var remove_watch_btn = $("<button>").addClass("btn-floating remove_btn").text("x").data("channel", key);
             video_title_link.append(remove_watch_btn);
@@ -120,9 +121,9 @@
                 stopPropagation(event);
                 play_watch_list.call(this);
             });
-
             for (var i = 0; i < main_array.length; i++) {
                 if (key === main_array[i].channel) {
+                    video_title_link.append(live_chip);
                     video_title_link.addClass("live_video_now");
                     $(".live_video_now").css("color", "white");
                 }
