@@ -499,6 +499,7 @@ div#modal1.modal.open {
 
 p.welcome_text.valign {
     margin: 0 20px;
+    font-size: 1.2em;
 }
 
 img.circle.profile-pic {

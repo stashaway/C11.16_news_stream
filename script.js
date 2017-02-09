@@ -79,7 +79,7 @@ $(document).ready(function() {
                 }
             });
             user.getToken().then(function(accessToken){
-                $(".welcome_text").text("Welcome " + user.displayName);
+                $(".welcome_text").text("Welcome " + user.displayName + "!");
                 sign_in_show_element();
                 if(user.photoURL !== null){
                     $(".profile-pic").attr("src", user.photoURL);
