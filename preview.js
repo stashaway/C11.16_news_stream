@@ -35,7 +35,7 @@
         );
         $(window).resize(function () {
             onResize(500,updateFullScreen);
-        });
+        })
     });
     //toggles favorites on/off
     function getFavorite(){
