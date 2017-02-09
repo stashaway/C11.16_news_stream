@@ -36,10 +36,6 @@
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         });
-        $('.dropdown-button').dropdown({
-            hover:true
-        });
-
     });
     //toggles favorites on/off
     function getFavorite(){
@@ -117,6 +113,7 @@
             $("#dropdown1").append(video_title_link);
             remove_watch_btn.click(function () {
                 fb_ref.ref("users/" + uid + "/watchList").child($(this).data("channel")).remove()
+                checkWatchStatus($(this).data("channel"))
             });
 
             video_title_link.on('click',function(event){

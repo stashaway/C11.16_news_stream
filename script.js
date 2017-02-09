@@ -28,7 +28,6 @@ var preferences = {
     'news': true,
     'misc': true
 };
-
 $(document).ready(function() {
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
