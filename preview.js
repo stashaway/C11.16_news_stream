@@ -1,7 +1,6 @@
 /**
  * Created by baultik on 2/2/17.
  */
-    var user_info = null;
     var embedPreview = null;
     var timer = null;
     var userWatchList = [];
@@ -30,6 +29,9 @@
         );
         $(window).resize(function () {
             onResize(500,updateFullScreen);
+        });
+        $('.dropdown-button').dropdown({
+            hover:true
         });
 
     });
@@ -96,11 +98,9 @@
         }
     }
     //makes watch video list open into preview if currently live
-    function find_watched_videos(snap){
-            user_info = snap.val();
-            var user_watch_list = user_info.watchList;
+    function find_watched_videos(){
             $("#dropdown1 *").remove();
-            create_watch_list(user_watch_list);
+            create_watch_list(userWatchList);
     }
     //creates dropdown list li with channel title
     function create_watch_list(user_watch_list) {
@@ -149,7 +149,8 @@
             document.body.appendChild(textarea);
             textarea.select();
             try {
-                Materialize.toast('Link copied to your clipboard. Share it with your friends!',4000, 'rounded toasty');
+                var toast_text = "Link copied to your clipboard.<br>Share it with your friends!";
+                Materialize.toast(toast_text,4000, 'rounded toasty');
                 return document.execCommand("copy");  // Security exception may be thrown by some browsers.
             } catch (ex) {
                 console.warn("Copy to clipboard failed.", ex);

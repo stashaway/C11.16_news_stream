@@ -64,19 +64,20 @@ $(document).ready(function() {
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
+            fb_ref.ref("users/" + uid).on('value', function(snapshot) {
+                userWatchList = snapshot.val().watchList;
+                if(userWatchList !== null && main_array.length > 0){
+                    find_watched_videos()
+                }
+            });
             fb_ref.ref('users/' + uid).once('value', function(ss){
                 snap = ss.val();
-                // console.log('Snapshot: ', snap);
                 if(!snap){
                     fb_ref.ref('users/' + uid + '/categories').update(preferences);
-
                 } else{
                     preferences = snap.categories;
                     conformDomElements();
                 }
-            });
-            fb_ref.ref("users/" + uid + "/watchList").on('value', function(snapshot) {
-                userWatchList = snapshot.val();
             });
             user.getToken().then(function(accessToken){
                 $(".welcome_text").text("Welcome " + user.displayName);
@@ -112,19 +113,14 @@ $(document).ready(function() {
             createVisualization(master_list);
             buildThumbnails(master_list);
             initializeGrids();
-
             first_load=false;
-            fb_ref.ref('users/' + uid).on('value', function(snap){
-                console.log("Snap is:" , snap.val());
-                find_watched_videos(snap)
-            });
             if (urlGetVideo) {
                 for (var i=0; i<main_array.length; i++){
                     if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
                         var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
                         Materialize.toast(toast_text, 4000, "rounded toasty");
                         shared_sound.play();
-                        embedPreview.play(main_array[i]);
+                        embedPreview.play(main_array[i], true);
 
                     }
                 }
@@ -139,6 +135,10 @@ $(document).ready(function() {
             update_ready = true;
             $('#spinner').hide();
         }
+        if(userWatchList.length > 0 && main_array.length > 0){
+            find_watched_videos();
+        }
+
     });
     var body = $('body');
     body.on("click touchend",".login_status", function(event){
@@ -448,4 +448,5 @@ function buildThumbnails(){
         checkImageSize('.grid img');
         checkImageSize('.grid-f img');
     });
+
 }
