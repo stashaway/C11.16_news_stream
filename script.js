@@ -294,15 +294,6 @@ function fullShuffle(snapshot) {
     return filtered;
 }
 
-function setPreferences(pref){
-    for (var obj in pref) {
-        preferences[obj] = pref[obj];
-
-    }
-    conformDomElements();
-}
-
-
 /**
  * Takes in an array, shuffles the order and returns it.
  * @param array
@@ -350,14 +341,37 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
-/**
- * Helper function to set up the click handlers on the category filters
- * @param fb_ref - the reference to our Firebase object
- */
+function setPreferences(pref) {
+    for (var key in pref) {
+        preferences[key] = pref[key];
+        if (preferences[key] === true) {
+            $('.medium .' + key).removeClass('hidden');
+            $('#' + key + '_sm').prop('checked',true);
+            $('#' + key).prop('checked',true);
+        } else {
+            $('.medium .' + key).addClass('hidden');
+            $('#' + key + '_sm').prop('checked',false);
+            $('#' + key).prop('checked',false);
+        }
+    }
+
+    $grid.isotope({ filter: '*:not(.hidden)' });
+    $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
+    if(uid){
+        fb_ref.ref("users/" + uid + '/categories').update(preferences);
+    }
+
+    createVisualization(master_list);
+}
+
+function getPreferences() {
+    return preferences;
+}
+
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
-
-        preferences[this.name] = this.checked;
+        /*preferences[this.name] = this.checked;
         if (preferences[this.name] === true) {
             $('.medium .' + this.name).removeClass('hidden');
         } else {
@@ -371,14 +385,11 @@ function applyNavClickHandler(fb_ref){
             $('#' + this.name + '_sm').removeAttr('checked');
             $('#' + this.name).removeAttr('checked');
         }
-        $grid.isotope({ filter: '*:not(.hidden)' });
-        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+        createVisualization(master_list);*/
+        var obj = {};
+        obj[this.name] = this.checked;
+        setPreferences(obj);
 
-        if(uid){
-            fb_ref.ref("users/" + uid + '/categories').update(preferences);
-        }
-
-        createVisualization(master_list);
     });
     applySmallClickHandler();
 }
