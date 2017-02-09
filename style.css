@@ -323,6 +323,18 @@ img.logo {
     background-color: #1d5773;
 }
 
+.dropdown-content li:hover {
+    line-height: 2rem;
+}
+
+.ul_title{
+    font-size: 1.5em !important;
+    color: white !important;
+    text-align: center !important;
+    padding-left: 4% !important;
+    width: 100% !important;
+}
+
 #update_btn {
     color:white;
     position: absolute;
@@ -459,6 +471,7 @@ div#main {
     cursor: hand;
 }
 ul#dropdown1.dropdown-content.active{
+    width: 202% !important;
     left:unset !important;
     right:100% !important;
 }
@@ -503,9 +516,15 @@ img.circle.profile-pic {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.chip.live_chip{
+    color: white;
+    bottom: unset;
+    border-radius: 25px;
+    margin-left: 10px;
+}
 
 #dropdown1 li{
-    width:80%;
+    width:92%;
     padding: 10px;
     font-size: 1.2em;
 }
@@ -531,6 +550,7 @@ img.circle.profile-pic {
 }
 
 .login_menu{
+    width: 136px;
     background-color: rgba(62, 75, 79, 0.8);
     border: none;
     position: absolute;
