@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <!--<meta name="google-signin-client_id" content="543490320986-v78r7nms1tg8a16ga18ub0dt013ded5e.apps.googleusercontent.com">-->
     <title>Streamism.tv</title>
 
     <!-- External Script Files -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
     <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
-    <!--<script src="https://apis.google.com/js/platform.js?onload=renderButton"></script>-->
+    <!--<script src="https://apis.google.com/js/platform.js"></script>-->
     <script src="//d3js.org/d3.v4.min.js"></script>
-    <script src="./sunburstView/sunburstDummyData.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
 
     <!-- Internal Script Files -->
     <script src="script.js"></script>
@@ -24,14 +24,32 @@
 
     <!-- Stylesheets -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
     <link href="https://fonts.googleapis.com/css?family=Gruppo|Quicksand:300,400,500" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
     <link rel="stylesheet" type="text/css" href="./sunburstView/sunStyle.css"/>
 
+    <!------- Favicons ------>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
 <header>
@@ -54,7 +72,7 @@
                         <li><div class="ck-button responsive">
                             <label>
                                 <input type="checkbox" id="entertainment_sm" name="entertainment" checked><span><img class="category_icon"
-                                    src="images/icons/glyphicons-330-soccer-ball.png" height="25" width="25"/></span>
+                                    src="images/icons/glyphicons-691-laptop.png" height="25" width="25"/></span>
                             </label>
                             </div>
                         </li>
@@ -68,7 +86,7 @@
                         <li><div class="ck-button responsive">
                             <label>
                                 <input type="checkbox" id="sports_sm" name="sports" checked><span><img class="category_icon"
-                                    src="images/icons/glyphicons-691-laptop.png" height="23" width="24"/></span>
+                                    src="images/icons/glyphicons-330-soccer-ball.png" height="23" width="24"/></span>
                             </label>
                         </div>
                         </li>
@@ -136,13 +154,16 @@
                     <p class="header_tagline hide-on-large-only">Stream on!</p>
 
                 </div>
-                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped hide-on-med-and-down" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams">Got Streams?</a></div>
+                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped hide-on-med-and-down" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams"><i class="fa fa-refresh" id="refresh_btn" aria-hidden="true"></i></a></div>
                 <!--responsive button-->
-                <div id="update_div_sm"><a id="update_btn_small" class="waves-effect waves-light btn tooltipped hide-on-med-and-up" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams"><i class="fa fa-exclamation" aria-hidden="true"></i></a></div>
+                <div id="update_div_sm"><a id="update_btn_small" class="waves-effect waves-light btn tooltipped hide-on-med-and-up" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams"><i class="fa fa-refresh" id="refresh_btn_small" aria-hidden="true"></i></a></div>
                 <div class="right">
                     <div class="login_status"></div>
                     <div id="firebaseui-auth-container"></div>
-                    <button type="button" id="sign-out"><a class="waves-effect waves-light btn sign_out_button">Sign Out</i></a></button>
+                    <div class="login_menu hide">
+                        <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Channel Watch List</a>
+                        <a class="waves-effect waves-light btn sign_out_button" id="sign-out">Sign Out</i></a>
+                    </div>
                     <div class="valign-wrapper col s5 pull-s7">
                      <p class="welcome_text valign hide-on-med-and-down"></p>
                         <img src="" alt="" class="circle profile-pic valign">
@@ -153,6 +174,9 @@
     </div>
 
 </header>
+<ul id='dropdown1' class='dropdown-content'>
+</ul>
+
 <div id="main">
     <div id="spinner">
         <div class="preloader-wrapper big active">
@@ -209,8 +233,9 @@
                 <div >
                     <img id="thumbnail" src="">
                     <div id="explanation" style="visibility: hidden;">
-                        <div id="percentage"></div>
-                        <div id="title"></div>
+                        <p id="percentage"></p>
+                        <p id="channel"></p>
+                        <p id="title"></p>
                     </div>
                 </div>
             </div>
@@ -223,11 +248,13 @@
 </div>
 <!--SUNBURST VIEW-->
     <div id="preview">
-        <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Close"><i class="material-icons">clear</i></a>
-        <a id="open_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Fullscreen"><i class="material-icons">fullscreen</i></a>
-        <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Windowed"><i class="material-icons">fullscreen_exit</i></a>
-        <a id="add_watch" class="embed-btn btn-floating waves-effect waves-light grey tooltipped" data-position="bottom" data-delay="50" data-tooltip="Save"><i class="material-icons add_watch_icon">visibility_off</i></a>
-        <a id="share_btn" class="embed-btn btn-floating waves-effect waves-light teal tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share"><i class="material-icons">present_to_all</i></a>
+        <div id="preview-btn-container">
+            <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Close"><i class="material-icons">clear</i></a>
+            <a id="open_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Fullscreen"><i class="material-icons">fullscreen</i></a>
+            <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Windowed"><i class="material-icons">fullscreen_exit</i></a>
+            <a id="add_watch" class="embed-btn btn-floating waves-effect waves-light grey tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to watch list"><i class="material-icons add_watch_icon">visibility_off</i></a>
+            <a id="share_btn" class="embed-btn btn-floating waves-effect waves-light teal tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share"><i class="material-icons">present_to_all</i></a>
+        </div>
     </div>
 </body>
 </html>
