@@ -297,25 +297,40 @@ img.logo {
     cursor: default;
 }
 
-#sign_out{
+.source_icon-f {
+    font-size: 2rem;
+    bottom: 22px;
+    position: absolute;
+    left: 4px;
+}
+
+.source_icon-m {
+    font-size: 1.5rem;
+    bottom: -20px;
+    position: absolute;
+    right: 4px;
+}
+
+#sign_out {
     height: 50px;
     width: 240px;
 }
 
-.sign_out_button{
+.sign_out_button {
     display:block;
     background-color: black;
 }
 
-.dropdown-button{
+.dropdown-button {
+    padding: 0 25px 0 25px;
     background-color: #3a5c6d;
 }
 
-.dropdown-button:hover, .sign_out_button:hover{
+.dropdown-button:hover, .sign_out_button:hover {
     background-color: #4783b3;
 }
 
-.dropdown-content{
+.dropdown-content {
     background-color: rgba(90, 100, 103, .9);
 }
 
@@ -327,7 +342,16 @@ img.logo {
     line-height: 2rem;
 }
 
-.ul_title{
+.watch_list_text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline;
+    width: 61%;
+    position: absolute;
+}
+
+.ul_title {
     font-size: 1.5em !important;
     color: white !important;
     text-align: center !important;
@@ -347,7 +371,7 @@ img.logo {
     width: 61px;
 }
 
-#update_btn_small{
+#update_btn_small {
     color:white;
     position: absolute;
     border-radius: 7px;
@@ -372,7 +396,7 @@ img.logo {
     height: 50%;
     z-index: 2000;
 }
-#update_div_sm{
+#update_div_sm {
     right: 55%;
 }
 
@@ -517,14 +541,16 @@ img.circle.profile-pic {
     text-overflow: ellipsis;
 }
 .chip.live_chip{
+    position: absolute;
     color: white;
     bottom: unset;
     border-radius: 25px;
-    margin-left: 10px;
+    margin-top: -2px;
+    right: 26px;
 }
 
 #dropdown1 li{
-    width:92%;
+    width:100%;
     padding: 10px;
     font-size: 1.2em;
 }
@@ -536,6 +562,7 @@ img.circle.profile-pic {
     width: 20px;
     height: 20px;
     line-height: 20px;
+    margin-top: 3px;
 }
 
 .firebaseui-container {
@@ -550,11 +577,11 @@ img.circle.profile-pic {
 }
 
 .login_menu{
-    width: 136px;
+    width: 124px;
     background-color: rgba(62, 75, 79, 0.8);
     border: none;
     position: absolute;
-    right: 1%;
+    right: 0;
     top: 100%;
     z-index: 2000;
 }
@@ -781,6 +808,17 @@ a.btn-floating.btn-large{
     }
     .right {
         z-index: 2000;
+    }
+
+    .login_menu{
+        right: 15px;
+        width: 100px;
+    }
+
+    .dropdown-button, .sign_out_button{
+        width: 90px;
+        margin: 0 auto;
+        padding: 0 8px 0 8px;
     }
 
 /*********************Changed isotope classes***************/

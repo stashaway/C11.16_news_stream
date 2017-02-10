@@ -111,19 +111,20 @@
         $("#dropdown1").append(ul_title);
         for (var key in user_watch_list) {
             var live_chip= $("<div>").addClass("chip live_chip").text("Live!").addClass(user_watch_list[key]);
-            var video_title_link = $("<li>").text(key).data("channel", key);
+            var video_title_link = $("<li>").data("channel", key);
+            var video_title = $("<div>").text(key).addClass("watch_list_text");
             var remove_watch_btn = $("<button>").addClass("btn-floating remove_btn")
                 .text("x")
                 .data("channel", key);
+            video_title_link.append(video_title);
             video_title_link.append(remove_watch_btn);
             $("#dropdown1").append(video_title_link);
             remove_watch_btn.click(function () {
+                checkWatchStatus($(this).data("channel"));
                 fb_ref.ref("users/" + uid + "/watchList")
                     .child($(this).data("channel"))
                     .remove();
-                checkWatchStatus($(this).data("channel"))
             });
-
             video_title_link.on('click',function(event){
                 stopPropagation(event);
                 play_watch_list.call(this);
