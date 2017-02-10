@@ -83,7 +83,7 @@ label {
 }
 
  #misc:checked + span, #misc_sm:checked + span{
-    background-color:rgba(245, 196, 76, 1);
+    background-color:rgba(208, 146, 55,1);
     color:#fff;
 }
 
@@ -368,7 +368,7 @@ img.logo {
     background-color: #306b97;
     padding: 0 10px;
     font-weight: 400;
-    width: 61px;
+    width: 3vw;
 }
 
 #update_btn_small {
@@ -470,7 +470,7 @@ div#main {
 
 .misc {
     color:white;
-    background-color:rgba(245, 196, 76,  0.8);
+    background-color:rgba(208, 146, 55, 0.8);
     position: relative;
 }
 
@@ -528,6 +528,7 @@ p.welcome_text.valign {
 }
 
 img.circle.profile-pic {
+    margin-right: 5px;
     cursor: pointer;
     width:60px;
 }
@@ -636,7 +637,7 @@ div.valign-wrapper {
 
 p.video_title, p.channel_title {
     font-family: 'Quicksand', sans-serif;
-    text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
     padding-right: 8px;
     overflow: hidden;
     white-space: nowrap;
@@ -649,14 +650,14 @@ p.video_title, p.channel_title {
 p.video_title{
     font-size: 2em;
     right: 20%;
-    top: 15%;
+    top: 23%;
     font-weight: 500
 }
 
 p.channel_title {
     font-size: 1.5em;
     right: 20%;
-    top: 25%;
+    top: 35%;
     margin-top: 2em;
     border-right: 4px solid #fff;
     font-weight: 400
@@ -702,12 +703,10 @@ p.channel_title {
 
 .featured_title{
     padding: 0 0 0 20px;
-    text-shadow: -2px 2px 2px rgba(0, 0, 0, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
     z-index: 995;
     font-size: 2em;
-    text-transform: capitalize;
-    font-variant: small-caps;
-    text-decoration: underline;
+    text-transform: uppercase;
 }
 
 .hover_effect {
@@ -721,10 +720,10 @@ p.channel_title {
 }
 
 .responsive{
-    margin: 13px 0px 5px 0px;
+    margin: 29% 0 0 0;
     border-radius: 8px;
     border:none;
-    height:5vh;
+    height: 10%;
 }
 
 ul.responsive_nav li{
@@ -764,6 +763,7 @@ a.btn-floating.btn-large{
 .category_icon{
     height: 2vh;
     width: 4vw;
+    vertical-align: middle;
 }
 
 #toast-container {
