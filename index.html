@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <title>Streamism.tv</title>
+
+    <!-- External Script Files -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <!-- Internal Script Files -->
+    <script type="text/javascript" src="./sunburstView/sunScript.js" defer></script>
+    <script src="script.js"></script>
+    <script src="preview.js"></script>
+
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600">
+    <link href="https://fonts.googleapis.com/css?family=Gruppo|Quicksand:300,400,500" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./sunburstView/sunStyle.css"/>
+
+    <!------- Favicons ------>
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<header>
+    <div class="navbar-fixed">
+        <nav>
+            <!--show on medium and below-->
+            <div class="nav-wrapper">
+                <div class="fixed-action-btn horizontal click-to-toggle hide-on-large-only">
+                    <a class="btn-floating btn-large grey darken-3 cat_menu">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul id="responsive_nav">
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="gaming_sm" name="gaming" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-322-gamepad.png" height="19" width="27"/></span>
+                            </label>
+                            </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="entertainment_sm" name="entertainment" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-691-laptop.png" height="25" width="25"/></span>
+                            </label>
+                            </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="news_sm" name="news" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-609-newspaper.png" height="22" width="25"/></span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="sports_sm" name="sports" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-330-soccer-ball.png" height="23" width="24"/></span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="people_sm" name="people" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-500-family.png" height="22" width="35"/></span>
+                            </label>
+                        </div>
+                        </li>
+                        <li><div class="ck-button responsive">
+                            <label>
+                                <input type="checkbox" id="misc_sm" name="misc" checked><span><img class="category_icon"
+                                    src="images/icons/glyphicons-70-gift.png" height="25" width="24"/></span>
+                            </label>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--show on medium and above-->
+                <div id="top_nav" class="top_nav hide-on-med-and-down">
+                    <div class="info_tooltip tooltipped" data-position="bottom" data-delay="50"
+                         data-tooltip="Welcome to Streamism.tv! Click on any thumbnail below to preview.
+                          Click on a category above to decide what you want to see. Everything here is happening live. Stream on!">
+                        <i class="small material-icons">info_outline</i>
+                    </div>
+                    <div class="ck-button">
+                        <label title="Games &amp; Gaming">
+                            <input type="checkbox" id="gaming" name="gaming" checked><span>Games</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label title="Entertainment, Music, Film, &amp; Comedy">
+                            <input type="checkbox" id="entertainment" name="entertainment" checked><span>Entertainment</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label title="World News, Events, &amp; Travel">
+                            <input type="checkbox" id="news" name="news" checked><span>News</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label title="Sports and Sporting Events">
+                            <input type="checkbox" id="sports" name="sports" checked><span>Sports</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label title="People, Blogs, &amp; Social Media">
+                            <input type="checkbox" id="people" name="people" checked><span>People</span>
+                        </label>
+                    </div>
+                    <div class="ck-button">
+                        <label title="Animals, Science, &amp; Everything Else!">
+                            <input type="checkbox" id="misc" name="misc" checked><span>Misc</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="switch hide-on-med-and-down">
+                    <label>Data<input type="checkbox" id="change_view" checked><span class="lever"></span>Thumbs</label>
+                </div>
+                <div class="logo_container">
+                    <img class="logo" src="images/logo1.png"/>
+                    <h2 class="header_logo">S<span>TREAMIS</span>M</h2>
+                    <p class="header_tagline hide-on-med-and-down">Stream until your streams come true</p>
+                    <p class="header_tagline hide-on-large-only">Stream on!</p>
+
+                </div>
+                <div id="update_div"><a id="update_btn" class="waves-effect waves-light btn tooltipped hide-on-med-and-down" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams"><i class="fa fa-refresh" id="refresh_btn" aria-hidden="true"></i></a></div>
+                <!--responsive button-->
+                <div id="update_div_sm"><a id="update_btn_small" class="waves-effect waves-light btn tooltipped hide-on-large-only" data-position="bottom" data-delay="50" data-tooltip="Click here to update streams"><i class="fa fa-refresh" id="refresh_btn_small" aria-hidden="true"></i></a></div>
+                <div class="right">
+                    <div class="login_status"></div>
+                    <div id="firebaseui-auth-container"></div>
+                    <div class="login_menu hide">
+                        <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Watch List</a>
+                        <a class="waves-effect waves-light btn sign_out_button" id="sign-out">Sign Out</i></a>
+                    </div>
+                    <div class="valign-wrapper col s5 pull-s7">
+                     <p class="welcome_text valign hide-on-med-and-down"></p>
+                        <img src="" alt="" class="circle profile-pic valign">
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</header>
+<ul id='dropdown1' class='dropdown-content'>
+</ul>
+
+<div id="main">
+    <div id="spinner">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed panel"></div>
+    <div class="medium panel"></div>
+</div>
+<!--SUNBURST VIEW-->
+<div id="sunburst_sequence_container">
+    <div>
+        <div id="info_window">
+            <div id="info_title"><h5>Video Information</h5></div>
+            <div id="explanation" style="visibility: hidden;">
+                <div id="percentage"></div>
+                <div id="title"></div>
+            </div>
+        </div>
+        <div id="chart">
+            <div id='viewport' class="viewport" style="visibility: hidden;">
+                <div >
+                    <img id="thumbnail" src="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        d3.select(self.frameElement).style("height", "700px");
+    </script>
+</div>
+<!--SUNBURST VIEW-->
+    <div id="preview">
+        <div id="preview-btn-container">
+            <a id="close_preview" class="embed-btn btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Close"><i class="material-icons">clear</i></a>
+            <a id="open_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Fullscreen"><i class="material-icons">fullscreen</i></a>
+            <a id="close_full" class="embed-btn btn-floating waves-effect waves-light blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Preview"><i class="material-icons">fullscreen_exit</i></a>
+            <a id="add_watch" class="embed-btn btn-floating waves-effect waves-light grey tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add to watch list"><i class="material-icons add_watch_icon">visibility_off</i></a>
+            <a id="share_btn" class="embed-btn btn-floating waves-effect waves-light teal tooltipped" data-position="bottom" data-delay="50" data-tooltip="Share"><i class="material-icons">present_to_all</i></a>
+        </div>
+    </div>
+</body>
+</html>
