@@ -297,26 +297,40 @@ img.logo {
     cursor: default;
 }
 
-#sign_out{
+.source_icon-f {
+    font-size: 2rem;
+    bottom: 22px;
+    position: absolute;
+    left: 4px;
+}
+
+.source_icon-m {
+    font-size: 1.5rem;
+    bottom: -20px;
+    position: absolute;
+    right: 4px;
+}
+
+#sign_out {
     height: 50px;
     width: 240px;
 }
 
-.sign_out_button{
+.sign_out_button {
     display:block;
     background-color: black;
 }
 
-.dropdown-button{
+.dropdown-button {
     padding: 0 25px 0 25px;
     background-color: #3a5c6d;
 }
 
-.dropdown-button:hover, .sign_out_button:hover{
+.dropdown-button:hover, .sign_out_button:hover {
     background-color: #4783b3;
 }
 
-.dropdown-content{
+.dropdown-content {
     background-color: rgba(90, 100, 103, .9);
 }
 
@@ -328,7 +342,7 @@ img.logo {
     line-height: 2rem;
 }
 
-.watch_list_text{
+.watch_list_text {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -337,7 +351,7 @@ img.logo {
     position: absolute;
 }
 
-.ul_title{
+.ul_title {
     font-size: 1.5em !important;
     color: white !important;
     text-align: center !important;
@@ -357,7 +371,7 @@ img.logo {
     width: 61px;
 }
 
-#update_btn_small{
+#update_btn_small {
     color:white;
     position: absolute;
     border-radius: 7px;
@@ -382,7 +396,7 @@ img.logo {
     height: 50%;
     z-index: 2000;
 }
-#update_div_sm{
+#update_div_sm {
     right: 55%;
 }
 
