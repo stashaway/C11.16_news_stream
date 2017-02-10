@@ -460,6 +460,8 @@ function buildThumbnails(){
     var new_channel;
     var hover_div;
     var view_count;
+    var source;
+    var source_icon;
 
     var the_grid = $('<div>',{
         class: 'grid-f'
@@ -499,6 +501,13 @@ function buildThumbnails(){
         new_title = $('<p>');
         new_channel = $('<p>');
         view_count = $('<p class="view_count">Viewer Count</p>');
+        console.log('source is ' + main_array[i].source);
+        if (main_array[i].source == 'twitch') {
+            source_icon = '<i class="fa fa-twitch" aria-hidden="true"></i>';
+        } else {
+            source_icon = '<i class="fa fa-youtube" aria-hidden="true"></i>';
+        }
+        source = $('<p class='+(i<6 ? 'source_icon-f' : 'source_icon-m') +'>' + source_icon + '</p>');
         new_chip.text(main_array[i].viewers);
         new_chip.addClass(main_array[i].category);
         new_title.text(main_array[i].title).addClass("video_title");
@@ -507,6 +516,7 @@ function buildThumbnails(){
         new_fig.append(new_title);
         new_fig.append(view_count);
         hover_div.append(new_fig);
+        hover_div.append(source);
         new_item.append(new_chip);
         new_item.append(new_img);
         new_item.append(hover_div);
