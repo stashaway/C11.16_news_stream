@@ -376,9 +376,11 @@
         }
         console.log('in play.. current state is- ', current_state);
         pushState();
+        sendEvent('video','play', this.data.id, new Date().getTime());
     };
 
     Preview.prototype.stop = function () {
+
         this.preview.hide();
         this.iframeVideoElement.attr("src","about:blank");
         this.iframeChatElement.attr("src","about:blank");
@@ -388,6 +390,8 @@
         pushState();
         //reset to initial state
         this.reset();
+        sendEvent('video','stop', this.data.id, new Date().getTime());
+
     };
 
     Preview.prototype.reset = function () {

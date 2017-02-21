@@ -32,6 +32,8 @@ $(document).ready(function() {
 
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
+
+    // $('#close_preview').click(trackStopVideo);
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
