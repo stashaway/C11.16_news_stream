@@ -39,14 +39,15 @@
     });
     //toggles favorites on/off
     function getFavorite(){
-       var channel = embedPreview.data.channel;
+        var channel = embedPreview.data.channel;
+        var category = embedPreview.data.category;
         if(uid !== null){
             if($('.add_watch_icon').text() == 'visibility_off') {
                 $('.add_watch_icon').text("visibility").css("background-color", "#ff9800");
             } else {
                 $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
             }
-            addToWatch(channel);
+            addToWatch(channel, category);
         }
     }
     //updates preview to reflect if video is watched
@@ -61,10 +62,10 @@
             }
             if(foundKey !== null){
                 $('.add_watch_icon').text("visibility").css("background-color", "#ff9800")
-            }else{
+            } else{
                 $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
             }
-        }else{
+        } else{
             $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
         }
     }
@@ -74,13 +75,13 @@
         if(uid !== null){
             $("#add_watch").show();
             checkWatchStatus(item);
-        }else{
+        } else {
             $("#add_watch").hide();
         }
         embedPreview.play(item);
     }
     //pushes channel to user's table
-    function addToWatch(channel) {
+    function addToWatch(channel, category) {
         if (uid !== null) {
             var new_channel = {};
             var foundKey = null;
@@ -90,12 +91,12 @@
                }
             }
             if(foundKey === null) {
-                new_channel[channel] = false;
+                new_channel[channel] = category;
                 fb_ref.ref("users/" + uid + "/watchList").update(new_channel);
-            }else{
+            } else {
                 fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
             }
-        }else{
+        } else {
             console.log("User is not logged in");
         }
     }
@@ -106,17 +107,24 @@
     }
     //creates dropdown list li with channel title
     function create_watch_list(user_watch_list) {
+        var ul_title = $("<li>").text("Channel Watch List").addClass("ul_title");
+        $("#dropdown1").append(ul_title);
         for (var key in user_watch_list) {
-            var live_chip= $("<div>").addClass("chip live_chip").text("Live!");
-            var video_title_link = $("<li>").text(key).data("channel", key);
-            var remove_watch_btn = $("<button>").addClass("btn-floating remove_btn").text("x").data("channel", key);
+            var live_chip= $("<div>").addClass("chip live_chip").text("Live!").addClass(user_watch_list[key]);
+            var video_title_link = $("<li>").data("channel", key);
+            var video_title = $("<div>").text(key).addClass("watch_list_text");
+            var remove_watch_btn = $("<button>").addClass("btn-floating remove_btn")
+                .text("x")
+                .data("channel", key);
+            video_title_link.append(video_title);
             video_title_link.append(remove_watch_btn);
             $("#dropdown1").append(video_title_link);
             remove_watch_btn.click(function () {
-                fb_ref.ref("users/" + uid + "/watchList").child($(this).data("channel")).remove()
-                checkWatchStatus($(this).data("channel"))
+                checkWatchStatus($(this).data("channel"));
+                fb_ref.ref("users/" + uid + "/watchList")
+                    .child($(this).data("channel"))
+                    .remove();
             });
-
             video_title_link.on('click',function(event){
                 stopPropagation(event);
                 play_watch_list.call(this);
@@ -130,6 +138,7 @@
             }
         }
     }
+
     function play_watch_list(){
         var video_channel = $(this).data("channel");
         for (var i = 0; i < main_array.length; i++) {
@@ -139,6 +148,7 @@
             }
         }
     }
+
     function createShareableLink(){
         var current_id = this.data.id;
         var sharable_link = 'http://www.streamism.tv?shared='+current_id;
@@ -174,7 +184,6 @@
         if (timer != null) {
             clearTimeout(timer);
         }
-
         timer = setTimeout(callback,time);
     }
 
@@ -246,6 +255,9 @@
         this.btnContainer.hide();
         this.expandBtn.hide();
         this.contractBtn.show();
+        current_state.full = this.data.id;
+        current_state.preview = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, true, function () {
@@ -259,6 +271,9 @@
         this.btnContainer.hide();
         this.expandBtn.show();
         this.contractBtn.hide();
+        current_state.preview = this.data.id;
+        current_state.full = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, false, function () {
@@ -351,6 +366,16 @@
 
         this.determineLayout(expanded);
         this.preview.show();
+
+        if (this.expanded) {
+            current_state.full = this.data.id;
+            current_state.preview = null;
+        } else {
+            current_state.preview = this.data.id;
+            current_state.full = null;
+        }
+        console.log('in play.. current state is- ', current_state);
+        pushState();
     };
 
     Preview.prototype.stop = function () {
@@ -358,6 +383,9 @@
         this.iframeVideoElement.attr("src","about:blank");
         this.iframeChatElement.attr("src","about:blank");
 
+        current_state.full = null;
+        current_state.preview = null;
+        pushState();
         //reset to initial state
         this.reset();
     };

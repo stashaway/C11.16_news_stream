@@ -14,6 +14,11 @@ var update_sound = new Audio('audio/update_sound.mp3');
 var shared_sound = new Audio('audio/shared.mp3');
 var update_ready = false;
 var urlGetVideo = null;
+var fullscreen = null;
+var preview = null;
+var filters = null;
+var viewState = null;
+var current_state = [];
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -61,6 +66,7 @@ $(document).ready(function() {
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
+            setUserID(uid);
             fb_ref.ref("users/" + uid).on('value', function(snapshot) {
                 userWatchList = snapshot.val().watchList;
                 if(userWatchList !== null && main_array.length > 0){
@@ -112,27 +118,46 @@ $(document).ready(function() {
             initializeGrids();
             first_load=false;
             if (urlGetVideo) {
-                for (var i=0; i<main_array.length; i++){
-                    if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
-                        var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
-                        Materialize.toast(toast_text, 4000, "rounded toasty");
-                        shared_sound.play();
-                        embedPreview.play(main_array[i], true);
-
-                    }
-                }
+                var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
+                Materialize.toast(toast_text, 4000, "rounded toasty");
+                shared_sound.play();
+                embedPreview.play(findVideoByID(urlGetVideo), true);
+            }
+            if (filters && !uid) {
+                var convertedFilters = convertToBinary(filters);
+                console.log('filters after conversion are ', convertedFilters);
+                preferences.gaming = convertedFilters[0] !=false;
+                preferences.entertainment = convertedFilters[1] !=false;
+                preferences.news = convertedFilters[2] !=false;
+                preferences.sports = convertedFilters[3] !=false;
+                preferences.people = convertedFilters[4] !=false;
+                preferences.misc = convertedFilters[5] !=false;
+                conformDomElements();
+            }
+            if (filters && uid) {
+                var toast_text = "Using category filters<br>from user preferences.";
+                Materialize.toast(toast_text, 4000, "rounded toasty");
+            }
+            if (preview) {
+                embedPreview.play(findVideoByID(preview), false);
+            }
+            if (fullscreen) {
+                embedPreview.play(findVideoByID(fullscreen), true);
+            }
+            if (viewState=='d') {
+                $('#change_view').trigger('click');
             }
         } else {                            // Every other time, show update notification and wait
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up'' aria-hidden='true'></i>&nbsp; to update streams";
+            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up' aria-hidden='true'></i>&nbsp; to update streams";
             Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
             $('#spinner').hide();
         }
-        if(userWatchList.length > 0 && main_array.length > 0){
+        if(userWatchList && userWatchList.length > 0 && main_array.length > 0){
             find_watched_videos();
         }
 
@@ -167,7 +192,19 @@ $(document).ready(function() {
     $('#update_btn').click(handleUpdate).hide();
     $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
+    fullscreen = getUrlVars()['f'];
+    preview = getUrlVars()['p'];
+    filters = getUrlVars()['c'];
+    viewState = getUrlVars()['v'];
 });
+
+function findVideoByID(videoID) {
+    for (var i=0; i<main_array.length; i++){
+        if (videoID == main_array[i].id) {
+           return main_array[i];
+        }
+    }
+}
 
 /**
  * Replaces YouTube's broken link img with our custom image to maintain aspect ratio.
@@ -183,8 +220,34 @@ function checkImageSize(selector){
     });
 }
 
+function pushState(){
+    console.log('pushState called. Current state is-', current_state);
+    var state = {};
+    var title = '';
+    var path_args = '';
+
+    if (current_state.filters) {
+        path_args += 'c=' + current_state.filters + '&';
+    }
+    if (current_state.full) {
+        path_args += 'f=' + current_state.full + '&';
+    }
+    if (current_state.preview) {
+        path_args += 'p=' + current_state.preview + '&';
+    }
+    if (current_state.view) {
+        path_args += 'v=' + current_state.view + '&';
+    }
+
+    var fixed_path = path_args.slice(0,-1);
+    var path = '?' + fixed_path;
+
+    history.replaceState(state, title, path);
+    sendPageView();
+}
+
 /**
- * A helper function to stop propogation of click events for delegataed handlers
+ * A helper function to stop propogation of click events for delegated handlers
  * @param e - the event to be affected
  */
 function stopPropagation(e){
@@ -199,6 +262,12 @@ function change_view(){
     $('#main').toggle();
     $('#sunburst_sequence_container').toggle();
     conformDomElements();
+    if ($('#sunburst_sequence_container').is(':visible')) {
+        current_state.view = 'd'
+    } else {
+        current_state.view = null;
+    }
+    pushState();
 }
 
 /**
@@ -294,15 +363,6 @@ function fullShuffle(snapshot) {
     return filtered;
 }
 
-function setPreferences(pref){
-    for (var obj in pref) {
-        preferences[obj] = pref[obj];
-
-    }
-    conformDomElements();
-}
-
-
 /**
  * Takes in an array, shuffles the order and returns it.
  * @param array
@@ -350,14 +410,63 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
-/**
- * Helper function to set up the click handlers on the category filters
- * @param fb_ref - the reference to our Firebase object
- */
+function convertToBinary(numString){
+    var converter = (numString >>> 0).toString(2);
+    while (converter.length < 6) {
+        converter = "0" + converter;
+    }
+    return converter;
+}
+
+function convertToDecimal(binString){
+    return parseInt(binString, 2);
+}
+
+function prefsToBinary() {
+    var output = '';
+    var categoryArray = ['gaming','entertainment','news','sports','people','misc'];
+    for (var i=0; i<categoryArray.length; i++) {
+        if (preferences[categoryArray[i]]) {
+            output += 1;
+        } else {
+            output += 0;
+        }
+    }
+    return output;
+}
+
+function setPreferences(pref) {
+    for (var key in pref) {
+        preferences[key] = pref[key];
+        if (preferences[key] === true) {
+            $('.medium .' + key).removeClass('hidden');
+            $('#' + key + '_sm').prop('checked',true);
+            $('#' + key).prop('checked',true);
+        } else {
+            $('.medium .' + key).addClass('hidden');
+            $('#' + key + '_sm').prop('checked',false);
+            $('#' + key).prop('checked',false);
+        }
+    }
+    current_state.filters = convertToDecimal(prefsToBinary());
+    pushState();
+    $grid.isotope({ filter: '*:not(.hidden)' });
+    $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+
+    if(uid){
+        fb_ref.ref("users/" + uid + '/categories').update(preferences);
+    }
+
+    createVisualization(master_list);
+}
+
+function getPreferences() {
+    return preferences;
+}
+
 function applyNavClickHandler(fb_ref){
     $('.top_nav input:checkbox').change(function() {
-
-        preferences[this.name] = this.checked;
+        /*preferences[this.name] = this.checked;
         if (preferences[this.name] === true) {
             $('.medium .' + this.name).removeClass('hidden');
         } else {
@@ -371,14 +480,11 @@ function applyNavClickHandler(fb_ref){
             $('#' + this.name + '_sm').removeAttr('checked');
             $('#' + this.name).removeAttr('checked');
         }
-        $grid.isotope({ filter: '*:not(.hidden)' });
-        $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
+        createVisualization(master_list);*/
+        var obj = {};
+        obj[this.name] = this.checked;
+        setPreferences(obj);
 
-        if(uid){
-            fb_ref.ref("users/" + uid + '/categories').update(preferences);
-        }
-
-        createVisualization(master_list);
     });
     applySmallClickHandler();
 }
@@ -449,6 +555,8 @@ function buildThumbnails(){
     var new_channel;
     var hover_div;
     var view_count;
+    var source;
+    var source_icon;
 
     var the_grid = $('<div>',{
         class: 'grid-f'
@@ -488,7 +596,13 @@ function buildThumbnails(){
         new_title = $('<p>');
         new_channel = $('<p>');
         view_count = $('<p class="view_count">Viewer Count</p>');
-        new_chip.text(main_array[i].viewers);
+        if (main_array[i].source == 'twitch') {
+            source_icon = '<i class="fa fa-twitch" aria-hidden="true"></i>';
+        } else {
+            source_icon = '<i class="fa fa-youtube-play" aria-hidden="true" style="font-size: 1.3em; padding-right: 2px;"></i>';
+        }
+        source = $('<p class='+(i<6 ? 'source_icon-f' : 'source_icon-m') +'>' + source_icon + '</p>');
+        new_chip.html(source_icon + '&nbsp' + main_array[i].viewers);
         new_chip.addClass(main_array[i].category);
         new_title.text(main_array[i].title).addClass("video_title");
         new_channel.text(main_array[i].channel).addClass("channel_title");

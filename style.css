@@ -83,7 +83,7 @@ label {
 }
 
  #misc:checked + span, #misc_sm:checked + span{
-    background-color:rgba(245, 196, 76, 1);
+    background-color:rgba(208, 146, 55,1);
     color:#fff;
 }
 
@@ -297,30 +297,66 @@ img.logo {
     cursor: default;
 }
 
-#sign_out{
+.source_icon-f {
+    font-size: 2rem;
+    bottom: 22px;
+    position: absolute;
+    left: 4px;
+}
+
+.source_icon-m {
+    font-size: 1.5rem;
+    bottom: -20px;
+    position: absolute;
+    right: 4px;
+}
+
+#sign_out {
     height: 50px;
     width: 240px;
 }
 
-.sign_out_button{
+.sign_out_button {
     display:block;
     background-color: black;
 }
 
-.dropdown-button{
+.dropdown-button {
+    padding: 0 25px 0 25px;
     background-color: #3a5c6d;
 }
 
-.dropdown-button:hover, .sign_out_button:hover{
+.dropdown-button:hover, .sign_out_button:hover {
     background-color: #4783b3;
 }
 
-.dropdown-content{
+.dropdown-content {
     background-color: rgba(90, 100, 103, .9);
 }
 
 .dropdown-content li:hover {
     background-color: #1d5773;
+}
+
+.dropdown-content li:hover {
+    line-height: 2rem;
+}
+
+.watch_list_text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline;
+    width: 61%;
+    position: absolute;
+}
+
+.ul_title {
+    font-size: 1.5em !important;
+    color: white !important;
+    text-align: center !important;
+    padding-left: 4% !important;
+    width: 100% !important;
 }
 
 #update_btn {
@@ -332,10 +368,10 @@ img.logo {
     background-color: #306b97;
     padding: 0 10px;
     font-weight: 400;
-    width: 61px;
+    width: 3vw;
 }
 
-#update_btn_small{
+#update_btn_small {
     color:white;
     position: absolute;
     border-radius: 7px;
@@ -360,8 +396,8 @@ img.logo {
     height: 50%;
     z-index: 2000;
 }
-#update_div_sm{
-    right: 55%;
+#update_div_sm {
+    right: 50%;
 }
 
 /************ Overall Stream Grid Containers ********************/
@@ -434,7 +470,7 @@ div#main {
 
 .misc {
     color:white;
-    background-color:rgba(245, 196, 76,  0.8);
+    background-color:rgba(208, 146, 55, 0.8);
     position: relative;
 }
 
@@ -459,6 +495,7 @@ div#main {
     cursor: hand;
 }
 ul#dropdown1.dropdown-content.active{
+    width: 202% !important;
     left:unset !important;
     right:100% !important;
 }
@@ -491,6 +528,7 @@ p.welcome_text.valign {
 }
 
 img.circle.profile-pic {
+    margin-right: 5px;
     cursor: pointer;
     width:60px;
 }
@@ -503,9 +541,17 @@ img.circle.profile-pic {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.chip.live_chip{
+    position: absolute;
+    color: white;
+    bottom: unset;
+    border-radius: 25px;
+    margin-top: -2px;
+    right: 26px;
+}
 
 #dropdown1 li{
-    width:80%;
+    width:100%;
     padding: 10px;
     font-size: 1.2em;
 }
@@ -517,6 +563,7 @@ img.circle.profile-pic {
     width: 20px;
     height: 20px;
     line-height: 20px;
+    margin-top: 3px;
 }
 
 .firebaseui-container {
@@ -531,10 +578,11 @@ img.circle.profile-pic {
 }
 
 .login_menu{
+    width: 124px;
     background-color: rgba(62, 75, 79, 0.8);
     border: none;
     position: absolute;
-    right: 1%;
+    right: 0;
     top: 100%;
     z-index: 2000;
 }
@@ -578,16 +626,18 @@ div.valign-wrapper {
 .chip {
     z-index: 10;
     padding: 0 5px;
-    border-radius: 0 5px 0 0;
+    border-radius: 0 7px 0 0;
     position: absolute;
     bottom: -2px;
+    height: 25px;
+    line-height: 25px;
 }
 
 /*------------------Hover Effects-------------------*/
 
 p.video_title, p.channel_title {
     font-family: 'Quicksand', sans-serif;
-    text-shadow: -2px 1px 2px rgba(0, 0, 0, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
     padding-right: 8px;
     overflow: hidden;
     white-space: nowrap;
@@ -600,14 +650,14 @@ p.video_title, p.channel_title {
 p.video_title{
     font-size: 2em;
     right: 20%;
-    top: 15%;
+    top: 23%;
     font-weight: 500
 }
 
 p.channel_title {
     font-size: 1.5em;
     right: 20%;
-    top: 25%;
+    top: 35%;
     margin-top: 2em;
     border-right: 4px solid #fff;
     font-weight: 400
@@ -653,12 +703,10 @@ p.channel_title {
 
 .featured_title{
     padding: 0 0 0 20px;
-    text-shadow: -2px 2px 2px rgba(0, 0, 0, 1);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
     z-index: 995;
-    font-size: 2em;
-    text-transform: capitalize;
-    font-variant: small-caps;
-    text-decoration: underline;
+    font-size: 1.7em;
+    text-transform: uppercase;
 }
 
 .hover_effect {
@@ -672,10 +720,10 @@ p.channel_title {
 }
 
 .responsive{
-    margin: 13px 0px 5px 0px;
+    margin: 29% 0 0 0;
     border-radius: 8px;
     border:none;
-    height:5vh;
+    height: 10%;
 }
 
 ul.responsive_nav li{
@@ -715,6 +763,7 @@ a.btn-floating.btn-large{
 .category_icon{
     height: 2vh;
     width: 4vw;
+    vertical-align: middle;
 }
 
 #toast-container {
@@ -727,7 +776,7 @@ a.btn-floating.btn-large{
 }
 
 /********************Media queries***************************/
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1072px){
     * {
         cursor: pointer;
     }
@@ -735,7 +784,7 @@ a.btn-floating.btn-large{
         display: none;
     }
     img.circle.profile-pic {
-        margin: 4px 12px;
+        margin: 2px 12px;
         width: 60px;
     }
     h2.header_logo{
@@ -745,7 +794,7 @@ a.btn-floating.btn-large{
         font-size: 2rem;
     }
     img.logo{
-        width: 21vh;
+        width: 27vh;
     }
     #update_div{
         right:83%;
@@ -763,6 +812,22 @@ a.btn-floating.btn-large{
         z-index: 2000;
     }
 
+    .login_menu{
+        right: 15px;
+        width: 100px;
+    }
+
+    .dropdown-button, .sign_out_button{
+        width: 90px;
+        margin: 0 auto;
+        padding: 0 8px 0 8px;
+    }
+    i#refresh_btn_small {
+        line-height: inherit !important;
+    }
+    a#update_btn_small {
+        transform: translate(-50%);
+    }
 /*********************Changed isotope classes***************/
     .grid-sizer-f,
     .grid-item-f {
@@ -787,8 +852,29 @@ a.btn-floating.btn-large{
 /******************End isotope classes********************/
 }
 
-/*@media only screen and (max-width: 600px) {*/
-    /*#toast-container {*/
-        /*min-width: 65%;*/
-    /*}*/
-/*}*/
+@media only screen and (max-width: 1200px) and (min-width: 985px ){
+    .welcome_text {
+        display: none !important;
+    }
+    div.switch.hide-on-med-and-down {
+       left: 70%;
+    }
+    #update_div {
+        left: unset;
+        right: 105px;
+    }
+    .info_tooltip {
+        display:none;
+    }
+    #top_nav {
+        left: -3%;
+    }
+}
+
+@media only screen and (max-width: 1072px) and (min-width: 985px ){
+    .header_tagline.hide-on-med-and-down {
+        display: none;
+    }
+
+}
+

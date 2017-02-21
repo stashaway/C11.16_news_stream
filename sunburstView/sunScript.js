@@ -100,7 +100,7 @@ function createVisualization(json) {
         }
     }
 
-    function innerFilter() {
+/*    function innerFilter() {
         var local_array = $.extend(true, {}, json);
         var dataIndex = parseInt($(this).attr('data-index'));
         for (var i = 0; i < local_array.streams.length;) {
@@ -120,11 +120,12 @@ function createVisualization(json) {
             }else{
                 return
             }
+
         }
         conformDomElements()
-    }
+    }*/
 
-        var stringified = JSON.stringify(local_array).replace(/streams/g, 'children');
+        var stringified = JSON.stringify(local_array).replace(/"streams":/g, '\"children\":');
         local_array = JSON.parse(stringified);
 
         // Turn the data into a d3 hierarchy and calculate the sums.
@@ -222,18 +223,32 @@ function createVisualization(json) {
 
     }
 
+    var savedPrefs = getPreferences();
+
     function sun_video(d, i) {
+        // console.log('click handled', i);
+        // $('#viewport').toggleClass('bigport');
+        // $('#viewport').toggleClass('viewport');
+
         var index = parseInt($(this).attr('data-index'));
         var current_item_details = sunburst_array[index].__data__.data;
         if(current_item_details.hasOwnProperty('children')){
+            var prefs = getPreferences();
+            var count = 0;
+            for (var key in prefs) if (prefs[key]) count++;
             var sunburst_data = {};
-            for (var j = 1; j < 7; j++) {
-
-                var obj = sunburst_array[j].__data__.data;
-                if(obj.hasOwnProperty('children')) {
-                    sunburst_data[obj.id] = j == index;
+            if (count == 1) {
+                sunburst_data = savedPrefs;
+            } else {
+                savedPrefs = $.extend(true, {}, prefs);
+                for (var j = 1; j < 7; j++) {
+                    var obj = sunburst_array[j].__data__.data;
+                    if(obj.hasOwnProperty('children')) {
+                        sunburst_data[obj.id] = j == index;
+                    }
                 }
             }
+
             setPreferences(sunburst_data);
         }
         // var current_preview_obj = determine_sunburst_info(this, sunburst_array);
