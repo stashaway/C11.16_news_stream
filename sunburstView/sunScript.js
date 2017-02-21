@@ -208,7 +208,7 @@ function createVisualization(json) {
 
     }
 
-    var savedPrefs = null;
+    var savedPrefs = getPreferences();
 
     function sun_video(d, i) {
         // console.log('click handled', i);
@@ -234,7 +234,6 @@ function createVisualization(json) {
                     }
                 }
             }
-
 
             setPreferences(sunburst_data);
         }
