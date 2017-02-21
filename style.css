@@ -391,7 +391,7 @@ img.logo {
 #update_div, #update_div_sm {
     position: absolute;
     top: 50%;
-    right: 20%;
+    right: 22%;
     transform: translate(0,-50%);
     height: 50%;
     z-index: 2000;

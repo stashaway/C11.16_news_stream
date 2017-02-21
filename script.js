@@ -127,7 +127,7 @@ $(document).ready(function() {
             }
             if (filters && !uid) {
                 var convertedFilters = convertToBinary(filters);
-                console.log('filters after conversion are ', convertedFilters);
+                // console.log('filters after conversion are ', convertedFilters);
                 preferences.gaming = convertedFilters[0] !=false;
                 preferences.entertainment = convertedFilters[1] !=false;
                 preferences.news = convertedFilters[2] !=false;
@@ -225,7 +225,7 @@ function checkImageSize(selector){
 }
 
 function pushState(){
-    console.log('pushState called. Current state is-', current_state);
+    // console.log('pushState called. Current state is-', current_state);
     var state = {};
     var title = '';
     var path_args = '';
@@ -457,7 +457,6 @@ function createAnalyticsString(){
     if (fullscreen) {
         outputString += '/fullscreen/' + fullscreen;
     }
-    console.log('Analytics string is ' + outputString);
     return outputString;
 }
 
