@@ -14,6 +14,11 @@ var update_sound = new Audio('audio/update_sound.mp3');
 var shared_sound = new Audio('audio/shared.mp3');
 var update_ready = false;
 var urlGetVideo = null;
+var fullscreen = null;
+var preview = null;
+var filters = null;
+var viewState = null;
+var current_state = [];
 var preferences = {
     'entertainment': true,
     'gaming': true,
@@ -112,21 +117,40 @@ $(document).ready(function() {
             initializeGrids();
             first_load=false;
             if (urlGetVideo) {
-                for (var i=0; i<main_array.length; i++){
-                    if (urlGetVideo == main_array[i].id) { //If a shared url was passed in and still exists, play it!
-                        var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
-                        Materialize.toast(toast_text, 4000, "rounded toasty");
-                        shared_sound.play();
-                        embedPreview.play(main_array[i], true);
-
-                    }
-                }
+                var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
+                Materialize.toast(toast_text, 4000, "rounded toasty");
+                shared_sound.play();
+                embedPreview.play(findVideoByID(urlGetVideo), true);
+            }
+            if (filters && !uid) {
+                var convertedFilters = convertToBinary(filters);
+                console.log('filters after conversion are ', convertedFilters);
+                preferences.gaming = convertedFilters[0] !=false;
+                preferences.entertainment = convertedFilters[1] !=false;
+                preferences.news = convertedFilters[2] !=false;
+                preferences.sports = convertedFilters[3] !=false;
+                preferences.people = convertedFilters[4] !=false;
+                preferences.misc = convertedFilters[5] !=false;
+                conformDomElements();
+            }
+            if (filters && uid) {
+                var toast_text = "Using category filters<br>from user preferences.";
+                Materialize.toast(toast_text, 4000, "rounded toasty");
+            }
+            if (preview) {
+                embedPreview.play(findVideoByID(preview), false);
+            }
+            if (fullscreen) {
+                embedPreview.play(findVideoByID(fullscreen), true);
+            }
+            if (viewState=='d') {
+                $('#change_view').trigger('click');
             }
         } else {                            // Every other time, show update notification and wait
             $('#update_btn').show();
             $('#update_btn_small').show();
             update_sound.play();
-            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up'' aria-hidden='true'></i>&nbsp; to update streams";
+            var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up' aria-hidden='true'></i>&nbsp; to update streams";
             Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
             update_ready = true;
@@ -167,7 +191,19 @@ $(document).ready(function() {
     $('#update_btn').click(handleUpdate).hide();
     $('#update_btn_small').on('click touchend',handleUpdate).hide();
     urlGetVideo = getUrlVars()['shared'];
+    fullscreen = getUrlVars()['f'];
+    preview = getUrlVars()['p'];
+    filters = getUrlVars()['c'];
+    viewState = getUrlVars()['v'];
 });
+
+function findVideoByID(videoID) {
+    for (var i=0; i<main_array.length; i++){
+        if (videoID == main_array[i].id) {
+           return main_array[i];
+        }
+    }
+}
 
 /**
  * Replaces YouTube's broken link img with our custom image to maintain aspect ratio.
@@ -181,6 +217,28 @@ function checkImageSize(selector){
             $(this).attr("src","images/noimage.png");
         }
     });
+}
+
+function pushState(){
+    console.log('pushState called. Current state is-', current_state);
+    var state = {};
+    var title = '';
+    var path_args = '';
+    if (current_state.filters) {
+        path_args += 'c=' + current_state.filters + '&';
+    }
+    if (current_state.full) {
+        path_args += 'f=' + current_state.full + '&';
+    }
+    if (current_state.preview) {
+        path_args += 'p=' + current_state.preview + '&';
+    }
+    if (current_state.view) {
+        path_args += 'v=' + current_state.view + '&';
+    }
+    var fixed_path = path_args.slice(0,-1);
+    var path = '?' + fixed_path;
+    history.pushState(state, title, path);
 }
 
 /**
@@ -199,6 +257,12 @@ function change_view(){
     $('#main').toggle();
     $('#sunburst_sequence_container').toggle();
     conformDomElements();
+    if ($('#sunburst_sequence_container').is(':visible')) {
+        current_state.view = 'd'
+    } else {
+        current_state.view = null;
+    }
+    pushState();
 }
 
 /**
@@ -341,6 +405,31 @@ function populateArray(cycles, depth) {
     return output_array.slice()
 }
 
+function convertToBinary(numString){
+    var converter = (numString >>> 0).toString(2);
+    while (converter.length < 6) {
+        converter = "0" + converter;
+    }
+    return converter;
+}
+
+function convertToDecimal(binString){
+    return parseInt(binString, 2);
+}
+
+function prefsToBinary() {
+    var output = '';
+    var categoryArray = ['gaming','entertainment','news','sports','people','misc'];
+    for (var i=0; i<categoryArray.length; i++) {
+        if (preferences[categoryArray[i]]) {
+            output += 1;
+        } else {
+            output += 0;
+        }
+    }
+    return output;
+}
+
 function setPreferences(pref) {
     for (var key in pref) {
         preferences[key] = pref[key];
@@ -354,7 +443,8 @@ function setPreferences(pref) {
             $('#' + key).prop('checked',false);
         }
     }
-
+    current_state.filters = convertToDecimal(prefsToBinary());
+    pushState();
     $grid.isotope({ filter: '*:not(.hidden)' });
     $gridFixed.isotope ({ filter: '*' });   // fix to keep fixed div alive if update done while on data view
 

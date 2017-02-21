@@ -255,6 +255,9 @@
         this.btnContainer.hide();
         this.expandBtn.hide();
         this.contractBtn.show();
+        current_state.full = this.data.id;
+        current_state.preview = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, true, function () {
@@ -268,6 +271,9 @@
         this.btnContainer.hide();
         this.expandBtn.show();
         this.contractBtn.hide();
+        current_state.preview = this.data.id;
+        current_state.full = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, false, function () {
@@ -360,6 +366,15 @@
 
         this.determineLayout(expanded);
         this.preview.show();
+
+        if (this.expanded) {
+            current_state.full = this.data.id;
+            current_state.preview = null;
+        } else {
+            current_state.preview = this.data.id;
+            current_state.full = null;
+        }
+        pushState();
     };
 
     Preview.prototype.stop = function () {
@@ -367,6 +382,9 @@
         this.iframeVideoElement.attr("src","about:blank");
         this.iframeChatElement.attr("src","about:blank");
 
+        current_state.full = null;
+        current_state.preview = null;
+        pushState();
         //reset to initial state
         this.reset();
     };
