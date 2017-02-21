@@ -376,7 +376,7 @@
         }
         console.log('in play.. current state is- ', current_state);
         pushState();
-        sendEvent(this.data.id,'play')
+        sendEvent('video','play', this.data.id, new Date().getTime());
     };
 
     Preview.prototype.stop = function () {
@@ -390,7 +390,8 @@
         pushState();
         //reset to initial state
         this.reset();
-        trackStopVideo();
+        sendEvent('video','stop', this.data.id, new Date().getTime());
+
     };
 
     Preview.prototype.reset = function () {

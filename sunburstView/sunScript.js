@@ -261,7 +261,6 @@ function createVisualization(json) {
         // window.location.href = d.data.link;
         // onYouTubeIframeAPIReady();
         // sendEvent('video', 'play', 'play time');
-        analizeViewTime();
     }
 
 // };

@@ -274,19 +274,6 @@ function change_view(){
     pushState();
 }
 
-function analizeViewTime(){
-    if($(preview).is(':visible')) {
-        ga('send', 'event', 'video', 'play', 'play time in preview');
-    }else if($(fullscreen).is(':visible')){
-        ga('send', 'event', 'video', 'play', 'play time in fullscreen');
-    }
-}
-
-function trackStopVideo(){
-    ga('send', 'event', 'video', 'stop', 'video stoped');
-}
-
-
 /**
  * Returns the query string to determine if a shared video link was passed in
  * @returns {Array}
