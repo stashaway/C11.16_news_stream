@@ -32,10 +32,11 @@ div#title {
 
 div#info_window {
     /*background-color: cornflowerblue;*/
+    background-color: #2b2b2b;
     position: fixed;
     left: 74%;
-    top: 15%;
-    height: 45%;
+    top: 10%;
+    height: 25%;
     width: 24%;
     /*border: 3px groove #001F47;*/
 }
