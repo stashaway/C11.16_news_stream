@@ -62,10 +62,10 @@
             }
             if(foundKey !== null){
                 $('.add_watch_icon').text("visibility").css("background-color", "#ff9800")
-            }else{
+            } else{
                 $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
             }
-        }else{
+        } else{
             $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
         }
     }
@@ -75,7 +75,7 @@
         if(uid !== null){
             $("#add_watch").show();
             checkWatchStatus(item);
-        }else{
+        } else {
             $("#add_watch").hide();
         }
         embedPreview.play(item);
@@ -93,10 +93,10 @@
             if(foundKey === null) {
                 new_channel[channel] = category;
                 fb_ref.ref("users/" + uid + "/watchList").update(new_channel);
-            }else{
+            } else {
                 fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
             }
-        }else{
+        } else {
             console.log("User is not logged in");
         }
     }
@@ -138,6 +138,7 @@
             }
         }
     }
+
     function play_watch_list(){
         var video_channel = $(this).data("channel");
         for (var i = 0; i < main_array.length; i++) {
@@ -147,6 +148,7 @@
             }
         }
     }
+
     function createShareableLink(){
         var current_id = this.data.id;
         var sharable_link = 'http://www.streamism.tv?shared='+current_id;
@@ -182,7 +184,6 @@
         if (timer != null) {
             clearTimeout(timer);
         }
-
         timer = setTimeout(callback,time);
     }
 
@@ -254,6 +255,9 @@
         this.btnContainer.hide();
         this.expandBtn.hide();
         this.contractBtn.show();
+        current_state.full = this.data.id;
+        current_state.preview = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, true, function () {
@@ -267,6 +271,9 @@
         this.btnContainer.hide();
         this.expandBtn.show();
         this.contractBtn.hide();
+        current_state.preview = this.data.id;
+        current_state.full = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, false, function () {
@@ -359,6 +366,15 @@
 
         this.determineLayout(expanded);
         this.preview.show();
+
+        if (this.expanded) {
+            current_state.full = this.data.id;
+            current_state.preview = null;
+        } else {
+            current_state.preview = this.data.id;
+            current_state.full = null;
+        }
+        pushState();
     };
 
     Preview.prototype.stop = function () {
@@ -366,6 +382,9 @@
         this.iframeVideoElement.attr("src","about:blank");
         this.iframeChatElement.attr("src","about:blank");
 
+        current_state.full = null;
+        current_state.preview = null;
+        pushState();
         //reset to initial state
         this.reset();
     };
