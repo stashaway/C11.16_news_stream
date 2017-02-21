@@ -150,9 +150,11 @@ $(document).ready(function() {
                 $('#change_view').trigger('click');
             }
         } else {                            // Every other time, show update notification and wait
+            if (!($('#update_btn').is(':visible')) && !($('#update_btn_small').is(':visible'))) {
+                update_sound.play();
+            }
             $('#update_btn').show();
             $('#update_btn_small').show();
-            update_sound.play();
             var toast_text = "Click the &nbsp;<i class='fa fa-refresh' aria-hidden='true'></i>&nbsp; button &nbsp;<i class='fa fa-arrow-up' aria-hidden='true'></i>&nbsp; to update streams";
             Materialize.toast(toast_text, 4000, "rounded toasty");
             updated_list = snapshot.val();
@@ -245,7 +247,7 @@ function pushState(){
     var path = '?' + fixed_path;
 
     history.replaceState(state, title, path);
-    sendPageView();
+    sendPageView(createAnalyticsString());
 }
 
 /**
@@ -448,6 +450,28 @@ function prefsToBinary() {
         }
     }
     return output;
+}
+
+function createAnalyticsString(){
+    var outputString = '/';
+    fullscreen = getUrlVars()['f'];
+    preview = getUrlVars()['p'];
+    viewState = getUrlVars()['v'];
+
+    outputString += prefsToBinary();
+    if (viewState) {
+        outputString += '/data';
+    } else {
+        outputString += '/thumbs';
+    }
+    if (preview) {
+        outputString += '/preview/' + preview;
+    }
+    if (fullscreen) {
+        outputString += '/fullscreen/' + fullscreen;
+    }
+    console.log('Analytics string is ' + outputString);
+    return outputString;
 }
 
 function setPreferences(pref) {
