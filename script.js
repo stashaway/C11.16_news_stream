@@ -66,6 +66,7 @@ $(document).ready(function() {
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
             uid = user.uid;
+            setUserID(uid);
             fb_ref.ref("users/" + uid).on('value', function(snapshot) {
                 userWatchList = snapshot.val().watchList;
                 if(userWatchList !== null && main_array.length > 0){
@@ -224,6 +225,7 @@ function pushState(){
     var state = {};
     var title = '';
     var path_args = '';
+
     if (current_state.filters) {
         path_args += 'c=' + current_state.filters + '&';
     }
@@ -236,9 +238,12 @@ function pushState(){
     if (current_state.view) {
         path_args += 'v=' + current_state.view + '&';
     }
+
     var fixed_path = path_args.slice(0,-1);
     var path = '?' + fixed_path;
-    history.pushState(state, title, path);
+
+    history.replaceState(state, title, path);
+    sendPageView();
 }
 
 /**

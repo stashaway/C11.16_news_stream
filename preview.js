@@ -374,6 +374,7 @@
             current_state.preview = this.data.id;
             current_state.full = null;
         }
+        console.log('in play.. current state is- ', current_state);
         pushState();
     };
 
