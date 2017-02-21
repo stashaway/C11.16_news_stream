@@ -132,7 +132,7 @@ $(document).ready(function() {
             update_ready = true;
             $('#spinner').hide();
         }
-        if(userWatchList.length > 0 && main_array.length > 0){
+        if(userWatchList && userWatchList.length > 0 && main_array.length > 0){
             find_watched_videos();
         }
 
