@@ -5,7 +5,9 @@
  * Sends a page view to analytics. Includes window.title and window.location.
  * {@link https://developers.google.com/analytics/devguides/collection/analyticsjs/pages}
  */
-function sendPageView() {
+function sendPageView(page) {
+    //Set custom path
+    ga('set', 'page', page);
     ga('send', 'pageview');
 }
 
