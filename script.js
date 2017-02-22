@@ -489,7 +489,7 @@ function getPreferences() {
 }
 
 function applyNavClickHandler(){
-    console.log('nav called');
+    // console.log('nav called');
     $('.top_nav input:checkbox').change(function() {
         var current_position = $('.fixed').offset().top - $(window).scrollTop();
         if (current_position > -250 && nav_click_count++>=6) {
