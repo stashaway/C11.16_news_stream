@@ -3,6 +3,7 @@
  */
 var updated_list = null;
 var first_load = true;
+var nav_click_count = 0;
 var master_list = null;
 var uid = null;
 var fb_ref;
@@ -29,11 +30,8 @@ var preferences = {
 };
 
 $(document).ready(function() {
-
     $('#sunburst_sequence_container').hide();
     $('#change_view').change(change_view);
-
-    // $('#close_preview').click(trackStopVideo);
     $(".cat_menu").on("click",function(){
         $(".logo_container").toggle();
         $(".valign-wrapper").toggle();
@@ -50,6 +48,7 @@ $(document).ready(function() {
     $('.modal').modal();
     $('.collapsible').collapsible();
     first_load = true;
+    first_load_nav = true;
 
 // Initialize firebase and set listeners
     var config = {
@@ -118,7 +117,7 @@ $(document).ready(function() {
             createVisualization(master_list);
             buildThumbnails(master_list);
             initializeGrids();
-            first_load=false;
+            first_load = false;
             if (urlGetVideo) {
                 var toast_text = "Welcome to Streamism.tv!<br>Here's your shared video.";
                 Materialize.toast(toast_text, 4000, "rounded toasty");
@@ -489,27 +488,20 @@ function getPreferences() {
     return preferences;
 }
 
-function applyNavClickHandler(fb_ref){
+function applyNavClickHandler(){
+    // console.log('nav called');
     $('.top_nav input:checkbox').change(function() {
-        /*preferences[this.name] = this.checked;
-        if (preferences[this.name] === true) {
-            $('.medium .' + this.name).removeClass('hidden');
-        } else {
-            $('.medium .' + this.name).addClass('hidden');
+        var current_position = $('.fixed').offset().top - $(window).scrollTop();
+        if (current_position > -250 && nav_click_count++>=6) {
+            $('html, body').animate({
+                scrollTop: 600,
+                scrollLeft: 0
+            }, 1000);
         }
-        if(this.checked) {
-            $('#' + this.name + '_sm').attr('checked');
-            $('#' + this.name).attr('checked');
-        }
-        else if (!this.checked) {
-            $('#' + this.name + '_sm').removeAttr('checked');
-            $('#' + this.name).removeAttr('checked');
-        }
-        createVisualization(master_list);*/
+
         var obj = {};
         obj[this.name] = this.checked;
         setPreferences(obj);
-
     });
     applySmallClickHandler();
 }
