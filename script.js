@@ -497,6 +497,7 @@ function applyNavClickHandler(){
                 scrollTop: 600,
                 scrollLeft: 0
             }, 1000);
+            $('.medium').focus();
         }
 
         var obj = {};
