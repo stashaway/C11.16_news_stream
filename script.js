@@ -495,8 +495,7 @@ function applyNavClickHandler(){
         var current_position = $('.fixed').offset().top - $(window).scrollTop();
         if (current_position > -250 && nav_click_count++>=6 && $('.fixed').is(':visible')) {
             $('html, body').animate({
-                scrollTop: 600,
-                scrollLeft: 0
+                scrollTop: $('.medium').offset().top-64
             }, 1000);
             $('.medium').focus();
         }
