@@ -264,12 +264,13 @@ function stopPropagation(e){
 function change_view(){
     $('#main').toggle();
     $('#sunburst_sequence_container').toggle();
-    conformDomElements();
     if ($('#sunburst_sequence_container').is(':visible')) {
         current_state.view = 'd'
     } else {
         current_state.view = null;
+        nav_click_count=0;
     }
+    conformDomElements();
     pushState();
 }
 
@@ -492,10 +493,9 @@ function applyNavClickHandler(){
     // console.log('nav called');
     $('.top_nav input:checkbox').change(function() {
         var current_position = $('.fixed').offset().top - $(window).scrollTop();
-        if (current_position > -250 && nav_click_count++>=6) {
+        if (current_position > -250 && nav_click_count++>=6 && $('.fixed').is(':visible')) {
             $('html, body').animate({
-                scrollTop: 600,
-                scrollLeft: 0
+                scrollTop: $('.medium').offset().top-64
             }, 1000);
             $('.medium').focus();
         }
