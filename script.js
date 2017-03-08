@@ -184,7 +184,7 @@ function checkImageSize(selector){
 }
 
 /**
- * A helper function to stop propogation of click events for delegataed handlers
+ * A helper function to stop propogation of click events for delegated handlers
  * @param e - the event to be affected
  */
 function stopPropagation(e){
