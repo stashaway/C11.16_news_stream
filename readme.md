@@ -4,7 +4,11 @@ Streamism is a live stream aggregation application designed to maximize discover
 
 Streamism.tv supports login with a Google ID or an email address and password to store the users preference data. It uses a Node.js backend that updates a Firebase database which serves the stream information to the user.
 
-This application was developed in conjunction with 3 other developers- Brian Ault, Tammy S. Lau, and Jason Welch.
+The Streamism Team-
+* Brian Ault
+* Sloan Tash
+* Tammy S. Lau
+* Jason Welch
 
 ## Technologies Used
 
