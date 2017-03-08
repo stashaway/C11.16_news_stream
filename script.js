@@ -62,7 +62,7 @@ $(document).ready(function() {
     fb_ref = firebase.database();
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     firebase.auth().onAuthStateChanged(function(user) {
-        // console.log('Prefs at state change: ', preferences);
+        //checks for users and creates user's watch list, and category preferences from callback function
         if(user){
             $(".firebaseui-container").hide();
             $('.dropdown-button').dropdown('close');
@@ -110,7 +110,6 @@ $(document).ready(function() {
         }
     );
     fb_ref.ref("-KbHuqtKNuu96svHRgjz").on('value', function(snapshot) {
-        // console.log('on value triggered');
         $('#spinner').show();
         if (first_load === true){           // First time this is triggered, build the DOM with no prompt
             master_list = snapshot.val();
@@ -165,7 +164,7 @@ $(document).ready(function() {
         }
 
     });
-
+//allows login menu to close when clicking outside itself
     var body = $('body');
     body.on("click touchend",".login_status", function(event){
         stopPropagation(event);
