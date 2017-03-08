@@ -1,14 +1,19 @@
 /**
  * Created by baultik on 2/2/17.
  */
+
+/**
+* Global variables
+ */
     var embedPreview = null;
     var timer = null;
     var userWatchList = [];
+
     $(document).ready(function() {
         embedPreview = new Preview();
         embedPreview.init();
-
         var body = $("body");
+
         body.on('click','.grid-item',(function(event){
             stopPropagation(event);
             updatePreview(this);
@@ -24,20 +29,25 @@
                 $(".login_menu").addClass("hide");
             }
         }));
+
         $("#add_watch").on('click touchend', function(event){
             stopPropagation(event);
             getFavorite();
         });
+
         $("#dropdown1").on('click touchend', (function(event){
             // stopPropagation(event);
             event.stopPropagation();
-        })
-        );
+        }));
+
         $(window).resize(function () {
             onResize(500,updateFullScreen);
         })
     });
-    //toggles favorites on/off
+
+/**
+ * toggles favorites on/off and adds class to change colors
+ */
     function getFavorite(){
         var channel = embedPreview.data.channel;
         var category = embedPreview.data.category;
@@ -50,7 +60,9 @@
             addToWatch(channel, category);
         }
     }
-    //updates preview to reflect if video is watched
+/**
+ * checks if item is in user's watchlist on firebase and adjusts class accordingly
+ */
     function checkWatchStatus(item) {
         var foundItem = item.channel;
         var foundKey = null;
@@ -69,6 +81,9 @@
             $('.add_watch_icon').text("visibility_off").css("background-color", "lightgrey");
         }
     }
+/**
+ * updates preview to whichever thumbnail was clicked on
+ */
     function updatePreview(parent){
         var index = $(parent).attr('data-index');
         var item = main_array[index];
@@ -80,7 +95,9 @@
         }
         embedPreview.play(item);
     }
-    //pushes channel to user's table
+/**
+ * adds channel name to user's table on firebase
+ */
     function addToWatch(channel, category) {
         if (uid !== null) {
             var new_channel = {};
@@ -96,16 +113,18 @@
             } else {
                 fb_ref.ref("users/" + uid + "/watchList").child(foundKey).remove();
             }
-        } else {
-            console.log("User is not logged in");
         }
     }
-    //makes watch video list open into preview if currently live
+/**
+ * checks user's table on firebase against currently live videos
+ */
     function find_watched_videos(){
             $("#dropdown1 *").remove();
             create_watch_list(userWatchList);
     }
-    //creates dropdown list li with channel title
+/**
+ * builds list of channels and attaches click handlers that play a video if it is currently live or the ability to remove the video from list
+ */
     function create_watch_list(user_watch_list) {
         var ul_title = $("<li>").text("Channel Watch List").addClass("ul_title");
         $("#dropdown1").append(ul_title);
@@ -138,7 +157,9 @@
             }
         }
     }
-
+/**
+ * click handler for watchlist items if video is currently live
+ */
     function play_watch_list(){
         var video_channel = $(this).data("channel");
         for (var i = 0; i < main_array.length; i++) {
@@ -148,7 +169,9 @@
             }
         }
     }
-
+/**
+ * creates and copies link to clipboard for video
+ */
     function createShareableLink(){
         var current_id = this.data.id;
         var sharable_link = 'http://www.streamism.tv?shared='+current_id;
@@ -186,7 +209,9 @@
         }
         timer = setTimeout(callback,time);
     }
-
+/**
+ * initializes preview variables
+ */
     function Preview() {
         this.data = null;
         this.preview = $('#preview');
@@ -208,7 +233,9 @@
         this.expanded = false;
         this.mobile = false;
     }
-
+/**
+ * creates iframe for chat and video
+ */
     Preview.prototype.init = function () {
         //get initial size
         this.defaultWidth = this.preview.width();
@@ -255,6 +282,9 @@
         this.btnContainer.hide();
         this.expandBtn.hide();
         this.contractBtn.show();
+        current_state.full = this.data.id;
+        current_state.preview = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, true, function () {
@@ -268,6 +298,9 @@
         this.btnContainer.hide();
         this.expandBtn.show();
         this.contractBtn.hide();
+        current_state.preview = this.data.id;
+        current_state.full = null;
+        pushState();
 
         //animate position
         this.position(this.animationTime, false, function () {
@@ -360,15 +393,32 @@
 
         this.determineLayout(expanded);
         this.preview.show();
+
+        if (this.expanded) {
+            current_state.full = this.data.id;
+            current_state.preview = null;
+        } else {
+            current_state.preview = this.data.id;
+            current_state.full = null;
+        }
+        console.log('in play.. current state is- ', current_state);
+        pushState();
+        sendEvent('video','play', this.data.id, new Date().getTime());
     };
 
     Preview.prototype.stop = function () {
+
         this.preview.hide();
         this.iframeVideoElement.attr("src","about:blank");
         this.iframeChatElement.attr("src","about:blank");
 
+        current_state.full = null;
+        current_state.preview = null;
+        pushState();
         //reset to initial state
         this.reset();
+        sendEvent('video','stop', this.data.id, new Date().getTime());
+
     };
 
     Preview.prototype.reset = function () {

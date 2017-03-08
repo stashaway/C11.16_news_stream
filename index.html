@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <title>Streamism.tv</title>
 
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-91576843-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!--<script>//async modern browser version
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-91576843-1', 'auto');
+        ga('send', 'pageview');
+    </script>-
+    <script async src='https://www.google-analytics.com/analytics.js'></script>-->
+
     <!-- External Script Files -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
@@ -15,6 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 
     <!-- Internal Script Files -->
+    <script src="analytics.js"></script>
     <script type="text/javascript" src="./sunburstView/sunScript.js" defer></script>
     <script src="script.js"></script>
     <script src="preview.js"></script>
@@ -28,6 +45,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" type="text/css" href="./sunburstView/sunStyle.css"/>
+
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
@@ -142,7 +160,7 @@
                     </div>
                 </div>
                 <div class="switch hide-on-med-and-down">
-                    <label>Data<input type="checkbox" id="change_view" checked><span class="lever"></span>Thumbs</label>
+                    <label><i class="fa fa-circle-o" aria-hidden="true"></i><input type="checkbox" id="change_view" checked><span class="lever"></span><i class="fa fa-th" aria-hidden="true"></i></label>
                 </div>
                 <div class="logo_container">
                     <img class="logo" src="images/logo1.png"/>
@@ -226,10 +244,11 @@
 <div id="sunburst_sequence_container">
     <div>
         <div id="info_window">
-            <div id="info_title"><h5>Video Information</h5></div>
+            <div id="info_title"><h5>Streams</h5></div>
             <div id="explanation" style="visibility: hidden;">
                 <div id="percentage"></div>
                 <div id="title"></div>
+                <div id="icon"></div>
             </div>
         </div>
         <div id="chart">

@@ -16,15 +16,15 @@ var sunburst_array = [];
 var b = {
     w: 75, h: 30, s: 3, t: 10
 };
-
+// '<span class="glyphicon glyphicon-gamepad"></span>'
 // Mapping of step names to colors.
 var icons = {
-    "gaming": '<span class="glyphicon glyphicon-gamepad"></span>' ,
-    "entertainment": '<span class="glyphicon glyphicon-theater"></span>',
-    "people": '<span class="glyphicon glyphicon-group"></span>',
-    "news": '<span class="glyphicon glyphicon-newspaper"></span>',
-    "sports": ' <span class="glyphicon glyphicon-soccer-ball"></span>',
-    "misc": '<span class="glyphicon glyphicon-globe"></span>'
+    "gaming": 'f11b' ,
+    "entertainment": '<span class="glyphicons glyphicons-theater"></span>',
+    "people": '<span class="glyphicons glyphicons-group"></span>',
+    "news": '<span class="glyphicons glyphicons-newspaper"></span>',
+    "sports": ' <span class="glyphicons glyphicons-soccer-ball"></span>',
+    "misc": '<span class="glyphicons glyphicons-globe"></span>'
 };
 
 var colors = {
@@ -42,9 +42,6 @@ function sunburst_category_color() {
         if (category === 'gaming') {
             $('path').css(colors.gaming);
         }
-
-
-        // console.log(category);
     }
 }
 
@@ -57,6 +54,8 @@ var vis = d3.select("#chart").append("svg:svg")
     .append("svg:g")
     .attr("id", "container")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
 
 var partition = d3.partition()
     .size([2 * Math.PI, radius * radius]);
@@ -148,7 +147,7 @@ function createVisualization(json) {
                 return sunFilter && (d.x1 - d.x0 > 0.005); // 0.005 radians = 0.29 degrees
             });
         var index_count = -1;
-
+        var icon;
         // function sunburst_filter(){
         //     var current = this.
         // }
@@ -167,26 +166,42 @@ function createVisualization(json) {
 
             .attr("d", arc)
             .attr("fill-rule", "evenodd")
-            .attr('data-index', function () {
+            .attr('data-index', function (d) {
                 index_count += 1;
-                return index_count
+                return index_count;
             })
-            // .style('category-icon', function(d){
-            //     var icon = icons[d.data.id]
-            // })
+
+            .attr('icon', function(d){
+                // var testDiv = $('<div>').css({
+                //     height: "20px",
+                //     width: "20px",
+                //     'background-color': 'black',
+                //     "z-index": 5
+                // });
+                var icon = icons[d.data.id] || icons[d.data.category];
+                var index = parseInt($(this).attr('data-index'));
+                if(index > 0 && index < 7){
+                    // path.append(testDiv);
+                    path.append('svg:foreignObject')
+                    .attr("x", -8)
+                    .attr("y", -8)
+                    .attr("width", 20)
+                    .attr("height", 20)
+                    .append("xhtml:span")
+                    .attr('class', icon);
+                }
+                return icon
+
+            })
             .style("fill", function (d) {
                 var color = colors[d.data.id] || colors[d.data.category];
-                // console.log('Fill output:', color);
-                // console.log('Colors object:', colors);
-                // console.log('Category:', d.data.category);
-                // console.log('Parent:', d.parent);
-                return color;
+                return  color;
             })
             .style("opacity", 1)
             .on("mouseover", mouseover)
             .on('click',
                 sun_video
-            )
+            );
 
         // .on('click', conformSunburstElements );
         // var path_index = $("");
@@ -208,7 +223,7 @@ function createVisualization(json) {
 
     }
 
-    var savedPrefs = null;
+    var savedPrefs = getPreferences();
 
     function sun_video(d, i) {
         // console.log('click handled', i);
@@ -222,7 +237,6 @@ function createVisualization(json) {
             var count = 0;
             for (var key in prefs) if (prefs[key]) count++;
             var sunburst_data = {};
-
             if (count == 1) {
                 sunburst_data = savedPrefs;
             } else {
@@ -235,7 +249,6 @@ function createVisualization(json) {
                 }
             }
 
-
             setPreferences(sunburst_data);
         }
         // var current_preview_obj = determine_sunburst_info(this, sunburst_array);
@@ -247,6 +260,7 @@ function createVisualization(json) {
 
         // window.location.href = d.data.link;
         // onYouTubeIframeAPIReady();
+        // sendEvent('video', 'play', 'play time');
     }
 
 // };
